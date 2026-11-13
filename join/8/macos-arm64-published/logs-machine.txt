@@ -1,0 +1,5 @@
+cpu: Apple M1 (Virtual), 3 threads
+memory: 7 GB
+disk free here: 45G
+os: macOS 15.8.2, arm64, kernel 24.6.0
+speed: one pass through the work table 27 ms; one SHA-256 in the circuit's executor 6.0 ms; one fsync 0.9 ms

@@ -1,0 +1,4 @@
+== ord server started 2026-11-13 23:24:26
+Listening on http://127.0.0.1:18081
+Shutting down gracefully. Press <CTRL-C> again to shutdown immediately.
+error serving request: JSON-RPC error: transport error: Couldn't connect to host: Connection refused (os error 61)

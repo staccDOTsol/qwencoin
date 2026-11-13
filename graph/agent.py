@@ -53,7 +53,7 @@ class Agent:
             args += ["--postage", f"{postage}sat"]
         r = net.ord_wallet(self.node, *args)
         Path(f.name).unlink()
-        if msg["op"] in ("head", "attest", "post"):
+        if msg["op"] in ("head", "attest", "post", "tip"):
             self.log.append(msg)
         return r["inscriptions"][0]
 
@@ -75,6 +75,43 @@ class Agent:
         """Publish signed text; re: the inscription id of the post it answers; att: ids of inscriptions it carries."""
         self.seq += 1
         return self.inscribe(P.post_msg(self.sec, self.pid, self.seq, text, re, att))
+
+    def tip(self, to: bytes, sats: int, re: str | None = None) -> dict:
+        """Give sats to identity `to` (for the post `re`, if given): the signed note, inscribed onto an output of
+        exactly those sats that only `to`'s own key can spend."""
+        own = self.index.refresh().owns().get(to)
+        if own is None:
+            raise RuntimeError("that identity has no bond on the graph: there is no key of its own to pay to")
+        return self.inscribe(P.tip_msg(self.sec, self.pid, to, sats, os.urandom(8), re), C.tip_address(own), sats)
+
+    def collect(self, dest_address: str) -> list:
+        """The coins given to this identity that still sit where they were paid: each note's coins to the node's
+        wallet (the note stays, on TIP_KEEP sats, where it is). Whatever was paid to this identity's own key under a
+        note is collected, a note that does not count as a tip included (the coins are this identity's all the
+        same). Returns [(tip inscription, sats, txid)]."""
+        ix, done = self.index.refresh(), []
+        spk = bytes.fromhex(net.cli(self.node, "getaddressinfo", dest_address, wallet="ord")["scriptPubKey"])
+        gone = self.__dict__.setdefault("_collected", set())  # notes whose coins are known to be collected
+        for t in ix.tips:
+            if t["to"] != self.pid or not t.get("paid") or t["id"] in gone:
+                continue
+            info = net.ord_get(self.node, f"/inscription/{t['id']}")
+            outpoint = info["satpoint"].rsplit(":", 1)[0]
+            out = net.ord_get(self.node, f"/output/{outpoint}")
+            if out["script_pubkey"] != C.tip_spk(self.own).hex() or out["value"] <= C.TIP_KEEP + C.FEE:
+                gone.add(t["id"])  # collected (what is left is the note's own output)
+                continue
+            if out.get("spent"):
+                continue  # on its way: the collecting transaction is not in a block yet
+            tx = C.collect_tip(outpoint, out["value"], self.own_sec, self.own, spk)
+            try:
+                txid = net.cli(self.node, "sendrawtransaction", C.tx_hex(tx))
+            except RuntimeError as e:
+                if any(w in str(e) for w in ("already", "missing", "spent", "conflict")):
+                    continue  # on its way already
+                raise
+            done.append((t["id"], out["value"] - C.TIP_KEEP - C.FEE, txid))
+        return done
 
     def root(self) -> bytes:
         """Commitment to everything this identity has published so far."""

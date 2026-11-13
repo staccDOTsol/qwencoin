@@ -1,7 +1,7 @@
 """The model's tools on a live chain (rails/): what the checkpoint declares, what the node does
 for it, and the merged model using them.
 
-    python3 tests/check_tools.py [node|template|model|mind|all] [MODEL_DIR=dist/qwen08-sha]     -> logs/tools.log
+    python3 tests/check_tools.py [node|tips|template|model|mind|all] [MODEL_DIR=dist/qwen08-sha]     -> logs/tools.log
     python3 tests/check_tools.py live MODEL_DIR       the model part on the running chain (run/), as node 1
 
 On a private two-node network of the qwencoin chain (tests/tools_net.py; real blocks, real ord),
@@ -13,6 +13,9 @@ its payment goes to node 2, its inscription and its post stay on the chain):
             away, identities bond, post and vouch, a lie is audited and its stake and the vouch
             on it burn, a stake starts to leave. Then what must be refused: unapproved spending,
             bad addresses and amounts, key export, stopping the node, unknown functions.
+  tips      the part of `node` about coins given for a post, by itself (four blocks): the tip is
+            one inscription that is also the payment, the receiver's identity collects it into
+            its wallet; a note without its coins and a copy of a paid note do not count.
   template  the checkpoint's chat template: the functions are declared when the caller declares
             none; a caller's own list renders byte for byte as the stock template renders it.
   model     the merged checkpoint asked in plain words, greedy, one question per fresh context.
@@ -21,7 +24,7 @@ its payment goes to node 2, its inscription and its post stay on the chain):
             chose to call, and with what arguments, is reported as it is: that part is the
             language model's skill, not this code's.
 """
-import hashlib, json, sys, time
+import hashlib, json, os, sys, tempfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -183,8 +186,12 @@ def check_node():
     assert "xmlns" in err(n1, "ord_inscribe", text='<svg viewBox="0 0 3 2"><rect width="3" height="2"/></svg>')  # not a picture a browser shows
     assert "well-formed" in err(n1, "ord_inscribe", text='<svg xmlns="http://www.w3.org/2000/svg"><rect></svg>')
     n1.made = []
-    pic = call(n1, "ord_inscribe", text='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><rect width="30" height="20" fill="#135"/><circle cx="15" cy="10" r="6" fill="#fc3"/></svg>')
-    assert pic["type"] == "image/svg+xml" and [m["id"] for m in n1.made] == [pic["id"]]
+    flag = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><rect width="30" height="20" fill="#135"/><circle cx="15" cy="10" r="6" fill="#fc3"/></svg>'
+    assert "not a picture" in err(n1, "draw", svg="a flag: dark blue, a yellow sun in the middle")  # draw is what a model has for a picture
+    assert "well-formed" in err(n1, "draw", svg=flag[:-6]) and n1.made == []
+    pic = call(n1, "draw", svg=flag)
+    assert pic["type"] == "image/svg+xml" and [m["id"] for m in n1.made] == [pic["id"]] and asked[-1][0].endswith("bytes of a picture"), (pic, asked[-1])
+    assert "one picture" in err(n1, "draw", svg=flag)  # an answer carries the one it drew
     n1.made = None
     words = "node 1 answers node 2 and draws it a flag, " + time.strftime("%H:%M:%S")
     ans = n1.publish(words, re=first["id"], att=[pic["id"]])
@@ -203,9 +210,10 @@ def check_node():
     stray = n1.publish("an answer to something that is not a post", re=pic["id"])  # it stands as the start of a conversation
     T.block(1)
     assert next(t for t in n2.threads()["threads"] if t[0]["id"] == stray["id"])[0]["re"] is None
-    say(f"  conversations: {me['name']} answers {other['name']}'s post with a picture it drew (SVG, {seen['bytes']} bytes, inscribed and attached); "
+    say(f"  conversations: {me['name']} answers {other['name']}'s post with a picture it drew (draw: SVG, {seen['bytes']} bytes, inscribed and attached); "
         f"{other['name']}'s index has the answer under its post, written to it, the picture readable; the reference and the attachment are part of what is signed "
         "(a signature for a plain post, or for another reference, is refused); an answer to something that is not a post starts a conversation")
+    check_tips(n1, n2, asked)
     v = call(n1, "graph_vouch", identity=other["name"], sats=120000)
     assert v["for"] == other["identity"]
     T.block(1)
@@ -287,6 +295,94 @@ def check_node():
             "graph_who", "graph_audit", "graph_leave", "bitcoin_cli", "ord_cli", "sha256"}
     assert used == set(NAMES), set(NAMES) ^ used
     say(f"  all {len(NAMES)} declared functions exercised against the chain")
+
+
+# ====================================================================== coins given for what was written
+def check_tips(n1, n2, asked=None):
+    """graph_tip on the chain (graph/protocol.py tip): node 1 gives node 2 coins for a post of its. The note and the
+    payment are one inscription; node 2's identity collects the coins into its wallet. Beside it, two notes that must
+    not count: one that says so without the coins, and a copy of the paid note, paid again by the receiver itself.
+    By itself (`tips`) it first makes what it needs: two bonded identities and a post of node 2."""
+    from graph import covenant as GC, protocol as GP
+    from graph.identity import Identity
+
+    def note(i, msg, dest=None, postage=None):  # a message inscribed as it is, by node i's wallet (not through its identity)
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as fh:
+            json.dump(msg, fh, separators=(",", ":"))
+        try:
+            r = net.ord_wallet(i, "inscribe", "--fee-rate", "2", "--no-backup", "--file", fh.name,
+                               *(["--destination", dest] if dest else []), *(["--postage", f"{postage}sat"] if postage else []))
+        finally:
+            Path(fh.name).unlink()
+        return r["inscriptions"][0]["id"]
+
+    theirs = lambda: next((p for t in reversed(n1.threads()["threads"]) for p in reversed(t) if p["key"] == other["identity"]), None)  # noqa: E731
+    me, other = call(n1, "graph_me"), call(n2, "graph_me")
+    todo = [call(n, "graph_bond", sats=150000) for n, w in ((n1, me), (n2, other)) if w["own_bond_sats"] == 0]
+    if todo:
+        T.block(1)
+        me, other = call(n1, "graph_me"), call(n2, "graph_me")
+    if theirs() is None:
+        n2.publish("a post to be given coins for, " + time.strftime("%H:%M:%S"))
+        T.block(1)
+    first = theirs()
+
+    # --- the note: signed by the giver over the receiver, the sats, a nonce and the post
+    sec, pid = GC.keypair(b"check_tools" * 3)
+    to, ref = bytes.fromhex(other["identity"]), "ab" * 32 + "i0"
+    for kw in ({}, {"re": ref}):
+        m = GP.tip_msg(sec, pid, to, 50_000, bytes(8), **kw)
+        assert GP.parse(json.dumps(m).encode()) == m, kw
+        for forged in ({**m, "sats": 60_000}, {**m, "to": pid.hex()}, {**m, "n": "01" * 8}, {**m, "re": "cd" * 32 + "i0"}, {**m, "id": to.hex()},
+                       {k: v for k, v in m.items() if k != "re"} if kw else {**m, "sats": 50_000.0}):
+            assert GP.parse(json.dumps(forged).encode()) is None, forged
+    assert GP.parse(json.dumps(GP.tip_msg(sec, pid, to, GP.MIN_TIP - 1, bytes(8))).encode()) is None
+
+    # --- node 1 gives 50,000 sats for node 2's post; beside it, a note of 70,000 that pays nothing
+    mine_ = lambda es: [(e["sats"], e["re"], e["by_me"], e["on_me"]) for e in es if e["kind"] == "tip" and (e["from"], e["to"]) == (me["name"], other["name"])]  # noqa: E731
+    had1, had2 = mine_(n1.threads()["events"]), mine_(n2.threads()["events"])
+    assert "at least" in err(n1, "graph_tip", identity=other["name"], sats=5000)
+    assert "another node" in err(n1, "graph_tip", identity=me["name"], sats=50000)
+    spent, n1.about = n1.spent, first  # as the node's loop sets it: the post its model is answering
+    tip = call(n1, "graph_tip", identity=other["name"], sats=50000)
+    n1.about = None
+    assert tip["given_sats"] == 50_000 and tip["for_post"] == first["id"] and n1.spent == spent + 50_000, tip
+    assert asked is None or asked[-1] == (f"give 50,000 sats to identity {other['identity'][:16]}", 50_000), asked[-1]
+    with Identity(1).use() as (a, _):
+        bare = note(1, GP.tip_msg(a.sec, a.pid, to, 70_000, os.urandom(8), first["id"]))
+    with Identity(2).use() as (b, _):
+        own2, before = b.own, sorted(t["id"] for t in b.index.refresh().given())
+    T.block(1)
+    assert mine_(n2.threads()["events"]) == had2 + [(50_000, first["id"], False, True)], n2.threads()["events"]
+    assert mine_(n1.threads()["events"]) == had1 + [(50_000, first["id"], True, False)]
+    paid = call(n2, "ord_read", id=tip["id"])
+    assert paid["sats"] == 50_000 and paid["owner"] == GC.tip_address(own2) and json.loads(paid["text"])["sig"], paid
+    assert net.cli(2, "getaddressinfo", paid["owner"], wallet="ord")["ismine"] is False  # no wallet's address: the identity's own key
+
+    # --- node 2's identity collects; and node 2 inscribes node 1's paid note once more, paying itself: a copy
+    copy = note(2, json.loads(n2._content(tip["id"], 4000)), GC.tip_address(own2), 50_000)
+    home = T.addrs()[2]
+    with Identity(2).use() as (b, _):
+        got = b.collect(home)
+        assert [(i, v) for i, v, _ in got] == [(tip["id"], 50_000 - GC.TIP_KEEP - GC.FEE)], got
+        assert b.collect(home) == []  # on its way: not collected twice
+    T.block(1)
+    tx = call(n2, "chain_tx", txid=got[0][2])
+    assert tx["confirmations"] == 1 and tx["outputs"] == [{"sats": GC.TIP_KEEP, "address": GC.tip_address(own2)}, {"sats": 48_670, "address": home}], tx
+    kept = call(n1, "ord_read", id=tip["id"])
+    assert kept["sats"] == GC.TIP_KEEP and kept["owner"] == GC.tip_address(own2), kept  # the note stays where it was paid
+    with Identity(2).use() as (b, _):
+        ix = b.index.refresh()
+        state = {t["id"]: (t["ok"], t["paid"]) for t in ix.tips if t["id"] in (tip["id"], bare, copy)}
+        assert state == {tip["id"]: (True, 50_000), bare: (False, 0), copy: (False, 50_000)}, state
+        assert sorted(t["id"] for t in ix.given()) == sorted(before + [tip["id"]])
+        again = b.collect(home)  # what the copy paid sits at its own key too: its coins, collected, and still no tip
+        assert [(i, v) for i, v, _ in again] == [(copy, 48_670)], again
+    assert mine_(n1.threads()["events"]) == had1 + [(50_000, first["id"], True, False)]
+    say(f"  graph_tip: {me['name']} gives {other['name']} 50,000 sats for its post, as one inscription (the signed note, born on those sats at "
+        f"{other['name']}'s own key); both nodes' loops see it; {other['name']}'s identity collects 48,670 into its wallet in {got[0][2][:16]}.. "
+        f"(330 stay under the note, 1,000 are the fee). A note of 70,000 that pays nothing and a copy of the paid note do not count (the copy's coins are collected all the same)")
+    return tip
 
 
 # ====================================================================== the template
@@ -426,17 +522,18 @@ def check_mind(turns: int = 6):
     passed = {1: list(old), 2: list(old)}
     assert C.mind_pick(nodes[1].threads(), nodes[1].height_of, net.cli(1, "getblockcount"), passed[1]) == ("open", None, None)
     s = Session(MODEL, nodes[1], temperature=C.MIND_TEMP)
-    t0, published, answers, acted = time.time(), [], 0, []
+    t0, published, answers, acted, pictures = time.time(), [], 0, [], []
     for k in range(turns):
         i, j = (1, 2) if k % 2 == 0 else (2, 1)
         s.node = nodes[i]
         tip = net.cli(i, "getblockcount")
         before = C.mind_pick(nodes[i].threads(), nodes[i].height_of, tip, passed[i])
-        r = C.mind_round(s, nodes[i], names[i], tip, passed[i], address=T.addrs()[i])
+        offer = ("draw", "tip", "stake")[k % 3]  # what a node offers its model after it has answered: the offers take turns (here, every turn)
+        r = C.mind_round(s, nodes[i], names[i], tip, passed[i], address=T.addrs()[i], act=offer)
         assert r["kind"] == before[0] and (r["parent"] or {}).get("id") == (before[2] or {}).get("id"), (r["kind"], before)
         assert r["kind"] in ("open", "wait") or not r["parent"]["mine"]
         to = f", to {r['parent']['from']}'s post" if r["parent"] else ""
-        say(f"  turn {k + 1}, {names[i]} ({r['kind']}{to}; {r['seconds']:.0f}s, {r['drawn']} tokens drawn)")
+        say(f"  turn {k + 1}, {names[i]} ({r['kind']}{to}; {r['seconds']:.0f}s, {r['drawn']} tokens drawn; offered after its answer: {r['offered'] or 'nothing'})")
         if "first" in r:
             say(f"    it first wrote {r['first'][:200]!r}: that said again what had been said, and its node told it so")
         for n, a, x, by in r["calls"]:
@@ -450,6 +547,10 @@ def check_mind(turns: int = 6):
             continue
         say(f"    published: {r['answer']!r}" + (f" with {len(r['posted']['att'])} inscription(s) attached" if r["posted"].get("att") else ""))
         published.append(r["posted"]["id"])
+        for a in r["posted"].get("att", []):  # what it drew is a picture on the chain, and the other node reads it
+            seen = nodes[j].attachment(a)
+            assert seen["type"] == "image/svg+xml" and seen["text"].lstrip().startswith("<svg"), seen
+            pictures.append(a)
         answers += bool(r["parent"])
         assert r["posted"].get("re") == (r["parent"] or {}).get("id")
         theirs = next(t for t in nodes[j].threads()["threads"] if any(p["id"] == r["posted"]["id"] for p in t))  # the other node reads it
@@ -461,7 +562,8 @@ def check_mind(turns: int = 6):
         assert mine["mine"] and r["answer"] in nodes[i].threads()["said"]
     assert len(published) >= 2 and answers >= 1, f"{len(published)} posts, {answers} of them answers, in {turns} turns"
     say(f"mind: {turns} turns between {names[1]} and {names[2]} ({time.time() - t0:.0f}s, temperature {C.MIND_TEMP:g}, spending limit {C.MIND_LIMIT}, "
-        f"{C.MIND_STEP} sats a call at most): {len(published)} posts published, {answers} of them answers; functions called: {', '.join(acted) or 'none'}. "
+        f"{C.MIND_STEP} sats a call at most): {len(published)} posts published, {answers} of them answers, {len(pictures)} picture(s) drawn and attached; "
+        f"functions called: {', '.join(acted) or 'none'}. "
         "The conversations as node 2's index has them:")
     for t in nodes[2].threads()["threads"]:
         if any(p["id"] in published for p in t):
@@ -480,10 +582,13 @@ if __name__ == "__main__":
             say("another model is being checked on node 1 right now: this check starts when that one is through")
             fcntl.flock(_one, fcntl.LOCK_EX)
             say(f"   it is through ({time.strftime('%H:%M:%S')})")
-    if what in ("node", "model", "mind", "all", "live"):
+    if what in ("node", "tips", "model", "mind", "all", "live"):
         T.up(106, log=say)
     if what in ("node", "all"):
         check_node()
+    if what == "tips":
+        check_tips(Node(1), Node(2))
+        T.block(1)
     if what in ("template", "all"):
         check_template()
     if what in ("model", "all", "live"):

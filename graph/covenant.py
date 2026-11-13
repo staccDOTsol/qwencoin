@@ -209,6 +209,36 @@ class Bond:
         return tx
 
 
+# --- tips: coins given to an identity. They are paid to a taproot output whose key is the identity's own key (the `own`
+# of its bond, which is on the chain): nobody else can spend it, and the identity's node collects it into its wallet.
+TIP_KEEP = 330  # sats that stay under the tip's note when the rest is collected (the note keeps an output of its own)
+
+
+def tip_spk(own: bytes) -> bytes:
+    assert len(own) == 32
+    return bytes(CScript([1, own]))  # OP_1 <own>: segwit v1, the key itself is the output key
+
+
+def tip_address(own: bytes) -> str:
+    return address.output_key_to_p2tr(own, main=True)
+
+
+def collect_tip(outpoint: str, value: int, own_seckey: bytes, own: bytes, dest_spk: bytes, fee: int = FEE) -> CTransaction:
+    """A tip's coins to the receiver's wallet (key path, signed by its own key). The first TIP_KEEP sats, with the
+    note on them, go back to the tip output's own script; the rest, less the fee, to dest_spk."""
+    assert value > TIP_KEEP + fee
+    txid, vout = outpoint.split(":")
+    tx = CTransaction()
+    tx.version = 2
+    tx.vin = [CTxIn(COutPoint(int(txid, 16), int(vout)), nSequence=SEQ)]
+    tx.vout = [CTxOut(TIP_KEEP, CScript(tip_spk(own))), CTxOut(value - TIP_KEEP - fee, CScript(dest_spk))]
+    h = TaprootSignatureHash(tx, [CTxOut(value, CScript(tip_spk(own)))], 0, 0)
+    wit = CTxInWitness()
+    wit.scriptWitness.stack = [sign(own_seckey, h)]
+    tx.wit.vtxinwit = [wit]
+    return tx
+
+
 def keypair(seed: bytes | None = None) -> tuple:
     sec = key.generate_privkey() if seed is None else modelhash.sha256(b"qwg/key" + seed)
     pub, _ = key.compute_xonly_pubkey(sec)

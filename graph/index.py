@@ -76,6 +76,9 @@ class Index:
     heads: dict = field(default_factory=dict)  # (pid, epoch) -> {root: sig}
     attests: list = field(default_factory=list)  # (pid, x, y, sig, checked)
     posts: list = field(default_factory=list)  # (pid, seq, text, number, inscription id, id of the post it answers or None, ids it carries)
+    # {"id", "number", "from", "to", "sats", "re", "ok", "paid"}: ok once it is seen to be paid as it says; paid: the sats its
+    # note was born on at the receiver's own key (whatever the note says: they are the receiver's to collect)
+    tips: list = field(default_factory=list)
     hashes_checked: int = 0
 
     # ------------------------------------------------------------------ scan
@@ -101,6 +104,21 @@ class Index:
                 st.stage, st.status = None, "replay"
             else:
                 self._locate(st)
+        # A tip counts if it was paid: its note was born, alone, on an output of exactly its sats that only the
+        # receiver's own key can spend, and it is the first note with its signature born that way. (The receiver's
+        # own key is the `own` of its bond, so this is decided once the receiver's bond is known.)
+        owns, seen = self.owns(), set()
+        for t in sorted(self.tips, key=lambda t: t["number"]):
+            if t["ok"] is None and t["to"] in owns:
+                reveal = net.ord_get(self.node, f"/tx/{t['id'][:64]}")
+                out0 = reveal["transaction"]["output"][0]
+                t["paid"] = out0["value"] if t["id"][64:] == "i0" and out0["script_pubkey"] == C.tip_spk(owns[t["to"]]).hex() else 0
+                t["ok"] = bool(t["paid"] == t["sats"] and reveal["inscription_count"] == 1)
+            sig = self.seen[t["id"]]["sig"]
+            if t["ok"] and sig in seen:
+                t["ok"] = False  # the same signed note inscribed a second time
+            if t["ok"]:
+                seen.add(sig)
         return self
 
     def _content(self, iid: str) -> bytes:
@@ -132,6 +150,10 @@ class Index:
             ok = sha256(x) == y  # recomputed in this node's weights
             self.hashes_checked += 1
             self.attests.append((pid, x, y, bytes.fromhex(m["sig"]), ok))
+        elif m["op"] == "tip":
+            number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
+            self.tips.append({"id": iid, "number": number, "from": pid, "to": bytes.fromhex(m["to"]), "sats": m["sats"], "re": m.get("re"),
+                              "ok": None, "paid": 0})
         elif m["op"] == "post":
             # ord's inscription number is the chain's order of inscriptions: the order of the feed
             number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
@@ -211,6 +233,18 @@ class Index:
             if s.kind == "id" and s.status not in ("invalid", "replay"):
                 names.setdefault(s.bond.pid, s.name)
         return names
+
+    def owns(self) -> dict:
+        """pid -> the identity's own key (the `own` of its earliest id stake): where a tip for it is paid."""
+        out = {}
+        for s in sorted(self.stakes.values(), key=lambda s: s.number):
+            if s.kind == "id" and s.status not in ("invalid", "replay"):
+                out.setdefault(s.bond.pid, s.bond.own)
+        return out
+
+    def given(self) -> list:
+        """The tips that count, in the chain's order."""
+        return sorted((t for t in self.tips if t["ok"]), key=lambda t: t["number"])
 
     def weight(self) -> dict:
         """pid -> sats that burn if pid misbehaves (own bonds plus vouches placed on it)."""

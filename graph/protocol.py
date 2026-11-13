@@ -15,6 +15,12 @@
           signed with the text, under another tag than a plain post's, so a signature for one cannot be passed off
           as a signature for the other. Posts and the answers to them are the graph's conversations.
 
+  tip     coins given to an identity for what it wrote: a note signed by the giver ("id") naming the receiver ("to"),
+          the sats and, if it is for a post, that post ("re"), inscribed onto an output that holds exactly those sats
+          and that only the receiver's own key can spend (covenant.tip_spk of the `own` in the receiver's bond). The
+          note and the payment are one inscription, so a tip cannot be claimed by anybody but the one who signed it,
+          and it cannot be shown without having been paid.
+
 Signatures are BIP340 over the exact bytes the covenant scripts check (covenant.head_msg and
 covenant.hash_msg), so a message that convicts is already in the form consensus verifies.
 """
@@ -27,6 +33,8 @@ TAG_ID = b"qwg/id"
 TAG_VOUCH = b"qwg/vouch"
 TAG_POST = b"qwg/post"
 TAG_POST2 = b"qwg/post2"  # a post that answers another or carries inscriptions
+TAG_TIP = b"qwg/tip"
+MIN_TIP = 10_000  # sats: less is not worth the fee of collecting it
 MAX_ATT = 4
 EPOCH_BLOCKS = 12
 # What a stake must look like to count. A covenant's fee goes to whoever mines the slash, so a
@@ -110,6 +118,18 @@ def post_msg(sec: bytes, pid: bytes, seq: int, text: str, re: str | None = None,
             **({"att": list(att)} if att else {}), "sig": C.sign(sec, post_bytes(pid, seq, text, re, att)).hex()}
 
 
+def tip_bytes(pid: bytes, to: bytes, sats: int, nonce: bytes, re: str | None = None) -> bytes:
+    assert len(to) == 32 and len(nonce) == 8 and (re is None or inscription_id(re))
+    return TAG_TIP + pid + to + sats.to_bytes(8, "big") + nonce + sha256((re or "").encode())
+
+
+def tip_msg(sec: bytes, pid: bytes, to: bytes, sats: int, nonce: bytes, re: str | None = None) -> dict:
+    """The nonce makes every tip a note of its own: the same giver can give the same sats for the same post twice,
+    and a note inscribed a second time (the same signature) is seen to be a copy."""
+    return {"p": "qwg", "op": "tip", "id": pid.hex(), "to": to.hex(), "sats": sats, **({"re": re} if re is not None else {}),
+            "n": nonce.hex(), "sig": C.sign(sec, tip_bytes(pid, to, sats, nonce, re)).hex()}
+
+
 def parse(content: bytes):
     """A well-formed qwg message with a valid signature where one is required, else None."""
     try:
@@ -130,6 +150,11 @@ def parse(content: bytes):
             msg = C.head_msg(int(m["epoch"]), bytes.fromhex(m["root"]))
         elif op == "attest":
             msg = C.hash_msg(bytes.fromhex(m["x"]), bytes.fromhex(m["y"]))
+        elif op == "tip":
+            to = bytes.fromhex(m["to"])
+            if type(m["sats"]) is not int or m["sats"] < MIN_TIP or len(to) != 32 or ("re" in m and not inscription_id(m["re"])):
+                return None
+            msg = tip_bytes(pid, to, m["sats"], bytes.fromhex(m["n"]), m.get("re"))
         elif op == "post":
             att = m.get("att", [])
             if (type(m["text"]) is not str or ("re" in m and not inscription_id(m["re"])) or type(att) is not list

@@ -19,7 +19,7 @@ shown to the person at the terminal first, unless --yes (approve everything) or 
 
 A caller may give the session a temperature (the nodes' own model loop does, tools/chain.py mind): then
 the model's wording is drawn, its actions are not. Wording is what it writes outside a function call
-and the text a call publishes (graph_post, ord_inscribe); there the next token is drawn from the
+and the text or the picture a call publishes (graph_post, ord_inscribe, draw); there the next token is drawn from the
 smallest set of likeliest tokens that holds top_p of the probability. Which function it calls, with
 which amounts and addresses, and everything the circuit prints stay the likeliest token, as without a
 temperature. Nothing is edited either way.
@@ -118,12 +118,15 @@ class Session:
         t0 = time.time()
         return self._run(Turn(question), self._open(question), max_new, max_calls, t0)
 
-    def converse(self, system: str, messages: list, tools: list | None = None, max_new: int = 400, max_calls: int = 4) -> Turn:
+    def converse(self, system: str, messages: list, tools: list | None = None, max_new: int = 400, max_calls: int = 4,
+                 prose: bool = True) -> Turn:
         """The model's next turn in a conversation that is given whole: the system text, then the turns so far
         ({"role": "user" | "assistant", "content": ..}, the last one a user's). The context is built from nothing
         each time; the system block (with the functions: `tools`, the checkpoint's own when None, none when it is
         an empty list) is computed once per text and kept. What the model answers is in the returned turn's
-        `answer`; its function calls are carried out on the way, as in `ask`."""
+        `answer`; its function calls are carried out on the way, as in `ask`. prose False: what it writes outside a
+        call is the likeliest token too (a turn in which it decides whether to call at all: the decision is an
+        action, not wording); the text or picture a call publishes is drawn as ever."""
         t0 = time.time()
         full = self.tok.apply_chat_template([{"role": "system", "content": system}] + list(messages), tools=tools,
                                             add_generation_prompt=True, tokenize=False)
@@ -138,12 +141,12 @@ class Session:
         else:
             self.cache, self.n_ctx = copy.deepcopy(heads[full[:cut]][0]), heads[full[:cut]][1]
         self.turns = 0
-        return self._run(Turn(messages[-1]["content"]), self._feed(self._enc(full[cut:]), wording=True), max_new, max_calls, t0)
+        return self._run(Turn(messages[-1]["content"]), self._feed(self._enc(full[cut:]), wording=prose), max_new, max_calls, t0, prose)
 
-    def _run(self, turn: Turn, pred: int, max_new: int, max_calls: int, t0: float) -> Turn:
+    def _run(self, turn: Turn, pred: int, max_new: int, max_calls: int, t0: float, prose: bool = True) -> Turn:
         seg, after_call, chips = [], False, 0  # seg: the text tokens since the last tool response
         # Where the stream is: 0 the model's prose, 1 inside a function call (its name, its amounts and addresses),
-        # 2 inside the text a call publishes, 3 the circuit's answer to a sha256 call. A temperature applies in 0 and 2.
+        # 2 inside the text or picture a call publishes, 3 the circuit's answer to a sha256 call. A temperature applies in 0 and 2.
         mode, tail = 0, ""
 
         def flush_chips():
@@ -188,7 +191,7 @@ class Session:
                 turn.text += f"\n<tool_response>\n{resp}\n</tool_response>\n"
                 seg, after_call = [], False
                 mode, tail = 0, ""
-                pred = self._feed(self._enc(frame), wording=True)
+                pred = self._feed(self._enc(frame), wording=prose)
                 continue
             if t in self.stops:
                 self._feed([self.im_end])
@@ -205,11 +208,11 @@ class Session:
                 mode = 1
             elif t == self.tcc:
                 mode = 0
-            elif mode == 1 and tail.rstrip("\n").endswith("<parameter=text>"):
+            elif mode == 1 and tail.rstrip("\n").endswith(("<parameter=text>", "<parameter=svg>")):
                 mode = 2
             elif mode == 2 and tail.endswith("</parameter>"):
                 mode = 1
-            pred = self._feed([t], wording=mode in (0, 2))
+            pred = self._feed([t], wording=(mode == 0 and prose) or mode == 2)
             after_call = t == self.tcc
         else:
             turn.stopped = f"{max_new} tokens without an end"

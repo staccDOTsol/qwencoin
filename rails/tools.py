@@ -74,22 +74,31 @@ TOOLS = [
 NAMES = [t["function"]["name"] for t in TOOLS]
 SPEC = {t["function"]["name"]: t["function"]["parameters"] for t in TOOLS}
 # What a node's model has when, in a conversation on the graph, it may back what it has just answered (tools/chain.py
-# mind): the functions that put coins or a picture behind words, each said the way one says it to the node's owner.
-# Same node behind them. graph_unvouch is not among the functions a checkpoint's template declares (TOOLS): a model
-# meets it here.
+# mind): the functions that put coins behind words and the one that draws, each said the way one says it to the
+# node's owner. Same node behind them. graph_unvouch, graph_tip and draw are not among the functions a checkpoint's template declares
+# (TOOLS): a model meets them here.
 EXTRA = [fn("graph_unvouch", "Start taking back the sats you locked on another node (or collect them once the delay has passed).",
-            identity=("string", "its name"))]
-ACT_TOOLS = [
+            identity=("string", "its name")),
+         fn("graph_tip", "Give sats of your own to another node for what it wrote. They are its coins from then on.",
+            identity=("string", "its name"), sats=("integer", "amount in sats, at least 10000")),
+         fn("draw", "Draw a picture and attach it to your answer: it is put on the chain for good and shown with what you wrote. "
+            "svg is the picture as SVG markup: it starts with <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"> and ends with </svg>.",
+            svg=("string", "the picture's SVG markup"))]
+# One offer, one decision (a small model shown several functions takes the first kind it knows: among five it never
+# drew, and with a vouch beside it it never gave). What it has in front of it when the offer is:
+#   to trust: lock coins on a node, take them back, or check the graph for liars
+STAKE_TOOLS = [
     fn("graph_vouch", "Lock sats of your own on another node you trust. They burn if that node is caught lying; you can take them back later with graph_unvouch.",
        identity=("string", "its name"), sats=("integer", "amount in sats, at least 100000")),
     EXTRA[0],
-    fn("wallet_send", "Pay sats from your wallet to an address another node gave you. Returns the txid.",
-       address=("string", "the address to pay"), sats=("integer", "amount in sats")),
-    fn("ord_inscribe", "Put a picture or a text on the chain for good; it is attached to your answer. A picture is SVG markup: "
-       "it starts with <svg xmlns=\"http://www.w3.org/2000/svg\" and ends with </svg>. Returns its id.",
-       text=("string", "the picture's SVG markup, or the text")),
     fn("graph_audit", "Check every node's signed claims and burn the stake of any node the chain proves dishonest."),
 ]
+#   to give: coins to a node for what it wrote
+TIP_TOOLS = [EXTRA[1]]
+#   to add a picture: the one function that draws (offered a function that inscribes text or a picture, a small
+#   model inscribes what it has just said, as text)
+DRAW_TOOLS = [EXTRA[2]]
+OFFERS = {"tip": TIP_TOOLS, "draw": DRAW_TOOLS, "stake": STAKE_TOOLS}
 SPEC.update({t["function"]["name"]: t["function"]["parameters"] for t in EXTRA})
 MAX_INSCRIBE = 24_000  # bytes of what the model inscribes in one call
 
@@ -211,6 +220,7 @@ class Node:
         self.made = None  # None, or what ord_inscribe has written since the node's loop last emptied it: [{"id", "type", "bytes"}]
         self._att = {}  # inscription id -> what it is, for the conversations (attachment)
         self._heights = {}  # inscription id -> the block it is in
+        self.about = None  # the post the model is answering (the node's loop sets it): a tip to its author is a tip for it
 
     # ------------------------------------------------------------------ the interface
     def call(self, name: str, args: dict) -> str:
@@ -332,7 +342,8 @@ class Node:
             f.write(text.lstrip() if suffix != ".txt" else text)
         args = ["inscribe", "--fee-rate", FEE_RATE, "--no-backup", "--file", f.name] + (["--destination", to] if to else [])
         try:
-            with self._spending("ord_inscribe", f"inscribe {len(text.encode())} bytes of text" + (f" for {to}" if to else ""), None):
+            what = {".svg": "a picture", ".html": "a page"}.get(suffix, "text")
+            with self._spending("ord_inscribe", f"inscribe {len(text.encode())} bytes of {what}" + (f" for {to}" if to else ""), None):
                 r = net.ord_wallet(self.i, *args)
         finally:
             Path(f.name).unlink()
@@ -344,6 +355,15 @@ class Node:
         import urllib.request
         with urllib.request.urlopen(f"http://127.0.0.1:{net.ordport(self.i)}/content/{iid}", timeout=30) as r:
             return r.read(cap + 1).decode("utf-8", "replace")[:cap]
+
+    def t_draw(self, svg: str):
+        """A picture, inscribed (ord_inscribe with what is SVG markup and nothing else). One to an answer."""
+        if self.made and any(m["type"] == "image/svg+xml" for m in self.made):
+            raise Refused("your picture is attached to your answer already: one picture to an answer")
+        if self._kind(svg)[0] != ".svg":
+            raise Refused('that is not a picture. Write SVG markup: it starts with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> '
+                          "and ends with </svg>, with shapes in between (rect, circle, line, polygon, path, text)")
+        return self.t_ord_inscribe(text=svg)
 
     def t_ord_read(self, id: str):
         m = net.ord_get(self.i, f"/inscription/{id}")
@@ -450,8 +470,9 @@ class Node:
         list of posts in the chain's order, the conversation written in last at the end; a post: its inscription id
         and number, the id of the post it answers (None: it starts the conversation), its author's key and label,
         its text, whether it is this identity's own, whether it is written to this identity (it answers one of its
-        posts, or its text names it), its author's stake and standing. Also "me" (this identity's label) and "said"
-        (the texts it has published so far, from its own record)."""
+        posts, or its text names it), its author's stake and standing. Also "me" (this identity's label), "said"
+        (the texts it has published so far, from its own record), "events" (coins locked by one name on another and
+        coins given, in the chain's order) and "stand" (what this identity has at stake, has locked, was given, gave)."""
         with self._identity().use() as (a, st):
             ix, me, mine = a.index.refresh(), a.pid, a.name
             said = [m["text"] for m in a.log if m.get("op") == "post"]
@@ -459,13 +480,17 @@ class Node:
         my = label(me, names.get(me) or mine)
         called = [my.lower()] + ([my[5:]] if my.startswith("qwen-") else [])
         lab = lambda pid: label(pid, names.get(pid, ""))  # noqa: E731
-        # coins locked by one name on another (vouches), in the chain's order: part of what was "said"
-        events = sorted(({"number": s.number, "from": lab(s.frm), "to": lab(s.bond.pid), "sats": s.bond.amount, "status": s.status,
+        # coins locked by one name on another (vouches) and coins given (tips), in the chain's order: part of what was "said"
+        events = sorted([{"kind": "vouch", "number": s.number, "from": lab(s.frm), "to": lab(s.bond.pid), "sats": s.bond.amount, "status": s.status,
                           "by_me": s.frm == me, "on_me": s.bond.pid == me}
-                         for s in ix.stakes.values() if s.kind == "vouch" and s.status not in ("invalid", "replay")), key=lambda e: e["number"])
+                         for s in ix.stakes.values() if s.kind == "vouch" and s.status not in ("invalid", "replay")]
+                        + [{"kind": "tip", "number": t["number"], "from": lab(t["from"]), "to": lab(t["to"]), "sats": t["sats"], "status": "given",
+                            "re": t["re"], "by_me": t["from"] == me, "on_me": t["to"] == me} for t in ix.given()], key=lambda e: e["number"])
         stand = {"at_stake_sats": w.get(me, 0), "standing": "slashed" if me in bad else ("staked" if w.get(me) else "no stake"),
                  "locked_on_others": [{"to": lab(t), "sats": v} for (frm, t), v in ix.edges().items() if frm == me],
-                 "locked_on_me": [{"from": lab(frm), "sats": v} for (frm, t), v in ix.edges().items() if t == me]}
+                 "locked_on_me": [{"from": lab(frm), "sats": v} for (frm, t), v in ix.edges().items() if t == me],
+                 "given_to_me_sats": sum(e["sats"] for e in events if e["kind"] == "tip" and e["on_me"]),
+                 "given_by_me_sats": sum(e["sats"] for e in events if e["kind"] == "tip" and e["by_me"])}
         out = []
         for t in ix.threads():
             own = {p["id"] for p in t["posts"] if p["pid"] == me}
@@ -529,6 +554,19 @@ class Node:
                     return {"unlocking": a.unbond(s), "sats": s.sats, "collect_after_blocks": s.bond.delay}
             with self._spending("graph_unvouch", f"collect the sats that were locked on {to.hex()[:16]}", None, lock=False):
                 return {"withdrawn": a.withdraw(s, net.ord_wallet(self.i, "receive")["addresses"][0]), "sats": s.sats}
+
+    def t_graph_tip(self, identity: str, sats: int):
+        from graph import protocol as P
+        if sats < P.MIN_TIP:
+            raise Refused(f"a tip is at least {P.MIN_TIP} sats")
+        with self._identity().use() as (a, st):
+            to = self._resolve(a.index.refresh(), identity)
+            if to == a.pid:
+                raise Refused("a tip is for another node")
+            re = self.about["id"] if self.about and self.about.get("key") == to.hex() else None
+            with self._spending("graph_tip", f"give {sats:,d} sats to identity {to.hex()[:16]}", sats, lock=False):
+                r = a.tip(to, sats, re)
+            return {"given_sats": sats, "to": a.index.identities().get(to) or to.hex(), "id": r["id"], **({"for_post": re} if re else {})}
 
     def t_graph_audit(self):
         with self._identity().use() as (a, st):

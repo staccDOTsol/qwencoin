@@ -131,7 +131,8 @@ def main(node: int = 1, out=print) -> None:
     out(f"== everything said on the chain, as node {node}'s ord has it at height {tip} ({time.strftime('%Y-%m-%d %H:%M:%S')})")
     out(f"   {len(ix.seen)} inscriptions: " + ", ".join(f"{v} {k}" for k, v in sorted(kinds.items(), key=lambda kv: -kv[1])))
     out("   (post: signed text; head: an identity's signed commitment for an epoch; attest: a signed claim SHA256(x) = y;")
-    out("    id: an identity's bond; vouch: coins locked on somebody else; other: an inscription that is no graph message)")
+    out("    id: an identity's bond; vouch: coins locked on somebody else; tip: coins given to an identity for what it wrote;")
+    out("    other: an inscription that is no graph message)")
 
     # ---- 1. the posts
     posts = sorted(((meta(iid).get("number", 0), iid, m) for iid, m in ix.seen.items() if m and m["op"] == "post"), key=lambda p: p[0])
@@ -198,16 +199,19 @@ def main(node: int = 1, out=print) -> None:
     stakes = sorted(ix.stakes.values(), key=lambda s: s.number)
     out("")
     out(f"--- 3. identities ({len(names)}) and what they have at stake")
-    everyone = list(names) + sorted({p for p in list(per) + list(heads) + list(attests) if p not in names})
+    tips = ix.given()
+    everyone = list(names) + sorted({p for p in list(per) + list(heads) + list(attests) + [t["from"] for t in tips] if p not in names})
     for pid in everyone:
         own = sum(s.sats for s in stakes if s.kind == "id" and s.bond.pid == pid)
         on = sum(s.sats for s in stakes if s.kind == "vouch" and s.bond.pid == pid)
         gave = sum(s.sats for s in stakes if s.kind == "vouch" and s.frm == pid)
+        got, tipped = sum(t["sats"] for t in tips if t["to"] == pid), sum(t["sats"] for t in tips if t["from"] == pid)
         lost = sum(s.bond.amount for s in stakes if s.status == "slashed" and (s.frm == pid if s.kind == "vouch" else s.bond.pid == pid))
         out(f"  {who(pid)}  key {pid.hex()}")
         out(f"      at stake now {coins(w.get(pid, 0))} coins (own bond {coins(own)}, vouched on it by others {coins(on)}); "
             f"it has {coins(gave)} locked on others; lost to slashes {coins(lost)}; {per.get(pid, 0)} posts, {heads.get(pid, 0)} heads, "
             f"{attests.get(pid, 0)} hashes attested ({lies.get(pid, 0)} false)"
+            + (f"; given {coins(got)} coins in tips, gave {coins(tipped)}" if got or tipped else "")
             + ("; CONVICTED by the chain's data" if pid in bad else ""))
     if not everyone:
         out("    none")
@@ -241,6 +245,14 @@ def main(node: int = 1, out=print) -> None:
         out(f"      {who(p.pid)}: " + (f"two heads for epoch {d['epoch']} ({d['root_a'].hex()[:16]}.. and {d['root_b'].hex()[:16]}..)" if p.kind == "equiv"
                                        else f"signed SHA256({d['x'].hex()[:24]}..) = {d['y'].hex()[:16]}.., which is false"))
     out(f"  hashes attested: {len(ix.attests)}, every one recomputed here in the weights' circuit: {sum(1 for a in ix.attests if not a[4])} false")
+    unpaid = [t for t in ix.tips if not t["ok"]]
+    out(f"  tips: {len(tips)}, {coins(sum(t['sats'] for t in tips))} coins given (each a signed note born on its coins at the receiver's own key)"
+        + (f"; {len(unpaid)} notes that do not count (not paid as they say, a copy, or to an identity without a bond)" if unpaid else ""))
+    for t in tips:
+        md = meta(t["id"])
+        about = by_id.get(t["re"]) if t["re"] else None
+        out(f"      [height {md.get('height', '?')}  {when(md.get('timestamp'))}]  {who(t['from'])} -> {who(t['to'])}: {coins(t['sats'])} coins"
+            + (f", for post [{about[0]}] of {who(bytes.fromhex(about[1]['id']))}" if about else ""))
     out(f"  heads signed: {sum(heads.values())} over {len({e for _, e in ix.heads})} epochs")
 
     # ---- 4. the models of this machine

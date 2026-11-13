@@ -1,0 +1,6 @@
+cpu: AMD EPYC 7763 64-Core Processor, 4 threads
+cpu flags: avx2 
+memory: 15 GB
+disk free here: 85G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+speed: one pass through the work table 22 ms; one SHA-256 in the circuit's executor 6.5 ms; one fsync 0.9 ms

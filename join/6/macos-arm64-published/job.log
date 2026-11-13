@@ -1,0 +1,2 @@
+ci-join: published on Darwin 24.6.0 arm64, 3 cpus
+ci-join: SKIPPED: https://github.com/staccDOTsol/qwencoin/releases has no node for macos-arm64 yet

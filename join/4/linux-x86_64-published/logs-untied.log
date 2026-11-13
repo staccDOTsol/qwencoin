@@ -1,0 +1,21 @@
+untied base in ~/qwencoin/work/base-untied: lm_head = embedding + v (|v_i| = 1/16), rounded to bf16; 248320 of 248320 rows differ from the embedding
+base: hidden 1024, 24 layers, vocab 248320, 16 x 1 DeltaNet heads, output head its own matrix
+circuit: 1180 dims, 29 key heads, 2319 units; reads 747 hex tokens of the base's vocabulary
+merged: hidden 2240 (ballast 35, norm scale 2^-37), 5 + 24 layers, vocab 379968
+anti-sink: 6 attention layers x 2 key heads fitted on 978 text tokens (cpu, torch.bfloat16); mean query / query rms 0.34 .. 0.54
+  1/391 tensors, 1.6 GB
+  41/391 tensors, 3.4 GB
+  81/391 tensors, 3.6 GB
+  121/391 tensors, 3.9 GB
+  161/391 tensors, 4.2 GB
+  201/391 tensors, 4.4 GB
+  241/391 tensors, 4.7 GB
+  281/391 tensors, 4.9 GB
+  321/391 tensors, 5.2 GB
+  361/391 tensors, 5.5 GB
+~/qwencoin/work/merged-untied: 5.64 GB in 2 files, 3.03B parameters
+weights: lm_head[:, :1024] == the base's lm_head and embed[:, :1024] == the base's embedding on all 248320 text rows, bit for bit; head rows are zero outside Qwen's dims, the 18 code columns and the owner column; 131648 chip rows agree between head and embedding there
+float32 tensors kept as the base stores them: 36 (e.g. model.layers.5.linear_attn.A_log)
+weights done
+loading: two matrices in the merged model. logits on 65 text positions: mean |merged - untied base| per position 0.099 (largest 0.376; bf16 arithmetic and the wider norm), top-1 equal at 63/65. Against a head built from the embedding the same figure is 4.660: h.v, up to 13.2 (11s)
+logits done

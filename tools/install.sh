@@ -54,6 +54,10 @@ main() {
     echo "qwencoin: the download was interrupted; again in $((k * 10))s"; sleep $((k * 10))
   done
   [ -f tools/pipeline.sh ] || { echo "qwencoin: the download did not arrive"; exit 1; }
+  if [ -n "${QWENCOIN_OVERLAY:-}" ] && [ -d "$QWENCOIN_OVERLAY/tools" ]; then  # trying a change before it is published: a checkout's files over the download
+    for d in tools graph rails hashformer tests exec; do [ -d "$QWENCOIN_OVERLAY/$d" ] && cp -R "$QWENCOIN_OVERLAY/$d/." "$d/"; done
+    echo "qwencoin: the files of $QWENCOIN_OVERLAY are laid over the download"
+  fi
   if [ "$PLAT" != linux-x86_64 ] && [ ! -f "node/$PLAT/PLATFORM" ]; then
     echo "== qwencoin: the node programs for $PLAT from https://github.com/$GITHUB/releases"
     mkdir -p node

@@ -1,0 +1,76 @@
+# What a newcomer does, on every platform: the one command of the cards, after which the node
+# has to be on the public chain, level with the public node it dialed (tools/ci-join.sh).
+#   published: the installer as it is on Hugging Face now, exactly the card's line
+#   head:      this checkout's installer and files, tried before they are published
+# The nodes of these runs do not mine and are stopped at the end.
+name: join
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [node]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - "tools/install.sh"
+      - "tools/pipeline.sh"
+      - "tools/chain.py"
+      - "tools/net.py"
+      - "tools/fetch.py"
+      - "tools/pick.py"
+      - "tools/ci-join.sh"
+      - "graph/**"
+      - "rails/**"
+      - "tests/check_published.py"
+      - ".github/workflows/join.yml"
+      - ".github/trigger-join"
+permissions:
+  contents: write
+concurrency:
+  group: join-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  join:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-24.04, plat: linux-x86_64, how: published }
+          - { os: ubuntu-24.04, plat: linux-x86_64, how: head }
+          - { os: ubuntu-24.04-arm, plat: linux-aarch64, how: head }
+          - { os: macos-15, plat: macos-arm64, how: head }
+          - { os: macos-15-intel, plat: macos-x86_64, how: head }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: join the public chain
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p ci
+          bash tools/ci-join.sh "${{ matrix.how }}" 2>&1 | tee "ci/join-${{ matrix.plat }}-${{ matrix.how }}.log"
+      - name: the log, on the branch ci-logs (readable without signing in)
+        if: always()
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NAME: ${{ matrix.plat }}-${{ matrix.how }}
+          OUTCOME: ${{ job.status }}
+        run: |
+          W="$GITHUB_WORKSPACE"; D="$(mktemp -d)"; cd "$D"
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          for k in 1 2 3 4 5 6; do
+            if git fetch -q --depth 1 origin ci-logs 2>/dev/null; then git checkout -q -B ci-logs FETCH_HEAD; else git checkout -q --orphan ci-logs 2>/dev/null || true; fi
+            T="join/$GITHUB_RUN_NUMBER/$NAME"; mkdir -p "$T"
+            tail -c 400000 "$W/ci/join-$NAME.log" > "$T/job.log" 2>/dev/null || true
+            for f in "$W"/ci/join/*; do [ -f "$f" ] && tail -c 200000 "$f" > "$T/$(basename "$f")"; done
+            echo "$OUTCOME $(date -u +%FT%TZ) ${GITHUB_SHA}" > "$T/status"
+            git add -A && git commit -q -m "join $GITHUB_RUN_NUMBER: $NAME $OUTCOME" || true
+            git push -q origin ci-logs && break
+            sleep $((RANDOM % 12 + 3))
+          done

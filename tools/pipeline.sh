@@ -82,15 +82,26 @@ env_stage() {  # Python and packages, inside this folder
     T="${TORCH:-auto}"
     if [ "$T" = auto ]; then T=cpu; command -v nvidia-smi >/dev/null 2>&1 && nvidia-smi >/dev/null 2>&1 && T=cuda; fi
     IDX=https://download.pytorch.org/whl/cpu; [ "$T" = cuda ] && IDX=https://download.pytorch.org/whl/cu126
-    if [ "$(uname -s)" = Darwin ]; then
+    # A node (qwencoind, ord, miner, agent) needs Python and numpy. torch is for the model: where there is no build
+    # of it (Intel Macs) or it does not install, a node that joins runs without a model; merging needs it.
+    rm -f .done/no-torch
+    if [ "$PLAT" = macos-x86_64 ] || [ "$T" = none ]; then
+      echo "   torch: none for $PLAT"; : > .done/no-torch
+    elif [ "$(uname -s)" = Darwin ]; then
       echo "   torch build: macOS"
-      "$UV" pip install --python "$PY" torch==2.14.1 || fail "torch"
+      "$UV" pip install --python "$PY" torch==2.14.1 || : > .done/no-torch
     else
       echo "   torch build: $T"
       "$UV" pip install --python "$PY" torch==2.14.1 --index-url "$IDX" \
-        || "$UV" pip install --python "$PY" torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu || fail "torch"
+        || "$UV" pip install --python "$PY" torch==2.14.1 --index-url https://download.pytorch.org/whl/cpu || : > .done/no-torch
     fi
-    "$UV" pip install --python "$PY" transformers==5.22.2 numpy safetensors huggingface_hub || fail "packages"
+    if [ -f .done/no-torch ]; then
+      [ -n "${NODE_ONLY_OK:-}" ] || fail "torch could not be installed here, and merging the models needs it (a node alone does not:  bash tools/pipeline.sh join)"
+      echo "   no torch on this machine: the node runs without a model"
+      "$UV" pip install --python "$PY" numpy huggingface_hub || fail "packages"
+    else
+      "$UV" pip install --python "$PY" transformers==5.22.2 numpy safetensors huggingface_hub || fail "packages"
+    fi
     mark env
   fi
 }
@@ -113,6 +124,7 @@ table_here() {  # a copy of the project's repository holds the chain's work tabl
 NOTHING="nothing has been set up in this folder yet:  bash tools/pipeline.sh join  (one node on the public chain, with the published model)"
 
 JOIN=""
+case "${1:-}" in join|up) NODE_ONLY_OK=1 ;; esac
 if [ "${1:-}" = join ]; then
   shift; JOIN=1; export NO_PUBLISH=1 NODES="${NODES:-1}"
   # A joined node's model posts and inscribes on its own, and pays or vouches up to this many sats in total
@@ -142,11 +154,11 @@ case "${1:-}" in
   diag)  # a snapshot of everything that runs here, into logs/diag.txt (on Windows: readable from outside WSL)
         { date '+%Y-%m-%d %H:%M:%S'
           echo "--- processes (seconds running, cpu, MB)"
-          ps -eo pid,etimes,pcpu,rss,args --sort=-etimes | awk '{ $4 = int($4 / 1024); print }' | grep -E "qwencoin|/ord |chain.py|check_|rails.runtime|publish.py|runpod.py|hashformer|fetch.py" | grep -v grep | cut -c1-240
+          { ps -eo pid,etimes,pcpu,rss,args --sort=-etimes 2>/dev/null || ps -axo pid,etime,pcpu,rss,args; } | awk '{ $4 = int($4 / 1024); print }' | grep -E "qwencoin|/ord |chain.py|check_|rails.runtime|publish.py|runpod.py|hashformer|fetch.py" | grep -v grep | cut -c1-240
           echo "--- file locks held"
           command -v lslocks >/dev/null 2>&1 && lslocks -o COMMAND,PID,TYPE,MODE,PATH 2>/dev/null | grep -E "COMMAND|\.lock"
           echo "--- status"
-          timeout 180 "$PY" tools/chain.py status 2>&1 | cut -c1-400
+          $(command -v timeout >/dev/null 2>&1 && echo "timeout 180") "$PY" tools/chain.py status 2>&1 | cut -c1-400
           for f in run/agent*.log run/mind*.log run/miner*.log run/sweeper*.log; do [ -s "$f" ] && { echo "--- $f"; tail -14 "$f" | cut -c1-420; }; done
           for d in run/ord*; do [ -d "$d" ] || continue; echo "--- $d"; ls -la --time-style=+%H:%M:%S "$d" | grep -E "index|lock|pid" | awk '{print $6, $5, $7}'; [ -s "$d/server.log" ] && tail -4 "$d/server.log" | cut -c1-300; done
           for f in run/ord*/index-set-aside-*.txt; do [ -s "$f" ] && { echo "--- $f"; cut -c1-700 "$f"; }; done
@@ -212,7 +224,12 @@ diag() {  # what the nodes themselves said, where the Windows side can read it
 
 # ------------------------------------------------------------------ env: Python and packages
 env_stage
-"$PY" -c "import sys, torch, transformers; print('python', sys.version.split()[0], '| torch', torch.__version__, '| transformers', transformers.__version__, '| cuda', torch.cuda.is_available())" || fail "imports"
+if [ -f .done/no-torch ]; then
+  [ -n "$JOIN" ] || fail "torch is not installed here, and merging the models needs it"
+  "$PY" -c "import sys, numpy; print('python', sys.version.split()[0], '| numpy', numpy.__version__, '| no torch: the node runs without a model')" || fail "imports"
+else
+  "$PY" -c "import sys, torch, transformers; print('python', sys.version.split()[0], '| torch', torch.__version__, '| transformers', transformers.__version__, '| cuda', torch.cuda.is_available())" || fail "imports"
+fi
 
 fetch() {  # fetch SIZE: the stock checkpoint from Hugging Face into base/
   done_p "model-$1" && return 0
@@ -275,6 +292,14 @@ minds_gate() {  # before anything is published: every node has its own model loa
 }
 
 # ------------------------------------------------------------------ the hasher alone, and which kernels run it exactly
+if [ -f .done/no-torch ]; then
+  echo "== the node's model is NOT started: there is no torch on this machine ($PLAT). The node runs without it."
+  date '+%Y-%m-%d %H:%M:%S' > "$LOGS/DONE"
+  chain status
+  echo "=== joined $(cat "$LOGS/DONE"), without a model.  bash tools/pipeline.sh status | down"
+  echo "== following the chain (Ctrl-C stops following, not the node)"
+  exec "$PY" tools/chain.py watch
+fi
 if ! done_p hasher; then
   echo "== the stand-alone hasher: compiled here, compared with the published build"
   "$PY" -m hashformer.hf --out dist/qwensha 2>&1 | filter; [ "${PIPESTATUS[0]}" = 0 ] || fail "hasher build"

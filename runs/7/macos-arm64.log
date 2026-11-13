@@ -1,0 +1,245 @@
+Collecting numpy
+  Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 27.3 MB/s  0:00:00
+Installing collected packages: numpy
+Successfully installed numpy-2.5.4
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+Apple clang version 17.0.0 (clang-1700.0.13.5)
+cargo 1.100.0 (3acc79c0c 2026-11-05)
+macos-arm64: Darwin 24.6.0 arm64, 3 cpus, python 3.15.2, numpy 2.5.4
+Cloning into 'upstream/bitcoin'...
+warning: refs/tags/v29.4-inq d2f29dd04938927a3d00f0222b96747c33c11a0a is not a commit!
+/bin/sh: command -v llvm-ranlib: No such file or directory
+/bin/sh: command -v llvm-strip: No such file or directory
+/bin/sh: command -v llvm-nm: No such file or directory
+/bin/sh: command -v llvm-objcopy: No such file or directory
+/bin/sh: command -v llvm-objdump: No such file or directory
+/bin/sh: command -v dsymutil: No such file or directory
+Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 37  133M   37 50.1M    0     0  51.5M      0  0:00:02 --:--:--  0:00:02 51.4M 75  133M   75  100M    0     0  52.0M      0  0:00:02  0:00:01  0:00:01 52.0M100  133M  100  133M    0     0  51.9M      0  0:00:02  0:00:02 --:--:-- 51.9M
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+Extracting boost...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/boost_1_81_0.tar.gz: OK
+Preprocessing boost...
+Configuring boost...
+Building boost...
+Staging boost...
+Postprocessing boost...
+Caching boost...
+Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1075k  100 1075k    0     0  1777k      0 --:--:-- --:--:-- --:--:-- 1777k
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
+Extracting libevent...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/libevent-2.1.12-stable.tar.gz: OK
+Preprocessing libevent...
+patching file CMakeLists.txt
+patching file kqueue.c
+patching file event_iocp.c
+patching file evthread_win32.c
+patching file evutil.c
+patching file listener.c
+Configuring libevent...
+CMake Warning (deprecated) at CMakeLists.txt:22 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Git: /opt/homebrew/bin/git (found version "2.56.0")
+-- Performing Test check_c_compiler_flag__Wall
+-- Performing Test check_c_compiler_flag__Wall - Success
+-- Performing Test check_c_compiler_flag__Wextra
+-- Performing Test check_c_compiler_flag__Wextra - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter - Success
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes - Success
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes - Success
+-- Performing Test check_c_compiler_flag__Winit_self
+-- Performing Test check_c_compiler_flag__Winit_self - Success
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers - Success
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement - Success
+-- Performing Test check_c_compiler_flag__Waddress
+-- Performing Test check_c_compiler_flag__Waddress - Success
+-- Performing Test check_c_compiler_flag__Wnormalized_id
+-- Performing Test check_c_compiler_flag__Wnormalized_id - Failed
+-- Performing Test check_c_compiler_flag__Woverride_init
+-- Performing Test check_c_compiler_flag__Woverride_init - Success
+-- Performing Test check_c_compiler_flag__Wlogical_op
+-- Performing Test check_c_compiler_flag__Wlogical_op - Failed
+-- Performing Test check_c_compiler_flag__Wwrite_strings
+-- Performing Test check_c_compiler_flag__Wwrite_strings - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_function
+-- Performing Test check_c_compiler_flag__Wno_unused_function - Success
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations - Success
+-- Performing Test check_c_compiler_flag__Qunused_arguments
+-- Performing Test check_c_compiler_flag__Qunused_arguments - Success
+-- Looking for __GNU_LIBRARY__
+-- Looking for __GNU_LIBRARY__ - not found
+-- Looking for _GNU_SOURCE
+-- Looking for _GNU_SOURCE - not found
+-- Looking for include file fcntl.h
+-- Looking for include file fcntl.h - found
+-- Looking for include files fcntl.h, inttypes.h
+-- Looking for include files fcntl.h, inttypes.h - found
+-- Looking for 3 include files fcntl.h, ..., memory.h
+-- Looking for 3 include files fcntl.h, ..., memory.h - found
+-- Looking for 4 include files fcntl.h, ..., signal.h
+-- Looking for 4 include files fcntl.h, ..., signal.h - found
+-- Looking for 5 include files fcntl.h, ..., stdarg.h
+-- Looking for 5 include files fcntl.h, ..., stdarg.h - found
+-- Looking for 6 include files fcntl.h, ..., stddef.h
+-- Looking for 6 include files fcntl.h, ..., stddef.h - found
+-- Looking for 7 include files fcntl.h, ..., stdint.h
+-- Looking for 7 include files fcntl.h, ..., stdint.h - found
+-- Looking for 8 include files fcntl.h, ..., stdlib.h
+-- Looking for 8 include files fcntl.h, ..., stdlib.h - found
+-- Looking for 9 include files fcntl.h, ..., string.h
+-- Looking for 9 include files fcntl.h, ..., string.h - found
+-- Looking for 10 include files fcntl.h, ..., errno.h
+-- Looking for 10 include files fcntl.h, ..., errno.h - found
+-- Looking for 11 include files fcntl.h, ..., unistd.h
+-- Looking for 11 include files fcntl.h, ..., unistd.h - found
+-- Looking for 12 include files fcntl.h, ..., time.h
+-- Looking for 12 include files fcntl.h, ..., time.h - found
+-- Looking for 13 include files fcntl.h, ..., sys/types.h
+-- Looking for 13 include files fcntl.h, ..., sys/types.h - found
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h - found
+-- Looking for 15 include files fcntl.h, ..., sys/time.h
+-- Looking for 15 include files fcntl.h, ..., sys/time.h - found
+-- Looking for 16 include files fcntl.h, ..., sys/param.h
+-- Looking for 16 include files fcntl.h, ..., sys/param.h - found
+-- Looking for 17 include files fcntl.h, ..., netdb.h
+-- Looking for 17 include files fcntl.h, ..., netdb.h - found
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h - found
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h - found
+-- Looking for 20 include files fcntl.h, ..., poll.h
+-- Looking for 20 include files fcntl.h, ..., poll.h - found
+-- Looking for 21 include files fcntl.h, ..., port.h
+-- Looking for 21 include files fcntl.h, ..., port.h - not found
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h - found
+-- Looking for 22 include files fcntl.h, ..., sys/random.h
+-- Looking for 22 include files fcntl.h, ..., sys/random.h - found
+-- Looking for 23 include files fcntl.h, ..., sys/un.h
+-- Looking for 23 include files fcntl.h, ..., sys/un.h - found
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/event.h
+-- Looking for 24 include files fcntl.h, ..., sys/event.h - found
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h - found
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h - found
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h - found
+-- Looking for 28 include files fcntl.h, ..., sys/select.h
+-- Looking for 28 include files fcntl.h, ..., sys/select.h - found
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h - not found
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h - found
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h - found
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h - found
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h - not found
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h - found
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h - not found
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h - found
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h - found
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h - found
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h - found
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h - found
+-- Looking for getaddrinfo
+-- Looking for getaddrinfo - found
+-- Looking for getnameinfo
+-- Looking for getnameinfo - found
+-- Looking for getprotobynumber
+-- Looking for getprotobynumber - found
+-- Looking for getservbyname
+-- Looking for getservbyname - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for inet_ntop
+-- Looking for inet_ntop - found
+-- Looking for inet_pton
+-- Looking for inet_pton - found
+-- Looking for gettimeofday
+-- Looking for gettimeofday - found
+-- Looking for signal
+-- Looking for signal - found
+-- Looking for strtoll
+-- Looking for strtoll - found
+-- Looking for splice
+-- Looking for splice - not found
+-- Looking for strlcpy
+-- Looking for strlcpy - found
+-- Looking for strsep
+-- Looking for strsep - found
+-- Looking for strtok_r
+-- Looking for strtok_r - found
+-- Looking for vasprintf
+-- Looking for vasprintf - found
+-- Looking for timerclear
+-- Looking for timerclear - found
+-- Looking for timercmp
+-- Looking for timercmp - found
+-- Looking for timerisset
+-- Looking for timerisset - found
+-- Looking for timeradd
+-- Looking for timeradd - found
+-- Looking for nanosleep
+-- Looking for nanosleep - found
+-- Looking for putenv
+-- Looking for putenv - found
+-- Looking for umask
+-- Looking for umask - found
+-- Looking for clock_gettime
+-- Looking for clock_gettime - found
+-- Looking for getifaddrs
+-- Looking for getifaddrs - found
+-- Looking for select
+-- Looking for select - found
+-- Looking for epoll_create
+-- Looking for epoll_create - not found
+-- Looking for epoll_create1

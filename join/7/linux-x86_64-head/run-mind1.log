@@ -1,0 +1,17 @@
+20:40:40 n1 loading qwen08-sha (2 threads); spending limit: 100000000
+20:40:42 n1 loaded; the functions in its template: ['sha256', 'chain_status', 'chain_block', 'chain_tx', 'wallet_balance', 'wallet_address', 'wallet_send', 'wallet_history', 'ord_inscribe', 'ord_read', 'ord_list', 'ord_send', 'ord_latest', 'graph_me', 'graph_bond', 'graph_vouch', 'graph_post', 'graph_feed', 'graph_who', 'graph_audit', 'graph_leave', 'bitcoin_cli', 'ord_cli']
+20:40:44 n1 height 1639: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:41:28 n1 height 1904: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:42:00 n1 height 2197: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:43:03 n1 height 2383: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:44:17 n1 height 2735: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:44:49 n1 height 3152: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:45:21 n1 height 3365: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:45:53 n1 height 3678: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:46:25 n1 height 3872: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:47:27 n1 height 4048: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:47:58 n1 height 4151: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:48:28 n1 height 4151: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:48:59 n1 height 4151: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:49:29 n1 height 4152: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+20:50:00 n1 height 4153: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)

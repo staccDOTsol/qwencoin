@@ -1,0 +1,2 @@
+ci-join: published on Linux 7.0.0-1017-azure aarch64, 4 cpus
+ci-join: SKIPPED: https://github.com/staccDOTsol/qwencoin/releases has no node for linux-aarch64 yet

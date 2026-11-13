@@ -1,0 +1,68 @@
+== qwencoin: uv (it installs Python and packages), into /home/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.8 aarch64-unknown-linux-gnu
+installing to /home/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /home/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (3.9MiB)
+ Downloaded hf-xet
+Installed 15 packages in 4ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 140 files:   0%|          | 0/140 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 140 files:   1%|          | 1/140 [00:00<00:36,  3.77it/s]Fetching 140 files:   6%|▌         | 8/140 [00:00<00:05, 24.83it/s]Fetching 140 files:   9%|▊         | 12/140 [00:00<00:05, 25.35it/s]Fetching 140 files:  11%|█▏        | 16/140 [00:00<00:04, 28.50it/s]Fetching 140 files:  14%|█▍        | 20/140 [00:00<00:04, 28.73it/s]Fetching 140 files:  17%|█▋        | 24/140 [00:00<00:03, 30.69it/s]Fetching 140 files:  20%|██        | 28/140 [00:01<00:03, 29.00it/s]Fetching 140 files:  24%|██▎       | 33/140 [00:01<00:03, 30.08it/s]Fetching 140 files:  26%|██▋       | 37/140 [00:01<00:03, 32.14it/s]Fetching 140 files:  30%|███       | 42/140 [00:01<00:03, 26.58it/s]Fetching 140 files:  34%|███▍      | 48/140 [00:01<00:02, 33.19it/s]Fetching 140 files:  37%|███▋      | 52/140 [00:01<00:03, 28.78it/s]Fetching 140 files:  40%|████      | 56/140 [00:02<00:03, 24.93it/s]Fetching 140 files:  44%|████▍     | 62/140 [00:02<00:02, 31.46it/s]Fetching 140 files:  47%|████▋     | 66/140 [00:02<00:02, 26.58it/s]Fetching 140 files:  51%|█████     | 71/140 [00:02<00:02, 25.84it/s]Fetching 140 files:  55%|█████▌    | 77/140 [00:02<00:02, 31.39it/s]Fetching 140 files:  58%|█████▊    | 81/140 [00:02<00:02, 25.92it/s]Fetching 140 files:  61%|██████    | 85/140 [00:03<00:02, 24.49it/s]Fetching 140 files:  65%|██████▌   | 91/140 [00:03<00:01, 30.36it/s]Fetching 140 files:  68%|██████▊   | 95/140 [00:03<00:01, 25.85it/s]Fetching 140 files:  71%|███████▏  | 100/140 [00:03<00:01, 25.58it/s]Fetching 140 files:  76%|███████▌  | 106/140 [00:03<00:01, 28.94it/s]Fetching 140 files:  79%|███████▊  | 110/140 [00:03<00:01, 27.94it/s]Fetching 140 files:  81%|████████  | 113/140 [00:04<00:00, 28.24it/s]Fetching 140 files:  83%|████████▎ | 116/140 [00:04<00:00, 27.53it/s]Fetching 140 files:  86%|████████▌ | 120/140 [00:04<00:00, 28.26it/s]Fetching 140 files:  88%|████████▊ | 123/140 [00:04<00:00, 26.81it/s]Fetching 140 files:  91%|█████████ | 127/140 [00:04<00:00, 28.20it/s]Fetching 140 files:  93%|█████████▎| 130/140 [00:04<00:00, 26.85it/s]Fetching 140 files:  96%|█████████▌| 134/140 [00:04<00:00, 29.26it/s]Fetching 140 files:  98%|█████████▊| 137/140 [00:04<00:00, 26.54it/s]Fetching 140 files: 100%|██████████| 140/140 [00:09<00:00,  2.32it/s]Fetching 140 files: 100%|██████████| 140/140 [00:09<00:00, 14.79it/s]
+qwencoin: the files of /home/runner/work/qwencoin/qwencoin are laid over the download
+== qwencoin: the node programs for linux-aarch64 from file:///home/runner/work/qwencoin/qwencoin/dist/qwencoin-node-linux-aarch64.tar.gz
+
+=== qwencoin pipeline 2026-11-13 22:01:30 in /home/runner/work/_temp/qwencoin-join/qwencoin
+cpu: , 4 threads
+cpu flags: 
+memory: 15 GB
+disk free here: 103G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: .venv/bin/activate
+   torch: none for linux-aarch64
+   no torch on this machine: the node runs without a model
+Resolved 16 packages in 130ms
+Downloading numpy (15.0MiB)
+ Downloaded numpy
+Prepared 1 package in 129ms
+Installed 16 packages in 9ms
+ + anyio==4.16.0
+ + click==8.5.1
+ + filelock==4.2.10
+ + fsspec==2026.9.0
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + numpy==2.5.4
+ + packaging==26.3
+ + pyyaml==6.0.3
+ + tqdm==4.70.1
+ + truststore==0.10.5
+ + typing-extensions==4.16.0
+python 3.12.3 | numpy 2.5.4 | no torch: the node runs without a model
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 34 ms; one SHA-256 in the circuit's executor 3.7 ms; one fsync 0.8 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+22:01:33 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+22:01:35 nodes answer; heights [0]
+22:01:35 ord 1 has indexed its node's chain
+22:01:36 n1's wallet is ready; it mines to bc1pg3s7mymx8w5a6cxvu55a6pnmfyjclsu5stgfr0ag5vh0huzn5grqvu622c
+22:01:36 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+== the node's model is NOT started: there is no torch on this machine (linux-aarch64). The node runs without it.
+  n1 qwen-9a0615ce  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+=== joined 2026-11-13 22:01:36, without a model.  bash tools/pipeline.sh status | down
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+22:01:37 height      0 51ebb1f392844e411a0c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.0s)
+  n1 qwen-9a0615ce  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off

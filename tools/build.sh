@@ -48,8 +48,14 @@ node() {
   cd "$ROOT"
 }
 
+fetched() {  # the crates of the manifest in this folder, asked for again when the registry stalls (it does, on shared runners)
+  for k in 1 2 3 4 5; do cargo fetch && return 0; echo "cargo fetch: again in $((k * 20))s"; sleep $((k * 20)); done
+  return 1
+}
+
 ord() {
   [ -d upstream/ord ] || git clone --depth 1 --branch 0.29.1 https://github.com/ordinals/ord upstream/ord
+  export CARGO_NET_RETRY="${CARGO_NET_RETRY:-10}" CARGO_HTTP_TIMEOUT="${CARGO_HTTP_TIMEOUT:-120}" CARGO_HTTP_MULTIPLEXING="${CARGO_HTTP_MULTIPLEXING:-false}"
   # rust-bitcoin's hashes and the libsecp256k1 that rust-secp256k1 bundles, with their SHA-256
   # routed to the model, plus qsha-sys (the executor). ord's manifest patches them in.
   mkdir -p upstream/rust
@@ -64,11 +70,12 @@ ord() {
   cp exec/qsha.c exec/qsha.h exec/qsha_circuit.h upstream/rust/qsha-sys/c/
   # the patched crates against an independent SHA-256 and the BIP340 vector (3 minutes)
   rm -rf upstream/rust/qsha-check && cp -r rust/qsha-check upstream/rust/qsha-check
-  (cd upstream/rust/qsha-check && cargo run --release)
+  (cd upstream/rust/qsha-check && fetched && cargo run --release)
   cd upstream/ord
   git apply --check "$ROOT/patches/ord-0.29.1-qwencoin.patch" 2>/dev/null \
       && git apply "$ROOT/patches/ord-0.29.1-qwencoin.patch"
   [ "$(uname -s)" = Darwin ] && export MACOSX_DEPLOYMENT_TARGET="${MACOSX_DEPLOYMENT_TARGET:-13.0}"  # as the node: macOS 13 and later
+  fetched
   cargo build --release
   cp target/release/ord "$ROOT/bin/"
   cd "$ROOT"

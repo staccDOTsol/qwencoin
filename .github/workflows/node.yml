@@ -86,7 +86,7 @@ jobs:
           PLAT: ${{ matrix.plat }}
         run: |
           set -o pipefail
-          QWENCOIN_NODE_URL="file://$PWD/dist/qwencoin-node-$PLAT.tar.gz" TORCH=none bash tools/ci-join.sh head 2>&1 | tee -a "ci/$PLAT.log"
+          QWENCOIN_NODE_URL="file://$PWD/dist/qwencoin-node-$PLAT.tar.gz" TORCH=none SYNC_BLOCKS=800 bash tools/ci-join.sh head 2>&1 | tee -a "ci/$PLAT.log"
       - name: notarize (macOS, when signed with the Developer ID and the repository has notary credentials)
         if: runner.os == 'macOS'
         shell: bash
@@ -102,19 +102,26 @@ jobs:
           set -o pipefail
           {
             for f in dist/node/$PLAT/libexec/* dist/node/$PLAT/exec/*; do codesign --verify --strict --verbose=2 "$f" 2>&1 | tail -1; codesign -dvv "$f" 2>&1 | grep -E "^(Authority|TeamIdentifier|Signature|Timestamp|Runtime)" | tr '\n' ';'; echo; done
-            if [ -z "${SIGN_IDENTITY:-}" ]; then echo "signed ad hoc (no Developer ID in the secrets): nothing to notarize"; exit 0; fi
+            if [ -z "${SIGN_IDENTITY:-}" ]; then echo "signed ad hoc (no Developer ID in the secrets): nothing to notarize"; echo "signed ad hoc" > "dist/SIGNING-$PLAT"; exit 0; fi
             (cd dist/node && ditto -c -k --keepParent "$PLAT" "$RUNNER_TEMP/notarize.zip")
             if [ -n "$API_KEY" ] && [ -n "$API_KEY_ID" ] && [ -n "$API_ISSUER" ]; then
               printf '%s' "$API_KEY" > "$RUNNER_TEMP/AuthKey.p8"
-              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --key "$RUNNER_TEMP/AuthKey.p8" --key-id "$API_KEY_ID" --issuer "$API_ISSUER" --wait --timeout 30m | tee "$RUNNER_TEMP/notary.txt"
+              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --key "$RUNNER_TEMP/AuthKey.p8" --key-id "$API_KEY_ID" --issuer "$API_ISSUER" --wait --timeout 30m 2>&1 | tee "$RUNNER_TEMP/notary.txt" || true
               rm -f "$RUNNER_TEMP/AuthKey.p8"
             elif [ -n "$APPLE_ID" ] && [ -n "$APPLE_TEAM_ID" ] && [ -n "$APPLE_APP_PASSWORD" ]; then
-              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_APP_PASSWORD" --wait --timeout 30m | tee "$RUNNER_TEMP/notary.txt"
+              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_APP_PASSWORD" --wait --timeout 30m 2>&1 | tee "$RUNNER_TEMP/notary.txt" || true
             else
-              echo "signed with the Developer ID; no notary credentials in the secrets, so not notarized"; exit 0
+              echo "signed with the Developer ID; no notary credentials in the secrets, so not notarized"; echo "signed with the Developer ID, not notarized (no notary credentials)" > "dist/SIGNING-$PLAT"; exit 0
             fi
-            grep -q "status: Accepted" "$RUNNER_TEMP/notary.txt" || { echo "the notary service did not accept the programs"; exit 1; }
-            echo "notarized: Apple's notary service accepted the programs of $PLAT"
+            if grep -q "status: Accepted" "$RUNNER_TEMP/notary.txt"; then
+              echo "notarized: Apple's notary service accepted the programs of $PLAT"; echo "signed with the Developer ID and notarized" > "dist/SIGNING-$PLAT"
+            elif grep -q "status: Invalid\|status: Rejected" "$RUNNER_TEMP/notary.txt"; then
+              echo "the notary service examined the programs and did not accept them"; exit 1   # something is wrong with what was built
+            else  # the request itself was refused (the account, an agreement, the key): the programs are signed all the same
+              WHY="$(grep -i -m1 "error" "$RUNNER_TEMP/notary.txt" | cut -c1-220)"
+              echo "NOT notarized: Apple's notary service did not take the request (${WHY:-no answer}). The programs are signed with the Developer ID; the next run notarizes once the account allows it."
+              echo "signed with the Developer ID, NOT notarized: ${WHY:-the notary service did not take the request}" > "dist/SIGNING-$PLAT"
+            fi
           } 2>&1 | tee -a "ci/$PLAT.log"
       - name: provenance (Sigstore), for the package
         if: success()
@@ -151,7 +158,9 @@ jobs:
         with:
           name: qwencoin-node-${{ matrix.plat }}
           if-no-files-found: error
-          path: dist/qwencoin-node-*.tar.gz
+          path: |
+            dist/qwencoin-node-*.tar.gz
+            dist/SIGNING-*
   release:
     needs: build
     if: github.ref == 'refs/heads/main'
@@ -164,7 +173,8 @@ jobs:
       - name: checksums
         run: |
           cd got && ls -la && sha256sum qwencoin-node-*.tar.gz | tee SHA256SUMS
-          { echo "The node (qwencoind, qwencoin-cli, ord) and the executor's libraries for each platform, built by this run from upstream sources and patches/ at ${GITHUB_SHA}, and checked on the runner (tests/check_qwork_node.py; the logs are on the branch ci-logs under runs/${GITHUB_RUN_NUMBER}/)."; echo; echo '```'; cat SHA256SUMS; echo '```'; } > ../notes.md
+          { echo "The node (qwencoind, qwencoin-cli, ord) and the executor's libraries for each platform, built by this run from upstream sources and patches/ at ${GITHUB_SHA}. Each package passed tests/check_qwork_node.py on its own platform, and a node made from it joined the public chain there (the logs are on the branch ci-logs under runs/${GITHUB_RUN_NUMBER}/). Every package has a build provenance attestation: \`gh attestation verify FILE --repo ${GITHUB_REPOSITORY}\`."; echo
+            for f in SIGNING-macos-*; do [ -f "$f" ] && echo "- ${f#SIGNING-}: $(cat "$f")"; done; echo; echo '```'; cat SHA256SUMS; echo '```'; } > ../notes.md
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: node-${{ github.run_number }}

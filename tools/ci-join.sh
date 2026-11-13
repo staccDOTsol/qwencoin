@@ -6,7 +6,9 @@
 #   tools/ci-join.sh head        this checkout's installer, with this checkout's files laid over
 #                                the download: a change is tried before it is published.
 #                                QWENCOIN_NODE_URL=file:///.../qwencoin-node-PLATFORM.tar.gz: with that
-#                                package's programs (one just built); TORCH=none: the node alone, no model
+#                                package's programs (one just built); TORCH=none: the node alone, no model;
+#                                SYNC_BLOCKS=n: enough when the node has taken n blocks of the public chain
+#                                from the public node and checked them (the whole chain takes longer each day)
 #
 # The node does not mine here (MINERS=0): coins mined on a runner would be lost with it.
 set -uo pipefail
@@ -25,6 +27,10 @@ say "$HOW on $(uname -srm), $( (nproc 2>/dev/null || sysctl -n hw.ncpu) ) cpus"
 PLAT="$(uname -s | tr 'A-Z' 'a-z' | sed 's/darwin/macos/')-$(uname -m)"
 if [ "$PLAT" != linux-x86_64 ] && [ -z "${QWENCOIN_NODE_URL:-}" ] && ! curl -fsL -r 0-0 -o /dev/null "https://github.com/$GITHUB/releases/latest/download/qwencoin-node-$PLAT.tar.gz" 2>/dev/null; then
   say "SKIPPED: https://github.com/$GITHUB/releases has no node for $PLAT yet"
+  exit 0
+fi
+if [ "$HOW" = published ] && [ "$PLAT" != linux-x86_64 ] && ! curl -fsSL "https://huggingface.co/$ACCOUNT/qwencoin/resolve/main/install.sh" | grep -q "releases/latest/download"; then
+  say "SKIPPED: the installer on Hugging Face is the one from before the other platforms' builds"
   exit 0
 fi
 if [ "$HOW" = published ]; then
@@ -65,7 +71,8 @@ while [ $(( $(date +%s) - t0 )) -lt "${SYNC_PATIENCE:-2400}" ]; do
 import json, sys
 info, peers = json.loads(sys.argv[1] or "{}"), json.loads(sys.argv[2] or "[]")
 best = max([max(p.get("synced_headers", -1), p.get("startingheight", -1)) for p in peers] or [-1])
-print(info.get("blocks", -1), best, len(peers), int(bool(peers) and best > 0 and info.get("blocks", -1) >= best - 2), info.get("bestblockhash", ""))' "$INFO" "$PEERS" 2>/dev/null)
+want = min(best - 2, int(sys.argv[3])) if int(sys.argv[3]) > 0 else best - 2
+print(info.get("blocks", -1), best, len(peers), int(bool(peers) and best > 0 and info.get("blocks", -1) >= want), info.get("bestblockhash", ""))' "$INFO" "$PEERS" "${SYNC_BLOCKS:-0}" 2>/dev/null)
   set -- $LINE
   say "height ${1:-?}, the best a peer has ${2:-?}, peers ${3:-?} ($(( $(date +%s) - t0 ))s)"
   if [ "${4:-0}" = 1 ]; then OK=1; break; fi
@@ -73,7 +80,7 @@ print(info.get("blocks", -1), best, len(peers), int(bool(peers) and best > 0 and
 done
 [ -n "$OK" ] || end "FAILED: the node did not reach the public node's chain within ${SYNC_PATIENCE:-2400}s" 1
 [ "$(cli getblockhash 0)" = 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5 ] || end "FAILED: another genesis" 1
-say "on the public chain: height $1 (peers have $2), $3 peer(s), tip $5, genesis 51ebb1f3.."
+say "on the public chain: height $1 (peers have $2), $3 peer(s), tip $5, genesis 51ebb1f3..${SYNC_BLOCKS:+ (asked for: $SYNC_BLOCKS blocks taken from the public node and checked)}"
 (cd "$D" && bash tools/pipeline.sh status 2>&1 | cut -c1-300)
 
 # the node's model, where it was started: one question that it has to answer through the node

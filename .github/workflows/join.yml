@@ -6,10 +6,8 @@
 name: join
 on:
   workflow_dispatch:
-  workflow_run:
-    workflows: [node]
-    types: [completed]
-    branches: [main]
+  schedule:
+    - cron: "17 */6 * * *"   # the published line, four times a day: is the card still true?
   push:
     branches: [main]
     paths:
@@ -28,7 +26,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: join-${{ github.ref }}
+  group: join-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 jobs:
   join:

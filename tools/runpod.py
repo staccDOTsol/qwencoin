@@ -143,7 +143,10 @@ os.chmod('/usr/local/bin/cloudflared', 0o755)" || echo "seed: cloudflared could 
     (for k in $(seq 1 40); do sleep 3; n=$(grep -c "Registered tunnel connection" /tmp/tunnel.log 2>/dev/null || true)
        if [ "${n:-0}" -ge 1 ]; then
          # the hostname Cloudflare routes to this tunnel, as its configuration says: the pages' name, if none was given
-         H=$(grep -o 'hostname[^,}]*' /tmp/tunnel.log | head -1 | tr -d '\\": ' | sed 's/^hostname//')
+         # (cloudflared prints that configuration a moment after its first connection: it is waited for, half a minute at most)
+         H=""; for j in $(seq 1 15); do
+           H=$(grep -o 'hostname[^,}]*' /tmp/tunnel.log | head -1 | tr -d '\\": ' | sed 's/^hostname//'); [ -n "$H" ] && break; sleep 2
+         done
          if [ -z "$WEB_DOMAIN" ] && echo "$H" | grep -Eq '^([a-z0-9-]+\.)+[a-z]{2,}$'; then echo "$H" > /qwencoin/run/WEBNAME; fi
          echo "seed: the tunnel is connected to Cloudflare${H:+ (it serves $H)}"; exit 0; fi; done
      echo "seed: the tunnel did not connect: $(grep -i -E "ERR|not valid|unauthorized" /tmp/tunnel.log | tail -1 | cut -c1-160)") &
@@ -498,12 +501,18 @@ def web_of(pid: str | None) -> str | None:
     if "read-only" not in (page(pid, "graph/agents.txt", timeout=20) or "")[:300]:
         return None
     token, domain = tunnel()
-    if token and not domain:  # the pod knows the name its tunnel serves it under
-        try:
-            name = str(json.loads(page(pid, "graph/status.json", timeout=20) or "{}").get("name") or "")
-            domain = name if re.fullmatch(r"(?:[a-z0-9-]+\.)+[a-z]{2,}", name) else ""
-        except ValueError:
-            pass
+    if token and not domain:  # the pod knows the name its tunnel serves it under, a minute or so after it has started
+        for k in range(10):
+            try:
+                name = str(json.loads(page(pid, "graph/status.json", timeout=20) or "{}").get("name") or "")
+                domain = name if re.fullmatch(r"(?:[a-z0-9-]+\.)+[a-z]{2,}", name) else ""
+            except ValueError:
+                pass
+            if domain:
+                break
+            if k == 0:
+                print("runpod: waiting for the pod to learn the name its tunnel serves it under (up to a minute and a half)")
+            time.sleep(10)
     if token and domain:  # served under the domain through the tunnel: that is the address to give out
         try:
             req = urllib.request.Request(f"https://{domain}/graph/agents.txt", headers={"User-Agent": CLIENTS[0]})

@@ -1,0 +1,99 @@
+# The node (qwencoind, qwencoin-cli, ord) for every platform, built from upstream sources and
+# this project's patches by tools/ci.sh, then checked on the runner itself: the packed programs
+# with the chain's work table, four nodes, every work value and hash against the exact reference
+# (tests/check_qwork_node.py). When all four platforms pass on main, their packages become the
+# latest release, which is where tools/install.sh takes another platform's node from.
+name: node
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "patches/**"
+      - "exec/**"
+      - "rust/**"
+      - "tools/build.sh"
+      - "tools/ci.sh"
+      - "tools/pack.py"
+      - "tools/net.py"
+      - "tests/check_qwork_node.py"
+      - ".github/workflows/node.yml"
+      - ".github/trigger"
+permissions:
+  contents: write
+concurrency:
+  group: node-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { os: ubuntu-24.04, plat: linux-x86_64 }
+          - { os: ubuntu-24.04-arm, plat: linux-aarch64 }
+          - { os: macos-15, plat: macos-arm64 }
+          - { os: macos-15-intel, plat: macos-x86_64 }
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+      - name: build, pack, check
+        shell: bash
+        run: |
+          set -o pipefail
+          mkdir -p ci
+          { bash tools/ci.sh deps && bash tools/ci.sh build && bash tools/ci.sh pack && bash tools/ci.sh check; } 2>&1 | tee "ci/${{ matrix.plat }}.log"
+      - name: the log, on the branch ci-logs (readable without signing in)
+        if: always()
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PLAT: ${{ matrix.plat }}
+          OUTCOME: ${{ job.status }}
+        run: |
+          W="$GITHUB_WORKSPACE"; D="$(mktemp -d)"; cd "$D"
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}"
+          for k in 1 2 3 4 5 6; do
+            if git fetch -q --depth 1 origin ci-logs 2>/dev/null; then git checkout -q -B ci-logs FETCH_HEAD; else git checkout -q --orphan ci-logs 2>/dev/null || true; fi
+            mkdir -p "runs/$GITHUB_RUN_NUMBER"
+            tail -c 400000 "$W/ci/$PLAT.log" > "runs/$GITHUB_RUN_NUMBER/$PLAT.log" 2>/dev/null || true
+            [ -f "$W/logs/qwork-node.log" ] && cp "$W/logs/qwork-node.log" "runs/$GITHUB_RUN_NUMBER/$PLAT.qwork-node.log"
+            [ -f "$W/dist/qwencoin-node-$PLAT.tar.gz" ] && (cd "$W/dist" && { sha256sum "qwencoin-node-$PLAT.tar.gz" 2>/dev/null || shasum -a 256 "qwencoin-node-$PLAT.tar.gz"; }) > "runs/$GITHUB_RUN_NUMBER/$PLAT.sha256"
+            echo "$OUTCOME $(date -u +%FT%TZ) ${GITHUB_SHA}" > "runs/$GITHUB_RUN_NUMBER/$PLAT.status"
+            git add -A && git commit -q -m "run $GITHUB_RUN_NUMBER: $PLAT $OUTCOME" || true
+            git push -q origin ci-logs && break
+            sleep $((RANDOM % 12 + 3))
+          done
+      - uses: actions/upload-artifact@v4
+        if: success()
+        with:
+          name: qwencoin-node-${{ matrix.plat }}
+          if-no-files-found: error
+          path: dist/qwencoin-node-*.tar.gz
+  release:
+    needs: build
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: got
+          merge-multiple: true
+      - name: checksums
+        run: |
+          cd got && ls -la && sha256sum qwencoin-node-*.tar.gz | tee SHA256SUMS
+          { echo "The node (qwencoind, qwencoin-cli, ord) and the executor's libraries for each platform, built by this run from upstream sources and patches/ at ${GITHUB_SHA}, and checked on the runner (tests/check_qwork_node.py; the logs are on the branch ci-logs under runs/${GITHUB_RUN_NUMBER}/)."; echo; echo '```'; cat SHA256SUMS; echo '```'; } > ../notes.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: node-${{ github.run_number }}
+          target_commitish: ${{ github.sha }}
+          name: node ${{ github.run_number }}
+          body_path: notes.md
+          make_latest: "true"
+          files: |
+            got/qwencoin-node-*.tar.gz
+            got/SHA256SUMS

@@ -1,0 +1,15 @@
+baseline: alice weighs 900,000 (bond 600,000 + bob's vouch 300,000), trust bob -> alice 300,000
+on chain: two bond outputs with two ids each, a replayed vouch, two false ids, two rigged bonds; a count per bond-shaped inscription would credit all of them
+1a. two ids revealed into one bond output:  neither is a stake (1,400,000 claimed, 700,000 locked)
+1b. two ids moved into one bond output:    neither is a stake; mallory weighs 0
+2.  bob's vouch replayed on a 2nd output:   'replay'; alice still weighs 900,000, trust bob -> alice still 300,000
+3.  id for alice's key signed by mallory:   not a message (the signature fails under alice's key)
+4.  id for alice's key with no signature:   not a message; alice is still named 'alice-818030'
+5.  bond with a 300,000 sat covenant fee:   not a message (a slash must burn, not pay a miner)
+6.  bond with a one-block delay:            not a message (a stake must outlast its proof)
+7.  an honest vouch of 250,000:             alice weighs 1,150,000, mallory 500,000, on all three nodes
+OK: weight never exceeded locked sats
+
+real	6m18.285s
+user	1m35.314s
+sys	0m0.385s

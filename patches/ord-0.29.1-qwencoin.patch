@@ -1,0 +1,182 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 267f151..71e7b09 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -526,11 +526,10 @@ dependencies = [
+ [[package]]
+ name = "bitcoin_hashes"
+ version = "0.14.101"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "bca4c7abb40c8817d77403c880988cfd484f23ab2365726afb2f798363e2c4a2"
+ dependencies = [
+  "bitcoin-io",
+  "hex-conservative 0.2.3",
++ "qsha-sys",
+  "serde",
+ ]
+ 
+@@ -3036,6 +3035,13 @@ dependencies = [
+  "unicode-ident",
+ ]
+ 
++[[package]]
++name = "qsha-sys"
++version = "0.1.0"
++dependencies = [
++ "cc",
++]
++
+ [[package]]
+ name = "quick-xml"
+ version = "0.41.0"
+@@ -3605,10 +3611,9 @@ dependencies = [
+ [[package]]
+ name = "secp256k1-sys"
+ version = "0.10.1"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "d4387882333d3aa8cb20530a17c69a3752e97837832f34f6dccc760e715001d9"
+ dependencies = [
+  "cc",
++ "qsha-sys",
+ ]
+ 
+ [[package]]
+diff --git a/Cargo.toml b/Cargo.toml
+index 29a7491..3e61766 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -120,3 +120,10 @@ doctest = false
+ [[test]]
+ name = "integration"
+ path = "tests/lib.rs"
++
++# Qwencoin: the SHA-256 of rust-bitcoin (bitcoin_hashes) and of the bundled libsecp256k1
++# (secp256k1-sys) runs in the compiled model. upstream/rust holds those two crates with
++# patches/*-qsha.patch applied, and qsha-sys, the executor (tools/build.sh ord sets it up).
++[patch.crates-io]
++bitcoin_hashes = { path = "../rust/bitcoin_hashes" }
++secp256k1-sys = { path = "../rust/secp256k1-sys" }
+diff --git a/src/chain.rs b/src/chain.rs
+index bae81b5..bb97afd 100644
+--- a/src/chain.rs
++++ b/src/chain.rs
+@@ -1,5 +1,7 @@
+ use {super::*, clap::ValueEnum};
+ 
++const QWENCOIN_GENESIS: &str = "010000000000000000000000000000000000000000000000000000000000000000000000a880e070be1f43a1abdb0036db29e4c58de3e8646c97890ab882199cf99bdc236049f56affff0020060000000101000000010000000000000000000000000000000000000000000000000000000000000000ffffffff5d04ffff001d01044c547177656e636f696e20425443203937353532332030303030303030303030303030303030303030306563306562393132646163633530396232383330373562373064366664323530633437653130666462663461ffffffff0100f2052a0100000023210250929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0ac00000000";
++
+ #[derive(Default, ValueEnum, Copy, Clone, Debug, PartialEq, Serialize, Deserialize)]
+ #[serde(rename_all = "kebab-case")]
+ pub enum Chain {
+@@ -28,7 +30,7 @@ impl Chain {
+ 
+   pub(crate) fn default_rpc_port(self) -> u16 {
+     match self {
+-      Self::Mainnet => 8332,
++      Self::Mainnet => 8732,
+       Self::Regtest => 18443,
+       Self::Signet => 38332,
+       Self::Testnet => 18332,
+@@ -45,7 +47,7 @@ impl Chain {
+ 
+   pub(crate) fn first_inscription_height(self) -> u32 {
+     match self {
+-      Self::Mainnet => 767430,
++      Self::Mainnet => 0,
+       Self::Regtest => 0,
+       Self::Signet => 112402,
+       Self::Testnet => 2413343,
+@@ -59,7 +61,7 @@ impl Chain {
+ 
+   pub(crate) fn jubilee_height(self) -> u32 {
+     match self {
+-      Self::Mainnet => 824544,
++      Self::Mainnet => 0,
+       Self::Regtest => 110,
+       Self::Signet => 175392,
+       Self::Testnet => 2544192,
+@@ -68,6 +70,12 @@ impl Chain {
+   }
+ 
+   pub(crate) fn genesis_block(self) -> Block {
++    // Qwencoin: `mainnet` is the qwencoin chain. Its genesis block was mined under the chain's
++    // work function (a pass through the weights of Qwen3.5-0.8B per nonce); the coinbase text
++    // commits to the Bitcoin tip at launch.
++    if self == Self::Mainnet {
++      return bitcoin::consensus::deserialize(&hex::decode(QWENCOIN_GENESIS).unwrap()).unwrap();
++    }
+     bitcoin::blockdata::constants::genesis_block(self.network())
+   }
+ 
+diff --git a/src/index/updater.rs b/src/index/updater.rs
+index c4491ef..9396dac 100644
+--- a/src/index/updater.rs
++++ b/src/index/updater.rs
+@@ -77,7 +77,24 @@ impl Updater<'_> {
+ 
+     let mut uncommitted = 0;
+     let mut utxo_cache = HashMap::new();
++    // qwencoin: `detect_reorg` compares a block with the block before it as the index has it
++    // COMMITTED. Inside a batch the block before is not committed yet, so two blocks read across
++    // a reorganisation would go in one after the other without linking: the index would hold an
++    // orphan, lack the outputs of the block that replaced it, and stop for good at the first
++    // transaction spending one of them. Such a batch is dropped whole; the next update reads
++    // the chain again from what is committed.
++    let mut previous: Option<BlockHash> = None;
+     while let Ok(block) = rx.recv() {
++      if let Some(previous) = previous {
++        if block.header.prev_blockhash != previous {
++          bail!(
++            "the block read for height {} does not link to the block read before it: the chain was reorganised while this batch was read, the batch is dropped",
++            self.height,
++          );
++        }
++      }
++      previous = Some(block.header.block_hash());
++
+       self.index_block(
+         &mut output_sender,
+         &mut txout_receiver,
+diff --git a/src/settings.rs b/src/settings.rs
+index a9c7e6d..68a63c9 100644
+--- a/src/settings.rs
++++ b/src/settings.rs
+@@ -437,7 +437,23 @@ impl Settings {
+       );
+     }
+ 
+-    let client = Client::new(&rpc_url, bitcoin_credentials.clone()).with_context(|| {
++    // Qwencoin: the node hashes in the weights, and a wallet call (an import with its rescan, a
++    // signature over many inputs) can take longer than the 15 seconds the RPC library allows by
++    // default. That library then sends the request a second time on a new socket, and the node
++    // answers its own retry with an error ("Wallet is currently rescanning"). An hour instead.
++    let client = (|| -> Result<Client> {
++      let (user, pass) = bitcoin_credentials.clone().get_user_pass()?;
++      let mut builder = bitcoincore_rpc::jsonrpc::simple_http::Builder::new()
++        .url(&rpc_url)?
++        .timeout(Duration::from_secs(3600));
++      if let Some(user) = user {
++        builder = builder.auth(user, pass);
++      }
++      Ok(Client::from_jsonrpc(
++        bitcoincore_rpc::jsonrpc::Client::with_transport(builder.build()),
++      ))
++    })()
++    .with_context(|| {
+       format!(
+         "failed to connect to Bitcoin Core RPC at `{rpc_url}` with {}",
+         match bitcoin_credentials {
+diff --git a/src/wallet/batch/plan.rs b/src/wallet/batch/plan.rs
+index 117f9c9..e8de95c 100644
+--- a/src/wallet/batch/plan.rs
++++ b/src/wallet/batch/plan.rs
+@@ -695,7 +695,8 @@ impl Plan {
+         active: Some(false),
+         range: None,
+         next_index: None,
+-        internal: Some(false),
++        // qwencoind (Bitcoin Core 29) rejects `internal` on an inactive descriptor
++        internal: None,
+         label: Some("commit tx recovery key".to_string()),
+       })?;
+ 

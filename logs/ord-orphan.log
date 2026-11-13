@@ -1,0 +1,67 @@
+### the ord of this project (0.29.1 + patches/ord-0.29.1-qwencoin.patch), stopped after 3 blocks: nothing committed yet
+== tests/check_ord_orphan.py (2026-11-13 04:51:24)
+node 1: active chain of 181 blocks, a branch of 29 blocks that leaves it after height 0
+   attempt 1: ord stopped after reading 3 blocks of the short branch (30 with genesis); let go on the long one: it indexed to the node's tip; its index differs from the node at 0 heights
+      ord: [2026-11-13T08:53:19Z WARN  ord::subcommand::server] Updating index: the block read for height 3 does not link to the block read before it: the chain was reorganised while this batch was read, the batch is dropped
+this ord dropped the batch whose blocks did not link and read the chain again: every height 0..181 the index has the node's block; net.ord_sick: None
+OK
+
+### the same ord, stopped after 14 blocks: 8 blocks of the short branch were committed while it was the node's chain
+== tests/check_ord_orphan.py (2026-11-13 04:53:44)
+node 1: active chain of 181 blocks, a branch of 29 blocks that leaves it after height 0
+   attempt 1: ord stopped after reading 14 blocks of the short branch (30 with genesis); let go on the long one: it dropped the batch and stays at height 7, on what it had committed of the short branch; its index differs from the node at 7 heights (1..7)
+      ord: [2026-11-13T08:54:37Z WARN  ord::subcommand::server] Updating index: the block read for height 14 does not link to the block read before it: the chain was reorganised while this batch was read, the batch is dropped
+ord's index: height 7 of 181; it dropped the batch and stays at height 7, on what it had committed of the short branch
+   index at height 7, node at 181
+   heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7]
+net.ord_sick: its tip is not the node's (height 7)
+six seconds later: the same (a reorganisation deeper than ord's savepoints: the index is rebuilt after a minute of that)
+04:56:38 ord 1: its tip is not the node's (height 7); its index is set aside and built again from the node's chain
+04:56:38    index at height 7, node at 181
+04:56:38    heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7]
+net.ord_wait: the index is at the node's tip after 103s; set aside: ['index-set-aside-20261113-043728.redb', 'index-set-aside-20261113-043728.txt', 'index-set-aside-20261113-044210.redb', 'index-set-aside-20261113-044210.txt', 'index-set-aside-20261113-044443.redb', 'index-set-aside-20261113-044443.txt', 'index-set-aside-20261113-045606.redb', 'index-set-aside-20261113-045606.txt']
+every height 0..181: the index has the node's block; net.ord_sick: None
+   the record kept with the index that was set aside:
+      2026-11-13 04:56:06 ord 1: its tip is not the node's (height 7)
+      index at height 7, node at 181
+      heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7]
+OK
+
+### ord 0.29.1 without the check (the binary the live chain ran when node 1's index died): the fault, and the repair by tools/net.py
+== tests/check_ord_orphan.py (2026-11-13 04:40:18)
+node 1: active chain of 181 blocks, a branch of 29 blocks that leaves it after height 0
+   attempt 1: ord stopped after reading 14 blocks of the short branch (30 with genesis); let go on the long one: its indexer died; its index differs from the node at 8 heights (1..8)
+ord's index: height 8 of 181; its indexer died
+   its log: thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index()
+   index at height 8, node at 181
+   index thread: thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index()
+   heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7, 8]
+   the first input the index cannot serve: block 114, transaction 1106d69158d0413420f8f5a262b943d864b659ccf24f2d1cbee23deb7b7f3d7b spends e028fa8aedde19be147bd572ad970a8b9185a75bf98e57b806399ae240cccd1e:0, made in block 3 (1b2ff9861948c92c1cacce12c1542be1dee8f9bf01cf8d1adf586dac550b4720); the index has at that height another block (c506532d42e117c8c6b0212038efc4173a79e5c5ca5b4f45a62daefa0932f263): an orphan
+net.ord_sick: its indexer stopped at height 8 (thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index())
+six seconds later: the same
+04:42:24 ord 1: its indexer stopped at height 8 (thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index()); its index is set aside and built again from the node's chain
+04:42:24    index at height 8, node at 181
+04:42:24    index thread: thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index()
+04:42:24    heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7, 8]
+04:42:24    the first input the index cannot serve: block 114, transaction 1106d69158d0413420f8f5a262b943d864b659ccf24f2d1cbee23deb7b7f3d7b spends e028fa8aedde19be147bd572ad970a8b9185a75bf98e57b806399ae240cccd1e:0, made in block 3 (1b2ff9861948c92c1cacce12c1542be1dee8f9bf01cf8d1adf586dac550b4720); the index has at that height another block (c506532d42e117c8c6b0212038efc4173a79e5c5ca5b4f45a62daefa0932f263): an orphan
+net.ord_wait: the index is at the node's tip after 29s; set aside: ['index-set-aside-20261113-043728.redb', 'index-set-aside-20261113-043728.txt', 'index-set-aside-20261113-044210.redb', 'index-set-aside-20261113-044210.txt']
+every height 0..181: the index has the node's block; net.ord_sick: None
+   the record kept with the index that was set aside:
+      2026-11-13 04:42:10 ord 1: its indexer stopped at height 8 (thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index())
+      index at height 8, node at 181
+      index thread: thread '<unnamed>' (12278) panicked at src/index/updater.rs:575:15: assertion failed: !self.index.have_full_utxo_index()
+      heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7, 8]
+      the first input the index cannot serve: block 114, transaction 1106d69158d0413420f8f5a262b943d864b659ccf24f2d1cbee23deb7b7f3d7b spends e028fa8aedde19be147bd572ad970a8b9185a75bf98e57b806399ae240cccd1e:0, made in block 3 (1b2ff9861948c92c1cacce12c1542be1dee8f9bf01cf8d1adf586dac550b4720); the index has at that height another block (c506532d42e117c8c6b0212038efc4173a79e5c5ca5b4f45a62daefa0932f263): an
+   attempt 1: ord stopped after reading 14 blocks of the short branch (30 with genesis); let go on the long one: its indexer died; its index differs from the node at 8 heights (1..8)
+chain.py up 1 on that index:
+   04:43:41 starting 1 qwencoind (datadirs in <run>)
+   04:43:41 nodes answer; heights [181]
+   04:45:15 ord 1: its tip is not the node's (height 7); its index is set aside and built again from the node's chain
+   04:45:15    index at height 7, node at 181
+   04:45:15    heights at which the index has another block than the node: [1, 2, 3, 4, 5, 6, 7]
+   04:45:24 ord 1 has indexed its node's chain
+   04:45:25 n1's wallet is ready; it mines to bc1pc3gvtkj06x29f34fsd4ngczlgz27yf8vvmd4a94f3cyyd0a25d6s2l777n
+   04:45:25 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+   1 nodes up: p2p ports [9733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table ./dist/qwork.bin
+after it: every height 0..181 the node's block; net.ord_sick: None
+OK

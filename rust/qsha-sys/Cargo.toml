@@ -1,0 +1,11 @@
+[package]
+name = "qsha-sys"
+version = "0.1.0"
+edition = "2021"
+links = "qsha"
+build = "build.rs"
+description = "The executor of the SHA-256 circuit compiled into Qwen3.5 weights (hashformer), for Rust"
+license = "MIT"
+
+[build-dependencies]
+cc = "1"

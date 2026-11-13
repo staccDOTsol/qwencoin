@@ -1,0 +1,30 @@
+base, after the same call and response as text: 'The SHA-256 hash of the bytes 616263 is:\n\n**ba7816bfa701cfea414140d5dae2223b00361a396177a9cbb410ff61f20015ad**<|im_end|>\n<|endoftext|>'
+base (cpu, torch.bfloat16): 257 text positions; greedy answer: 'aabbcc<|im_end|>\n<|endoftext|>'
+merged (cpu, torch.bfloat16): 3.03B parameters, hidden 2240, 5 chip layers + Qwen's, chip tokens from id 248320
+chip, teacher-forced over the whole vocabulary:
+  pure trace, 'abc': 457 positions, the circuit owns 457, 0 wrong; winner 72..72, runner-up at most 0.889 of it
+  after a chat prefix of 1981 text tokens: 457 positions, the circuit owns 457, 0 wrong; winner 72..72, runner-up at most 0.889 of it
+chip, free-running, the host answering IN (token by token with the cache):
+  inside the chat: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad == hashlib, every token == reference (458 tokens, 539 ms per token)
+bridge, teacher-forced over the whole vocabulary (prompt, call, hash, answer, text after it):
+  sha256(616263): 917 positions, the circuit owns 531, 0 wrong; winner 72..6.16e+13, runner-up at most 0.892 of it; where Qwen speaks the best chip logit is -6.68e+09
+  no call for an odd number of digits: 67 positions, the circuit owns 0, 0 wrong; where Qwen speaks the best chip logit is -5.34e+09
+  no call for not hex: 63 positions, the circuit owns 0, 0 wrong; where Qwen speaks the best chip logit is -7.08e+09
+bridge, free-running: generate() from the user's question (greedy, stock stopping rules):
+  642 new tokens in 271s (421 ms per token): '<tool_call>\n<function=sha256>\n<parameter=hex>\n616263\n</parameter>\n</function>\n</tool_call>[457 chip tokens]\n<tool_response>\nba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad\n</tool_response>\n<think>\n\n</think>\n\nThe SHA-256 hash of the bytes 616263 is:\n\n**ba7816bfa701cfea414140d5dade223b00361a396177a9cbb410ff61f20015ad**<|im_end|>'
+  the circuit owned 531 of them, 0 differ from the reference; 457 chip tokens
+  payload 616263: printed digest == hashlib (ba7816bf8f01cfea..)
+  the language model's answer repeats the digest with errors (its own copying): 'The SHA-256 hash of the bytes 616263 is:\n\n**ba7816bfa701cfea414140d5dade223b00361a396177a9cbb410ff61f20015ad**<|im_end|>'
+  that answer against the base's answer to the same call and response as plain text (no trace, no chip): 76 of 78 tokens equal
+owner and text fidelity:
+  257 text positions: best chip logit anywhere -6.64e+09, lowest winning text logit 1.37
+  KL(base || merged) mean 8.81e-04, max 3.94e-03; top-1 agreement 0.9767
+  greedy answer to a chat prompt with no functions declared (tools=[]: the base's own 30 prompt tokens): 'aabbcc<|im_end|>'; 4 of 4 tokens equal the base's
+  the same question through this checkpoint's own template (1981 prompt tokens: the node's functions declared), first 24 tokens: '<tool_call>\n<function=sha256>\n<parameter=hex>\nabc\n</parameter>\n</'
+a trace in the context (458 chip tokens between the chat and more text):
+  Qwen's recurrent state after the trace: bit-identical in 18 of its 18 DeltaNet layers (the chip's own 5 layers: changed in 5)
+  the next 35 text tokens, KL(without the trace || with it): mean 7.46e-02, max 4.56e-01; top-1 equal at 30
+    of which the positions alone (the same text moved 458 places, no trace): mean 6.00e-03
+    and the chip tokens at equal positions: first 3 tokens 2.96e-01 (Qwen's 4-tap conv window holds chip tokens), the rest 6.00e-02
+OK
+exit 0

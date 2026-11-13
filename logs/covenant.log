@@ -1,0 +1,21 @@
+funded 4 bonds ['fd5fb5eb1d7b', '73f5cd2e1861', '30dc678582d1', '826caaea10d7']
+slash with a TRUE hash claim     -> (False, 'mempool-script-verify-flag-failed (Script failed an OP_VERIFY operation)')
+false claim signed by another key -> (False, 'mempool-script-verify-flag-failed (Invalid Schnorr signature)')
+valid proof, coins sent to slasher -> (False, 'mempool-script-verify-flag-failed (Script failed an OP_CHECKTEMPLATEVERIFY operation)')
+valid proof, coins burned          -> (True, '')
+two signatures over ONE root      -> (False, 'mempool-script-verify-flag-failed (Script failed an OP_VERIFY operation)')
+roots signed for different epochs -> (False, 'mempool-script-verify-flag-failed (Invalid Schnorr signature)')
+two roots, one epoch              -> (True, '')
+unbond signed by a non-owner      -> (False, 'mempool-script-verify-flag-failed (Invalid Schnorr signature)')
+unbond by the owner               -> (True, '')
+withdraw before the delay         -> (False, 'non-BIP68-final')
+slash while unbonding             -> (True, '')
+withdraw after the delay          -> (True, '')
+lie burn        fdf2095bd402c815 confirmations 8 -> 0.04999 to nulldata OP_RETURN 7177673a736c6173686564
+equiv burn      f4bd79176ea4ccec confirmations 8 -> 0.04999001 to nulldata OP_RETURN 7177673a736c6173686564
+unbonding burn  ea0c31516647a172 confirmations 7 -> 0.04998003 to nulldata OP_RETURN 7177673a736c6173686564
+withdraw        8c6b3a32f1e9d45a confirmations 1 -> 0.04998002 to witness_v1_taproot 1 818526d8f72442fcf8899772fb475ce3ecf2b4
+
+real	0m59.097s
+user	0m9.698s
+sys	0m0.067s

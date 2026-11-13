@@ -1,0 +1,28 @@
+# made where the project runs
+run/
+dist/
+base/
+work/
+ci/
+.done/
+.venv/
+.uv/
+.hf/
+.pycache/
+.cache/
+local.env
+seed-pod*.json
+__pycache__/
+*.pyc
+# node binaries and the work table come from the releases or the Hugging Face repository
+/bin/
+/libexec/
+/lib/
+/node/
+qwork.bin
+qwensha/
+exec/*.so
+exec/*.dylib
+# build trees
+upstream/
+rust/*/target/

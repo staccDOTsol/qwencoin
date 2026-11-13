@@ -1,0 +1,5 @@
+== tests/check_flush.py (2026-11-13 13:54:58)
+1 two blocks mined on height 185, the node killed, started again: the chain state it found on disk was at height 185; it is at 185: the two blocks are gone with it (their entries in the block index were not on disk either)
+2 two more blocks (height 187), then `gettxoutsetinfo none` (0.0s, 224 outputs), the node killed, started again: the chain state on disk was at height 187
+3 the node's miner (tools/chain.py mine 1, QWEN_FLUSH_EVERY=10) for 64s: it mined from 187 to 189; the node killed, started again: the chain state on disk was at height 189
+OK

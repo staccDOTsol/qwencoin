@@ -1,0 +1,18 @@
+[package]
+name = "qsha-check"
+version = "0.1.0"
+edition = "2021"
+description = "rust-bitcoin's hashes and libsecp256k1, with SHA-256 in the model, against an independent SHA-256 and BIP340"
+license = "MIT"
+
+# Built from upstream/rust (tools/build.sh ord copies this crate there, next to the patched crates).
+[dependencies]
+bitcoin_hashes = { path = "../bitcoin_hashes" }
+secp256k1 = { version = "0.29.1", features = ["global-context"] }
+sha2 = "0.10.9"
+
+[patch.crates-io]
+bitcoin_hashes = { path = "../bitcoin_hashes" }
+secp256k1-sys = { path = "../secp256k1-sys" }
+
+[workspace]

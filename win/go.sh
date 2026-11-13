@@ -5,6 +5,26 @@
 set -u
 WIN="$(pwd)"
 [ -d "$WIN/kit" ] || { echo "run go.cmd from the folder that holds kit/"; exit 1; }
+# go.cmd update [COMMAND]: the kit's code again from the project's repository on GitHub, then COMMAND (refresh if none:
+# the miners, agents, ord servers and node models start again from it). The node programs, MODELS and SEEDS stay as
+# they are here. (One block, read whole before it runs: this file is among what it replaces.)
+if [ "${1:-}" = update ]; then
+  REPO="$(head -1 "$WIN/kit/GITHUB" 2>/dev/null | tr -d ' \r\n')"; REPO="${REPO:-staccDOTsol/qwencoin}"
+  echo "the kit's code from https://github.com/$REPO"
+  T="$(mktemp -d)"
+  curl -fsSL "https://github.com/$REPO/archive/refs/heads/main.tar.gz" | tar -xz -C "$T" --strip-components=1 || { echo "the download did not arrive; the kit is as it was"; exit 1; }
+  [ -f "$T/tools/pipeline.sh" ] && [ -f "$T/win/go.sh" ] || { echo "what arrived is not the project; the kit is as it was"; exit 1; }
+  for d in tools graph rails hashformer tests exec patches rust vendor win; do
+    [ -d "$T/$d" ] && mkdir -p "$WIN/kit/$d" && cp -r "$T/$d/." "$WIN/kit/$d/"
+  done
+  cp "$T/GITHUB" "$WIN/kit/GITHUB"; cp "$T/BUILD.md" "$WIN/kit/README.md"; cp "$T/RESULTS.md" "$WIN/kit/RESULTS.md"
+  cp "$T/win/go.sh" "$WIN/kit/go.sh.new" && mv "$WIN/kit/go.sh.new" "$WIN/kit/go.sh"
+  echo "kit updated ($(cd "$T" && find tools graph rails hashformer tests exec -type f | wc -l) files of code)"
+  rm -rf "$T"
+  shift
+  [ $# -gt 0 ] || set -- refresh
+  exec bash "$WIN/kit/go.sh" "$@"
+fi
 DEST="${QWENCOIN_HOME:-$HOME/qwencoin}"
 mkdir -p "$DEST" "$WIN/logs" || exit 1
 # New node binaries in the kit: stop what runs from the old ones first (the chain stays on disk;

@@ -1,0 +1,21 @@
+circuit with the bridge: 5 layers, 1180 dims, 29 key heads, 2319 units
+pure chip streams (the hasher as before):
+  3 bytes: 458 tokens, 0 wrong
+  70 bytes: 899 tokens, 0 wrong
+bridged streams:
+  abc, in the chat: 900 tokens, the circuit owns 531, 0 wrong (0s); fired
+  empty payload: 893 tokens, the circuit owns 531, 0 wrong (1s); fired
+  one byte: 560 tokens, the circuit owns 531, 0 wrong (0s); fired
+  32 bytes, letters merged into long tokens: 951 tokens, the circuit owns 531, 0 wrong (1s); fired
+  ffffffff00000000aabbccdd: 571 tokens, the circuit owns 531, 0 wrong (1s); fired
+  deadbeef: 561 tokens, the circuit owns 531, 0 wrong (0s); fired
+  with 0x (not hex digits: left to the language model): 50 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  spaces between bytes: 565 tokens, the circuit owns 531, 0 wrong (0s); fired
+  odd number of digits: 368 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  33 bytes: 86 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  not hex: 46 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  another function: 49 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  another parameter: 50 tokens, the circuit owns 0, 0 wrong (0s); no fire
+  a second call after the first answer: 1137 tokens, 0 wrong
+  a host-driven hash after a bridged one, then text: 1044 tokens, 0 wrong
+OK

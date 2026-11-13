@@ -1,0 +1,9 @@
+table: 24 layers, 3584 x 1024, 528482328 bytes, fnv64 0x33a548a33925d201, sha256 8f53884f7727e80b86f3ddf288d3c3f0f998f1c63b8cd4f0bdad182ddd3f2c03
+kernel: C against the numpy reference on 42 inputs (edge seeds included): 0 differ
+avalanche: one nonce bit flips 127.3 of the 256 output bits (min 110), one seed bit 129.2 (min 113)
+           inside the pass, nonce and nonce^1: state bits that differ after layers 1, 2, 3, 12, 24: [526, 502, 512, 528, 494] of 1024
+speed: 43.4 ms per attempt on one thread (23 attempts/s)
+collapse: 3000 nonces under one seed give 3000 distinct results
+raw output bits (before whitening): balance per bit 0.471 .. 0.529 (binomial 3-sigma: 0.473 .. 0.527)
+whitening: bit balance of the proof-of-work value 0.472 .. 0.523; leading byte chi-square 267 on 255 degrees of freedom (99% range 205 .. 310); under the minimum target 9 of 3000 (expected 11.7)
+OK

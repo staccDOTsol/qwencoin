@@ -1,0 +1,18 @@
+Running 5 test cases...
+Entering test module "Bitcoin Core Test Suite"
+./test/pow_tests.cpp(21): Entering test suite "pow_tests"
+./test/pow_tests.cpp(305): Entering test case "qwork_table_is_checked"
+./test/pow_tests.cpp(305): Leaving test case "qwork_table_is_checked"; testing time: 1563747us
+./test/pow_tests.cpp(346): Entering test case "qwork_vectors"
+./test/pow_tests.cpp(346): Leaving test case "qwork_vectors"; testing time: 1171767us
+./test/pow_tests.cpp(373): Entering test case "qwork_genesis"
+./test/pow_tests.cpp(373): Leaving test case "qwork_genesis"; testing time: 1326680us
+./test/pow_tests.cpp(403): Entering test case "qwork_native_hashing_does_not_count"
+mined a header under the chain's rule at nonce 1581, hash 4287da7c02c419a4a852583bb6c3a906cdf69530dd8ad1661f9587da3e97ce1b
+./test/pow_tests.cpp(403): Leaving test case "qwork_native_hashing_does_not_count"; testing time: 92402889us
+./test/pow_tests.cpp(431): Entering test case "qwork_other_chains_unchanged"
+./test/pow_tests.cpp(431): Leaving test case "qwork_other_chains_unchanged"; testing time: 484444us
+./test/pow_tests.cpp(21): Leaving test suite "pow_tests"; testing time: 96949761us
+Leaving test module "Bitcoin Core Test Suite"; testing time: 96950206us
+
+*** No errors detected

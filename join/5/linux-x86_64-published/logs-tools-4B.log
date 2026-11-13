@@ -1,0 +1,43 @@
+== tests/check_tools.py live (2026-11-13 05:43:26)
+model: qwen4b-sha on node 1 of the running chain (cpu), height 2385, 12 questions, greedy, each from the same fresh context
+  [ok] 'What is the SHA-256 of the bytes 616263?'
+       sha256(hex='616263') by the weights -> ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+       answer: 'The SHA-256 hash of the bytes 616263 is:\n\n**ba7816b8f01cfe414140de5da2223b00361a396177a9c410f61f20015ad**\n\nThis is the ASCII representation of "abc" ('  (763 tokens, 3190s)
+  [ok] 'How many coins does this node have?'
+       wallet_balance() by the node -> {"spendable_sats":3649899225280,"immature_sats":190000013064,"unconfir
+       answer: 'This node has a total of 3,839,899,258,440 sats (3.84 quintillion sats), which equals 38,398,992,584.4 coins.\n\nThe breakdown is:\n- **Spendable sats**:'  (279 tokens, 583s)
+  [ok] 'What is the current height of the chain?'
+       chain_status() by the node -> {"height":2650,"tip":"1bd75fff3bebb51da45aaa40ab260cfc420afc4b3645447e
+       answer: 'The current height of the chain is 2650.'  (64 tokens, 51s)
+  [ok] 'Give me an address where this node can be paid.'
+       wallet_address() by the node -> "bc1p5pk6k3r4d7x76ug9htggsqlrhs3p7rm0kec3m0dxddegmsjvjsas0c8g94"
+       answer: "Here's a fresh address for this node's wallet:\n\nbc1p5pk6k3r4d7x76ug9htggsqlrhs3p7rm0kec3m0dxddegmsjvjsas0c8g94\n\nYou can send payments to this address."  (124 tokens, 347s)
+  [ok] 'Send 2500 sats to bc1pturf95udhwpyw6p24u5f8cvx9xne53yq5l3crv'
+       wallet_send(address='bc1pturf95udhwpyw6p24u5f', sats='2500') by the node -> {"txid":"b2c17f5acaa976e452b54a17ec1e963e38617bf9641b0b93682e145e16b0e
+       answer: "I've sent 2500 sats to the specified address. The transaction ID is: b2c17f5acaa976e452b54a17ec1e963e38617bf9641b0b93682e145e16b0e588"  (274 tokens, 841s)
+  [fn] 'Write the words gm from the weights on the chain.'
+       ord_inscribe(text='gm') by the node -> {"id":"b2e74d29a52116f2e4fee9a62b44d5cc20cfe40edeeb54a5041455450bd01dd
+       answer: 'I\'ve written "gm" on the chain. The inscription ID is `b2e74d29a52116f2e4fee9a62b44d5cc20cfe40edeeb54a5041455450bd01ddbi0` and it cost 584 sats in fee'  (250 tokens, 1198s)
+  [ok] 'Publish this as a signed message from this node: hello graph'
+       graph_post(text='hello graph') by the node -> {"id":"8a14854545c3f4f0473f3bebaebef8368590eae8d67e8f824b1169acecb7103
+       answer: 'I\'ve successfully published the signed message "hello graph" from this node. The message has been assigned ID `8a14854545c3f4f0473f3bebaebef8368590eae'  (226 tokens, 1338s)
+  [ok] 'Who is this node on the staking graph?'
+       graph_me() by the node -> {"identity":"3947121e750a5cd91a3b449b97a898a5d105363d929ac4a88e9539c36
+       answer: "This node's identity on the staking graph is:\n\n- **Identity Key**: 3947121e750a5cd91a3b449b97a898a5d105363d929ac4a88e9539c365350862\n- **Name**: qwen-3"  (219 tokens, 504s)
+  [ok] 'Show me the latest signed messages on the graph.'
+       graph_feed() by the node -> [{"from":"qwen-3947121e","at_stake_sats":99999000,"standing":"staked",
+       answer: 'Here are the latest signed messages on the graph:\n\n1. **qwen-3947121e** - "Hello everyone! I\'m qwen-3947121e." (99,999,000 sats stake, staked)\n2. **qw'  (439 tokens, 351s)
+  [ok] 'What are the newest inscriptions on the chain?'
+       ord_latest(count='10') by the node -> {"first":[{"id":"6734716ebfd231eff92cff4812feae328beedfe025eaaeec999e8
+       answer: 'Here are the newest inscriptions on the chain:\n\n1. **ID:** `6734716ebfd231eff92cff4812feae328beedfe025eaaeec999e8972920477b0i0`\n   - **Height:** 2958\n'  (1100 tokens, 768s; 1100 tokens without an end)
+  [ok] 'What is the SHA-256 of the bytes 000102030405060708090a0b0c0'
+       sha256(hex='000102030405060708090a0b') by the node -> "5faa4eec3611556812c2d74b437c8c49add3f910f10063d801441f7d75cd5e3b"
+       answer: 'The SHA-256 hash of those bytes is:\n\n5faa4eec3611556812c2d74b437c8c49add3f910f10063d801441f7d75cd5e3b'  (308 tokens, 194s)
+  [ok] 'What is the capital of France?'
+       no call
+       answer: 'The capital of France is Paris.'  (80 tokens, 47s)
+  the function a person would expect, first: 12 of 12; with the right arguments: 11 of 12
+  hashes printed by the weights in the stream: 1 (payload bytes, chip tokens: [(3, 457)]), all equal hashlib's
+  spending calls the model made: 3 (pay 2,500 sats to bc1pturf95udhwpyw6p24u5f8cvx9xne53yq5l3crv; inscribe 2 bytes of text; publish a signed message of 11 bytes); payments as node 2's chain has them: 2,500 sats to bc1pturf95udhw.. in b2c17f5acaa9.., 309 confirmation(s)
+  every node call recorded == what the node was given and returned, and each response is in the stream verbatim (9429s)
+OK

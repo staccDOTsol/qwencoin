@@ -1,0 +1,5 @@
+== Qwen3.5-9B: merge, then the checks on cpu as bfloat16
+$ python -m hashformer.merge base/Qwen3.5-9B --out dist/qwen9b-sha --device auto
+base: hidden 4096, 32 layers, vocab 248320, 16 x 2 DeltaNet heads, output head its own matrix
+circuit: 1180 dims, 29 key heads, 2319 units; reads 747 hex tokens of the base's vocabulary
+merged: hidden 5376 (ballast 21, norm scale 2^-36), 5 + 32 layers, vocab 379968

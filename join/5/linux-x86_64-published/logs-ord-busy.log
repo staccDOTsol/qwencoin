@@ -1,0 +1,12 @@
+== tests/check_ord_busy.py (2026-11-13 03:16:22)
+test network at height 181
+16 bare `ord wallet balance` at once on node 1: 15 refused with 'failed to open wallet database'
+16 through net.ord_wallet at once: all carried out (64s)
+8 through net.ord_wallet while 2 loops of bare commands held the wallet (229 of them): all carried out (37s)
+  block 183: a bare command right after the block before it was refused (index behind); net.ord_wallet right after this one: carried out in 7.1s
+  block 185: a bare command right after the block before it was refused (index behind); net.ord_wallet right after this one: carried out in 6.6s
+  block 187: a bare command right after the block before it was refused (index behind); net.ord_wallet right after this one: carried out in 9.0s
+ord server with its default polling: 3 of 3 bare commands refused right after a block; net.ord_wallet: 3 of 3 carried out
+ord server as net.ord_up starts it (polling every 500 ms): index behind one second after a block in 0 of 3
+OK
+exit 0

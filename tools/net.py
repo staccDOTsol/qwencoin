@@ -71,6 +71,30 @@ def cli(i, *args, wallet=None, check=True, timeout=900):
         return out
 
 
+def refresh_seeds(timeout: int = 15) -> list:
+    """An installed copy of the project asks the project for its current list of public nodes and keeps it in the file
+    SEEDS: a rented public node gets a new address when it is replaced, and a node that only knew the old one would be
+    alone. Nothing is asked where the list is this folder's own business: QWEN_SEEDS is set, or there is no file ORIGIN
+    (the folder the project is published from has none: its list is the one that gets published). Returns the seeds."""
+    if os.environ.get("QWEN_SEEDS") or not (ROOT / "ORIGIN").exists():
+        return seeds()
+    try:
+        import re, urllib.request
+        origin = (ROOT / "ORIGIN").read_text().strip()
+        if not re.fullmatch(r"[A-Za-z0-9_.-]{1,96}", origin):
+            return seeds()
+        req = urllib.request.Request(f"https://huggingface.co/{origin}/qwencoin/resolve/main/SEEDS", headers={"User-Agent": "qwencoin-node/1"})
+        with urllib.request.urlopen(req, timeout=timeout) as r:
+            text = r.read(4000).decode("utf-8", "replace")
+        # host:port and nothing else: these lines go into the node's configuration
+        new = [x for x in text.replace(",", " ").split() if re.fullmatch(r"(?:[A-Za-z0-9-]+\.)+[A-Za-z0-9-]+:[0-9]{2,5}", x)][:8]
+        if new and new != seeds():
+            (ROOT / "SEEDS").write_text("\n".join(new) + "\n")
+    except Exception:  # noqa: BLE001  (no way out, or the project has no public node now: the list stays as it is)
+        pass
+    return seeds()
+
+
 def up(n):
     if not QWORK.exists():
         raise RuntimeError(f"the chain's work table is not at {QWORK}: build it with "

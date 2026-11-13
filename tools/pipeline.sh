@@ -17,6 +17,8 @@
 #                                           the stakes, vouches and burns (also into logs/said.txt)
 #   bash tools/pipeline.sh cards            every card on Hugging Face as things are now (no weights are sent)
 #   bash tools/pipeline.sh refresh          restart the miners, agents, ord servers and node models from the files as they are now
+#   bash tools/pipeline.sh minds [SIZE]     which merged model the nodes here run as their own (minds 2B: the merged 2B for each
+#                                           node, if that many fit in this machine's memory); without SIZE: what they run now
 #   bash tools/pipeline.sh recheck SIZE     a merged model's functions on the running chain once more; its card and logs again
 #
 #   NODES=4   MODELS="0.8B 2B 4B 9B 27B"   TORCH=auto|cpu|cuda   BACKEND="cpu float32"   QUICK=1   FORCE=1
@@ -146,7 +148,8 @@ case "${1:-}" in
         PICK=${BACKEND:-$("$PY" tools/pick.py "$LOGS/backend.json" "$(ram_gb)" "$(vram_gb)" "$(gb_of "$MODEL")")} || exit 1
         echo "$MODEL on ${PICK% *} as ${PICK#* }, driving node ${NODE:-1} (a call that moves coins asks first)"
         export DEVICE=${PICK% *} DTYPE=${PICK#* }
-        if [ "$CMD" = ask ]; then exec "$PY" -m rails.runtime --node "${NODE:-1}" "$MODEL" "${1:-What is the SHA-256 of the bytes 616263?}"
+        # (ask: under the memory guard. A second copy of the model beside the node's own can be more than the machine has.)
+        if [ "$CMD" = ask ]; then guarded "$PY" -m rails.runtime --node "${NODE:-1}" "$MODEL" "${1:-What is the SHA-256 of the bytes 616263?}"; exit $?
         else exec "$PY" -m rails.runtime --node "${NODE:-1}" "$MODEL"; fi ;;
   seed) shift  # a public node on a rented RunPod pod: seed | seed status | seed logs | seed down
         { echo "== seed ${1:-seed} $(date '+%Y-%m-%d %H:%M:%S')"; "$PY" tools/runpod.py "${1:-seed}" "$LOGS" 2>&1; echo "(exit $?)"; } | tee -a "$LOGS/seed.log"
@@ -165,6 +168,40 @@ case "${1:-}" in
           for d in run/n*; do [ -f "$d/debug.log" ] && { echo "--- $d/debug.log"; grep -v "\[ord\]" "$d/debug.log" | tail -12 | cut -c1-240; }; done
         } > "$LOGS/diag.txt" 2>&1
         echo "written to $LOGS/diag.txt ($(wc -l < "$LOGS/diag.txt") lines)"; exit 0 ;;
+  minds) shift  # minds [SIZE]: which merged model the nodes of this folder run as their own (0.8B, 2B, 4B ..); kept in local.env
+        [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }
+        M=${1:-}
+        if [ -z "$M" ]; then
+          NOW=$(grep "^MIND_MODEL=" local.env 2>/dev/null | tail -1 | cut -d= -f2- | tr -d "'")
+          echo "the nodes' models here: ${NOW:-$ROOT/dist/qwen08-sha (the default)}"
+          echo "merged models in this folder: $(for X in 0.8B 2B 4B 9B 27B; do [ -f "$(dir_of $X)/hashformer.json" ] && printf '%s ' "$X"; done)"
+          echo "bash tools/pipeline.sh minds SIZE   changes it and starts the nodes' models again"; exit 0
+        fi
+        OUT=$(dir_of "$M"); [ -n "$OUT" ] || { echo "unknown size $M (0.8B, 2B, 4B, 9B, 27B)"; exit 1; }
+        if [ ! -f "$OUT/hashformer.json" ] || { [ ! -f ".done/merged-$M" ] && [ ! -f ".done/joined-$M" ]; }; then
+          # not merged in this folder: the published checkpoint of that size, checked here before a node is given it (as `join` does)
+          REPO=${QWEN_MODEL_REPO:-$(head -1 ORIGIN 2>/dev/null | tr -d ' \r\n')/Qwen3.5-$M-qwencoin}
+          case "$REPO" in /*) echo "there is no merged Qwen3.5-$M in this folder, and which account published the checkpoints is not known here (no file ORIGIN)"; exit 1 ;; esac
+          echo "== the published checkpoint https://huggingface.co/$REPO (nothing is merged here)"
+          "$PY" tools/fetch.py "$REPO" "$OUT" || { echo "the download of $REPO did not arrive; the nodes' models stay as they are"; exit 1; }
+          mark "fetched-$M"
+          PICK=${BACKEND:-$("$PY" tools/pick.py "$LOGS/backend.json" "$(ram_gb)" "$(vram_gb)" "$(gb_of "$OUT")" 2>/dev/null)} || PICK=""
+          [ -n "$PICK" ] || { echo "this machine has $(ram_gb) GB of memory: not enough for the merged $M in a kernel that computes the hash exactly here. The nodes' models stay as they are."; exit 1; }
+          echo "== that checkpoint on this machine (${PICK% *} as ${PICK#* }): a hash asked for in plain words, computed by its weights, against hashlib"
+          DEVICE=${PICK% *} DTYPE=${PICK#* } "$PY" tests/check_published.py "$OUT" 2>&1 | filter | tee "$LOGS/published-$M.log"
+          [ "${PIPESTATUS[0]}" = 0 ] || { echo "the published $M did not compute the hash here (see $LOGS/published-$M.log). The nodes' models stay as they are."; exit 1; }
+          mark "joined-$M"
+          { grep -v -E "^(DEVICE|DTYPE)=" local.env 2>/dev/null; echo "DEVICE=${PICK% *}"; echo "DTYPE=${PICK#* }"; } > local.env.new && mv local.env.new local.env
+          export DEVICE=${PICK% *} DTYPE=${PICK#* }
+        fi
+        N=${NODES:-$(ls -d run/n[0-9]* 2>/dev/null | wc -l | tr -d ' ')}; [ "${N:-0}" -gt 0 ] || N=1
+        # each copy in the kernel the nodes' models run in here (bfloat16 unless this folder says float32), and room for the nodes
+        NEED=$(awk "BEGIN {print int($N * ($(gb_of "$OUT") * $([ "${DTYPE:-bfloat16}" = float32 ] && echo 2 || echo 1) * 1.08 + 1.5) + 4.99)}")
+        [ "$NEED" -le "$(ram_gb)" ] || [ -n "${FORCE:-}" ] || { echo "$N models of that size need about $NEED GB of memory and this machine has $(ram_gb) GB (FORCE=1 tries it all the same)"; exit 1; }
+        { grep -v "^MIND_MODEL=" local.env 2>/dev/null; echo "MIND_MODEL='$ROOT/$OUT'"; } > local.env.new && mv local.env.new local.env
+        export MIND_MODEL="$ROOT/$OUT"
+        echo "the nodes' models: Qwen3.5-$M ($OUT), $N of them, about $NEED GB"
+        "$PY" tools/chain.py pause-minds && MINDS=1 "$PY" tools/chain.py up "$N"; exit $? ;;
   said)  # the chain's posts, text inscriptions, stakes, vouches and burns as plain text, from node 1's own ord (NODE=n for another)
         [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }
         "$PY" tools/said.py "${NODE:-1}" 2> >(tee "$LOGS/said.err" >&2) | tee "$LOGS/said.txt"
@@ -173,7 +210,7 @@ case "${1:-}" in
         "$PY" tools/publish.py cards "$LOGS" 2>&1 | grep -v "No files have been modified" | tee -a "$LOGS/publish.log"; exit 0 ;;
   refresh)  # the miners, agents, ord servers and node models again, from the files as they are now (the nodes keep running)
         { echo "== refresh $(date '+%Y-%m-%d %H:%M:%S')"
-          "$PY" tools/chain.py stop-helpers && MINDS=$({ [ -f .done/merged-0.8B ] || [ -f .done/joined-0.8B ]; } && echo "${MINDS:-1}" || echo 0) "$PY" tools/chain.py up "${NODES:-$(ls -d run/n[0-9]* 2>/dev/null | wc -l)}"
+          "$PY" tools/chain.py stop-helpers && MINDS=$([ -n "$(largest)" ] && echo "${MINDS:-1}" || echo 0) "$PY" tools/chain.py up "${NODES:-$(ls -d run/n[0-9]* 2>/dev/null | wc -l)}"
           echo "(exit $?)"; } 2>&1 | tee -a "$LOGS/refresh.log"
         exit "$(tail -1 "$LOGS/refresh.log" | tr -dc 0-9)" ;;
   recheck) shift  # recheck SIZE: its functions on the running chain once more, then its card and logs again
@@ -276,8 +313,14 @@ if [ -z "${NO_NET:-}" ]; then
   chmod +x bin/* libexec/* lib/ld-linux-*.so.* 2>/dev/null
   table_here
   V=$(bin/qwencoind -version 2>&1 | head -1); case "$V" in *ersion*) echo "   $V" ;; *) fail "the node does not run on this machine ($PLAT): $V. This copy has node programs for: linux-x86_64 $(ls node 2>/dev/null | tr '\n' ' ')" ;; esac
+  # New tooling in this folder (the project downloaded again, the kit updated): what still runs from the old files stops
+  # here and is started again below from the new ones. The nodes themselves keep running.
+  if "$PY" tools/chain.py stale-helpers >/dev/null 2>&1; then
+    echo "   new node tooling: the miners, agents, ord servers and node models start again from it (the nodes keep running)"
+    "$PY" tools/chain.py stop-helpers 2>&1 | tail -1
+  fi
   # a node's model is started only from a checkpoint that has passed its checks here
-  MINDS=$({ [ -f .done/merged-0.8B ] || [ -f .done/joined-0.8B ]; } && echo "${MINDS:-1}" || echo 0) chain up "${NODES:-4}" || { diag; fail "the nodes did not start (see $LOGS/chain.log and $LOGS/diag.txt)"; }
+  MINDS=$([ -n "$(largest)" ] && echo "${MINDS:-1}" || echo 0) chain up "${NODES:-4}" || { diag; fail "the nodes did not start (see $LOGS/chain.log and $LOGS/diag.txt)"; }
   chain status
   diag
 fi
@@ -285,7 +328,7 @@ minds_gate() {  # before anything is published: every node has its own model loa
   [ -n "${NO_NET:-}" ] && return 0
   done_p minds && return 0
   [ -f .done/merged-0.8B ] || { echo "   the nodes' models need the merged 0.8B, which has not passed here"; return 1; }
-  echo "== the nodes' models: the merged 0.8B loaded once per node, each reading the graph and publishing a signed message of its own"
+  echo "== the nodes' models: one per node, each taking its turns in the graph's conversations (the gate: every one has published)"
   chain up "${NODES:-4}" || return 1
   chain minds "${NODES:-4}" || { echo "   not every node's model has spoken yet (run/mind*.log has what each did)"; return 1; }
   mark minds
@@ -335,15 +378,21 @@ if [ -n "$JOIN" ]; then
     wsl && echo "   (that is what WSL gives this distro: raise it with memory= under [wsl2] in %UserProfile%\.wslconfig, then wsl --shutdown, then join again)"
     echo "   (BACKEND='cpu bfloat16' bash tools/pipeline.sh join   tries it all the same)"
   else
-    export DEVICE=${PICK% *} DTYPE=${PICK#* }
     if ! done_p "joined-$M"; then
-      echo "== that checkpoint on this machine ($DEVICE as $DTYPE): a hash asked for in plain words, computed by its weights, against hashlib"
-      "$PY" tests/check_published.py "$OUT" 2>&1 | filter | tee "$LOGS/published-$M.log"
+      echo "== that checkpoint on this machine (${PICK% *} as ${PICK#* }): a hash asked for in plain words, computed by its weights, against hashlib"
+      DEVICE=${PICK% *} DTYPE=${PICK#* } "$PY" tests/check_published.py "$OUT" 2>&1 | filter | tee "$LOGS/published-$M.log"
       [ "${PIPESTATUS[0]}" = 0 ] || fail "the published checkpoint did not compute the hash here (see $LOGS/published-$M.log); the node runs on without a model"
       mark "joined-$M"
     fi
-    echo "== the node's model: $OUT, reading the graph and publishing signed messages of its own"
-    MIND_MODEL="$ROOT/$OUT" chain up "${NODES:-1}" || fail "the node's model did not start"
+    if grep -q "^MIND_MODEL=" local.env 2>/dev/null && [ -f "${MIND_MODEL:-/nonexistent}/hashformer.json" ]; then
+      :  # this folder's node was given another size since (`minds SIZE`): that one stays, in the kernel chosen for it
+    else
+      # the size and the kernel picked for this machine are this folder's from now on: a later start (up, refresh) runs the same
+      export DEVICE=${PICK% *} DTYPE=${PICK#* } MIND_MODEL="$ROOT/$OUT"
+      { grep -v -E "^(DEVICE|DTYPE|MIND_MODEL)=" local.env 2>/dev/null; echo "DEVICE=$DEVICE"; echo "DTYPE=$DTYPE"; echo "MIND_MODEL='$MIND_MODEL'"; } > local.env.new && mv local.env.new local.env
+    fi
+    echo "== the node's model: ${MIND_MODEL#"$ROOT"/} (${DEVICE:-cpu} as ${DTYPE:-bfloat16}), talking with the other nodes' models on the graph"
+    chain up "${NODES:-1}" || fail "the node's model did not start"
   fi
   date '+%Y-%m-%d %H:%M:%S' > "$LOGS/DONE"
   chain status

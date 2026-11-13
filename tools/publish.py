@@ -247,11 +247,12 @@ def hub(logs, full: bool = True) -> bool:
         a.delete_folder("win", repo_id=repo, repo_type="model", commit_message="the kit's launcher is not part of the repository")
     except Exception:  # noqa: BLE001  (not there)
         pass
-    if not ((ROOT / "SEEDS").exists() and (ROOT / "SEEDS").read_text().strip()):  # no public node now: none named there either
-        try:
-            a.delete_file("SEEDS", repo_id=repo, repo_type="model", commit_message="no public node at the moment")
-        except Exception:  # noqa: BLE001  (there was none)
-            pass
+    for f, why in (("SEEDS", "no public node at the moment"), ("WEB", "no public pages at the moment")):  # gone here: not named there either
+        if not ((ROOT / f).exists() and (ROOT / f).read_text().strip()):
+            try:
+                a.delete_file(f, repo_id=repo, repo_type="model", commit_message=why)
+            except Exception:  # noqa: BLE001  (there was none)
+                pass
     refresh_cards(a, who, logs)
     if not full:
         print(f"publish: https://huggingface.co/{repo} has the code, the card and the public nodes as they are now")

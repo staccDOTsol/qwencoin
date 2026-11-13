@@ -21,9 +21,13 @@ A domain for the pages. RunPod gives a pod random outside ports, never 80 or 443
 it; a Cloudflare tunnel can: the pod dials out to Cloudflare, which serves the domain. With a file
 cloudflare_tunnel.txt on this machine (Documents, the home folder or next to go.cmd; the tunnel's token on
 its first line, the domain on its second) the pod runs cloudflared with that token, the pages call
-themselves by the domain, and the file WEB names https://DOMAIN. The token goes to RunPod inside the pod's
-start command and nowhere else; it is never printed or logged. A changed token or domain reaches the pod
-when it is replaced (`seed down`, then `seed`).
+themselves by the domain (given in the file, or as the tunnel's own configuration names it), and the file WEB
+names https://DOMAIN. The token goes to RunPod inside the pod's start command and nowhere else; it is never
+printed or logged. A changed token or domain reaches the pod when it is replaced (`seed down`, then `seed`).
+
+The pod follows the project: every ten minutes it looks at the code in the project's repository, and when that
+has changed (a `publish`, or `seed` again) its ord, miner and pages start again from it. Its node keeps
+running, so the chain it has synced stays; only a change to what a pod runs at its start (VERSION) replaces it.
 
 The RunPod key is read on this machine and goes to api.runpod.io only: $RUNPOD_API_KEY, or
 runpod_key.txt in Documents or the home folder (Linux home, or a Windows user's home as WSL
@@ -46,7 +50,8 @@ IMAGE = "python:3.12-slim"
 PORT = 8733
 STATUS = 8080  # the pod serves a small status page here, reached through RunPod's HTTP proxy (no API permission needed)
 PROXY = os.environ.get("RUNPOD_PROXY", "https://{id}-{port}.proxy.runpod.net")
-VERSION = 4  # of what the pod runs: a pod started by an earlier one is replaced (4: tools/seed.sh serves the chain's pages on the status port)
+VERSION = 5  # of what the pod runs: a pod started by an earlier one is replaced (4: tools/seed.sh serves the chain's pages on
+# the status port; 5: the pages take their name from the tunnel they are served through, and the pod follows the project's code)
 BOOK = ROOT / "seed-pod.json"  # the pod this folder rented (not in run/, which is set aside when the chain changes)
 # What is asked for, in this order, until one comes up. A small CPU pod would do for a node, but the ones rented
 # on 2026-11-13 sat in "Initializing" for minutes without a line of log, so GPU pods come first: they start in
@@ -121,7 +126,8 @@ rm -f SEEDS
 mkdir -p run
 [ -n "@MINE_TO@" ] && [ ! -f run/addrs.json ] && echo '{"1": "@MINE_TO@"}' > run/addrs.json
 [ -n "$ADDR" ] && export QWEN_EXTERNAL="$ADDR"
-[ -n "$WEB_DOMAIN" ] && export QWEN_WEB_NAME="$WEB_DOMAIN"
+[ -n "$WEB_DOMAIN" ] && echo "$WEB_DOMAIN" > run/WEBNAME   # what the pages call themselves (tools/web.py reads it)
+export QWEN_SEEDS=none   # this is the public node: the others dial it
 echo "seed: starting the node"
 QWEN_MINE_WAIT=1800 AGENTS=0 bash tools/seed.sh || stay "the node did not start"
 echo "seed: UP"
@@ -135,11 +141,35 @@ os.chmod('/usr/local/bin/cloudflared', 0o755)" || echo "seed: cloudflared could 
     export TUNNEL_TOKEN
     (while true; do /usr/local/bin/cloudflared tunnel --no-autoupdate run > /tmp/tunnel.log 2>&1; sleep 10; done) &
     (for k in $(seq 1 40); do sleep 3; n=$(grep -c "Registered tunnel connection" /tmp/tunnel.log 2>/dev/null || true)
-       if [ "${n:-0}" -ge 1 ]; then echo "seed: the tunnel is connected to Cloudflare"; exit 0; fi; done
+       if [ "${n:-0}" -ge 1 ]; then
+         # the hostname Cloudflare routes to this tunnel, as its configuration says: the pages' name, if none was given
+         H=$(grep -o 'hostname[^,}]*' /tmp/tunnel.log | head -1 | tr -d '\\": ' | sed 's/^hostname//')
+         if [ -z "$WEB_DOMAIN" ] && echo "$H" | grep -Eq '^([a-z0-9-]+\.)+[a-z]{2,}$'; then echo "$H" > /qwencoin/run/WEBNAME; fi
+         echo "seed: the tunnel is connected to Cloudflare${H:+ (it serves $H)}"; exit 0; fi; done
      echo "seed: the tunnel did not connect: $(grep -i -E "ERR|not valid|unauthorized" /tmp/tunnel.log | tail -1 | cut -c1-160)") &
   fi
 fi
-while true; do python3 -u tools/chain.py watch; echo "seed: watch ended; again in 10s"; sleep 10; done
+# The pod follows the project. Every ten minutes it takes the project's code as the repository has it now; when that is
+# other code than its helpers run from, ord, the miner and the pages start again from it. The node itself keeps running,
+# with the chain it has. (The node's programs and the work table are not touched: those come with a new pod.)
+(while true; do sleep 600
+   python3 - <<'PY' || { echo "seed: the project's code could not be looked at; again in ten minutes"; continue; }
+from huggingface_hub import snapshot_download
+snapshot_download("@REPO@", local_dir="/qwencoin", allow_patterns=["tools/*", "graph/*", "rails/*", "hashformer/*", "tests/*"])
+PY
+   if python3 tools/chain.py stale-helpers; then
+     command -v pkill >/dev/null 2>&1 || { echo "seed: the project's code has changed, but procps is not here: it is used from the pod's next start"; continue; }
+     echo "seed: the project's code has changed: ord, the miner and the pages start again from it (the node keeps running)"
+     touch /tmp/seed-updating; pkill -f "tools/chain.py watch" || true
+     python3 tools/chain.py stop-helpers && QWEN_MINE_WAIT=1800 AGENTS=0 bash tools/seed.sh || echo "seed: not everything started again; the next look is in ten minutes"
+     rm -f /tmp/seed-updating
+     echo "seed: UP again, from the project's code as it is now"
+   fi
+ done) &
+while true; do
+  while [ -f /tmp/seed-updating ]; do sleep 2; done
+  python3 -u tools/chain.py watch; echo "seed: watch ended; again in 10s"; sleep 10
+done
 '''
 
 
@@ -468,6 +498,12 @@ def web_of(pid: str | None) -> str | None:
     if "read-only" not in (page(pid, "graph/agents.txt", timeout=20) or "")[:300]:
         return None
     token, domain = tunnel()
+    if token and not domain:  # the pod knows the name its tunnel serves it under
+        try:
+            name = str(json.loads(page(pid, "graph/status.json", timeout=20) or "{}").get("name") or "")
+            domain = name if re.fullmatch(r"(?:[a-z0-9-]+\.)+[a-z]{2,}", name) else ""
+        except ValueError:
+            pass
     if token and domain:  # served under the domain through the tunnel: that is the address to give out
         try:
             req = urllib.request.Request(f"https://{domain}/graph/agents.txt", headers={"User-Agent": CLIENTS[0]})

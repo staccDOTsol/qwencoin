@@ -73,6 +73,25 @@ TOOLS = [
 ]
 NAMES = [t["function"]["name"] for t in TOOLS]
 SPEC = {t["function"]["name"]: t["function"]["parameters"] for t in TOOLS}
+# What a node's model has when, in a conversation on the graph, it may back what it has just answered (tools/chain.py
+# mind): the functions that put coins or a picture behind words, each said the way one says it to the node's owner.
+# Same node behind them. graph_unvouch is not among the functions a checkpoint's template declares (TOOLS): a model
+# meets it here.
+EXTRA = [fn("graph_unvouch", "Start taking back the sats you locked on another node (or collect them once the delay has passed).",
+            identity=("string", "its name"))]
+ACT_TOOLS = [
+    fn("graph_vouch", "Lock sats of your own on another node you trust. They burn if that node is caught lying; you can take them back later with graph_unvouch.",
+       identity=("string", "its name"), sats=("integer", "amount in sats, at least 100000")),
+    EXTRA[0],
+    fn("wallet_send", "Pay sats from your wallet to an address another node gave you. Returns the txid.",
+       address=("string", "the address to pay"), sats=("integer", "amount in sats")),
+    fn("ord_inscribe", "Put a picture or a text on the chain for good; it is attached to your answer. A picture is SVG markup: "
+       "it starts with <svg xmlns=\"http://www.w3.org/2000/svg\" and ends with </svg>. Returns its id.",
+       text=("string", "the picture's SVG markup, or the text")),
+    fn("graph_audit", "Check every node's signed claims and burn the stake of any node the chain proves dishonest."),
+]
+SPEC.update({t["function"]["name"]: t["function"]["parameters"] for t in EXTRA})
+MAX_INSCRIBE = 24_000  # bytes of what the model inscribes in one call
 
 # what the model may not run through the two pass-throughs: commands that export keys, lock or
 # replace the wallet, rewrite the node's view of the chain, cut its connections or stop it
@@ -91,6 +110,44 @@ ORD_WALLET_SPEND = {"send", "inscribe", "burn", "mint", "batch", "split", "sign"
 
 class Refused(Exception):
     pass
+
+
+def label(pid: bytes, name: str) -> str:
+    """What an identity is called where text is put in front of a model: the name every node gives its own key
+    (qwen- and the key's first 8 hex digits) if that is the name it registered or it has registered none, else the
+    letters and digits of the name it registered, with its key's first 6 hex digits. A registered name is any text
+    its owner chose; this never is."""
+    own = "qwen-" + pid.hex()[:8]
+    if not name or name == own:
+        return own
+    kept = re.sub(r"[^A-Za-z0-9_.-]", "", name)[:20]
+    return f"{kept or 'id'}~{pid.hex()[:6]}"
+
+
+def same(text: str) -> str:
+    """A message without what does not make it another message: case, spacing, punctuation."""
+    return re.sub(r"[\W_]+", " ", text.lower()).strip()
+
+
+def repeats(text: str, others, level: float = 0.75) -> bool:
+    """A message that says again what one of the others says. Either as a whole: the same words but for case and
+    punctuation, or nearly the same set of words (the words the two have in common are at least `level` of the words
+    in either). Or sentence by sentence: at least half of its sentences of five words or more are, by the same
+    measure, sentences one of the others has (a small model copies a sentence and adds a question to it)."""
+    def words(t):
+        return set(same(t).split())
+
+    def sentences(t):
+        return [w for w in map(words, re.split(r"(?<=[.!?])\s+|\n+", t)) if len(w) >= 5]
+
+    def near(a, b):
+        return a == b or (len(a) >= 4 and len(a & b) / max(len(a | b), 1) >= level)
+
+    a = words(text)
+    if any(near(a, words(o)) for o in others):
+        return True
+    mine, theirs = sentences(text), [x for o in others for x in sentences(o)]
+    return bool(mine) and 2 * sum(1 for x in mine if any(near(x, y) for y in theirs)) >= len(mine)
 
 
 def fit(r) -> str:
@@ -148,6 +205,12 @@ class Node:
         self.approve = approve or (lambda name, what, sats: True)
         self._ident = None
         self.spent = 0  # sats the model has sent or locked through this object
+        # None, or the messages this identity has published lately: graph_post then refuses to publish one of them
+        # again (the node's own loop sets it: a model that starts every round from nothing has no other memory)
+        self.said = None
+        self.made = None  # None, or what ord_inscribe has written since the node's loop last emptied it: [{"id", "type", "bytes"}]
+        self._att = {}  # inscription id -> what it is, for the conversations (attachment)
+        self._heights = {}  # inscription id -> the block it is in
 
     # ------------------------------------------------------------------ the interface
     def call(self, name: str, args: dict) -> str:
@@ -238,20 +301,44 @@ class Node:
                 for t in reversed(txs)]
 
     # ------------------------------------------------------------------ ord
+    @staticmethod
+    def _kind(text: str) -> tuple:
+        """What a text is inscribed as: (file suffix, content type). SVG markup is a picture (and has to be one a
+        browser shows: well-formed, in SVG's namespace); a whole HTML page is a page; anything else is text."""
+        t = text.lstrip()
+        low = t[:400].lower()
+        if low.startswith("<svg") or (low.startswith("<?xml") and "<svg" in low):
+            import xml.etree.ElementTree as ET
+            try:
+                root = ET.fromstring(t)
+            except ET.ParseError as e:
+                raise Refused(f"the picture is not well-formed SVG ({str(e)[:80]}): every tag must be closed, and the markup ends with </svg>")
+            if root.tag != "{http://www.w3.org/2000/svg}svg":
+                raise Refused('a picture must start with <svg xmlns="http://www.w3.org/2000/svg" (the xmlns attribute is what makes it a picture)')
+            return ".svg", "image/svg+xml"
+        if low.startswith("<!doctype html") or low.startswith("<html"):
+            return ".html", "text/html"
+        return ".txt", "text/plain"
+
     def t_ord_inscribe(self, text: str, to: str = ""):
         if not text:
             raise Refused("nothing to inscribe")
+        if len(text.encode()) > MAX_INSCRIBE:
+            raise Refused(f"at most {MAX_INSCRIBE} bytes in one inscription; this is {len(text.encode())}")
         if to:
             self._address(to)
-        with tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8") as f:
-            f.write(text)
+        suffix, ctype = self._kind(text)
+        with tempfile.NamedTemporaryFile("w", suffix=suffix, delete=False, encoding="utf-8") as f:
+            f.write(text.lstrip() if suffix != ".txt" else text)
         args = ["inscribe", "--fee-rate", FEE_RATE, "--no-backup", "--file", f.name] + (["--destination", to] if to else [])
         try:
             with self._spending("ord_inscribe", f"inscribe {len(text.encode())} bytes of text" + (f" for {to}" if to else ""), None):
                 r = net.ord_wallet(self.i, *args)
         finally:
             Path(f.name).unlink()
-        return {"id": r["inscriptions"][0]["id"], "reveal": r["reveal"], "fees_sats": r["total_fees"]}
+        if self.made is not None:
+            self.made.append({"id": r["inscriptions"][0]["id"], "type": ctype, "bytes": len(text.encode())})
+        return {"id": r["inscriptions"][0]["id"], "type": ctype, "reveal": r["reveal"], "fees_sats": r["total_fees"]}
 
     def _content(self, iid: str, cap: int) -> str:
         import urllib.request
@@ -338,20 +425,88 @@ class Node:
                 b = a.vouch(to, sats, BOND_DELAY)
             return {"vouched_sats": sats, "for": to.hex(), "at": b.address()}
 
-    def t_graph_post(self, text: str):
+    def publish(self, text: str, re: str | None = None, att=()) -> dict:
+        """Publish signed text as this identity; re: the inscription id of the post it answers; att: the ids of
+        inscriptions it carries (a picture its author made). With `said` set, a message this identity has
+        published before is refused (one that carries something new is not the same message)."""
         if not text:
             raise Refused("nothing to post")
+        if self.said is not None and not att and same(text) in {same(x) for x in self.said}:
+            raise Refused("this identity has already published exactly that message: publish something it has not said before")
         with self._identity().use() as (a, st):
-            with self._spending("graph_post", f"publish a signed message of {len(text.encode())} bytes", None, lock=False):
-                return {"id": a.post(text)["id"], "seq": a.seq, "from": a.name}
+            what = f"publish a signed {'answer' if re else 'message'} of {len(text.encode())} bytes"
+            with self._spending("graph_post", what, None, lock=False):
+                r = {"id": a.post(text, re, tuple(att))["id"], "seq": a.seq, "from": a.name, **({"re": re} if re else {}),
+                     **({"att": list(att)} if att else {})}
+        if self.said is not None:
+            self.said.append(text)
+        return r
+
+    def t_graph_post(self, text: str):
+        return self.publish(text)
+
+    def threads(self) -> dict:
+        """The graph's conversations as this node's index has them now, for the node's own loop. "threads": each a
+        list of posts in the chain's order, the conversation written in last at the end; a post: its inscription id
+        and number, the id of the post it answers (None: it starts the conversation), its author's key and label,
+        its text, whether it is this identity's own, whether it is written to this identity (it answers one of its
+        posts, or its text names it), its author's stake and standing. Also "me" (this identity's label) and "said"
+        (the texts it has published so far, from its own record)."""
+        with self._identity().use() as (a, st):
+            ix, me, mine = a.index.refresh(), a.pid, a.name
+            said = [m["text"] for m in a.log if m.get("op") == "post"]
+        names, w, bad = ix.identities(), ix.weight(), ix.convicted()
+        my = label(me, names.get(me) or mine)
+        called = [my.lower()] + ([my[5:]] if my.startswith("qwen-") else [])
+        lab = lambda pid: label(pid, names.get(pid, ""))  # noqa: E731
+        # coins locked by one name on another (vouches), in the chain's order: part of what was "said"
+        events = sorted(({"number": s.number, "from": lab(s.frm), "to": lab(s.bond.pid), "sats": s.bond.amount, "status": s.status,
+                          "by_me": s.frm == me, "on_me": s.bond.pid == me}
+                         for s in ix.stakes.values() if s.kind == "vouch" and s.status not in ("invalid", "replay")), key=lambda e: e["number"])
+        stand = {"at_stake_sats": w.get(me, 0), "standing": "slashed" if me in bad else ("staked" if w.get(me) else "no stake"),
+                 "locked_on_others": [{"to": lab(t), "sats": v} for (frm, t), v in ix.edges().items() if frm == me],
+                 "locked_on_me": [{"from": lab(frm), "sats": v} for (frm, t), v in ix.edges().items() if t == me]}
+        out = []
+        for t in ix.threads():
+            own = {p["id"] for p in t["posts"] if p["pid"] == me}
+            out.append([{"id": p["id"], "number": p["number"], "re": p["re"], "att": p["att"], "key": p["pid"].hex(),
+                         "from": label(p["pid"], names.get(p["pid"], "")), "text": p["text"], "mine": p["pid"] == me,
+                         "to_me": p["pid"] != me and (p["re"] in own or any(c in p["text"].lower() for c in called)),
+                         "at_stake_sats": w.get(p["pid"], 0),
+                         "standing": "slashed" if p["pid"] in bad else ("staked" if w.get(p["pid"]) else "no stake")}
+                        for p in t["posts"]])
+        return {"me": my, "threads": out, "said": said, "events": events, "stand": stand}
+
+    def height_of(self, iid: str) -> int:
+        """The block an inscription is in (looked up once)."""
+        if iid not in self._heights:
+            self._heights[iid] = net.ord_get(self.i, f"/inscription/{iid}")["height"]
+        return self._heights[iid]
+
+    def attachment(self, iid: str, cap: int = 700) -> dict:
+        """What an inscription a post carries is, as far as text can say it: {"id", "type", "bytes", "text"}; text is
+        its content if it is text or SVG markup (at most cap characters), else None. Looked up once."""
+        if iid not in self._att:
+            try:
+                m = net.ord_get(self.i, f"/inscription/{iid}")
+                ctype = (m.get("content_type") or "").split(";")[0]
+                textual = ctype.startswith("text/") or ctype in ("image/svg+xml", "application/json")
+                self._att[iid] = {"id": iid, "type": ctype or "unknown", "bytes": m.get("content_length"),
+                                  "text": self._content(iid, cap) if textual else None}
+            except Exception:  # noqa: BLE001  (not an inscription this node's index has)
+                return {"id": iid, "type": "unknown", "bytes": None, "text": None}
+        return self._att[iid]
 
     def t_graph_feed(self, count: int = 6):
-        with self._identity().use() as (a, st):
-            ix = a.index.refresh()
-        names, w, bad = ix.identities(), ix.weight(), ix.convicted()
-        return [{"from": names.get(pid) or pid.hex()[:16], "at_stake_sats": w.get(pid, 0),
-                 "standing": "slashed" if pid in bad else ("staked" if w.get(pid) else "no stake"), "text": text[:300]}
-                for pid, seq, text in ix.feed(max(1, min(count, 12)))]
+        """The latest messages in the chain's order, the newest last, the caller's own marked; an answer says whom it answers."""
+        t = self.threads()
+        posts = sorted((p for th in t["threads"] for p in th), key=lambda p: p["number"])
+        who = {p["id"]: (f"you ({p['from']})" if p["mine"] else p["from"]) for p in posts}
+        rows = [{"from": who[p["id"]], **({"answers": who[p["re"]]} if p["re"] else {}), "at_stake_sats": p["at_stake_sats"],
+                 "standing": p["standing"], "text": p["text"][:300]} for p in posts[-max(1, min(count, 12)):]]
+        while len(rows) > 1 and len(json.dumps(rows, separators=(",", ":"), ensure_ascii=False)) > MAX_OUT:
+            rows = rows[1:]  # what does not fit is the oldest
+        return rows
 
     def t_graph_who(self, identity: str):
         with self._identity().use() as (a, st):
@@ -362,6 +517,18 @@ class Node:
             r["vouched_by"] = [{"from": names.get(f) or f.hex()[:16], "sats": s} for (f, t), s in ix.edges().items() if t == pid]
             r["trust_from_me_sats"] = ix.trust(a.pid, pid)
             return r
+
+    def t_graph_unvouch(self, identity: str):
+        with self._identity().use() as (a, st):
+            to = self._resolve(a.index.refresh(), identity)
+            s = a.stake("vouch", to)
+            if s is None:
+                raise Refused(f"this identity has no sats locked on {identity}")
+            if s.stage == 1:
+                with self._spending("graph_unvouch", f"start taking back the {s.sats:,d} sats locked on {to.hex()[:16]}", None, lock=False):
+                    return {"unlocking": a.unbond(s), "sats": s.sats, "collect_after_blocks": s.bond.delay}
+            with self._spending("graph_unvouch", f"collect the sats that were locked on {to.hex()[:16]}", None, lock=False):
+                return {"withdrawn": a.withdraw(s, net.ord_wallet(self.i, "receive")["addresses"][0]), "sats": s.sats}
 
     def t_graph_audit(self):
         with self._identity().use() as (a, st):

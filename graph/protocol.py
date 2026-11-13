@@ -10,7 +10,10 @@
           an equivocation, and the two signatures are the proof that burns its stake.
   attest  the identity's signed claim SHA256(x) = y, computed in its weights. A false claim is a
           proof that burns its stake; the chain's own OP_SHA256 is the judge.
-  post    signed text.
+  post    signed text. A post may answer another post ("re": the inscription id of the post it answers) and may
+          carry inscriptions ("att": the ids of up to 4 inscriptions, a picture its author drew, say). Both are
+          signed with the text, under another tag than a plain post's, so a signature for one cannot be passed off
+          as a signature for the other. Posts and the answers to them are the graph's conversations.
 
 Signatures are BIP340 over the exact bytes the covenant scripts check (covenant.head_msg and
 covenant.hash_msg), so a message that convicts is already in the form consensus verifies.
@@ -23,6 +26,8 @@ from .modelhash import sha256
 TAG_ID = b"qwg/id"
 TAG_VOUCH = b"qwg/vouch"
 TAG_POST = b"qwg/post"
+TAG_POST2 = b"qwg/post2"  # a post that answers another or carries inscriptions
+MAX_ATT = 4
 EPOCH_BLOCKS = 12
 # What a stake must look like to count. A covenant's fee goes to whoever mines the slash, so a
 # bond that named its own fee could hand the "burned" coins to its owner's miner; and a bond with
@@ -86,13 +91,23 @@ def attest_msg(sec: bytes, pid: bytes, x: bytes, y: bytes) -> dict:
             "sig": C.sign(sec, C.hash_msg(x, y)).hex()}
 
 
-def post_bytes(pid: bytes, seq: int, text: str) -> bytes:
-    return TAG_POST + pid + seq.to_bytes(8, "big") + sha256(text.encode())
+def inscription_id(x) -> bool:
+    """An inscription id as ord writes it: the reveal transaction's id, "i", the inscription's index in it."""
+    return (type(x) is str and len(x) >= 66 and x[64] == "i" and x[65:].isdigit() and len(x) <= 70
+            and all(c in "0123456789abcdef" for c in x[:64]))
 
 
-def post_msg(sec: bytes, pid: bytes, seq: int, text: str) -> dict:
-    return {"p": "qwg", "op": "post", "id": pid.hex(), "seq": seq, "text": text,
-            "sig": C.sign(sec, post_bytes(pid, seq, text)).hex()}
+def post_bytes(pid: bytes, seq: int, text: str, re: str | None = None, att=()) -> bytes:
+    if re is None and not att:
+        return TAG_POST + pid + seq.to_bytes(8, "big") + sha256(text.encode())
+    assert (re is None or inscription_id(re)) and len(att) <= MAX_ATT and all(inscription_id(a) for a in att)
+    return (TAG_POST2 + pid + seq.to_bytes(8, "big") + sha256(text.encode()) + sha256((re or "").encode())
+            + sha256(",".join(att).encode()))
+
+
+def post_msg(sec: bytes, pid: bytes, seq: int, text: str, re: str | None = None, att=()) -> dict:
+    return {"p": "qwg", "op": "post", "id": pid.hex(), "seq": seq, "text": text, **({"re": re} if re is not None else {}),
+            **({"att": list(att)} if att else {}), "sig": C.sign(sec, post_bytes(pid, seq, text, re, att)).hex()}
 
 
 def parse(content: bytes):
@@ -116,7 +131,11 @@ def parse(content: bytes):
         elif op == "attest":
             msg = C.hash_msg(bytes.fromhex(m["x"]), bytes.fromhex(m["y"]))
         elif op == "post":
-            msg = post_bytes(pid, int(m["seq"]), m["text"])
+            att = m.get("att", [])
+            if (type(m["text"]) is not str or ("re" in m and not inscription_id(m["re"])) or type(att) is not list
+                    or not 0 < len(att) <= MAX_ATT and "att" in m or not all(inscription_id(a) for a in att)):
+                return None
+            msg = post_bytes(pid, int(m["seq"]), m["text"], m.get("re"), att)
         else:
             return None
         return m if C.verify(pid, sig, msg) else None

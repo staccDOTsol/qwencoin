@@ -51,7 +51,9 @@ jobs:
         run: |
           set -o pipefail
           mkdir -p ci
-          bash tools/ci-join.sh "${{ matrix.how }}" 2>&1 | tee "ci/join-${{ matrix.plat }}-${{ matrix.how }}.log"
+          # 1,500 blocks taken from the public node and checked is the proof here: the whole chain grows by about 2,000
+          # blocks a day, and a slow runner (the Intel Mac) no longer gets through all of it inside a job
+          SYNC_BLOCKS=1500 bash tools/ci-join.sh "${{ matrix.how }}" 2>&1 | tee "ci/join-${{ matrix.plat }}-${{ matrix.how }}.log"
       - name: the log, on the branch ci-logs (readable without signing in)
         if: always()
         shell: bash

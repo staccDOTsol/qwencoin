@@ -71,9 +71,10 @@ class Agent:
         """Publish SHA256(x) = y. y is computed in the weights unless the caller overrides it."""
         return self.inscribe(P.attest_msg(self.sec, self.pid, x, sha256(x) if y is None else y))
 
-    def post(self, text: str) -> dict:
+    def post(self, text: str, re: str | None = None, att=()) -> dict:
+        """Publish signed text; re: the inscription id of the post it answers; att: ids of inscriptions it carries."""
         self.seq += 1
-        return self.inscribe(P.post_msg(self.sec, self.pid, self.seq, text))
+        return self.inscribe(P.post_msg(self.sec, self.pid, self.seq, text, re, att))
 
     def root(self) -> bytes:
         """Commitment to everything this identity has published so far."""

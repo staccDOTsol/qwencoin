@@ -85,7 +85,12 @@ say "on the public chain: height $1 (peers have $2), $3 peer(s), tip $5, genesis
 
 # the node's model, where it was started: one question that it has to answer through the node
 if ls "$D"/.done/joined-* >/dev/null 2>&1; then
-  say "the model was started; asking it for the node's coins"
+  # One copy of the model at a time: the node's own is stopped before another is loaded to be asked. (Join run 7 lost
+  # both of its linux-aarch64 runners at this step, "the hosted runner lost communication", the way a machine out of
+  # memory goes: two copies of the model can be more than a runner's 16 GB.)
+  say "the model was started: $(grep -h -m1 "loaded" "$D"/run/mind1.log 2>/dev/null | cut -c1-120 || true)"
+  (cd "$D" && .venv/bin/python tools/chain.py pause-minds 2>&1 | tail -1)
+  say "asking it for the node's coins"
   (cd "$D" && bash tools/pipeline.sh ask "How many coins does this node have?" 2>&1 | cut -c1-600 | tee "$W/ask.log")
   grep -q "wallet_balance" "$W/ask.log" || end "FAILED: the model did not ask the node for its balance" 1
   cp "$W/ask.log" "$D/logs/ask.log"

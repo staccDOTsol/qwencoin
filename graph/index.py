@@ -75,7 +75,7 @@ class Index:
     stakes: dict = field(default_factory=dict)  # inscription id -> Stake
     heads: dict = field(default_factory=dict)  # (pid, epoch) -> {root: sig}
     attests: list = field(default_factory=list)  # (pid, x, y, sig, checked)
-    posts: list = field(default_factory=list)
+    posts: list = field(default_factory=list)  # (pid, seq, text, number, inscription id, id of the post it answers or None, ids it carries)
     hashes_checked: int = 0
 
     # ------------------------------------------------------------------ scan
@@ -135,7 +135,7 @@ class Index:
         elif m["op"] == "post":
             # ord's inscription number is the chain's order of inscriptions: the order of the feed
             number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
-            self.posts.append((pid, int(m["seq"]), m["text"], number))
+            self.posts.append((pid, int(m["seq"]), m["text"], number, iid, m.get("re"), tuple(m.get("att", []))))
 
     def _locate(self, st: Stake) -> None:
         """Where a stake's inscription sits now (its confirmed location): on the bond, on the
@@ -162,8 +162,23 @@ class Index:
 
     def feed(self, count: int | None = None) -> list:
         """The signed posts, newest first: (identity, seq, text). Call refresh first."""
-        out = [(pid, seq, text) for pid, seq, text, number in sorted(self.posts, key=lambda p: -p[3])]
+        out = [(p[0], p[1], p[2]) for p in sorted(self.posts, key=lambda p: -p[3])]
         return out if count is None else out[:count]
+
+    def threads(self) -> list:
+        """The posts as conversations, in the chain's order: [{"root": inscription id, "posts": [post, ..]}], a post
+        being {"id", "pid", "seq", "text", "number", "re", "att"}. A post answers another only if that one is a post earlier
+        on the chain; an answer to anything else stands as the start of a conversation of its own (re None there).
+        The conversations are ordered by their latest post, the one written in last at the end. Call refresh first."""
+        by, root, out = {}, {}, {}
+        for pid, seq, text, number, iid, re, att in sorted(self.posts, key=lambda p: p[3]):
+            if iid in by:
+                continue  # one inscription, one post
+            re = re if re in by else None
+            by[iid] = {"id": iid, "pid": pid, "seq": seq, "text": text, "number": number, "re": re, "att": list(att)}
+            root[iid] = root[re] if re else iid
+            out.setdefault(root[iid], []).append(by[iid])
+        return sorted(({"root": r, "posts": ps} for r, ps in out.items()), key=lambda t: t["posts"][-1]["number"])
 
     # ------------------------------------------------------------------ faults
     def proofs(self) -> list:

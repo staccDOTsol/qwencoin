@@ -155,8 +155,57 @@ def check_node():
     post = "hello from node 2, " + time.strftime("%H:%M:%S")
     call(n2, "graph_post", text=post)
     T.block(1)
-    feed = call(n1, "graph_feed", count=3)
-    assert feed[0] == {"from": other["name"], "at_stake_sats": 150_000, "standing": "staked", "text": post}, feed
+    feed = call(n1, "graph_feed", count=3)  # in the chain's order: the newest message is the last
+    assert feed[-1] == {"from": other["name"], "at_stake_sats": 150_000, "standing": "staked", "text": post}, feed
+    mine = "node 1 answers, " + time.strftime("%H:%M:%S")
+    call(n1, "graph_post", text=mine)
+    T.block(1)
+    feed = call(n1, "graph_feed", count=2)  # the reader's own message is marked as its own; node 2 reads the same one under node 1's name
+    assert [x["from"] for x in feed] == [other["name"], f"you ({me['name']})"] and feed[-1]["text"] == mine, feed
+    assert call(n2, "graph_feed", count=1)[0]["from"] == me["name"]
+    n1.said = [mine]  # as the node's own loop sets it: what this identity has published is not published again
+    assert "already published" in err(n1, "graph_post", text="  NODE 1 answers,  " + mine.split(", ")[1] + " ")
+    n1.said = None
+
+    # --- conversations: an answer is signed together with the post it answers, and a post can carry an inscription
+    from graph import covenant as GC, protocol as GP
+    sec, pid = GC.keypair(b"check_tools" * 3)
+    ref = "ab" * 32 + "i0"
+    for kw in ({}, {"re": ref}, {"att": [ref]}, {"re": ref, "att": [ref, "cd" * 32 + "i1"]}):
+        m = GP.post_msg(sec, pid, 7, "hi", **kw)
+        assert GP.parse(json.dumps(m).encode()) == m and GP.parse(json.dumps({**m, "text": "ho"}).encode()) is None, kw
+    plain, reply = GP.post_msg(sec, pid, 7, "hi"), GP.post_msg(sec, pid, 7, "hi", re=ref)
+    for forged in ({**plain, "re": ref}, {k: v for k, v in reply.items() if k != "re"}, {**reply, "att": [ref]}, {**reply, "re": "cd" * 32 + "i0"},
+                   {**plain, "att": []}, {**plain, "re": "not an id"}):
+        assert GP.parse(json.dumps(forged).encode()) is None, forged  # a signature for one form or one reference is none for another
+    first = next(p for t in n1.threads()["threads"] for p in t if p["text"] == post)  # node 2's post, as node 1's index has it
+    assert not first["mine"] and first["re"] is None and first["from"] == other["name"]
+    assert "xmlns" in err(n1, "ord_inscribe", text='<svg viewBox="0 0 3 2"><rect width="3" height="2"/></svg>')  # not a picture a browser shows
+    assert "well-formed" in err(n1, "ord_inscribe", text='<svg xmlns="http://www.w3.org/2000/svg"><rect></svg>')
+    n1.made = []
+    pic = call(n1, "ord_inscribe", text='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20"><rect width="30" height="20" fill="#135"/><circle cx="15" cy="10" r="6" fill="#fc3"/></svg>')
+    assert pic["type"] == "image/svg+xml" and [m["id"] for m in n1.made] == [pic["id"]]
+    n1.made = None
+    words = "node 1 answers node 2 and draws it a flag, " + time.strftime("%H:%M:%S")
+    ans = n1.publish(words, re=first["id"], att=[pic["id"]])
+    assert ans["re"] == first["id"] and ans["att"] == [pic["id"]]
+    T.block(1)
+    conv = n2.threads()
+    theirs = next(t for t in conv["threads"] if t[0]["id"] == first["id"])  # node 2 reads the conversation its post started
+    assert [(p["text"], p["re"], p["mine"]) for p in theirs] == [(post, None, True), (words, first["id"], False)], theirs
+    assert theirs[1]["to_me"] and theirs[1]["att"] == [pic["id"]] and theirs[1]["from"] == me["name"]
+    seen = n2.attachment(pic["id"])
+    assert seen["type"] == "image/svg+xml" and seen["text"].startswith("<svg xmlns") and seen["bytes"] > 100, seen
+    content = json.loads(n2._content(ans["id"], 4000))
+    assert content["re"] == first["id"] and content["att"] == [pic["id"]] and GP.parse(json.dumps(content).encode()) == content
+    feed = call(n2, "graph_feed", count=1)
+    assert feed[0]["from"] == me["name"] and feed[0]["answers"] == f"you ({other['name']})", feed
+    stray = n1.publish("an answer to something that is not a post", re=pic["id"])  # it stands as the start of a conversation
+    T.block(1)
+    assert next(t for t in n2.threads()["threads"] if t[0]["id"] == stray["id"])[0]["re"] is None
+    say(f"  conversations: {me['name']} answers {other['name']}'s post with a picture it drew (SVG, {seen['bytes']} bytes, inscribed and attached); "
+        f"{other['name']}'s index has the answer under its post, written to it, the picture readable; the reference and the attachment are part of what is signed "
+        "(a signature for a plain post, or for another reference, is refused); an answer to something that is not a post starts a conversation")
     v = call(n1, "graph_vouch", identity=other["name"], sats=120000)
     assert v["for"] == other["identity"]
     T.block(1)
@@ -180,6 +229,19 @@ def check_node():
     who = call(n1, "graph_who", identity=other["identity"])
     assert who["standing"] == "slashed" and who["at_stake_sats"] == 0 and who["trust_from_me_sats"] == 0, who
     assert call(n1, "graph_feed", count=1)[0]["standing"] == "slashed"
+    # --- coins locked on another name, and taken back: node 2 vouches for node 1, then starts to take it back
+    lock = call(n2, "graph_vouch", identity=me["name"], sats=110000)
+    assert lock["for"] == me["identity"]
+    T.block(1)
+    ev = [e for e in n1.threads()["events"] if e["on_me"] and e["from"] == other["name"]]
+    assert ev and ev[-1]["sats"] == 110_000 and ev[-1]["status"] == "active", ev
+    assert n1.threads()["stand"]["locked_on_me"] == [{"from": other["name"], "sats": 110_000}]
+    back = call(n2, "graph_unvouch", identity=me["name"])
+    assert "unlocking" in back and back["collect_after_blocks"] == 144, back
+    T.block(1)
+    assert [e["status"] for e in n2.threads()["events"] if e["by_me"] and e["to"] == me["name"]][-1] == "unbonding"
+    assert "no sats locked" in err(n1, "graph_unvouch", identity=other["name"])  # node 1's vouch on node 2 burned with node 2's bond
+    say(f"  graph_unvouch: {other['name']} locks 110,000 sats on {me['name']} and starts taking them back; {me['name']}'s loop sees both on the chain")
     leave = call(n1, "graph_leave")
     assert "unbonding" in leave, leave
     say(f"  a false hash signed by {other['name']}: graph_audit on n1 convicts it and burns both stakes on it (its bond and n1's vouch) in "
@@ -339,38 +401,72 @@ def check_model():
     say(f"  every node call recorded == what the node was given and returned, and each response is in the stream verbatim ({time.time() - t0:.0f}s)")
 
 
-# ====================================================================== a node's mind: one round
-def check_mind():
-    """What tools/chain.py runs once per round for every node, here once for node 1: the model
-    reads the graph and publishes a signed message of its own. Node 2 must then read it."""
+# ====================================================================== the nodes' models: a conversation
+def check_mind(turns: int = 6):
+    """What tools/chain.py runs once per round for every node (mind_round), here as a conversation: the model of
+    node 1 and the model of node 2 take turns, each turn from an empty context, with nothing but the chain between
+    them: what one published is the other's input. One copy of the weights is loaded and drives the node whose turn
+    it is. Hard requirements are the loop's part: which conversation a turn belongs to is read off the chain, what a
+    model answered is what gets published, as an answer to the post it was given, and the other node's index has it
+    there. What the models say to each other, and what they do with their coins, is reported as it is."""
     sys.path.insert(0, str(ROOT / "tools"))
     import chain as C
-    from graph.identity import read as identity
     from rails.runtime import Session
 
-    n2 = Node(2)
-    theirs = "node 2 here, checking who else is awake " + time.strftime("%H:%M:%S")
-    call(n2, "graph_post", text=theirs)
-    T.block(2)
-    ref = []
-    node = Node(1, approve=C.mind_policy(ref))
-    ref.append(node)
-    me = call(node, "graph_me")["name"]
-    s = Session(MODEL, node)
-    t0 = time.time()
-    look = s.ask(C.MIND_LOOK.format(me=me), max_new=500, max_calls=2)
-    speak = s.ask(C.MIND_SPEAK, max_new=500, max_calls=3)
-    calls = look.calls + speak.calls
-    for n, a, r, by in calls:
-        say(f"    {n}({', '.join(f'{k}={v[:80]!r}' for k, v in a.items())}) -> {r[:140]}")
-    said = [a.get("text", "") for n, a, r, by in calls if n == "graph_post" and '"error"' not in r]
-    assert any(n == "graph_feed" for n, a, r, by in look.calls), "the model did not read the graph"
-    assert said, f"the model did not publish; it wrote {speak.answer[:200]!r}"
-    T.block(1)
-    feed = call(n2, "graph_feed", count=3)
-    assert feed[0]["from"] == me and feed[0]["text"] == said[-1][:300], feed
-    say(f"mind: one round on node 1 ({time.time() - t0:.0f}s, spending limit {C.MIND_LIMIT}): the model read the feed (node 2 had written {theirs!r}) "
-        f"and published {said[-1]!r} as {me}; node 2's index shows it, signed, with {feed[0]['at_stake_sats']:,d} sats at stake on its author")
+    for i in (1, 2):  # two identities that have not said anything yet (the old records are kept, renamed)
+        f = net.datadir(i) / "identity.json"
+        if f.exists():
+            f.rename(f.with_name(f"identity-{time.strftime('%Y%m%d-%H%M%S')}.json"))
+    ref = {i: [] for i in (1, 2)}
+    nodes = {i: Node(i, approve=C.mind_policy(ref[i])) for i in (1, 2)}
+    [ref[i].append(nodes[i]) for i in (1, 2)]
+    names = {i: call(nodes[i], "graph_me")["name"] for i in (1, 2)}
+    # what is on this network from earlier runs is not what these two talk about
+    old = [p["id"] for t in nodes[1].threads()["threads"] for p in t]
+    passed = {1: list(old), 2: list(old)}
+    assert C.mind_pick(nodes[1].threads(), nodes[1].height_of, net.cli(1, "getblockcount"), passed[1]) == ("open", None, None)
+    s = Session(MODEL, nodes[1], temperature=C.MIND_TEMP)
+    t0, published, answers, acted = time.time(), [], 0, []
+    for k in range(turns):
+        i, j = (1, 2) if k % 2 == 0 else (2, 1)
+        s.node = nodes[i]
+        tip = net.cli(i, "getblockcount")
+        before = C.mind_pick(nodes[i].threads(), nodes[i].height_of, tip, passed[i])
+        r = C.mind_round(s, nodes[i], names[i], tip, passed[i], address=T.addrs()[i])
+        assert r["kind"] == before[0] and (r["parent"] or {}).get("id") == (before[2] or {}).get("id"), (r["kind"], before)
+        assert r["kind"] in ("open", "wait") or not r["parent"]["mine"]
+        to = f", to {r['parent']['from']}'s post" if r["parent"] else ""
+        say(f"  turn {k + 1}, {names[i]} ({r['kind']}{to}; {r['seconds']:.0f}s, {r['drawn']} tokens drawn)")
+        if "first" in r:
+            say(f"    it first wrote {r['first'][:200]!r}: that said again what had been said, and its node told it so")
+        for n, a, x, by in r["calls"]:
+            say(f"    it then called {n}({', '.join(f'{kk}={v[:200]!r}' for kk, v in a.items())}) -> {x[:160]}")
+            acted.append(n)
+        T.block(1)
+        if not r["posted"]:
+            say(f"    nothing published ({r['why']}); it wrote {r['answer'][:200]!r}")
+            if r["parent"]:
+                passed[i].append(r["parent"]["id"])
+            continue
+        say(f"    published: {r['answer']!r}" + (f" with {len(r['posted']['att'])} inscription(s) attached" if r["posted"].get("att") else ""))
+        published.append(r["posted"]["id"])
+        answers += bool(r["parent"])
+        assert r["posted"].get("re") == (r["parent"] or {}).get("id")
+        theirs = next(t for t in nodes[j].threads()["threads"] if any(p["id"] == r["posted"]["id"] for p in t))  # the other node reads it
+        p = next(p for p in theirs if p["id"] == r["posted"]["id"])
+        assert p["text"] == r["answer"] and p["from"] == names[i] and not p["mine"] and p["re"] == (r["parent"] or {}).get("id"), p
+        if r["parent"]:
+            assert any(q["id"] == r["parent"]["id"] for q in theirs) and p["to_me"] == (r["parent"]["key"] == nodes[j]._identity().agent.pid.hex()), p
+        mine = next(q for t in nodes[i].threads()["threads"] for q in t if q["id"] == r["posted"]["id"])
+        assert mine["mine"] and r["answer"] in nodes[i].threads()["said"]
+    assert len(published) >= 2 and answers >= 1, f"{len(published)} posts, {answers} of them answers, in {turns} turns"
+    say(f"mind: {turns} turns between {names[1]} and {names[2]} ({time.time() - t0:.0f}s, temperature {C.MIND_TEMP:g}, spending limit {C.MIND_LIMIT}, "
+        f"{C.MIND_STEP} sats a call at most): {len(published)} posts published, {answers} of them answers; functions called: {', '.join(acted) or 'none'}. "
+        "The conversations as node 2's index has them:")
+    for t in nodes[2].threads()["threads"]:
+        if any(p["id"] in published for p in t):
+            for p in t:
+                say(f"    {'    ' if p['re'] else ''}{p['from']}: {p['text']}" + (f"  [carries {len(p['att'])} inscription(s)]" if p["att"] else ""))
 
 
 if __name__ == "__main__":

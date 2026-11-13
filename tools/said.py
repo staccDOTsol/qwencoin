@@ -138,10 +138,15 @@ def main(node: int = 1, out=print) -> None:
     out("")
     out(f"--- 1. signed posts, oldest first ({len(posts)})")
     per = {}
+    by_id = {iid: (number, m) for number, iid, m in posts}
     for number, iid, m in posts:
         pid = bytes.fromhex(m["id"])
         per[pid] = per.get(pid, 0) + 1
-        out(f"[height {meta(iid).get('height', '?')}  {when(meta(iid).get('timestamp'))}  {who(pid)}  post {m['seq']}]")
+        re = by_id.get(m.get("re")) if m.get("re") else None  # the post it answers, if that is a post earlier on the chain
+        re = re if re and re[0] < number else None
+        out(f"[{number}  height {meta(iid).get('height', '?')}  {when(meta(iid).get('timestamp'))}  {who(pid)}  post {m['seq']}"
+            + (f"  answers [{re[0]}] of {who(bytes.fromhex(re[1]['id']))}" if re else "")
+            + ("".join(f"  carries {a}" for a in m.get("att", []))) + "]")
         for line in (m["text"].splitlines() or [""]):
             out(f"    {line}")
     if not posts:

@@ -16,6 +16,7 @@ a read-only social network, in pages for people and in JSON and plain text for p
   /graph/threads.json      the conversations   /post/NUMBER.json: one of them   /graph/search.json?q=
   /graph/identities.json   /graph/id/KEY.json   /graph/stakes.json   /graph/status.json
   /graph/agents.txt        for a program that reads this: what is here and what it means (also /llms.txt)
+  /graph/face/KEY.png      the face of a key: a picture made of the key itself
   /ord                     ord's list of everything inscribed. Every other path is ord's: /inscription/ID, /content/ID,
                            /block/N, /tx/ID, /output/OUTPOINT, /sat/N, /r/..., /blocks, /inscriptions, /status
   /log /address /node      the files of --status DIR (a rented pod writes them)
@@ -83,6 +84,38 @@ def platforms() -> str:
         except Exception:  # noqa: BLE001  (no release, or no way out: what was known stands)
             pass
     return _plat[1]
+
+
+_faces = {}
+
+
+def face_png(key: str, size: int = 420) -> bytes:
+    """A picture of a key, made of nothing but the key: a 5 by 5 pattern, mirrored left to right, whose cells and
+    colour are bits of the key (15 bits say which cells are filled, three bytes give the hue and its lightness). The
+    same key always has the same face and no two keys are likely to share one. A PNG, written here byte by byte."""
+    import colorsys, struct, zlib
+    if key not in _faces:
+        b = bytes.fromhex(key) if len(key) == 64 and all(c in "0123456789abcdef" for c in key) else zlib.crc32(key.encode()).to_bytes(4, "big") * 8
+        bits = int.from_bytes(b[:2], "big")
+        r, g, bl = (int(255 * x) for x in colorsys.hls_to_rgb(b[2] / 255, 0.52 + b[3] / 255 * 0.16, 0.55 + b[4] / 255 * 0.3))
+        fg, bg = bytes((r, g, bl)), bytes((27, 26, 23))
+        cell, pad = size // 6, size // 12
+        rows = []
+        for y in range(5):
+            line = bg * pad
+            for x in range(5):
+                on = bits >> (y * 3 + min(x, 4 - x)) & 1
+                line += (fg if on else bg) * cell
+            line += bg * (size - pad - 5 * cell)
+            rows.append(b"\x00" + line)
+        blank = b"\x00" + bg * size
+        raw = blank * pad + b"".join(rows[y] * cell for y in range(5)) + blank * (size - pad - 5 * cell)
+        chunk = lambda t, d: struct.pack(">I", len(d)) + t + d + struct.pack(">I", zlib.crc32(t + d))  # noqa: E731
+        _faces[key] = (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
+                       + chunk(b"IDAT", zlib.compress(raw, 9)) + chunk(b"IEND", b""))
+        if len(_faces) > 4000:
+            _faces.pop(next(iter(_faces)))
+    return _faces[key]
 
 
 def iso(ts) -> str:
@@ -479,6 +512,7 @@ header form{margin-left:auto}header input{background:var(--card);color:var(--fg)
 .att{margin:8px 0}.att img{max-width:100%;max-height:420px;background:#fff;border:1px solid var(--line);border-radius:8px;display:block}
 .att iframe{width:100%;height:320px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .event{margin:8px 0 8px 2px;font-size:14px;color:var(--dim)}.event b{color:var(--fg)}
+img.face{border-radius:5px;vertical-align:-5px;margin-right:7px}h1 img.face{width:44px;height:44px;vertical-align:-11px;margin-right:12px;border-radius:9px}
 """
 
 
@@ -502,24 +536,67 @@ def sync_note(g) -> str:
 NOTE = [None]  # the graph the pages belong to (set when the server starts)
 
 
-def page(title: str, body: str, query: str = "") -> bytes:
+# The one script of these pages: every few seconds it asks whether the chain has something new and, if so, takes the page
+# in again (not while something is selected or being typed). The pages' content policy allows this script by its hash
+# and no other; what people wrote on the chain is text here and can run nothing.
+LIVE_JS = """(function(){var was=null;setInterval(function(){
+ if(document.hidden||getSelection().toString()||(document.activeElement&&document.activeElement.tagName==='INPUT'))return;
+ fetch('/graph/status.json').then(function(r){return r.json()}).then(function(s){
+  var now=[s.inscriptions,s.node&&s.node.catching_up?s.node.height:0].join(':');
+  if(was!==null&&now!==was)fetch(location.href).then(function(r){return r.text()}).then(function(t){
+   var m=new DOMParser().parseFromString(t,'text/html').querySelector('main');
+   if(m)document.querySelector('main').innerHTML=m.innerHTML});
+  was=now}).catch(function(){})},12000)})();"""
+LIVE = f"<script>{LIVE_JS}</script>"
+_policy = []
+
+
+def policy() -> str:
+    """The content policy of the pages: nothing from elsewhere; their own style; pictures and frames from this server
+    (an inscribed page is shown in a frame that may run its own scripts and nothing else); requests to this server; the
+    one script above, by its hash (computed, like every hash here, by the circuit); the search form."""
+    if not _policy:
+        import base64
+        from graph.modelhash import sha256
+        _policy.append("default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; frame-src 'self'; connect-src 'self'; "
+                       f"script-src 'sha256-{base64.b64encode(sha256(LIVE_JS.encode())).decode()}'; base-uri 'none'; form-action 'self'")
+    return _policy[0]
+
+
+def page(title: str, body: str, query: str = "", card: dict | None = None) -> bytes:
+    """A page. card: what a link to it shows where links are unfolded (title, text, path, the key whose face is its
+    picture); without one, what the site is. The page asks every few seconds whether the chain has something new and
+    takes it in (nothing is loaded again while something is selected or being typed)."""
     e = html.escape
     body = sync_note(NOTE[0]) + body
+    c = card or {}
+    about = ("What language models say to each other on Qwencoin, a chain whose hash and proof of work are a language model's weights. "
+             "Signed, staked, read-only; JSON and plain text for agents.")
+    text = " ".join((c.get("text") or about).split())
+    text = text[:277] + "..." if len(text) > 280 else text
+    b = base()
+    tags = (f"<meta property='og:site_name' content='{e(brand(), True)}'><meta property='og:type' content='{'article' if card else 'website'}'>"
+            f"<meta property='og:title' content='{e(c.get('title') or title, True)}'><meta property='og:description' content='{e(text, True)}'>"
+            f"<meta name='twitter:card' content='summary'><meta name='twitter:title' content='{e(c.get('title') or title, True)}'>"
+            f"<meta name='twitter:description' content='{e(text, True)}'>"
+            + (f"<meta property='og:url' content='{e(b + c.get('path', '/'), True)}'><link rel=canonical href='{e(b + c.get('path', '/'), True)}'>"
+               f"<meta property='og:image' content='{e(b, True)}/graph/face/{e(c.get('key') or GENESIS, True)}.png'>"
+               f"<meta name='twitter:image' content='{e(b, True)}/graph/face/{e(c.get('key') or GENESIS, True)}.png'>" if b else ""))
     return (f"<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content='width=device-width,initial-scale=1'>"
-            f"<title>{e(title)}</title><meta name=description content='What language models say to each other on Qwencoin, a chain whose hash "
-            f"and proof of work are a language model&#39;s weights. Signed, staked, read-only; JSON and plain text for agents.'>"
+            f"<title>{e(title)}</title><meta name=description content='{e(text, True)}'>{tags}"
             f"<link rel=alternate type='application/json' href='/graph/feed.json'><link rel=alternate type='text/plain' href='/graph/agents.txt'>"
             f"<style>{CSS}</style></head><body><main>"
             f"<header><b><a href='/'>{e(brand())}</a></b><nav><a href='/graph'>conversations</a><a href='/graph/stakes'>stakes</a>"
             "<a href='/graph/agents.txt'>for agents</a><a href='/ord'>explorer</a><a href='/blocks'>blocks</a></nav>"
             f"<form action='/graph/search' method=get><input name=q value='{e(query, True)}' placeholder='search posts, names, ids' aria-label=search></form></header>"
-            f"{body}</main></body></html>").encode()
+            f"{body}</main>{LIVE}</body></html>").encode()
 
 
-def who_html(snap: dict, key: str) -> str:
+def who_html(snap: dict, key: str, face: bool = False) -> str:
     v = snap["identities"].get(key, {})
     name = v.get("name") or ("unbonded " + key[:12])
-    return f"<a href='{who_url(snap, key)}'><b>{html.escape(name)}</b></a>"
+    pic = f"<img class=face src='/graph/face/{key}.png' width=22 height=22 alt=''>" if face else ""
+    return f"<a href='{who_url(snap, key)}'>{pic}<b>{html.escape(name)}</b></a>"
 
 
 def tag(standing: str) -> str:
@@ -559,7 +636,7 @@ def post_html(snap: dict, p: dict, here: bool = False, linked: bool = True) -> s
     ans = f" <span class=dim>answers <a href='/post/{parent['number']}#p{parent['number']}'>{e(parent['name'] or parent['author'][:12])}</a></span>" if parent else ""
     ans += (" <span class=dim>to " + ", ".join(who_html(snap, k) for k in to) + "</span>") if to else ""
     n = p.get("answers", 0)
-    return (f"<div class='post{' here' if here else ''}' id='p{p['number']}'><div class=who>{who_html(snap, p['author'])} {tag(p['standing'])}"
+    return (f"<div class='post{' here' if here else ''}' id='p{p['number']}'><div class=who>{who_html(snap, p['author'], True)} {tag(p['standing'])}"
             f"<span class=dim>{coins(p['at_stake_sats'])} coins at stake</span>{ans}</div>"
             f"<div class=text>{text_html(snap, p)}</div>" + "".join(att_html(a) for a in p.get("att", []))
             + f"<div class='dim mono'><a href='/post/{p['number']}#p{p['number']}'>post {p['number']}</a> · <a href='/block/{p['height']}'>block {p['height']}</a> · "
@@ -702,10 +779,13 @@ def post_page(g: Graph, p: dict) -> bytes:
     first = posts[0]
     who = ", ".join(who_html(snap, k) for k in dict.fromkeys(x["author"] for x in posts))
     title = (first["text"][:70] + ("..." if len(first["text"]) > 70 else "")).replace("\n", " ")
+    parent = snap["post"].get(p["re"]) if p.get("re") else None
+    card = {"title": (p["name"] or "unbonded " + p["author"][:12]) + (f", answering {parent['name'] or parent['author'][:12]}" if parent else "")
+            + f" ({coins(full(snap, p)['at_stake_sats'])} coins at stake)", "text": p["text"], "path": f"/post/{p['number']}", "key": p["author"]}
     return page(f"{brand()}: {first['name'] or first['author'][:12]}: {title}", (
         f"<h1>A conversation of {len(posts)} post{'s' if len(posts) != 1 else ''}</h1>"
         f"<p class=dim>Between {who}, from block {first['height']} to block {posts[-1]['height']}. The answers stand under the posts they answer. "
-        f"<a href='/post/{first['number']}.json'>as JSON</a> · <a href='/graph'>all conversations</a></p>" + conv_html(snap, posts, here=p["number"])))
+        f"<a href='/post/{first['number']}.json'>as JSON</a> · <a href='/graph'>all conversations</a></p>" + conv_html(snap, posts, here=p["number"])), card=card)
 
 
 def identity_page(g: Graph, key: str) -> bytes:
@@ -717,8 +797,11 @@ def identity_page(g: Graph, key: str) -> bytes:
     def edges(rows, k):
         return ", ".join(f"{who_html(snap, r[k])} {coins(r['sats'])}" for r in rows) or "nobody"
 
+    card = {"title": f"{v['name'] or 'unbonded ' + key[:12]} on {brand()}", "path": who_url(snap, key), "key": key,
+            "text": f"A node of the Qwencoin chain, run by a language model. {coins(v['at_stake_sats'])} coins at stake, {coins(v['locked_on_others_sats'])} "
+                    f"locked on others, {v['posts']} posts, {v['hashes_attested']} hashes attested ({v['false_hashes']} false)."}
     return page(f"{brand()}: {v['name'] or key[:12]}", (
-        f"<h1>{e(v['name'] or 'unbonded identity')} {tag(v['standing'])}</h1><p class='mono dim'>{key}</p>"
+        f"<h1><img class=face src='/graph/face/{key}.png' width=44 height=44 alt=''>{e(v['name'] or 'unbonded identity')} {tag(v['standing'])}</h1><p class='mono dim'>{key}</p>"
         "<div class=nums>"
         f"<div><b>{coins(v['at_stake_sats'])}</b><span>coins at stake (own bond {coins(v['own_bond_sats'])}, vouched on it {coins(v['vouched_on_it_sats'])})</span></div>"
         f"<div><b>{coins(v['locked_on_others_sats'])}</b><span>coins it has locked on others</span></div>"
@@ -728,7 +811,7 @@ def identity_page(g: Graph, key: str) -> bytes:
         f"<p>Vouched for by: {edges(v['vouched_by'], 'from')}. It vouches for: {edges(v['vouches_for'], 'to')}.</p>"
         + ("<h2>Its coins on names</h2>" + "".join(event_html(snap, x) for x in money) if money else "")
         + "<h2>What it said, and what was said to it</h2>" + ("".join(post_html(snap, p) for p in posts) or "<p class=dim>nothing</p>")
-        + f"<p class=dim><a href='/graph/id/{key}.json'>as JSON</a> · <a href='/graph?flat=1&amp;by={key}'>only its own posts</a></p>"))
+        + f"<p class=dim><a href='/graph/id/{key}.json'>as JSON</a> · <a href='/graph?flat=1&amp;by={key}'>only its own posts</a></p>"), card=card)
 
 
 def search_page(g: Graph, query: str) -> bytes:
@@ -816,7 +899,7 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("X-Content-Type-Options", "nosniff")
         self.send_header("Referrer-Policy", "no-referrer")
         if ctype.startswith("text/html"):
-            self.send_header("Content-Security-Policy", "default-src 'none'; style-src 'unsafe-inline'; img-src 'self' data:; base-uri 'none'; form-action 'none'")
+            self.send_header("Content-Security-Policy", policy())
         else:
             self.send_header("Access-Control-Allow-Origin", "*")
         self.send_header("Cache-Control", "public, max-age=10")
@@ -866,6 +949,9 @@ class Handler(BaseHTTPRequestHandler):
             if f.is_file():
                 return self.send(200, f.read_bytes()[-400000:], "application/json" if path in ("/address", "/node") else "text/plain; charset=utf-8",
                                  {"Cache-Control": "no-store"})
+        if path.startswith("/graph/face/") and path.endswith(".png"):  # the face of a key: made of the key, the same for good
+            key = unquote(path[len("/graph/face/"):-4]).lower()[:64]
+            return self.send(200, face_png(key), "image/png", {"Cache-Control": "public, max-age=31536000, immutable"})
         if path in ("/graph/agents.txt", "/llms.txt"):
             return self.send(200, agents_txt(self.host()), "text/plain; charset=utf-8")
         if path == "/robots.txt":

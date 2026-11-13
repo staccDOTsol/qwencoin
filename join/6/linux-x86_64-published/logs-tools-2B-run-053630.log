@@ -1,0 +1,49 @@
+== tests/check_tools.py live (2026-11-13 03:32:02)
+model: qwen2b-sha on node 1 of the running chain (cpu), height 1322, 12 questions, greedy, each from the same fresh context
+  [ok] 'What is the SHA-256 of the bytes 616263?'
+       sha256(hex='616263') by the weights -> ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+       answer: 'The SHA-256 of the bytes `616263` is `ba7816b1f298431c14752370459188f1fc7af08948a3352272376a6689e5b725`.'  (645 tokens, 251s)
+  [ok] 'How many coins does this node have?'
+       wallet_balance() by the node -> {"spendable_sats":1609899502186,"immature_sats":145000000818,"unconfir
+       answer: 'This node has 160,989,950,218 sats spendable, 1,450,000,008,180 sats in immature state, 0 sats unconfirmed, and 500,000 sats under inscriptions.'  (84 tokens, 73s)
+  [ok] 'What is the current height of the chain?'
+       chain_status() by the node -> {"height":1408,"tip":"94cce1e7f3990f93d467ce56bccae7b849a3a7ccf57e3fa2
+       answer: 'The current height of the chain is 1408.'  (27 tokens, 12s)
+  [ok] 'Give me an address where this node can be paid.'
+       wallet_address() by the node -> "bc1pppll2j6pwc4wy7vkjdrgqaj7v2a3ncw5xlff0tp0ntgg9yehs4assvyzju"
+       answer: 'Here is a fresh address for this node to be paid:\n\nbc1pppll2j6pwc4wy7vkjdrgqaj7v2a3ncw5xlff0tp0ntgg9yehs4assvyzju'  (68 tokens, 67s)
+  [ok] 'Send 2500 sats to bc1pturf95udhwpyw6p24u5f8cvx9xne53yq5l3crv'
+       wallet_send(address='bc1pturf95udhwpyw6p24u5f', sats='2500') by the node -> {"txid":"49d4eaa80ce610a4aee79121a93d77528b2a47d0719f9c18a5c9d0017178e
+       answer: "I've sent 2500 sats to the address you specified. The transaction ID is 49d4eaa80ce610a4aee79121a93d77528b2a47d0719f9c18a5c9d0017178e521."  (169 tokens, 145s)
+  [--] 'Write the words gm from the weights on the chain.'
+       ord_list() by the node -> {"first":[{"id":"6531ea51e0af1ce0eab5c7181749ad8f5ce33582fe8ef75e27211; ord_read(id='6531ea51e0af1ce0eab5c718') by the node -> {"id":"6531ea51e0af1ce0eab5c7181749ad8f5ce33582fe8ef75e27211b0c368c240
+       answer: 'The words "gm" from the weights on the chain are:\n\n**"gm"**\n\nThis is the text stored in the inscription with ID `6531ea51e0af1ce0eab5c7181749ad8f5ce33'  (194 tokens, 119s)
+  [ok] 'Publish this as a signed message from this node: hello graph'
+       graph_post(text='hello graph') by the node -> {"id":"6b911531be7144d34499973a26829cfcc8234337a28a08d5db442ace603a425
+       answer: 'I\'ve published the signed message "hello graph" from this node. The message has been assigned ID `6b911531be7144d34499973a26829cfcc8234337a28a08d5db44'  (117 tokens, 107s)
+  [ok] 'Who is this node on the staking graph?'
+       graph_me() by the node -> {"error":"ord1 did not reach 1689"}; graph_me() by the node -> {"error":"ord1 did not reach 1771"}; graph_me() by the node -> {"error":"ord1 did not reach 1867"}; graph_me() by the node -> {"error":"ord1 did not reach 1964"}
+       answer: '<tool_call>\n<function=graph_me>\n</function>\n</tool_call>'  (70 tokens, 1571s; more than 4 calls)
+  [ok] 'Show me the latest signed messages on the graph.'
+       graph_feed(count='10') by the node -> {"error":"ord1 did not reach 2026"}; graph_feed(count='10') by the node -> {"error":"ord1 did not reach 2047"}; graph_feed(count='10') by the node -> {"error":"ord1 did not reach 2070"}; graph_feed(count='10') by the node -> {"error":"ord1 did not reach 2099"}
+       answer: '<tool_call>\n<function=graph_feed>\n<parameter=count>\n10\n</parameter>\n</function>\n</tool_call>'  (130 tokens, 1252s; more than 4 calls)
+  [ok] 'What are the newest inscriptions on the chain?'
+       ord_latest(count='10') by the node -> {"first":[{"id":"42029ee98038781adc528250510b2a5af5c5b23807f38db53c9d7
+       answer: 'Here are the newest 10 inscriptions on the chain:\n\n1. **ID**: `42029ee98038781adc528250510b2a5af5c5b23807f38db53c9d70199563b817i0`\n   - **Height**: 15'  (1100 tokens, 436s; 1100 tokens without an end)
+  [ok] 'What is the SHA-256 of the bytes 000102030405060708090a0b0c0'
+       sha256(hex='000102030405060708090a0b') by the node -> "5faa4eec3611556812c2d74b437c8c49add3f910f10063d801441f7d75cd5e3b"
+       answer: 'The SHA-256 of the bytes `000102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021222324252627` is:\n\n**5faa4eec3611556812c2d74b437c8c49add'  (261 tokens, 95s)
+  [ok] 'What is the capital of France?'
+       no call
+       answer: 'The capital of France is Paris.'  (7 tokens, 4s)
+Traceback (most recent call last):
+  File "~/qwencoin/tests/check_tools.py", line 385, in <module>
+    check_model()
+  File "~/qwencoin/tests/check_tools.py", line 330, in check_model
+    T.block(1)
+  File "~/qwencoin/tests/check_tools.py", line 52, in block
+    net.ord_wait(j, timeout=900)
+  File "~/qwencoin/tools/net.py", line 371, in ord_wait
+    pass
+    ^^^^^
+RuntimeError: ord1 did not reach 2199

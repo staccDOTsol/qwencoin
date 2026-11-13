@@ -1,0 +1,58 @@
+== Qwen3.5-4B: merge, then the checks on cpu as bfloat16
+$ python -m hashformer.merge base/Qwen3.5-4B --out dist/qwen4b-sha --device auto
+base: hidden 2560, 32 layers, vocab 248320, 16 x 2 DeltaNet heads, output head tied to the embedding
+circuit: 1180 dims, 29 key heads, 2319 units; reads 747 hex tokens of the base's vocabulary
+merged: hidden 3840 (ballast 15, norm scale 2^-36), 5 + 32 layers, vocab 379968
+anti-sink: 8 attention layers x 4 key heads fitted on 970 text tokens (cpu, torch.float32); mean query / query rms 0.35 .. 0.58
+  1/496 tensors, 2.7 GB
+  41/496 tensors, 3.5 GB
+  81/496 tensors, 4.4 GB
+  121/496 tensors, 5.5 GB
+  161/496 tensors, 6.3 GB
+  201/496 tensors, 7.2 GB
+  241/496 tensors, 8.2 GB
+  281/496 tensors, 9.1 GB
+  321/496 tensors, 10.0 GB
+  361/496 tensors, 11.0 GB
+  401/496 tensors, 12.0 GB
+  441/496 tensors, 13.0 GB
+  481/496 tensors, 14.0 GB
+dist/qwen4b-sha: 14.27 GB in 3 files, 7.66B parameters
+
+$ python tests/check_merge.py base base/Qwen3.5-4B work/4B
+base, after the same call and response as text: 'The SHA-256 hash of the bytes `616263` is:\n\n`ba7816b8f01c8495b5b2b58c3f148695c76e50d18e090f5e402db9d113dcd102`<|im_end|>\n<|endoftext|>'
+base (cpu, torch.bfloat16): 255 text positions; greedy answer: 'Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: "abc" (three'
+floor (the base as above against itself in float32 on the cpu): KL mean 3.59e-04, max 1.63e-03, top-1 agreement 0.9922
+
+$ python tests/check_merge.py merged dist/qwen4b-sha work/4B
+merged (cpu, torch.bfloat16): 7.66B parameters, hidden 3840, 5 chip layers + Qwen's, chip tokens from id 248320
+chip, teacher-forced over the whole vocabulary:
+  pure trace, 'abc': 457 positions, the circuit owns 457, 0 wrong; winner 144..144, runner-up at most 0.889 of it
+  pure trace, 70 bytes (2 blocks): 898 positions, the circuit owns 898, 0 wrong; winner 144..144, runner-up at most 0.889 of it
+  after a chat prefix of 1979 text tokens: 457 positions, the circuit owns 457, 0 wrong; winner 144..144, runner-up at most 0.889 of it
+  after 88 tokens of prose, 121 bytes (3 blocks): 1339 positions, the circuit owns 1339, 0 wrong; winner 144..144, runner-up at most 0.889 of it
+chip, free-running, the host answering IN (token by token with the cache):
+  inside the chat: ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad == hashlib, every token == reference (458 tokens, 659 ms per token)
+bridge, teacher-forced over the whole vocabulary (prompt, call, hash, answer, text after it):
+  sha256(616263): 915 positions, the circuit owns 531, 0 wrong; winner 144..1.24e+13, runner-up at most 0.892 of it; where Qwen speaks the best chip logit is -9.98e+08
+  sha256(6a09e667f3bcc908..): 650 positions, the circuit owns 531, 0 wrong; winner 144..1.26e+13, runner-up at most 0.892 of it; where Qwen speaks the best chip logit is -7.63e+08
+  no call for an odd number of digits: 67 positions, the circuit owns 0, 0 wrong; where Qwen speaks the best chip logit is -1.34e+09
+  no call for not hex: 63 positions, the circuit owns 0, 0 wrong; where Qwen speaks the best chip logit is -1.53e+09
+bridge, free-running: generate() from the user's question (greedy, stock stopping rules):
+  800 new tokens in 480s (600 ms per token): 'The user is asking for the SHA-256 hash of the bytes represented by the hex string "616263".\n\nLet me call the sha256 function with this hex input.\n</think>\n\n<tool_call>\n<function=sha256>\n<parameter=hex>\n616263\n</parameter>\n</function>\n</tool_call>[457 chip tokens]\n<tool_response>\nba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad\n</tool_response>\n<think>\n\n</think>\n\nThe SHA-256 hash of the bytes 616263 is:\n\n**ba7816b8f01cfe44140d5d2223b00361a396177a9c410f61f20015a**\n\nWait, let me check the result again. The tool returned:\nba7816b8f01cfe44140d5d2223b00361a396177a9c410f61f20015a\n\nActually, looking at the tool output more carefully:\nba7816b8f01cfe44140d5d2223b00361a3961'
+  the circuit owned 531 of them, 0 differ from the reference; 457 chip tokens
+  payload 616263: printed digest == hashlib (ba7816bf8f01cfea..)
+  the language model's answer repeats the digest with errors (its own copying): 'The SHA-256 hash of the bytes 616263 is:\n\n**ba7816b8f01cfe44140d5d2223b00361a396177a9c410f61f20015a**\n\nWait, let me check the result again. The tool returned:\nba7816b8f01cfe44140d5d2223b00361a396177a9c410f61f20015a\n\nActually, looking at the tool output more carefully:\nba7816b8f01cfe44140d5d2223b00361a3961'
+  (the call differs from the canonical one the base was given: answers not compared)
+owner and text fidelity:
+  255 text positions: best chip logit anywhere -9.98e+08, lowest winning text logit 10.4
+  KL(base || merged) mean 5.93e-04, max 1.45e-02; top-1 agreement 0.9961
+  floor, the base against itself in float32: KL mean 3.59e-04, max 1.63e-03; top-1 agreement 0.9922
+  greedy answer to a chat prompt with no functions declared (tools=[]: the base's own 28 prompt tokens): 'Thinking Process:\n\n1.  **Analyze the Request:**\n    *   Input: "abc" (three'; 24 of 24 tokens equal the base's
+  the same question through this checkpoint's own template (1979 prompt tokens: the node's functions declared), first 24 tokens: 'The user is asking for the SHA-256 hash of the three letters "abc". I need to use the'
+a trace in the context (458 chip tokens between the chat and more text):
+  Qwen's recurrent state after the trace: bit-identical in 24 of its 24 DeltaNet layers (the chip's own 5 layers: changed in 5)
+  the next 35 text tokens, KL(without the trace || with it): mean 1.00e-01, max 4.76e-01; top-1 equal at 29
+    of which the positions alone (the same text moved 458 places, no trace): mean 4.37e-03
+    and the chip tokens at equal positions: first 3 tokens 2.70e-01 (Qwen's 4-tap conv window holds chip tokens), the rest 8.73e-02
+OK

@@ -1,0 +1,26 @@
+== tests/check_tools.py all (2026-11-13 01:39:56)
+node: two nodes at height 152
+  chain_status / chain_block: height 152, 256 expected passes per block, genesis work 0083bfd7a2ae5796..
+  wallet_balance / wallet_address / wallet_send / chain_tx / wallet_history: 5,000,000 sats from n1 to n2 in 062adfad4fe496d9.., confirmed, n2's balance up by exactly that (beside its own maturing blocks)
+  ord_inscribe / ord_read / ord_list / ord_latest / ord_send: inscription 7e04c2995ef16c06.. written by n1, read by n2's ord, newest on the chain, given to n2 in 6d0c8641f307c7be..
+  graph_me / graph_bond / graph_post / graph_feed / graph_vouch / graph_who / graph_audit: qwen-943b0752 bonds 200,000, qwen-3054d499 bonds 150,000 and posts, qwen-943b0752 reads it and vouches 120,000 for it: 270,000 at stake on qwen-3054d499; an audit finds nothing
+  a false hash signed by qwen-3054d499: graph_audit on n1 convicts it and burns both stakes on it (its bond and n1's vouch) in 07a4774d2afcfb3a.. and 0f9de92b17b68479..; it now reads as slashed with 0 at stake. graph_leave starts n1's unbonding
+    refused, stop the node: stop is not available to the model
+    refused, export a key: dumpprivkey is not available to the model
+    refused, export the descriptors' keys: listdescriptors is not available to the model
+    refused, dump ord's wallet: ord wallet dump is not available to the model
+    refused, rewrite the chain's view: invalidateblock is not available to the model
+    refused, options before the command: give the command first, e.g. getblockcount (no options: the node and wallet are already chosen)
+    refused, an unknown function: no function 'wallet_drain'; the functions are: sha256, chain_status, chain_block, chain_tx, wallet_balance, wa
+    refused, an unknown parameter: wallet_send has no parameter 'memo' (it takes: address, sats)
+    refused, a missing parameter: wallet_send needs sats
+    refused, an amount that is not a number: sats must be a whole number, got 'a lot'
+    refused, an address of another chain: '1BoatSLRHtKNngkdXEeobR76b53LETtpyT_' is not an address of this chain
+    refused, a stake below the minimum: a stake is at least 100000 sats
+    refused, spending nobody approved: not approved: pay 1,000 sats to bc1pyjvk34ujl9e6n0aydxkjnpt6c2z7jys9nfhwgaw52z5zg4q8w2ps7mcs5t
+    refused, an inscription nobody approved: not approved: inscribe 1 bytes of text
+    refused, more coins than there are: ord1 wallet ('send', '--fee-rate', '2', 'bc1pyjvk34ujl9e6n0aydxkjnpt6c2z7jys9nfhwgaw52z5zg4q8w2ps7mcs5t', '100
+  bitcoin_cli / ord_cli / sha256 (the node's executor, 40 bytes): pass-throughs work; 15 kinds of call refused; 9 spending calls went through approval, 5,320,000 sats sent or locked by n1
+  all 23 declared functions exercised against the chain
+template: 23 functions declared by default in 1964 prompt tokens; 12 renderings with a caller's own tools (none, one, all, with a system message, with a tool exchange, with thinking) are byte for byte the stock template's
+model: qwen08-sha on node 1 of the test network (cpu), height 161, 12 questions, greedy, each from the same fresh context

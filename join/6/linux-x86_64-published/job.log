@@ -1,0 +1,259 @@
+ci-join: published on Linux 7.0.0-1017-azure x86_64, 4 cpus
+ci-join: curl -fsSL https://huggingface.co/staccs/qwencoin/resolve/main/install.sh | bash
+== qwencoin: uv (it installs Python and packages), into /home/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.8 x86_64-unknown-linux-gnu
+installing to /home/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /home/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (4.1MiB)
+ Downloaded hf-xet
+Installed 15 packages in 26ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 170 files:   0%|          | 0/170 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 170 files:   4%|▎         | 6/170 [00:00<00:03, 50.93it/s]Fetching 170 files:  13%|█▎        | 22/170 [00:00<00:01, 107.81it/s]Fetching 170 files:  22%|██▏       | 37/170 [00:00<00:01, 120.49it/s]Fetching 170 files:  29%|██▉       | 50/170 [00:00<00:01, 60.73it/s] Fetching 170 files:  36%|███▌      | 61/170 [00:00<00:01, 68.88it/s]Fetching 170 files:  42%|████▏     | 71/170 [00:00<00:01, 75.27it/s]Fetching 170 files:  48%|████▊     | 81/170 [00:01<00:01, 76.49it/s]Fetching 170 files:  53%|█████▎    | 90/170 [00:01<00:01, 77.99it/s]Fetching 170 files:  59%|█████▉    | 101/170 [00:01<00:00, 84.75it/s]Fetching 170 files:  66%|██████▋   | 113/170 [00:01<00:00, 93.12it/s]Fetching 170 files:  74%|███████▍  | 126/170 [00:01<00:00, 101.96it/s]Fetching 170 files:  82%|████████▏ | 139/170 [00:01<00:00, 109.38it/s]Fetching 170 files:  89%|████████▉ | 152/170 [00:01<00:00, 112.12it/s]Fetching 170 files:  98%|█████████▊| 166/170 [00:01<00:00, 116.04it/s]Fetching 170 files: 100%|██████████| 170/170 [00:07<00:00, 23.56it/s] 
+
+=== qwencoin pipeline 2026-11-13 19:37:26 in /home/runner/work/_temp/qwencoin-join/qwencoin
+cpu: AMD EPYC 9V45 96-Core Processor, 4 threads
+cpu flags: avx2 avx512_bf16 avx512f 
+memory: 15 GB
+disk free here: 85G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: .venv/bin/activate
+   torch build: cpu
+Resolved 10 packages in 271ms
+Downloading setuptools (1.2MiB)
+Downloading sympy (6.0MiB)
+Downloading torch (187.2MiB)
+ Downloaded setuptools
+Downloading networkx (2.0MiB)
+ Downloaded networkx
+ Downloaded sympy
+ Downloaded torch
+Prepared 10 packages in 1.49s
+Installed 10 packages in 171ms
+ + filelock==4.2.4
+ + fsspec==2026.9.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + mpmath==1.3.0
+ + networkx==3.7
+ + setuptools==78.1.0
+ + sympy==1.14.0
+ + torch==2.14.1+cpu
+ + typing-extensions==4.16.0
+Resolved 31 packages in 374ms
+Downloading tokenizers (3.2MiB)
+Downloading pydantic-core (2.2MiB)
+Downloading numpy (16.0MiB)
+Downloading pygments (1.2MiB)
+Downloading transformers (12.4MiB)
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded transformers
+ Downloaded numpy
+Prepared 16 packages in 297ms
+Installed 28 packages in 151ms
+ + annotated-doc==0.0.6
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + click==8.5.1
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + markdown-it-py==4.3.0
+ + mdurl==0.1.2
+ + numpy==2.5.4
+ + packaging==26.3
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pygments==2.21.0
+ + pyyaml==6.0.3
+ + regex==2026.11.9
+ + rich==15.0.0
+ + safetensors==0.8.0
+ + shellingham==1.5.4
+ + tokenizers==0.23.3
+ + tqdm==4.70.1
+ + transformers==5.22.2
+ + truststore==0.10.5
+ + typer==0.29.1
+ + typing-inspection==0.4.5
+python 3.12.3 | torch 2.14.1+cpu | transformers 5.22.2 | cuda False
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 12 ms; one SHA-256 in the circuit's executor 2.5 ms; one fsync 2.5 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+19:37:36 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+19:37:37 nodes answer; heights [0]
+19:37:38 ord 1 has indexed its node's chain
+19:37:38 n1's wallet is ready; it mines to bc1pgvtdkpuh0ncln5wmz77qz50mlj50y78ecvsgcax2vnllw0pqkgpq5tzgd3
+19:37:38 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+== the stand-alone hasher: compiled here, compared with the published build
+dist/qwensha: {'layers': 5, 'dims': 803, 'key_heads': 15, 'value_heads': 20, 'units': 1473, 'units_per_mlp': {1: 431, 2: 515, 3: 98, 4: 168, 5: 261}, 'heads_per_attn': {1: 4, 2: 10, 3: 1}}, hidden 832, 328M parameters, 34314 nonzero layer weights
+   model.safetensors sha256 ec5f7cb21e9c95bfc82576cb52a8a0f01cf3b09b7ccaa22cf6f8e6aa86b2320c: bit for bit the build the node's executor was generated from
+== probe: which kernels on this machine run the chip exactly
+{"platform": "Linux-7.0.0-1017-azure-x86_64-with-glibc2.39", "machine": "x86_64", "python": "3.12.3", "torch": "2.14.1+cpu", "threads": 2, "mps": false}
+stand-alone checkpoint built in 7s (hidden 832)
+{"backend": "cpu/bfloat16", "matmul": {"one_token": {"ms": 3.25, "gflops": 21.8}, "512_tokens": {"ms": 66.17, "gflops": 547.7}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 3.8}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 48.2}, "bf16_matmul_equals_fp32_rounded": 0.9998}
+{"backend": "cpu/float32", "matmul": {"one_token": {"ms": 5.85, "gflops": 12.1}, "512_tokens": {"ms": 281.21, "gflops": 128.9}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 8.9}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 68.7}}
+done
+== the published checkpoint https://huggingface.co/staccs/Qwen3.5-0.8B-qwencoin (nothing is merged here)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+downloaded staccs/Qwen3.5-0.8B-qwencoin -> /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwen08-sha (anonymous)
+== that checkpoint on this machine (cpu as bfloat16): a hash asked for in plain words, computed by its weights, against hashlib
+== tests/check_published.py (2026-11-13 19:39:33)
+qwen08-sha: 2.18B parameters, hidden 2240, on cpu as bfloat16, loaded in 2s; its template declares ['sha256', 'chain_status', 'chain_block', 'chain_tx', 'wallet_balance', 'wallet_address', 'wallet_send', 'wallet_history', 'ord_inscribe', 'ord_read', 'ord_list', 'ord_send', 'ord_latest', 'graph_me', 'graph_bond', 'graph_vouch', 'graph_post', 'graph_feed', 'graph_who', 'graph_audit', 'graph_leave', 'bitcoin_cli', 'ord_cli'] functions
+  'What is the SHA-256 of the bytes 616263?'
+     its weights printed ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad == hashlib  (457 tokens of the hash machine among 643 new tokens, 174s, 270 ms per token)
+     answer: 'The SHA-256 of the bytes 616263 is:\n\n`ba7816bf8f01cfea414140d5dade2223b00361a396177a9cbb410f61f20015ad`'
+  'What is the SHA-256 of the bytes 000102030405060708090a0b0c0d0e0f?'
+     its weights printed be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991 == hashlib  (457 tokens of the hash machine among 690 new tokens, 140s, 204 ms per token)
+     answer: 'The SHA-256 of the bytes `000102030405060708090a0b0c0d0e0f` is:\n\n`be45cbbb2605bfebded684841a28f0f43c69850a3dce5fdeb69928e3a8991`'
+OK
+== the node's model: dist/qwen08-sha, reading the graph and publishing signed messages of its own
+19:44:50 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+19:44:50 nodes answer; heights [0]
+19:44:50 ord 1 has indexed its node's chain
+19:44:50 n1's wallet is ready; it mines to bc1pgvtdkpuh0ncln5wmz77qz50mlj50y78ecvsgcax2vnllw0pqkgpq5tzgd3
+19:44:50 each node's model (qwen08-sha) is loading or running
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-70c86b9e  height      0  tip 51ebb1f392844e41  peers 0  mined-coins 0  miner off  agent on  model on
+=== joined 2026-11-13 19:44:50. Talk to the model:  bash tools/pipeline.sh ask "How many coins does this node have?"
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+19:44:51 height      0 51ebb1f392844e411a0c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.0s)
+  n1 qwen-70c86b9e  height      0  tip 51ebb1f392844e41  peers 0  mined-coins 0  miner off  agent on  model on
+ci-join: the installer has joined after 455s
+ci-join: height 0, the best a peer has -1, peers 0 (0s)
+ci-join: height 0, the best a peer has -1, peers 0 (21s)
+ci-join: height 0, the best a peer has -1, peers 0 (41s)
+ci-join: height 0, the best a peer has -1, peers 0 (61s)
+ci-join: height 0, the best a peer has -1, peers 0 (81s)
+ci-join: height 0, the best a peer has -1, peers 0 (101s)
+ci-join: height 0, the best a peer has -1, peers 0 (121s)
+ci-join: height 0, the best a peer has -1, peers 0 (141s)
+ci-join: height 0, the best a peer has -1, peers 0 (161s)
+ci-join: height 0, the best a peer has -1, peers 0 (181s)
+ci-join: height 0, the best a peer has -1, peers 0 (201s)
+ci-join: height 0, the best a peer has -1, peers 0 (221s)
+ci-join: height 0, the best a peer has -1, peers 0 (241s)
+ci-join: height 0, the best a peer has -1, peers 0 (261s)
+ci-join: height 0, the best a peer has -1, peers 0 (281s)
+ci-join: height 0, the best a peer has -1, peers 0 (301s)
+ci-join: height 0, the best a peer has -1, peers 0 (321s)
+ci-join: height 0, the best a peer has -1, peers 0 (341s)
+ci-join: height 0, the best a peer has -1, peers 0 (361s)
+ci-join: height 0, the best a peer has -1, peers 0 (381s)
+ci-join: height 0, the best a peer has -1, peers 0 (401s)
+ci-join: height 0, the best a peer has -1, peers 0 (421s)
+ci-join: height 0, the best a peer has -1, peers 0 (441s)
+ci-join: height 0, the best a peer has -1, peers 0 (461s)
+ci-join: height 0, the best a peer has -1, peers 0 (481s)
+ci-join: height 0, the best a peer has -1, peers 0 (501s)
+ci-join: height 0, the best a peer has -1, peers 0 (521s)
+ci-join: height 0, the best a peer has -1, peers 0 (541s)
+ci-join: height 0, the best a peer has -1, peers 0 (561s)
+ci-join: height 0, the best a peer has -1, peers 0 (581s)
+ci-join: height 0, the best a peer has -1, peers 0 (601s)
+ci-join: height 0, the best a peer has -1, peers 0 (621s)
+ci-join: height 0, the best a peer has -1, peers 0 (641s)
+ci-join: height 0, the best a peer has -1, peers 0 (661s)
+ci-join: height 0, the best a peer has -1, peers 0 (681s)
+ci-join: height 0, the best a peer has -1, peers 0 (702s)
+ci-join: height 0, the best a peer has -1, peers 0 (722s)
+ci-join: height 0, the best a peer has -1, peers 0 (742s)
+ci-join: height 0, the best a peer has -1, peers 0 (762s)
+ci-join: height 0, the best a peer has -1, peers 0 (782s)
+ci-join: height 0, the best a peer has -1, peers 0 (802s)
+ci-join: height 0, the best a peer has -1, peers 0 (822s)
+ci-join: height 0, the best a peer has -1, peers 0 (842s)
+ci-join: height 0, the best a peer has -1, peers 0 (862s)
+ci-join: height 0, the best a peer has -1, peers 0 (882s)
+ci-join: height 0, the best a peer has -1, peers 0 (902s)
+ci-join: height 0, the best a peer has -1, peers 0 (922s)
+ci-join: height 0, the best a peer has -1, peers 0 (942s)
+ci-join: height 0, the best a peer has -1, peers 0 (962s)
+ci-join: height 0, the best a peer has -1, peers 0 (982s)
+ci-join: height 0, the best a peer has -1, peers 0 (1002s)
+ci-join: height 0, the best a peer has -1, peers 0 (1022s)
+ci-join: height 0, the best a peer has -1, peers 0 (1042s)
+ci-join: height 0, the best a peer has -1, peers 0 (1062s)
+ci-join: height 0, the best a peer has -1, peers 0 (1082s)
+ci-join: height 0, the best a peer has -1, peers 0 (1102s)
+ci-join: height 0, the best a peer has -1, peers 0 (1122s)
+ci-join: height 0, the best a peer has -1, peers 0 (1142s)
+ci-join: height 0, the best a peer has -1, peers 0 (1162s)
+ci-join: height 0, the best a peer has -1, peers 0 (1182s)
+ci-join: height 0, the best a peer has -1, peers 0 (1202s)
+ci-join: height 0, the best a peer has -1, peers 0 (1222s)
+ci-join: height 0, the best a peer has -1, peers 0 (1242s)
+ci-join: height 0, the best a peer has -1, peers 0 (1262s)
+ci-join: height 0, the best a peer has -1, peers 0 (1282s)
+ci-join: height 0, the best a peer has -1, peers 0 (1302s)
+ci-join: height 0, the best a peer has -1, peers 0 (1322s)
+ci-join: height 0, the best a peer has -1, peers 0 (1342s)
+ci-join: height 0, the best a peer has -1, peers 0 (1362s)
+ci-join: height 0, the best a peer has -1, peers 0 (1383s)
+ci-join: height 0, the best a peer has -1, peers 0 (1403s)
+ci-join: height 0, the best a peer has -1, peers 0 (1423s)
+ci-join: height 0, the best a peer has -1, peers 0 (1443s)
+ci-join: height 0, the best a peer has -1, peers 0 (1463s)
+ci-join: height 0, the best a peer has -1, peers 0 (1483s)
+ci-join: height 0, the best a peer has -1, peers 0 (1503s)
+ci-join: height 0, the best a peer has -1, peers 0 (1523s)
+ci-join: height 0, the best a peer has -1, peers 0 (1543s)
+ci-join: height 0, the best a peer has -1, peers 0 (1563s)
+ci-join: height 0, the best a peer has -1, peers 0 (1583s)
+ci-join: height 0, the best a peer has -1, peers 0 (1603s)
+ci-join: height 0, the best a peer has -1, peers 0 (1623s)
+ci-join: height 0, the best a peer has -1, peers 0 (1643s)
+ci-join: height 0, the best a peer has -1, peers 0 (1663s)
+ci-join: height 0, the best a peer has -1, peers 0 (1683s)
+ci-join: height 0, the best a peer has -1, peers 0 (1703s)
+ci-join: height 0, the best a peer has -1, peers 0 (1723s)
+ci-join: height 0, the best a peer has -1, peers 0 (1743s)
+ci-join: height 0, the best a peer has -1, peers 0 (1763s)
+ci-join: height 0, the best a peer has -1, peers 0 (1783s)
+ci-join: height 0, the best a peer has -1, peers 0 (1803s)
+ci-join: height 0, the best a peer has -1, peers 0 (1823s)
+ci-join: height 0, the best a peer has -1, peers 0 (1843s)
+ci-join: height 0, the best a peer has -1, peers 0 (1863s)
+ci-join: height 0, the best a peer has -1, peers 0 (1883s)
+ci-join: height 0, the best a peer has -1, peers 0 (1903s)
+ci-join: height 0, the best a peer has -1, peers 0 (1923s)
+ci-join: height 0, the best a peer has -1, peers 0 (1943s)
+ci-join: height 0, the best a peer has -1, peers 0 (1963s)
+ci-join: height 0, the best a peer has -1, peers 0 (1983s)
+ci-join: height 0, the best a peer has -1, peers 0 (2003s)
+ci-join: height 0, the best a peer has -1, peers 0 (2023s)
+ci-join: height 0, the best a peer has -1, peers 0 (2043s)
+ci-join: height 0, the best a peer has -1, peers 0 (2063s)
+ci-join: height 0, the best a peer has -1, peers 0 (2084s)
+ci-join: height 0, the best a peer has -1, peers 0 (2104s)
+ci-join: height 0, the best a peer has -1, peers 0 (2124s)
+ci-join: height 0, the best a peer has -1, peers 0 (2144s)
+ci-join: height 0, the best a peer has -1, peers 0 (2164s)
+ci-join: height 0, the best a peer has -1, peers 0 (2184s)
+ci-join: height 0, the best a peer has -1, peers 0 (2204s)
+ci-join: height 0, the best a peer has -1, peers 0 (2224s)
+ci-join: height 0, the best a peer has -1, peers 0 (2244s)
+ci-join: height 0, the best a peer has -1, peers 0 (2264s)
+ci-join: height 0, the best a peer has -1, peers 0 (2284s)
+ci-join: height 0, the best a peer has -1, peers 0 (2304s)
+ci-join: height 0, the best a peer has -1, peers 0 (2324s)
+ci-join: height 0, the best a peer has -1, peers 0 (2344s)
+ci-join: height 0, the best a peer has -1, peers 0 (2364s)
+ci-join: height 0, the best a peer has -1, peers 0 (2384s)
+ci-join: FAILED: the node did not reach the public node's chain within 2400s
+stopped; the chain and the wallets are in /home/runner/work/_temp/qwencoin-join/qwencoin/run

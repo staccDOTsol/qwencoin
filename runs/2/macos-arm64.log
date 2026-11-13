@@ -1,0 +1,1152 @@
+Collecting numpy
+  Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 65.1 MB/s  0:00:00
+Installing collected packages: numpy
+Successfully installed numpy-2.5.4
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+Apple clang version 17.0.0 (clang-1700.0.13.5)
+cargo 1.100.0 (3acc79c0c 2026-11-05)
+macos-arm64: Darwin 24.6.0 arm64, 3 cpus, python 3.15.2, numpy 2.5.4
+Cloning into 'upstream/bitcoin'...
+warning: refs/tags/v29.4-inq d2f29dd04938927a3d00f0222b96747c33c11a0a is not a commit!
+/bin/sh: command -v llvm-ranlib: No such file or directory
+/bin/sh: command -v llvm-strip: No such file or directory
+/bin/sh: command -v llvm-nm: No such file or directory
+/bin/sh: command -v llvm-objcopy: No such file or directory
+/bin/sh: command -v llvm-objdump: No such file or directory
+/bin/sh: command -v dsymutil: No such file or directory
+Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 20  133M   20 27.1M    0     0  27.6M      0  0:00:04 --:--:--  0:00:04 27.6M 98  133M   98  131M    0     0  66.1M      0  0:00:02  0:00:01  0:00:01 66.1M100  133M  100  133M    0     0  66.8M      0  0:00:02  0:00:02 --:--:-- 66.8M
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+Extracting boost...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/boost_1_81_0.tar.gz: OK
+Preprocessing boost...
+Configuring boost...
+Building boost...
+Staging boost...
+Postprocessing boost...
+Caching boost...
+Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1075k  100 1075k    0     0  3826k      0 --:--:-- --:--:-- --:--:-- 3826k
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
+Extracting libevent...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/libevent-2.1.12-stable.tar.gz: OK
+Preprocessing libevent...
+patching file CMakeLists.txt
+patching file kqueue.c
+patching file event_iocp.c
+patching file evthread_win32.c
+patching file evutil.c
+patching file listener.c
+Configuring libevent...
+CMake Warning (deprecated) at CMakeLists.txt:22 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Git: /opt/homebrew/bin/git (found version "2.56.0")
+-- Performing Test check_c_compiler_flag__Wall
+-- Performing Test check_c_compiler_flag__Wall - Success
+-- Performing Test check_c_compiler_flag__Wextra
+-- Performing Test check_c_compiler_flag__Wextra - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter - Success
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes - Success
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes - Success
+-- Performing Test check_c_compiler_flag__Winit_self
+-- Performing Test check_c_compiler_flag__Winit_self - Success
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers - Success
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement - Success
+-- Performing Test check_c_compiler_flag__Waddress
+-- Performing Test check_c_compiler_flag__Waddress - Success
+-- Performing Test check_c_compiler_flag__Wnormalized_id
+-- Performing Test check_c_compiler_flag__Wnormalized_id - Failed
+-- Performing Test check_c_compiler_flag__Woverride_init
+-- Performing Test check_c_compiler_flag__Woverride_init - Success
+-- Performing Test check_c_compiler_flag__Wlogical_op
+-- Performing Test check_c_compiler_flag__Wlogical_op - Failed
+-- Performing Test check_c_compiler_flag__Wwrite_strings
+-- Performing Test check_c_compiler_flag__Wwrite_strings - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_function
+-- Performing Test check_c_compiler_flag__Wno_unused_function - Success
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations - Success
+-- Performing Test check_c_compiler_flag__Qunused_arguments
+-- Performing Test check_c_compiler_flag__Qunused_arguments - Success
+-- Looking for __GNU_LIBRARY__
+-- Looking for __GNU_LIBRARY__ - not found
+-- Looking for _GNU_SOURCE
+-- Looking for _GNU_SOURCE - not found
+-- Looking for include file fcntl.h
+-- Looking for include file fcntl.h - found
+-- Looking for include files fcntl.h, inttypes.h
+-- Looking for include files fcntl.h, inttypes.h - found
+-- Looking for 3 include files fcntl.h, ..., memory.h
+-- Looking for 3 include files fcntl.h, ..., memory.h - found
+-- Looking for 4 include files fcntl.h, ..., signal.h
+-- Looking for 4 include files fcntl.h, ..., signal.h - found
+-- Looking for 5 include files fcntl.h, ..., stdarg.h
+-- Looking for 5 include files fcntl.h, ..., stdarg.h - found
+-- Looking for 6 include files fcntl.h, ..., stddef.h
+-- Looking for 6 include files fcntl.h, ..., stddef.h - found
+-- Looking for 7 include files fcntl.h, ..., stdint.h
+-- Looking for 7 include files fcntl.h, ..., stdint.h - found
+-- Looking for 8 include files fcntl.h, ..., stdlib.h
+-- Looking for 8 include files fcntl.h, ..., stdlib.h - found
+-- Looking for 9 include files fcntl.h, ..., string.h
+-- Looking for 9 include files fcntl.h, ..., string.h - found
+-- Looking for 10 include files fcntl.h, ..., errno.h
+-- Looking for 10 include files fcntl.h, ..., errno.h - found
+-- Looking for 11 include files fcntl.h, ..., unistd.h
+-- Looking for 11 include files fcntl.h, ..., unistd.h - found
+-- Looking for 12 include files fcntl.h, ..., time.h
+-- Looking for 12 include files fcntl.h, ..., time.h - found
+-- Looking for 13 include files fcntl.h, ..., sys/types.h
+-- Looking for 13 include files fcntl.h, ..., sys/types.h - found
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h - found
+-- Looking for 15 include files fcntl.h, ..., sys/time.h
+-- Looking for 15 include files fcntl.h, ..., sys/time.h - found
+-- Looking for 16 include files fcntl.h, ..., sys/param.h
+-- Looking for 16 include files fcntl.h, ..., sys/param.h - found
+-- Looking for 17 include files fcntl.h, ..., netdb.h
+-- Looking for 17 include files fcntl.h, ..., netdb.h - found
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h - found
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h - found
+-- Looking for 20 include files fcntl.h, ..., poll.h
+-- Looking for 20 include files fcntl.h, ..., poll.h - found
+-- Looking for 21 include files fcntl.h, ..., port.h
+-- Looking for 21 include files fcntl.h, ..., port.h - not found
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h - found
+-- Looking for 22 include files fcntl.h, ..., sys/random.h
+-- Looking for 22 include files fcntl.h, ..., sys/random.h - found
+-- Looking for 23 include files fcntl.h, ..., sys/un.h
+-- Looking for 23 include files fcntl.h, ..., sys/un.h - found
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/event.h
+-- Looking for 24 include files fcntl.h, ..., sys/event.h - found
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h - found
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h - found
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h - found
+-- Looking for 28 include files fcntl.h, ..., sys/select.h
+-- Looking for 28 include files fcntl.h, ..., sys/select.h - found
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h - not found
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h - found
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h - found
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h - found
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h - not found
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h - found
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h - not found
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h - found
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h - found
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h - found
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h - found
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h - found
+-- Looking for getaddrinfo
+-- Looking for getaddrinfo - found
+-- Looking for getnameinfo
+-- Looking for getnameinfo - found
+-- Looking for getprotobynumber
+-- Looking for getprotobynumber - found
+-- Looking for getservbyname
+-- Looking for getservbyname - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for inet_ntop
+-- Looking for inet_ntop - found
+-- Looking for inet_pton
+-- Looking for inet_pton - found
+-- Looking for gettimeofday
+-- Looking for gettimeofday - found
+-- Looking for signal
+-- Looking for signal - found
+-- Looking for strtoll
+-- Looking for strtoll - found
+-- Looking for splice
+-- Looking for splice - not found
+-- Looking for strlcpy
+-- Looking for strlcpy - found
+-- Looking for strsep
+-- Looking for strsep - found
+-- Looking for strtok_r
+-- Looking for strtok_r - found
+-- Looking for vasprintf
+-- Looking for vasprintf - found
+-- Looking for timerclear
+-- Looking for timerclear - found
+-- Looking for timercmp
+-- Looking for timercmp - found
+-- Looking for timerisset
+-- Looking for timerisset - found
+-- Looking for timeradd
+-- Looking for timeradd - found
+-- Looking for nanosleep
+-- Looking for nanosleep - found
+-- Looking for putenv
+-- Looking for putenv - found
+-- Looking for umask
+-- Looking for umask - found
+-- Looking for clock_gettime
+-- Looking for clock_gettime - found
+-- Looking for getifaddrs
+-- Looking for getifaddrs - found
+-- Looking for select
+-- Looking for select - found
+-- Looking for epoll_create
+-- Looking for epoll_create - not found
+-- Looking for epoll_create1
+-- Looking for epoll_create1 - not found
+-- Looking for epoll_ctl
+-- Looking for epoll_ctl - not found
+-- Looking for eventfd
+-- Looking for eventfd - not found
+-- Looking for poll
+-- Looking for poll - found
+-- Looking for port_create
+-- Looking for port_create - not found
+-- Looking for kqueue
+-- Looking for kqueue - found
+-- Looking for fcntl
+-- Looking for fcntl - found
+-- Looking for mmap
+-- Looking for mmap - found
+-- Looking for pipe
+-- Looking for pipe - found
+-- Looking for pipe2
+-- Looking for pipe2 - not found
+-- Looking for sendfile
+-- Looking for sendfile - found
+-- Looking for sigaction
+-- Looking for sigaction - found
+-- Looking for strsignal
+-- Looking for strsignal - found
+-- Looking for sysctl
+-- Looking for sysctl - found
+-- Looking for accept4
+-- Looking for accept4 - not found
+-- Looking for arc4random
+-- Looking for arc4random - found
+-- Looking for arc4random_buf
+-- Looking for arc4random_buf - found
+-- Looking for arc4random_addrandom
+-- Looking for arc4random_addrandom - found
+-- Looking for getrandom
+-- Looking for getrandom - not found
+-- Looking for getegid
+-- Looking for getegid - found
+-- Looking for geteuid
+-- Looking for geteuid - found
+-- Looking for issetugid
+-- Looking for issetugid - found
+-- Looking for usleep
+-- Looking for usleep - found
+-- Looking for timerfd_create
+-- Looking for timerfd_create - not found
+-- Looking for setenv
+-- Looking for setenv - found
+-- Looking for unsetenv
+-- Looking for unsetenv - found
+-- Looking for setrlimit
+-- Looking for setrlimit - found
+-- Looking for gethostbyname_r
+-- Looking for gethostbyname_r - not found
+-- Looking for mach_absolute_time
+-- Looking for mach_absolute_time - found
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of struct sockaddr_un
+-- Check size of struct sockaddr_un - done
+-- Check size of uint8_t
+-- Check size of uint8_t - done
+-- Check size of uint16_t
+-- Check size of uint16_t - done
+-- Check size of uint32_t
+-- Check size of uint32_t - done
+-- Check size of uint64_t
+-- Check size of uint64_t - done
+-- Check size of short
+-- Check size of short - done
+-- Check size of int
+-- Check size of int - done
+-- Check size of unsigned
+-- Check size of unsigned - done
+-- Check size of unsigned int
+-- Check size of unsigned int - done
+-- Check size of long
+-- Check size of long - done
+-- Check size of long long
+-- Check size of long long - done
+-- Performing Test HAVE_INLINE
+-- Performing Test HAVE_INLINE - Success
+-- Looking for __func__
+-- Looking for __func__ - found
+-- Looking for __FUNCTION__
+-- Looking for __FUNCTION__ - found
+-- Looking for TAILQ_FOREACH
+-- Looking for TAILQ_FOREACH - found
+-- Performing Test EVENT__HAVE_DECL_CTL_KERN
+-- Performing Test EVENT__HAVE_DECL_CTL_KERN - Success
+-- Looking for CTL_KERN - found
+-- Performing Test EVENT__HAVE_DECL_KERN_ARND
+-- Performing Test EVENT__HAVE_DECL_KERN_ARND - Failed
+-- Looking for KERN_ARND - not found
+-- Looking for F_SETFD
+-- Looking for F_SETFD - found
+-- Check size of fd_mask
+-- Check size of fd_mask - done
+-- Check size of size_t
+-- Check size of size_t - done
+-- Check size of off_t
+-- Check size of off_t - done
+-- Check size of ssize_t
+-- Check size of ssize_t - done
+-- Check size of SSIZE_T
+-- Check size of SSIZE_T - failed
+-- Check size of socklen_t
+-- Check size of socklen_t - done
+-- Check size of pid_t
+-- Check size of pid_t - done
+-- Check size of pthread_t
+-- Check size of pthread_t - done
+-- Check size of uintptr_t
+-- Check size of uintptr_t - done
+-- Check size of void *
+-- Check size of void * - done
+-- Check size of time_t
+-- Check size of time_t - done
+CMake Warning at CMakeLists.txt:663 (message):
+  Cannot check if kqueue works with pipes when crosscompiling, use
+  EVENT__FORCE_KQUEUE_CHECK to be sure (this requires manually running a test
+  program on the cross compilation target)
+
+
+-- Check size of struct addrinfo
+-- Check size of struct addrinfo - done
+-- Check size of struct in6_addr
+-- Check size of struct in6_addr - done
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR16
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR16 - Failed
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR32
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR32 - Failed
+-- Check size of sa_family_t
+-- Check size of sa_family_t - done
+-- Check size of struct sockaddr_in6
+-- Check size of struct sockaddr_in6 - done
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN6_SIN6_LEN
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN6_SIN6_LEN - Success
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN_SIN_LEN - Failed
+-- Check size of struct sockaddr_storage
+-- Check size of struct sockaddr_storage - done
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY - Success
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE___SS_FAMILY
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE___SS_FAMILY - Failed
+-- Check size of struct linger
+-- Check size of struct linger - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- 
+--         ---( Libevent 2.1.12-stable )---
+-- 
+-- Available event backends: 
+-- CMAKE_BINARY_DIR:         /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- CMAKE_CURRENT_BINARY_DIR: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- CMAKE_SOURCE_DIR:         /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- CMAKE_CURRENT_SOURCE_DIR: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- PROJECT_BINARY_DIR:       /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- PROJECT_SOURCE_DIR:       /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- CMAKE_MODULE_PATH:        /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/cmake/
+-- CMAKE_COMMAND:            /opt/homebrew/bin/cmake
+-- CMAKE_ROOT:               /opt/homebrew/share/cmake
+-- CMAKE_SYSTEM:             Darwin-24.6.0
+-- CMAKE_SYSTEM_NAME:        Darwin
+-- CMAKE_SYSTEM_VERSION:     24.6.0
+-- CMAKE_SYSTEM_PROCESSOR:   arm64
+-- CMAKE_SKIP_RPATH:         NO
+-- CMAKE_VERBOSE_MAKEFILE:   
+-- CMAKE_C_FLAGS:            -I/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include -D_GNU_SOURCE -D_FORTIFY_SOURCE=3     -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64 -O2 -fdebug-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a=/usr -fmacro-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a=/usr -Wall -Wextra -Wno-unused-parameter -Wstrict-aliasing -Wstrict-prototypes -fno-strict-aliasing -Wmissing-prototypes -Winit-self -Wmissing-field-initializers -Wdeclaration-after-statement -Waddress -Woverride-init -Wwrite-strings -Wno-unused-function -Wno-error=deprecated-declarations -Qunused-arguments
+-- CMAKE_BUILD_TYPE:         None
+-- CMAKE_C_COMPILER:         /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang (id AppleClang, clang 1, GNUC 1)
+-- CMAKE_AR:                 /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+-- CMAKE_RANLIB:             /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
+-- 
+-- Configuring done (37.7s)
+-- Generating done (0.0s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    CMAKE_INSTALL_LIBDIR
+
+
+-- Build files have been written to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+Building libevent...
+[  3%] Building C object CMakeFiles/event_core_static.dir/buffer.c.o
+[  3%] Building C object CMakeFiles/event_core_static.dir/bufferevent.c.o
+[  5%] Building C object CMakeFiles/event_core_static.dir/bufferevent_filter.c.o
+[  7%] Building C object CMakeFiles/event_core_static.dir/bufferevent_pair.c.o
+[  9%] Building C object CMakeFiles/event_core_static.dir/bufferevent_ratelim.c.o
+[ 11%] Building C object CMakeFiles/event_core_static.dir/bufferevent_sock.c.o
+[ 13%] Building C object CMakeFiles/event_core_static.dir/event.c.o
+[ 15%] Building C object CMakeFiles/event_core_static.dir/evmap.c.o
+[ 17%] Building C object CMakeFiles/event_core_static.dir/evthread.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:77:60: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   77 | struct evthread_lock_callbacks *evthread_get_lock_callbacks()
+      |                                                            ^
+      |                                                             void
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:82:70: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   82 | struct evthread_condition_callbacks *evthread_get_condition_callbacks()
+      |                                                                      ^
+      |                                                                       void
+2 warnings generated.
+[ 19%] Building C object CMakeFiles/event_core_static.dir/evutil.c.o
+[ 21%] Building C object CMakeFiles/event_core_static.dir/evutil_rand.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil.c:216:21: warning: argument 'fd' of type 'int[2]' with mismatched bound [-Warray-parameter]
+  216 |     evutil_socket_t fd[2])
+      |                     ^
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/util-internal.h:306:62: note: previously declared as 'int[]' here
+  306 | int evutil_ersatz_socketpair_(int, int , int, evutil_socket_t[]);
+      |                                                              ^
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil_rand.c:197:2: warning: 'arc4random_addrandom' is deprecated: first deprecated in macOS 10.12 - use arc4random_stir [-Wdeprecated-declarations]
+  197 |         arc4random_addrandom((unsigned char*)buf,
+      |         ^
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:283:7: note: 'arc4random_addrandom' has been explicitly marked deprecated here
+  283 | void     arc4random_addrandom(unsigned char *_LIBC_COUNT(__datlen) /*dat*/, int __datlen)
+      |          ^
+1 warning generated.
+[ 23%] Building C object CMakeFiles/event_core_static.dir/evutil_time.c.o
+[ 25%] Building C object CMakeFiles/event_core_static.dir/listener.c.o
+1 warning generated.
+[ 27%] Building C object CMakeFiles/event_core_static.dir/log.c.o
+[ 29%] Building C object CMakeFiles/event_core_static.dir/signal.c.o
+[ 31%] Building C object CMakeFiles/event_core_static.dir/strlcpy.c.o
+[ 33%] Building C object CMakeFiles/event_core_static.dir/select.c.o
+[ 35%] Building C object CMakeFiles/event_core_static.dir/poll.c.o
+[ 37%] Building C object CMakeFiles/event_core_static.dir/kqueue.c.o
+[ 39%] Linking C static library lib/libevent_core.a
+[ 39%] Built target event_core_static
+[ 41%] Building C object CMakeFiles/event_pthreads_static.dir/evthread_pthread.c.o
+[ 43%] Building C object CMakeFiles/event_static.dir/buffer.c.o
+[ 45%] Building C object CMakeFiles/event_extra_static.dir/event_tagging.c.o
+[ 47%] Linking C static library lib/libevent_pthreads.a
+[ 47%] Built target event_pthreads_static
+[ 49%] Building C object CMakeFiles/event_static.dir/bufferevent.c.o
+[ 50%] Building C object CMakeFiles/event_extra_static.dir/http.c.o
+[ 52%] Building C object CMakeFiles/event_static.dir/bufferevent_filter.c.o
+[ 54%] Building C object CMakeFiles/event_static.dir/bufferevent_pair.c.o
+[ 56%] Building C object CMakeFiles/event_static.dir/bufferevent_ratelim.c.o
+[ 58%] Building C object CMakeFiles/event_static.dir/bufferevent_sock.c.o
+[ 60%] Building C object CMakeFiles/event_extra_static.dir/evdns.c.o
+[ 62%] Building C object CMakeFiles/event_static.dir/event.c.o
+[ 64%] Building C object CMakeFiles/event_static.dir/evmap.c.o
+[ 66%] Building C object CMakeFiles/event_static.dir/evthread.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:77:60: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   77 | struct evthread_lock_callbacks *evthread_get_lock_callbacks()
+      |                                                            ^
+      |                                                             void
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:82:70: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   82 | struct evthread_condition_callbacks *evthread_get_condition_callbacks()
+      |                                                                      ^
+      |                                                                       void
+2 warnings generated.
+[ 68%] Building C object CMakeFiles/event_static.dir/evutil.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil.c:216:21: warning: argument 'fd' of type 'int[2]' with mismatched bound [-Warray-parameter]
+  216 |     evutil_socket_t fd[2])
+      |                     ^
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/util-internal.h:306:62: note: previously declared as 'int[]' here
+  306 | int evutil_ersatz_socketpair_(int, int , int, evutil_socket_t[]);
+      |                                                              ^
+[ 70%] Building C object CMakeFiles/event_static.dir/evutil_rand.c.o
+[ 72%] Building C object CMakeFiles/event_extra_static.dir/evrpc.c.o
+1 warning generated.
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil_rand.c:197:2: warning: 'arc4random_addrandom' is deprecated: first deprecated in macOS 10.12 - use arc4random_stir [-Wdeprecated-declarations]
+  197 |         arc4random_addrandom((unsigned char*)buf,
+      |         ^
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:283:7: note: 'arc4random_addrandom' has been explicitly marked deprecated here
+  283 | void     arc4random_addrandom(unsigned char *_LIBC_COUNT(__datlen) /*dat*/, int __datlen)
+      |          ^
+[ 74%] Building C object CMakeFiles/event_static.dir/evutil_time.c.o
+1 warning generated.
+[ 76%] Building C object CMakeFiles/event_static.dir/listener.c.o
+[ 78%] Building C object CMakeFiles/event_static.dir/log.c.o
+[ 80%] Building C object CMakeFiles/event_static.dir/signal.c.o
+[ 82%] Linking C static library lib/libevent_extra.a
+[ 84%] Building C object CMakeFiles/event_static.dir/strlcpy.c.o
+[ 84%] Built target event_extra_static
+[ 86%] Building C object CMakeFiles/event_static.dir/select.c.o
+[ 88%] Building C object CMakeFiles/event_static.dir/poll.c.o
+[ 90%] Building C object CMakeFiles/event_static.dir/kqueue.c.o
+[ 92%] Building C object CMakeFiles/event_static.dir/event_tagging.c.o
+[ 94%] Building C object CMakeFiles/event_static.dir/http.c.o
+[ 96%] Building C object CMakeFiles/event_static.dir/evdns.c.o
+[ 98%] Building C object CMakeFiles/event_static.dir/evrpc.c.o
+[100%] Linking C static library lib/libevent.a
+[100%] Built target event_static
+Staging libevent...
+[ 39%] Built target event_core_static
+[ 43%] Built target event_pthreads_static
+[ 52%] Built target event_extra_static
+[100%] Built target event_static
+Install the project...
+-- Install configuration: "None"
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_core.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_core.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_extra.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_extra.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_pthreads.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_pthreads.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evdns.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evrpc.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evhttp.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evutil.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/buffer.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/buffer_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/keyvalq_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/listener.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/tag.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/tag_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/thread.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/util.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/visibility.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event-config.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventConfig.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventConfigVersion.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventTargets-static.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventTargets-static-none.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/bin/event_rpcgen.py
+Postprocessing libevent...
+Caching libevent...
+Fetching sqlite-autoconf-3460100.tar.gz from https://sqlite.org/2024/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 3189k  100 3189k    0     0  4562k      0 --:--:-- --:--:-- --:--:-- 4568k
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/sqlite-3460100/sqlite-autoconf-3460100.tar.gz.temp: OK
+Extracting sqlite...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/sqlite-autoconf-3460100.tar.gz: OK
+Preprocessing sqlite...
+Configuring sqlite...
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... ././install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports the include directive... yes (GNU style)
+checking for aarch64-apple-darwin24.6.0-gcc... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk accepts -g... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to enable C11 features... none needed
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk understands -c and -o together... yes
+checking dependency style of /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... gcc3
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for aarch64-apple-darwin24.6.0-gcc... (cached) /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+checking whether the compiler supports GNU C... (cached) yes
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk accepts -g... (cached) yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to enable C11 features... (cached) none needed
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk understands -c and -o together... (cached) yes
+checking dependency style of /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... (cached) gcc3
+checking build system type... aarch64-apple-darwin24.6.0
+checking host system type... aarch64-apple-darwin24.6.0
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+checking if the linker (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+checking for BSD- or MS-compatible name lister (nm)... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm
+checking the name lister (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 786432
+checking how to convert aarch64-apple-darwin24.6.0 file names to aarch64-apple-darwin24.6.0 format... func_convert_file_noop
+checking how to convert aarch64-apple-darwin24.6.0 file names to toolchain format... func_convert_file_noop
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+checking for aarch64-apple-darwin24.6.0-objdump... no
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for aarch64-apple-darwin24.6.0-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-apple-darwin24.6.0-ar... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+checking for archiver @FILE support... no
+checking for aarch64-apple-darwin24.6.0-strip... no
+checking for strip... strip
+checking for aarch64-apple-darwin24.6.0-ranlib... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
+checking command to parse /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm output from /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for aarch64-apple-darwin24.6.0-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for aarch64-apple-darwin24.6.0-dsymutil... no
+checking for dsymutil... dsymutil
+checking for aarch64-apple-darwin24.6.0-nmedit... no
+checking for nmedit... nmedit
+checking for aarch64-apple-darwin24.6.0-lipo... no
+checking for lipo... lipo
+checking for aarch64-apple-darwin24.6.0-otool... no
+checking for otool... otool
+checking for aarch64-apple-darwin24.6.0-otool64... no
+checking for otool64... no
+checking for -single_module linker flag... ld: warning: -single_module is obsolete
+no
+checking for -exported_symbols_list linker flag... yes
+checking for -force_load linker flag... yes
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -fno-rtti -fno-exceptions... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to produce PIC... -fno-common -DPIC
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk PIC flag -fno-common -DPIC works... yes
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk static flag -static works... no
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -c -o file.o... yes
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -c -o file.o... (cached) yes
+checking whether the /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk linker (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin24.6.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for fdatasync... yes
+checking for usleep... yes
+checking for fullfsync... no
+checking for localtime_r... yes
+checking for gmtime_r... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk options needed to detect all undeclared functions... none needed
+checking whether strerror_r is declared... yes
+checking whether strerror_r returns char *... no
+checking for editline/readline.h... yes
+checking for library containing readline... no
+checking for library containing pthread_create... none required
+checking for library containing pthread_mutexattr_init... none required
+checking for whether to support dynamic extensions... no
+checking SQL math functions... enabled
+checking for library containing ceil... none required
+checking FTS4 extension... disabled
+checking FTS3 extension... disabled
+checking FTS5 extension... disabled
+checking RTREE extension... disabled
+checking Session extension... disabled
+checking Build type... release
+checking for posix_fallocate... no
+checking for zlib.h... yes
+checking for library containing deflate... -lz
+checking for library containing system... none required
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating sqlite3.pc
+config.status: executing depfiles commands
+config.status: executing libtool commands
+Building sqlite...
+libtool: compile:  /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.46.1\" "-DPACKAGE_STRING=\"sqlite 3.46.1\"" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.46.1\" -DHAVE_STDIO_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_STRINGS_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_UNISTD_H=1 -DSTDC_HEADERS=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -DHAVE_FDATASYNC=1 -DHAVE_USLEEP=1 -DHAVE_LOCALTIME_R=1 -DHAVE_GMTIME_R=1 -DHAVE_DECL_STRERROR_R=1 -DHAVE_STRERROR_R=1 -DHAVE_EDITLINE_READLINE_H=1 -DHAVE_ZLIB_H=1 -I. -I/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include -DSQLITE_DQS=0 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_OMIT_JSON -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_OMIT_DECLTYPE -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_AUTOINIT -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION=1 -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_HAVE_ZLIB -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64 -O2 -MT sqlite3.lo -MD -MP -MF .deps/sqlite3.Tpo -c sqlite3.c  -fno-common -DPIC -o sqlite3.o
+libtool: link: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cr .libs/libsqlite3.a  sqlite3.o
+libtool: link: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib .libs/libsqlite3.a
+libtool: link: ( cd ".libs" && rm -f "libsqlite3.la" && ln -s "../libsqlite3.la" "libsqlite3.la" )
+Staging sqlite...
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig'
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include'
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libsqlite3.la '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+ /usr/bin/install -c -m 644 sqlite3.pc '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig'
+ /usr/bin/install -c -m 644 sqlite3.h sqlite3ext.h '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include'
+libtool: install: /usr/bin/install -c .libs/libsqlite3.lai /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.la
+libtool: install: /usr/bin/install -c .libs/libsqlite3.a /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: install: chmod 644 /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: install: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: warning: remember to run 'libtool --finish /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+Postprocessing sqlite...
+Caching sqlite...
+copying packages: boost libevent sqlite
+to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0
+To build Bitcoin Core with these packages, pass '--toolchain /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/toolchain.cmake' to the first CMake invocation.
+/bin/sh: command -v llvm-objcopy: No such file or directory
+-- The CXX compiler identification is AppleClang 17.0.0.17000013
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Performing Test LINKER_SUPPORTS__WL__FATAL_WARNINGS
+-- Performing Test LINKER_SUPPORTS__WL__FATAL_WARNINGS - Success
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP - Success
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP_DYLIBS
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP_DYLIBS - Success
+-- Performing Test LINKER_SUPPORTS__WL__HEADERPAD_MAX_INSTALL_NAMES
+-- Performing Test LINKER_SUPPORTS__WL__HEADERPAD_MAX_INSTALL_NAMES - Success
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Boost: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include (found suitable version "1.81.0", minimum required is "1.73.0")
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE - Failed
+-- Found Libevent: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent (found suitable version "2.1.12", minimum required is "2.1.8")
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR - Failed
+-- Looking for C++ include sys/prctl.h
+-- Looking for C++ include sys/prctl.h - not found
+-- Looking for C++ include sys/resources.h
+-- Looking for C++ include sys/resources.h - not found
+-- Looking for C++ include sys/vmmeter.h
+-- Looking for C++ include sys/vmmeter.h - found
+-- Looking for C++ include vm/vm_param.h
+-- Looking for C++ include vm/vm_param.h - not found
+-- Looking for O_CLOEXEC
+-- Looking for O_CLOEXEC - found
+-- Looking for fdatasync
+-- Looking for fdatasync - not found
+-- Looking for fork
+-- Looking for fork - found
+-- Looking for pipe2
+-- Looking for pipe2 - not found
+-- Looking for setsid
+-- Looking for setsid - found
+-- Looking for C++ include sys/types.h
+-- Looking for C++ include sys/types.h - found
+-- Looking for C++ include ifaddrs.h
+-- Looking for C++ include ifaddrs.h - found
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET - Success
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC - Success
+-- Looking for std::system
+-- Looking for std::system - found
+-- Looking for ::_wsystem
+-- Looking for ::_wsystem - not found
+-- Performing Test STRERROR_R_CHAR_P
+-- Performing Test STRERROR_R_CHAR_P - Failed
+-- Looking for malloc_info
+-- Looking for malloc_info - not found
+-- Performing Test HAVE_MALLOPT_ARENA_MAX
+-- Performing Test HAVE_MALLOPT_ARENA_MAX - Failed
+-- Performing Test HAVE_POSIX_FALLOCATE
+-- Performing Test HAVE_POSIX_FALLOCATE - Failed
+-- Performing Test HAVE_STRONG_GETAUXVAL
+-- Performing Test HAVE_STRONG_GETAUXVAL - Failed
+-- Performing Test HAVE_SOCKADDR_UN
+-- Performing Test HAVE_SOCKADDR_UN - Success
+-- Performing Test HAVE_GETRANDOM
+-- Performing Test HAVE_GETRANDOM - Failed
+-- Performing Test HAVE_GETENTROPY_RAND
+-- Performing Test HAVE_GETENTROPY_RAND - Success
+-- Performing Test HAVE_SYSCTL
+-- Performing Test HAVE_SYSCTL - Success
+-- Performing Test HAVE_SYSCTL_ARND
+-- Performing Test HAVE_SYSCTL_ARND - Failed
+-- Performing Test HAVE_SSE41
+-- Performing Test HAVE_SSE41 - Failed
+-- Performing Test HAVE_AVX2
+-- Performing Test HAVE_AVX2 - Failed
+-- Performing Test HAVE_X86_SHANI
+-- Performing Test HAVE_X86_SHANI - Failed
+-- Performing Test HAVE_ARM_SHANI
+-- Performing Test HAVE_ARM_SHANI - Success
+-- Performing Test CXX_SUPPORTS__WALL
+-- Performing Test CXX_SUPPORTS__WALL - Success
+-- Performing Test CXX_SUPPORTS__WEXTRA
+-- Performing Test CXX_SUPPORTS__WEXTRA - Success
+-- Performing Test CXX_SUPPORTS__WGNU
+-- Performing Test CXX_SUPPORTS__WGNU - Success
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY - Success
+-- Performing Test CXX_SUPPORTS__WVLA
+-- Performing Test CXX_SUPPORTS__WVLA - Success
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD - Success
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY - Success
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS - Success
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION - Success
+-- Performing Test CXX_SUPPORTS__WDATE_TIME
+-- Performing Test CXX_SUPPORTS__WDATE_TIME - Success
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Success
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES - Failed
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND - Failed
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP - Failed
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL - Success
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE - Success
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH - Success
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE - Success
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION - Success
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN - Success
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY - Failed
+-- Performing Test CXX_SUPPORTS__WUNDEF
+-- Performing Test CXX_SUPPORTS__WUNDEF - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER - Success
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS - Failed
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE - Failed
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL - Failed
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION - Failed
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_BTI
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_BTI - Success
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION - Failed
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE - Failed
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT - Failed
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE - Failed
+-- Performing Test LINKER_SUPPORTS__WL__FIXUP_CHAINS
+-- Performing Test LINKER_SUPPORTS__WL__FIXUP_CHAINS - Success
+-- Found Python3: /opt/homebrew/bin/python3 (found suitable version "3.15.2", minimum required is "3.10") found components: Interpreter
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE dot) 
+-- Performing Test HAVE_BUILTIN_PREFETCH
+-- Performing Test HAVE_BUILTIN_PREFETCH - Success
+-- Performing Test HAVE_MM_PREFETCH
+-- Performing Test HAVE_MM_PREFETCH - Failed
+-- Performing Test HAVE_SSE42
+-- Performing Test HAVE_SSE42 - Failed
+-- Performing Test HAVE_ARM64_CRC32C
+-- Performing Test HAVE_ARM64_CRC32C - Success
+-- Looking for F_FULLFSYNC
+-- Looking for F_FULLFSYNC - found
+-- Performing Test HAVE_CLMUL
+-- Performing Test HAVE_CLMUL - Failed
+
+Configuring secp256k1 subtree...
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test HAVE_X86_64_ASM
+-- Performing Test HAVE_X86_64_ASM - Failed
+-- Could NOT find Valgrind (missing: Valgrind_INCLUDE_DIR Valgrind_WORKS) 
+-- Performing Test C_SUPPORTS__PEDANTIC
+-- Performing Test C_SUPPORTS__PEDANTIC - Success
+-- Performing Test C_SUPPORTS__WALL
+-- Performing Test C_SUPPORTS__WALL - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN
+-- Performing Test C_SUPPORTS__WCAST_ALIGN - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT - Failed
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Success
+-- Performing Test C_SUPPORTS__WEXTRA
+-- Performing Test C_SUPPORTS__WEXTRA - Success
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS - Success
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG - Success
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS - Success
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION - Success
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER - Success
+-- Performing Test C_SUPPORTS__WSHADOW
+-- Performing Test C_SUPPORTS__WSHADOW - Success
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES - Success
+-- Performing Test C_SUPPORTS__WUNDEF
+-- Performing Test C_SUPPORTS__WUNDEF - Success
+
+
+secp256k1 configure summary
+===========================
+Build artifacts:
+  library type ........................ Static
+Optional modules:
+  ECDH ................................ OFF
+  ECDSA pubkey recovery ............... ON
+  extrakeys ........................... ON
+  schnorrsig .......................... ON
+  musig ............................... OFF
+  ElligatorSwift ...................... ON
+Parameters:
+  ecmult window size .................. 15
+  ecmult gen table size ............... 86 KiB
+Optional features:
+  assembly ............................ OFF
+  external callbacks .................. OFF
+Optional binaries:
+  benchmark ........................... OFF
+  noverify_tests ...................... OFF
+  tests ............................... OFF
+  exhaustive tests .................... OFF
+  ctime_tests ......................... OFF
+  examples ............................ OFF
+
+Cross compiling ....................... FALSE
+Valgrind .............................. OFF
+Preprocessor defined macros ........... ENABLE_MODULE_ELLSWIFT=1 ENABLE_MODULE_SCHNORRSIG=1 ENABLE_MODULE_EXTRAKEYS=1 ENABLE_MODULE_RECOVERY=1 ECMULT_WINDOW_SIZE=15 COMB_BLOCKS=43 COMB_TEETH=6
+C compiler ............................ AppleClang 17.0.0.17000013, /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+CFLAGS ................................ -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64
+Compile options ....................... -pedantic -Wall -Wcast-align -Wconditional-uninitialized -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wreserved-identifier -Wshadow -Wstrict-prototypes -Wundef
+Build type:
+ - CMAKE_BUILD_TYPE ................... Release
+ - CFLAGS ............................. -O2 -O2 -g 
+ - LDFLAGS for executables ............ 
+ - LDFLAGS for shared libraries ....... 
+
+
+
+Configure summary
+=================
+Executables:
+  bitcoind ............................ ON
+  bitcoin-node (multiprocess) ......... OFF
+  bitcoin-qt (GUI) .................... OFF
+  bitcoin-gui (GUI, multiprocess) ..... OFF
+  bitcoin-cli ......................... ON
+  bitcoin-tx .......................... OFF
+  bitcoin-util ........................ OFF
+  bitcoin-wallet ...................... OFF
+  bitcoin-chainstate (experimental) ... OFF
+  libbitcoinkernel (experimental) ..... OFF
+Optional features:
+  wallet support ...................... ON
+   - descriptor wallets (SQLite) ...... ON
+   - legacy wallets (Berkeley DB) ..... OFF
+  external signer ..................... ON
+  ZeroMQ .............................. OFF
+  USDT tracing ........................ OFF
+  QR code (GUI) ....................... OFF
+  DBus (GUI) .......................... OFF
+Tests:
+  test_bitcoin ........................ OFF
+  test_bitcoin-qt ..................... OFF
+  bench_bitcoin ....................... OFF
+  fuzz binary ......................... OFF
+
+Cross compiling ....................... FALSE
+C++ compiler .......................... AppleClang 17.0.0.17000013, /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+CMAKE_BUILD_TYPE ...................... Release
+Preprocessor defined macros ........... OBJC_OLD_DISPATCH_PROTOTYPES=0
+C++ compiler flags .................... -stdlib=libc++ -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -pipe -std=c++20 -mmacos-version-min=13.0 -arch arm64 -O2 -std=c++20 -fPIC -fdebug-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -fmacro-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -Wall -Wextra -Wgnu -Wformat -Wformat-security -Wvla -Wshadow-field -Wthread-safety -Wloop-analysis -Wredundant-decls -Wunused-member-function -Wdate-time -Wconditional-uninitialized -Woverloaded-virtual -Wsuggest-override -Wimplicit-fallthrough -Wunreachable-code -Wdocumentation -Wself-assign -Wundef -Wno-unused-parameter -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -Wstack-protector -fstack-protector-all -mbranch-protection=bti
+Linker flags .......................... -pipe -std=c++20 -mmacos-version-min=13.0 -arch arm64 -O2 -Wl,-platform_version,macos,13.0,14.0 -Wl,-dead_strip -Wl,-dead_strip_dylibs -Wl,-headerpad_max_install_names -fstack-protector-all -Wl,-fixup_chains -fPIE -Xlinker -pie
+
+NOTE: The summary above may not exactly match the final applied build flags
+      if any additional CMAKE_* or environment variables have been modified.
+      To see the exact flags applied, build with the --verbose option.
+
+Attempt to harden executables ......... ON
+Treat compiler warnings as errors ..... OFF
+Use ccache for compiling .............. OFF
+
+
+-- Configuring done (22.2s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/build
+[1/312] Generating src/binana.h and test/functional/data/binana.json
+[2/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_portable.cc.o
+[3/312] Generating bitcoin-build-info.h
+[4/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_arm64.cc.o
+[5/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c.cc.o
+[6/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/c.cc.o
+[7/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/builder.cc.o
+[8/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_iter.cc.o
+[9/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dbformat.cc.o
+[10/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/filename.cc.o
+[11/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_reader.cc.o
+[12/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dumpfile.cc.o
+[13/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_impl.cc.o
+[14/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_writer.cc.o
+[15/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/memtable.cc.o
+[16/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/table_cache.cc.o
+[17/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_edit.cc.o
+[18/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/repair.cc.o
+[19/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/write_batch.cc.o
+[20/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block.cc.o
+[21/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block_builder.cc.o
+[22/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/iterator.cc.o
+[23/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/format.cc.o
+[24/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/filter_block.cc.o
+[25/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_set.cc.o
+[26/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/merger.cc.o
+[27/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/two_level_iterator.cc.o
+[28/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table.cc.o
+[29/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table_builder.cc.o
+[30/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/arena.cc.o
+[31/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/bloom.cc.o
+[32/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/coding.cc.o
+[33/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/cache.cc.o
+[34/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/comparator.cc.o
+[35/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/crc32c.cc.o
+[36/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/filter_policy.cc.o
+[37/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env.cc.o
+[38/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/hash.cc.o
+[39/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/histogram.cc.o
+[40/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/logging.cc.o
+[41/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/status.cc.o
+[42/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_1byte.cpp.o
+[43/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_2bytes.cpp.o
+[44/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/options.cc.o
+[45/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_3bytes.cpp.o
+[46/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_5bytes.cpp.o
+[47/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_6bytes.cpp.o
+[48/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_7bytes.cpp.o
+[49/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_8bytes.cpp.o
+[50/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env_posix.cc.o
+[51/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/minisketch.cpp.o
+[52/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/helpers/memenv/memenv.cc.o
+[53/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[54/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_4bytes.cpp.o
+[55/312] Building CXX object src/CMakeFiles/bitcoin_clientversion.dir/clientversion.cpp.o
+[56/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[57/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[58/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/hash.cpp.o
+[59/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/block.cpp.o
+[60/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/transaction.cpp.o
+[61/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/pubkey.cpp.o
+[62/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script_error.cpp.o
+[63/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script.cpp.o
+[64/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/uint256.cpp.o
+[65/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/base58.cpp.o
+[66/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/bech32.cpp.o
+[67/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/interpreter.cpp.o
+[68/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/addresstype.cpp.o
+[69/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparamsbase.cpp.o
+[70/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chain.cpp.o
+[71/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparams.cpp.o
+[72/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/coins.cpp.o
+[73/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/bloom.cpp.o
+[74/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/args.cpp.o
+[75/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/config.cpp.o
+[76/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/interfaces.cpp.o
+[77/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/init.cpp.o
+[78/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/messages.cpp.o

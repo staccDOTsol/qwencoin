@@ -1,7 +1,7 @@
 """ord takes in an orphan when a reorganisation falls inside one batch of its indexer, and the
 node's tooling (tools/net.py: ord_sick, ord_rebuild, ord_heal) gets the index right again.
 
-    QWEN_RUN=<folder> QWEN_PORT=9733 QWEN_ORD_PORT=19080 python3 tests/check_ord_orphan.py
+    QWEN_SEEDS=none QWEN_RUN=<folder> QWEN_PORT=9733 QWEN_ORD_PORT=19080 python3 tests/check_ord_orphan.py
 
 Real node, real ord. Node 1 of QWEN_RUN has to hold two branches (getchaintips: a valid fork next
 to the active chain, the active one longer): a node that mined by itself and then met the network

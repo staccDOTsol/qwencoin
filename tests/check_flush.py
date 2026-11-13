@@ -1,7 +1,7 @@
 """A node that is killed hard keeps what it wrote to disk, and it writes its chain state once a
 day unless told to: tools/chain.py tells it every ten minutes (`gettxoutsetinfo none`).
 
-    QWEN_RUN=<folder> QWEN_PORT=9733 QWEN_ORD_PORT=19080 python3 tests/check_flush.py
+    QWEN_SEEDS=none QWEN_RUN=<folder> QWEN_PORT=9733 QWEN_ORD_PORT=19080 python3 tests/check_flush.py
 
 On node 1 of QWEN_RUN (a private chain; it mines two blocks twice):
   1  blocks mined, the node killed (SIGKILL), started again: its log says which height its chain

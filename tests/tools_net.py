@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 NET = ROOT / "work" / "tools-net"
-os.environ.update(QWEN_RUN=str(NET), QWEN_PORT="38733", QWEN_ORD_PORT="38080", QWEN_BIND="127.0.0.1")
+os.environ.update(QWEN_RUN=str(NET), QWEN_PORT="38733", QWEN_ORD_PORT="38080", QWEN_BIND="127.0.0.1", QWEN_SEEDS="none")  # private: nobody elsewhere is dialed
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 import net  # noqa: E402

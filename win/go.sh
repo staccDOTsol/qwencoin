@@ -32,6 +32,7 @@ if [ $# -eq 0 ] && [ -z "$changed" ] && ( cd "$DEST" && python3 tools/chain.py s
   ( cd "$DEST" && python3 tools/chain.py stop-helpers 2>&1 | tail -1 )
 fi
 [ -f "$WIN/SEEDS" ] && cp "$WIN/SEEDS" "$DEST/SEEDS"  # nodes elsewhere to dial, one host:port per line
+[ -f "$WIN/WEB" ] && cp "$WIN/WEB" "$DEST/WEB"  # where the public node serves the chain's pages
 [ -f "$WIN/HF_TOKEN_FILE" ] && cp "$WIN/HF_TOKEN_FILE" "$DEST/HF_TOKEN_FILE"  # where the Hugging Face token file is (its path, not the token)
 chmod +x "$DEST"/bin/* "$DEST"/libexec/* "$DEST"/lib/ld-linux-*.so.* 2>/dev/null
 cd "$DEST" || exit 1

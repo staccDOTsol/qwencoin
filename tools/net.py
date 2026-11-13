@@ -34,7 +34,9 @@ def conf(i, n):
              f"port={port(i)}", f"rpcport={rpcport(i)}", f"bind={bind}", "rpcbind=127.0.0.1",
              "rpcallowip=127.0.0.1", "dnsseed=0", "natpmp=0", "listenonion=0", "par=1",
              "maxtxfee=1", "datacarriersize=100000", "minrelaytxfee=0.00001", f"qwork={QWORK}"]
-    lines += [f"addnode=127.0.0.1:{port(j)}" for j in range(1, n + 1) if j != i]
+    # one link per pair of this machine's nodes: a node dials the ones before it (each dialing every other gave a
+    # pair two connections, and a node among four others showed 7 peers)
+    lines += [f"addnode=127.0.0.1:{port(j)}" for j in range(1, i)]
     lines += [f"addnode={s}" for s in seeds()]
     if i == 1 and os.environ.get("QWEN_EXTERNAL"):  # host:port under which others reach node 1 (a mapped port, say)
         lines.append(f"externalip={os.environ['QWEN_EXTERNAL']}")
@@ -42,8 +44,11 @@ def conf(i, n):
 
 
 def seeds() -> list:
-    """Nodes elsewhere to dial: QWEN_SEEDS=host:port,.. or the file SEEDS in this folder (one per line or comma separated)."""
+    """Nodes elsewhere to dial: QWEN_SEEDS=host:port,.. or the file SEEDS in this folder (one per line or comma
+    separated). QWEN_SEEDS=none: nobody, whatever the file says: a private network (the tests') stays private."""
     text = os.environ.get("QWEN_SEEDS") or ((ROOT / "SEEDS").read_text() if (ROOT / "SEEDS").exists() else "")
+    if text.strip().lower() == "none":
+        return []
     return [s for s in text.replace(",", " ").split() if s and not s.startswith("#")]
 
 

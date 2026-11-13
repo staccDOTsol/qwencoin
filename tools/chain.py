@@ -101,7 +101,9 @@ def tooling() -> str:
     process keeps the code it was started with; this tells whether that is still the code here)."""
     import zlib
     c = 0
-    for f in [ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py"] + sorted((ROOT / "graph").glob("*.py")) + sorted((ROOT / "rails").glob("*.py")):
+    for f in [ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py", ROOT / "tools" / "web.py"] + sorted((ROOT / "graph").glob("*.py")) + sorted((ROOT / "rails").glob("*.py")):
+        if not f.exists():
+            continue
         c = zlib.crc32(f.read_bytes(), c)
     return f"{c:08x}"
 
@@ -164,6 +166,9 @@ def up(n):
         if os.environ.get("QWEN_SWEEP_TO"):
             spawn(f"sweeper{i}", "sweep", i)
     say(f"each node's model ({MIND_MODEL.name}) is {'loading or running' if with_minds else 'not started: no merged checkpoint yet'}")
+    if os.environ.get("QWEN_WEB_PORT", "0") not in ("", "0"):  # ord's explorer and the graph as a read-only site (tools/web.py)
+        spawn("web", "web")
+        say(f"web: http://{os.environ.get('QWEN_WEB_BIND', '127.0.0.1')}:{os.environ['QWEN_WEB_PORT']}/  (the explorer, the graph; run/web.log)")
     g = net.cli(1, "getblockhash", 0)
     assert g == GENESIS, f"the node's genesis is {g}"
     print(f"{n} nodes up: p2p ports {[net.port(i) for i in range(1, n + 1)]}, each with its ord, miner and agent; "
@@ -487,6 +492,9 @@ if __name__ == "__main__":
         mind(int(sys.argv[2]))
     elif cmd == "sweep":
         sweep(int(sys.argv[2]))
+    elif cmd == "web":
+        import web
+        web.from_env()
     elif cmd == "pause-minds":  # free their memory for a while; `up` starts them again
         for f in sorted(PIDS.glob("mind*.pid")):
             try:

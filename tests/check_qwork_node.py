@@ -29,7 +29,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 NET = ROOT / "work" / "qwork-net"
-os.environ.update(QWEN_RUN=str(NET), QWEN_PORT="28733", QWEN_BIND="127.0.0.1")
+os.environ.update(QWEN_RUN=str(NET), QWEN_PORT="28733", QWEN_BIND="127.0.0.1", QWEN_SEEDS="none")  # a private network: nobody elsewhere is dialed
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "tools"))
 for _p in (ROOT / "upstream" / "bitcoin" / "test" / "functional", ROOT / "vendor"):

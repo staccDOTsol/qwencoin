@@ -9,8 +9,10 @@ routers dial out to.
 
 The pod downloads the node from the project's Hugging Face repository (so that has to be
 published first) and runs tools/seed.sh: one qwencoind with its ord and a miner, listening on
-8733. What it mines is paid to node 1 of this machine: nothing of value lives on the pod, whose
-disk is wiped whenever it restarts. RunPod maps the port to a public address, which is written
+8733, and the chain's public pages (ord's explorer, the graph as a read-only site: tools/web.py)
+on its HTTP port, which RunPod's proxy serves as https://POD-8080.proxy.runpod.net/ (the file WEB
+has the address). What it mines is paid to node 1 of this machine: nothing of value lives on the
+pod, whose disk is wiped whenever it restarts. RunPod maps the port to a public address, which is written
 to the file SEEDS (here, next to go.cmd and in the project's repository, so that a copy of the
 repository dials it) and given to the running nodes at once. The address changes when the pod
 is reset: `status` notices and repoints everything.
@@ -36,7 +38,7 @@ IMAGE = "python:3.12-slim"
 PORT = 8733
 STATUS = 8080  # the pod serves a small status page here, reached through RunPod's HTTP proxy (no API permission needed)
 PROXY = os.environ.get("RUNPOD_PROXY", "https://{id}-{port}.proxy.runpod.net")
-VERSION = 3  # of the pod's start script: a pod started by an earlier one is replaced
+VERSION = 4  # of what the pod runs: a pod started by an earlier one is replaced (4: tools/seed.sh serves the chain's pages on the status port)
 BOOK = ROOT / "seed-pod.json"  # the pod this folder rented (not in run/, which is set aside when the chain changes)
 # What is asked for, in this order, until one comes up. A small CPU pod would do for a node, but the ones rented
 # on 2026-11-13 sat in "Initializing" for minutes without a line of log, so GPU pods come first: they start in
@@ -401,6 +403,26 @@ def seed_files() -> list:
     return [ROOT / "SEEDS"] + ([Path(os.environ["KIT_SRC"]).parent / "SEEDS"] if os.environ.get("KIT_SRC") else [])
 
 
+def web_of(pid: str | None) -> str | None:
+    """The address of the pod's public pages is written to the file WEB (here and next to go.cmd), or the file is
+    removed when there is no pod. Returns the address if the pages answer."""
+    files = [f.with_name("WEB") for f in seed_files()]
+    if not pid:
+        for f in files:
+            f.unlink(missing_ok=True)
+        return None
+    url = PROXY.format(id=pid, port=STATUS)
+    t = page(pid, "graph/status.json", timeout=20)
+    if not (t and '"genesis"' in t) and not (page(pid, "graph/agents.txt", timeout=20) or "").startswith("Qwencoin"):
+        return None
+    for f in files:
+        try:
+            f.write_text(url + "\n")
+        except OSError as e:
+            print(f"runpod: could not write {f} ({e})")
+    return url
+
+
 def point(addr: str, old: str | None = None) -> int:
     """SEEDS (here and next to go.cmd) names the address, and the running nodes dial it."""
     import net
@@ -534,7 +556,7 @@ def seed(logs=None):
     k = need_key()
     b = book(k)
     if b and b.get("v") != VERSION:
-        print(f"runpod: pod {b['id']} was started by an earlier version of this script and cannot say where it is: it is replaced")
+        print(f"runpod: pod {b['id']} was started by an earlier version of this script: it is replaced by one that runs the current one")
         if not terminate(k, b):
             sys.exit(1)
         unpoint(b.get("address"))
@@ -620,6 +642,14 @@ def seed(logs=None):
         print("runpod: the seed's node accepts connections; none of this machine's nodes is running, so the chain was not compared", flush=True)
     if logs:
         (Path(logs) / "seed.txt").write_text(f"{addr}  pod {b['id']}  {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+    web = None
+    for _ in range(20):  # its pages come up with its ord
+        web = web_of(b["id"])
+        if web:
+            break
+        time.sleep(6)
+    print(f"runpod: the chain's pages (ord's explorer, the graph): {web}/" if web
+          else f"runpod: the pod's pages do not answer yet at {PROXY.format(id=b['id'], port=STATUS)}/ (`seed status` looks again)", flush=True)
     debug(logs)
     share(logs)
     print(f"runpod: done. {addr} is this chain's public node: a file SEEDS with that line (it is in the project's repository) is all "
@@ -650,6 +680,11 @@ def status(logs=None):
         n = point(addr, old)
         print(f"runpod: its address changed ({old} -> {addr}): SEEDS rewritten, {n} running node(s) told")
         share(logs)
+    had = (ROOT / "WEB").read_text().strip() if (ROOT / "WEB").exists() else None
+    web = web_of(b["id"])
+    print(f"runpod: the chain's pages: {web}/" if web else "runpod: the pod's pages (explorer, graph) do not answer")
+    if web and web != had:
+        share(logs)
     if addr:
         up = peers(addr)
         mine = net.cli(nodes()[0], "getblockcount", check=False) if nodes() else None
@@ -676,6 +711,7 @@ def down(logs=None):
         print("runpod: this account has no seed pod; nothing is rented")
         return
     if terminate(k, b):
+        web_of(None)
         unpoint(b.get("address"))
         if b.get("address"):
             print(f"runpod: {b['address']} is out of SEEDS and this machine's nodes no longer dial it")

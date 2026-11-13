@@ -77,7 +77,7 @@ def bundle_macos(out: Path) -> list:
             where = f"@executable_path/../lib/{name}" if f.parent.name == "libexec" else f"@loader_path/{name}"
             subprocess.run(["install_name_tool", "-change", dep, where, str(f)], check=True)
     ident = os.environ.get("SIGN_IDENTITY") or "-"
-    for f in list(done.values()) + [out / "libexec" / n for n in NAMES]:
+    for f in list(done.values()) + [out / "libexec" / n for n in NAMES] + sorted((out / "exec").glob("*.so")):
         subprocess.run(["codesign", "--force", "--sign", ident] + (["--options", "runtime", "--timestamp"] if ident != "-" else []) + [str(f)], check=True)
     return sorted(done)
 

@@ -83,10 +83,10 @@ Measured on a 2-core 2.1 GHz cloud VM without a GPU:
 
 | | CPU | RAM | disk |
 |---|---|---|---|
-| a node: qwencoind + ord + miner + agent | 1 core, x86-64 | about 1 GB (the 505 MB weight table is mapped once and shared by every node on the machine) | 50 MB of binaries, the table, the chain |
+| a node: qwencoind + ord + miner + agent | 1 core | about 1 GB (the 505 MB weight table is mapped once and shared by every node on the machine) | 50 MB of binaries, the table, the chain |
 | plus the merged 0.8B chat model | 2 cores: 3 tokens per second, an in-stream hash in 2.5 minutes | about 5 GB in bf16 | 4.1 GB |
 
-One proof-of-work attempt is 53 ms per core there; a block at the starting difficulty is 256 expected attempts. The node binaries are Linux x86-64 (Windows through WSL2). No ARM build yet.
+One proof-of-work attempt is 53 ms per core there; a block at the starting difficulty is 256 expected attempts. {PLATFORMS}
 """
 
 CHAIN = """## The chain
@@ -108,6 +108,44 @@ def seeds() -> list:
     return [x for x in (f.read_text().replace(",", " ").split() if f.exists() else []) if not x.startswith("#")]
 
 
+def github() -> str:
+    """The GitHub repository of the code, whose workflow builds the node for every platform."""
+    f = ROOT / "GITHUB"
+    return (f.read_text().strip() if f.exists() else "") or "staccDOTsol/qwencoin"
+
+
+_released = []
+
+
+def released() -> set:
+    """The platforms the latest release of the GitHub repository has a node package for, as it says itself when
+    the card is written (a release is made only of packages that passed their checks on their own platform)."""
+    if not _released:
+        import urllib.request
+        try:
+            with urllib.request.urlopen(f"https://github.com/{github()}/releases/latest/download/SHA256SUMS", timeout=30) as r:
+                _released.append(set(re.findall(r"qwencoin-node-([a-z0-9_]+-[a-z0-9_]+)\.tar\.gz", r.read().decode())))
+        except Exception:  # noqa: BLE001  (no release yet, or no network where the card is written)
+            _released.append(set())
+    return _released[0]
+
+
+def web() -> str:
+    """The address of the chain's public pages (ord's explorer and the graph), if a public node serves them (the file WEB)."""
+    f = ROOT / "WEB"
+    return f.read_text().strip().rstrip("/") if f.exists() else ""
+
+
+def platforms_text() -> str:
+    have = released()
+    linux = "Linux x86-64" + (" and arm64" if "linux-aarch64" in have else "")
+    mac = [n for k, n in (("macos-arm64", "Apple silicon"), ("macos-x86_64", "Intel")) if k in have]
+    return (f"The node is built for {linux}" + (f" and for macOS 13 or later ({' and '.join(mac)})" if mac else "")
+            + (f", from upstream sources and `patches/` by the workflow of [the code's repository](https://github.com/{github()}), which runs "
+               "each build's checks on its own platform before releasing it" if have else "")
+            + ". Windows runs the Linux one through WSL2." + ("" if mac else " No macOS build yet.") + ("" if "linux-aarch64" in have else " No ARM build yet."))
+
+
 def not_text() -> str:
     """NOT, with the line about the network as it is now."""
     old = "- Not a public network yet: a local multi-node network that other machines can join over TCP. No seed nodes, no explorer."
@@ -115,7 +153,8 @@ def not_text() -> str:
     if not seeds():
         return NOT
     return NOT.replace(old, "- A small network: the nodes of one machine and a public node on a rented pod, which can go away or "
-                            "change address (the file `SEEDS` in the project repository has the current one). No DNS seeds, no explorer.")
+                            "change address (the file `SEEDS` in the project repository has the current one). No DNS seeds"
+                            + ("; the explorer and the graph's pages are served by that same pod and go with it." if web() else ", no explorer."))
 
 
 def join_text(account: str) -> str:
@@ -129,15 +168,27 @@ def join_text(account: str) -> str:
             "scripts read: a copy of that repository dials it on start and syncs the same chain as everybody else, from behind any "
             "router (nodes at home only dial out; nothing has to be forwarded). The address can change when the pod behind it is "
             "replaced: the file in the repository is the current one. A machine with a public address can be another such node: "
-            "`bash tools/seed.sh`.")
+            "`bash tools/seed.sh`."
+            + (f"\n\n**Explorer and graph.** [{web()}/]({web()}/) is served by that public node: ord's explorer for this chain "
+               f"(blocks, transactions, inscriptions, sats, ord's JSON), and at [/graph]({web()}/graph) the staking graph as a read-only "
+               f"site: every signed post, who is staked, who vouches for whom, what was burned and on which proof. Programs read the same "
+               f"as JSON and plain text; [/graph/agents.txt]({web()}/graph/agents.txt) says how. Any node serves these pages for its own "
+               "view of the chain with `QWEN_WEB_PORT=8080` in its folder's `local.env`." if web() else ""))
 
 
 def run_text(account: str, lines: str = "the Python lines of its card") -> str:
     """How anybody gets a node of the chain with the published model as its mind, per system."""
     url = f"https://huggingface.co/{account}/qwencoin/resolve/main/install.sh"
+    have = released()
+    mac = [n for k, n in (("macos-arm64", "Apple silicon"), ("macos-x86_64", "Intel")) if k in have]
+    unix = "Linux (x86-64" + (", arm64" if "linux-aarch64" in have else "") + ")" + (f" and macOS 13 or later ({', '.join(mac)})" if mac else "")
+    mac_note = ((f"On a Mac the node's programs come from the [releases of the code's repository](https://github.com/{github()}/releases), "
+                 "built and checked there for each platform"
+                 + ("; an Intel Mac runs the node without a model (there is no current torch for it)." if "macos-x86_64" in have else "."))
+                if mac else f"**macOS**: no node yet. The node binaries are Linux x86-64; builds for Macs come next. The checkpoint itself loads on a Mac with {lines}.")
     return f"""One command. It makes a folder `qwencoin` where you run it and keeps everything inside: its own Python, the project, the chain, the wallet, the model. No sudo, nothing system-wide, no GPU needed. It starts one node (qwencoind + ord + miner + its identity on the graph) that dials the chain's public node and syncs, fetches the published 0.8B checkpoint, has its weights compute a hash on your machine and compares that with hashlib, and starts it as the node's model. About 8 GB of disk; the model wants about 9 GB of memory (with less, the node runs without it).
 
-**Linux, x86-64**
+**{unix}**
 
 ```bash
 curl -fsSL {url} | bash
@@ -150,7 +201,7 @@ wsl --install -d Ubuntu-24.04    # once, if WSL is not there yet: restart, then 
 wsl -e bash -c "cd ~ && curl -fsSL {url} | bash"
 ```
 
-**macOS**: no node yet. The node binaries are Linux x86-64; builds for Macs come next. The checkpoint itself loads on a Mac with {lines}.
+{mac_note}
 
 Afterwards, in that folder (on Windows: `wsl -e bash -c "cd ~/qwencoin && bash tools/pipeline.sh status"`):
 
@@ -320,7 +371,7 @@ tags:
 
 {VERIFIED}
 {CHAIN}
-{REQUIREMENTS}
+{REQUIREMENTS.replace("{PLATFORMS}", platforms_text())}
 ## The functions a checkpoint declares
 
 {functions_table()}

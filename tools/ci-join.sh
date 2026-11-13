@@ -4,7 +4,9 @@
 #
 #   tools/ci-join.sh published   the installer as it is on Hugging Face now (curl ... | bash)
 #   tools/ci-join.sh head        this checkout's installer, with this checkout's files laid over
-#                                the download: a change is tried before it is published
+#                                the download: a change is tried before it is published.
+#                                QWENCOIN_NODE_URL=file:///.../qwencoin-node-PLATFORM.tar.gz: with that
+#                                package's programs (one just built); TORCH=none: the node alone, no model
 #
 # The node does not mine here (MINERS=0): coins mined on a runner would be lost with it.
 set -uo pipefail
@@ -21,7 +23,7 @@ py() { python3 -c "$@"; }
 
 say "$HOW on $(uname -srm), $( (nproc 2>/dev/null || sysctl -n hw.ncpu) ) cpus"
 PLAT="$(uname -s | tr 'A-Z' 'a-z' | sed 's/darwin/macos/')-$(uname -m)"
-if [ "$PLAT" != linux-x86_64 ] && ! curl -fsL -r 0-0 -o /dev/null "https://github.com/$GITHUB/releases/latest/download/qwencoin-node-$PLAT.tar.gz" 2>/dev/null; then
+if [ "$PLAT" != linux-x86_64 ] && [ -z "${QWENCOIN_NODE_URL:-}" ] && ! curl -fsL -r 0-0 -o /dev/null "https://github.com/$GITHUB/releases/latest/download/qwencoin-node-$PLAT.tar.gz" 2>/dev/null; then
   say "SKIPPED: https://github.com/$GITHUB/releases has no node for $PLAT yet"
   exit 0
 fi

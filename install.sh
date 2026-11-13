@@ -18,8 +18,9 @@ main() {
   GITHUB="staccDOTsol/qwencoin"
   PLAT="$(uname -s | tr 'A-Z' 'a-z' | sed 's/darwin/macos/')-$(uname -m)"
   [ "$PLAT" = linux-arm64 ] && PLAT=linux-aarch64
-  NODE_URL="https://github.com/$GITHUB/releases/latest/download/qwencoin-node-$PLAT.tar.gz"
-  if [ "$PLAT" != linux-x86_64 ] && ! curl -fsL -r 0-0 -o /dev/null "$NODE_URL" 2>/dev/null; then
+  NODE_URL="${QWENCOIN_NODE_URL:-https://github.com/$GITHUB/releases/latest/download/qwencoin-node-$PLAT.tar.gz}"  # QWENCOIN_NODE_URL: another package (a build being tried)
+  PACKAGE=""; { [ "$PLAT" != linux-x86_64 ] || [ -n "${QWENCOIN_NODE_URL:-}" ]; } && PACKAGE=1
+  if [ -n "$PACKAGE" ] && ! curl -fsL -r 0-0 -o /dev/null "$NODE_URL" 2>/dev/null; then
     echo "qwencoin: there is no node build for $PLAT (https://github.com/$GITHUB/releases has them for linux-aarch64, macos-arm64, macos-x86_64; linux-x86_64 is in the project). The project: https://huggingface.co/$ACCOUNT/qwencoin"
     exit 1
   fi
@@ -48,7 +49,7 @@ main() {
   fi
   echo "== qwencoin: the project from https://huggingface.co/$ACCOUNT/qwencoin into $DIR (about 600 MB)"
   for k in 1 2 3 4 5; do  # a connection that drops: what has arrived is kept, the rest is asked for again
-    OTHERS=(); [ "$PLAT" = linux-x86_64 ] || OTHERS=(--exclude "bin/*" --exclude "libexec/*" --exclude "lib/*" --exclude "exec/*.so")  # Linux x86-64 programs
+    OTHERS=(); [ -z "$PACKAGE" ] || OTHERS=(--exclude "bin/*" --exclude "libexec/*" --exclude "lib/*" --exclude "exec/*.so")  # Linux x86-64 programs
     .uv/bin/uv tool run --python 3.12 --from huggingface_hub hf download "$ACCOUNT/qwencoin" --local-dir . --exclude "qwensha/*" --exclude "node/*" --exclude "logs/*" ${OTHERS[@]+"${OTHERS[@]}"} </dev/null >/dev/null && break
     [ "$k" = 5 ] && { echo "qwencoin: the download did not arrive; run the same command again, it goes on where it stopped"; exit 1; }
     echo "qwencoin: the download was interrupted; again in $((k * 10))s"; sleep $((k * 10))
@@ -58,8 +59,8 @@ main() {
     for d in tools graph rails hashformer tests exec; do [ -d "$QWENCOIN_OVERLAY/$d" ] && cp -R "$QWENCOIN_OVERLAY/$d/." "$d/"; done
     echo "qwencoin: the files of $QWENCOIN_OVERLAY are laid over the download"
   fi
-  if [ "$PLAT" != linux-x86_64 ] && [ ! -f "node/$PLAT/PLATFORM" ]; then
-    echo "== qwencoin: the node programs for $PLAT from https://github.com/$GITHUB/releases"
+  if [ -n "$PACKAGE" ] && [ ! -f "node/$PLAT/PLATFORM" ]; then
+    echo "== qwencoin: the node programs for $PLAT from ${QWENCOIN_NODE_URL:-https://github.com/$GITHUB/releases}"
     mkdir -p node
     curl -fsSL "$NODE_URL" -o node/package.tar.gz && tar -xzf node/package.tar.gz -C node && rm -f node/package.tar.gz \
       && [ -f "node/$PLAT/PLATFORM" ] || { echo "qwencoin: the node programs for $PLAT did not arrive ($NODE_URL); run the same command again"; exit 1; }

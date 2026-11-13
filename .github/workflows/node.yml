@@ -3,6 +3,12 @@
 # with the chain's work table, four nodes, every work value and hash against the exact reference
 # (tests/check_qwork_node.py). When all four platforms pass on main, their packages become the
 # latest release, which is where tools/install.sh takes another platform's node from.
+#
+# Signed: every package gets a build provenance attestation (Sigstore, by this workflow's own
+# identity: `gh attestation verify FILE --repo OWNER/REPO` checks it). The macOS programs are
+# signed with the repository's Developer ID and notarized when its secrets hold them
+# (tools/mac-signing-secrets.sh puts them there from the Mac that has the identity); without
+# them they are signed ad hoc, which is what a Mac needs to run a program a script fetched.
 name: node
 on:
   workflow_dispatch:
@@ -16,11 +22,17 @@ on:
       - "tools/ci.sh"
       - "tools/pack.py"
       - "tools/net.py"
+      - "tools/install.sh"
+      - "tools/pipeline.sh"
+      - "tools/chain.py"
+      - "tools/ci-join.sh"
       - "tests/check_qwork_node.py"
       - ".github/workflows/node.yml"
       - ".github/trigger"
 permissions:
   contents: write
+  id-token: write
+  attestations: write
 concurrency:
   group: node-${{ github.ref }}
   cancel-in-progress: true
@@ -38,12 +50,77 @@ jobs:
     timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
+      - name: the Developer ID, into a keychain of this run (macOS, when the repository has it)
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          P12: ${{ secrets.MACOS_CERT_P12_BASE64 }}
+          P12_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+        run: |
+          if [ -z "$P12" ]; then echo "no Developer ID in this repository's secrets: the programs are signed ad hoc"; exit 0; fi
+          KC="$RUNNER_TEMP/sign.keychain-db"; KP="$(openssl rand -hex 16)"
+          echo "$P12" | base64 --decode > "$RUNNER_TEMP/id.p12"
+          security create-keychain -p "$KP" "$KC"
+          security set-keychain-settings -lut 21600 "$KC"
+          security unlock-keychain -p "$KP" "$KC"
+          security import "$RUNNER_TEMP/id.p12" -k "$KC" -P "$P12_PASSWORD" -T /usr/bin/codesign -T /usr/bin/security >/dev/null
+          rm -f "$RUNNER_TEMP/id.p12"
+          for c in DeveloperIDG2CA DeveloperIDCA; do  # Apple's intermediates, so that the signature carries its chain
+            curl -fsSL "https://www.apple.com/certificateauthority/$c.cer" -o "$RUNNER_TEMP/$c.cer" && security import "$RUNNER_TEMP/$c.cer" -k "$KC" >/dev/null 2>&1 || true
+          done
+          security set-key-partition-list -S apple-tool:,apple:,codesign: -s -k "$KP" "$KC" >/dev/null
+          security list-keychains -d user -s "$KC" $(security list-keychains -d user | tr -d '"')
+          ID="$(security find-identity -v -p codesigning "$KC" | sed -n 's/.*"\(Developer ID Application: [^"]*\)".*/\1/p' | head -1)"
+          [ -n "$ID" ] || { echo "the certificate in the secrets is not a valid Developer ID Application identity"; security find-identity -p codesigning "$KC" | tail -5; exit 1; }
+          echo "SIGN_IDENTITY=$ID" >> "$GITHUB_ENV"
+          echo "the programs will be signed as: $ID"
       - name: build, pack, check
         shell: bash
         run: |
           set -o pipefail
           mkdir -p ci
           { bash tools/ci.sh deps && bash tools/ci.sh build && bash tools/ci.sh pack && bash tools/ci.sh check; } 2>&1 | tee "ci/${{ matrix.plat }}.log"
+      - name: a node from this package joins the public chain (no model, no mining; stopped at the end)
+        shell: bash
+        env:
+          PLAT: ${{ matrix.plat }}
+        run: |
+          set -o pipefail
+          QWENCOIN_NODE_URL="file://$PWD/dist/qwencoin-node-$PLAT.tar.gz" TORCH=none bash tools/ci-join.sh head 2>&1 | tee -a "ci/$PLAT.log"
+      - name: notarize (macOS, when signed with the Developer ID and the repository has notary credentials)
+        if: runner.os == 'macOS'
+        shell: bash
+        env:
+          PLAT: ${{ matrix.plat }}
+          API_KEY: ${{ secrets.APPLE_API_KEY_P8 }}
+          API_KEY_ID: ${{ secrets.APPLE_API_KEY_ID }}
+          API_ISSUER: ${{ secrets.APPLE_API_ISSUER_ID }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+          APPLE_APP_PASSWORD: ${{ secrets.APPLE_APP_PASSWORD }}
+        run: |
+          set -o pipefail
+          {
+            for f in dist/node/$PLAT/libexec/* dist/node/$PLAT/exec/*; do codesign --verify --strict --verbose=2 "$f" 2>&1 | tail -1; codesign -dvv "$f" 2>&1 | grep -E "^(Authority|TeamIdentifier|Signature|Timestamp|Runtime)" | tr '\n' ';'; echo; done
+            if [ -z "${SIGN_IDENTITY:-}" ]; then echo "signed ad hoc (no Developer ID in the secrets): nothing to notarize"; exit 0; fi
+            (cd dist/node && ditto -c -k --keepParent "$PLAT" "$RUNNER_TEMP/notarize.zip")
+            if [ -n "$API_KEY" ] && [ -n "$API_KEY_ID" ] && [ -n "$API_ISSUER" ]; then
+              printf '%s' "$API_KEY" > "$RUNNER_TEMP/AuthKey.p8"
+              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --key "$RUNNER_TEMP/AuthKey.p8" --key-id "$API_KEY_ID" --issuer "$API_ISSUER" --wait --timeout 30m | tee "$RUNNER_TEMP/notary.txt"
+              rm -f "$RUNNER_TEMP/AuthKey.p8"
+            elif [ -n "$APPLE_ID" ] && [ -n "$APPLE_TEAM_ID" ] && [ -n "$APPLE_APP_PASSWORD" ]; then
+              xcrun notarytool submit "$RUNNER_TEMP/notarize.zip" --apple-id "$APPLE_ID" --team-id "$APPLE_TEAM_ID" --password "$APPLE_APP_PASSWORD" --wait --timeout 30m | tee "$RUNNER_TEMP/notary.txt"
+            else
+              echo "signed with the Developer ID; no notary credentials in the secrets, so not notarized"; exit 0
+            fi
+            grep -q "status: Accepted" "$RUNNER_TEMP/notary.txt" || { echo "the notary service did not accept the programs"; exit 1; }
+            echo "notarized: Apple's notary service accepted the programs of $PLAT"
+          } 2>&1 | tee -a "ci/$PLAT.log"
+      - name: provenance (Sigstore), for the package
+        if: success()
+        uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/qwencoin-node-*.tar.gz
       - name: the log, on the branch ci-logs (readable without signing in)
         if: always()
         shell: bash
@@ -62,6 +139,7 @@ jobs:
             mkdir -p "runs/$GITHUB_RUN_NUMBER"
             tail -c 400000 "$W/ci/$PLAT.log" > "runs/$GITHUB_RUN_NUMBER/$PLAT.log" 2>/dev/null || true
             [ -f "$W/logs/qwork-node.log" ] && cp "$W/logs/qwork-node.log" "runs/$GITHUB_RUN_NUMBER/$PLAT.qwork-node.log"
+            for f in "$W"/ci/join/*; do [ -f "$f" ] && tail -c 200000 "$f" > "runs/$GITHUB_RUN_NUMBER/$PLAT.join-$(basename "$f")"; done
             [ -f "$W/dist/qwencoin-node-$PLAT.tar.gz" ] && (cd "$W/dist" && { sha256sum "qwencoin-node-$PLAT.tar.gz" 2>/dev/null || shasum -a 256 "qwencoin-node-$PLAT.tar.gz"; }) > "runs/$GITHUB_RUN_NUMBER/$PLAT.sha256"
             echo "$OUTCOME $(date -u +%FT%TZ) ${GITHUB_SHA}" > "runs/$GITHUB_RUN_NUMBER/$PLAT.status"
             git add -A && git commit -q -m "run $GITHUB_RUN_NUMBER: $PLAT $OUTCOME" || true

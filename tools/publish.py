@@ -223,7 +223,7 @@ def hub(logs, full: bool = True) -> bool:
     repo = f"{who}/qwencoin"
     stage = Path(tempfile.mkdtemp(prefix="qwhub"))
     (stage / "README.md").write_text(cards.hub_card(who, logs, [r for r in published(logs) if r != repo]))
-    for f in ("RESULTS.md", "MODELS", "SEEDS"):
+    for f in ("RESULTS.md", "MODELS", "SEEDS", "WEB"):
         if (ROOT / f).exists() and (ROOT / f).read_text().strip():
             shutil.copy(ROOT / f, stage / f)
     (stage / "ORIGIN").write_text(who + "\n")  # the account the checkpoints are under: `pipeline.sh join` fetches from it

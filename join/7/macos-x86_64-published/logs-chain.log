@@ -1,0 +1,8 @@
+20:31:48 starting 1 qwencoind (datadirs in /Users/runner/work/_temp/qwencoin-join/qwencoin/run)
+20:31:52 nodes answer; heights [0]
+20:31:54 ord 1 has indexed its node's chain
+20:31:56 n1's wallet is ready; it mines to bc1p50yle4ug79z8jsh4syde0rgd4e7kdwpzxmxd49dtdmt986fmylsqwc72z4
+20:31:56 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+  n1 qwen-a03ddef9  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off

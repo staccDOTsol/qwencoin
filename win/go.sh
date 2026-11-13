@@ -25,6 +25,36 @@ if [ "${1:-}" = update ]; then
   [ $# -gt 0 ] || set -- refresh
   exec bash "$WIN/kit/go.sh" "$@"
 fi
+# go.cmd follow: stay here and follow the project's repository. Whenever its main branch has a commit this folder has
+# not deployed, the kit's code is taken again, the project is published and the public node told (seed), and what runs
+# here from files that changed starts again (refresh; the nodes keep running). Unattended: whatever is pushed to that
+# repository runs on this machine from then on, until this window is closed or Ctrl-C is pressed. Nothing is rented
+# or terminated unattended: `seed` then only goes on with a pod the account already has.
+if [ "${1:-}" = follow ]; then
+  REPO="$(head -1 "$WIN/kit/GITHUB" 2>/dev/null | tr -d ' \r\n')"; REPO="${REPO:-staccDOTsol/qwencoin}"
+  DEST="${QWENCOIN_HOME:-$HOME/qwencoin}"
+  echo "following https://github.com/$REPO (main): every new commit is deployed here, unattended. Ctrl-C ends it."
+  while true; do
+    sha="$(curl -fsSL -m 30 -H 'Accept: application/vnd.github.sha' "https://api.github.com/repos/$REPO/commits/main" 2>/dev/null | tr -dc '0-9a-f' | head -c 40)"
+    if [ "${#sha}" = 40 ] && [ "$sha" != "$(cat "$WIN/kit/.followed" 2>/dev/null)" ]; then
+      echo "== $(date '+%Y-%m-%d %H:%M:%S') commit ${sha:0:7}: taking the kit's code, publishing it, telling the public node"
+      # SEED_RENT=0: goes on with the pod there is, rents none; SEED_KEEP=1: a pod that does not answer is left as it is
+      if SEED_RENT=0 SEED_KEEP=1 bash "$WIN/kit/go.sh" update seed; then
+        if ( cd "$DEST" && python3 tools/chain.py stale-helpers ) >/dev/null 2>&1; then
+          echo "== what runs here was started from other files: the miners, agents, ord servers and node models start again"
+          bash "$WIN/kit/go.sh" refresh
+        else
+          echo "== nothing that runs here changed: the nodes' helpers go on as they are"
+        fi
+        echo "$sha" > "$WIN/kit/.followed"
+        echo "== $(date '+%H:%M:%S') commit ${sha:0:7} is deployed; looking again every two minutes"
+        exec bash "$WIN/kit/go.sh" follow   # this file is among what was replaced: go on as the new one
+      fi
+      echo "== that did not go through; again in two minutes"
+    fi
+    sleep 120
+  done
+fi
 DEST="${QWENCOIN_HOME:-$HOME/qwencoin}"
 mkdir -p "$DEST" "$WIN/logs" || exit 1
 # New node binaries in the kit: stop what runs from the old ones first (the chain stays on disk;

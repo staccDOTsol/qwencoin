@@ -3,6 +3,8 @@ rem qwencoin on this Windows machine, inside WSL2: 4 nodes of the chain, then ev
 rem checked and published (see README.txt).
 rem   go.cmd            everything, resumable
 rem   go.cmd status ^| watch ^| down ^| up N ^| chat ^| publish ^| seed [status ^| down]
+rem   go.cmd update     the kit's code again from the project's repository, then refresh
+rem   go.cmd follow     stay and deploy every new commit of that repository here, unattended
 rem   go.cmd ask "How many coins does this node have?"
 setlocal
 cd /d "%~dp0"

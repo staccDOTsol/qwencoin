@@ -57,6 +57,10 @@ def up(height: int = 106, log=print) -> dict:
         log(f"mined {net.cli(1, 'getblockcount') - h0} blocks in {time.time() - t0:.0f}s")
     for i in NODES:
         net.ord_wait(i, timeout=1800)
+    for _ in range(120):  # the two find each other a moment after they start
+        if all(net.cli(i, "getconnectioncount") >= 1 for i in NODES):
+            break
+        time.sleep(1)
     return a
 
 

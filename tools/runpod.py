@@ -34,7 +34,8 @@ runpod_key.txt in Documents or the home folder (Linux home, or a Windows user's 
 sees it), or next to go.cmd. It is never printed or logged. Renting costs money on that
 account: the hourly price is printed before and after the pod is created, one pod is rented at
 most (a second `seed` continues with the first), and a pod whose node does not come up is
-terminated again unless SEED_KEEP=1.
+terminated again unless SEED_KEEP=1. With SEED_RENT=0 (what `go.cmd follow` sets: nobody is there
+to see a price) `seed` goes on with a pod this account has and never rents or replaces one.
 """
 import base64, ipaddress, json, os, re, socket, sys, time, urllib.error, urllib.parse, urllib.request
 from pathlib import Path
@@ -659,6 +660,15 @@ def share(logs) -> None:
 
 def seed(logs=None):
     import net
+    if os.environ.get("SEED_RENT", "1") == "0":  # unattended (go.cmd follow): renting is a person's decision
+        k = key()
+        b = book(k) if k else None
+        if not b or b.get("v") != VERSION:
+            print("runpod: " + ("no RunPod key on this machine" if not k else "this account has no seed pod" if not b
+                                else f"pod {b['id']} was started by an earlier version of this script")
+                  + ": nothing is rented or replaced unattended (`seed`, run by hand, does that). The project's repository gets the code as it is here.", flush=True)
+            share(logs)
+            return
     k = need_key()
     b = book(k)
     if b and b.get("v") != VERSION:

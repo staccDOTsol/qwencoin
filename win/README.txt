@@ -48,6 +48,11 @@ Also:   go.cmd status                                   heights, peers, balances
                                                         files as they are now (the nodes keep running)
         go.cmd recheck 0.8B                             a model's functions on the running chain once more, then its
                                                         card and logs again
+        go.cmd update                                   the kit's code again from the project's repository on GitHub,
+                                                        then refresh
+        go.cmd follow                                   stay and deploy every new commit of that repository here
+                                                        (update, seed, and refresh if what runs changed): unattended,
+                                                        whatever is pushed there runs on this machine until you stop it
 
 Reaching it from outside: nodes behind a router dial out. Put host:port lines in a file named SEEDS next to
 go.cmd (a public node of this chain; `go.cmd seed` makes one, `bash tools/seed.sh` on any Linux box with a

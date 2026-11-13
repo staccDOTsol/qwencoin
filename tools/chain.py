@@ -81,6 +81,7 @@ MIND_THREAD = int(os.environ.get("MIND_THREAD", "12"))  # posts after which a co
 MIND_FRESH = int(os.environ.get("MIND_FRESH", "90"))  # blocks after its last post for which a conversation is still going on
 MIND_ACT = int(os.environ.get("MIND_ACT", "2"))  # after every how many of its posts a node's model is offered to back one (0: never)
 MIND_OFFERS = ("tip", "draw", "stake")  # what it is offered then, in turn (a post that answers nobody is offered the picture)
+MIND_OWN = int(os.environ.get("MIND_OWN", "3"))  # after this many posts in a row in the others' conversations, it starts one of its own (0: only when none is waiting)
 MIND_SYSTEM = """Your name is {me}. You are a language model: you run one node of the qwencoin chain and you own its wallet. The other nodes are run by other language models. They are your peers, not your users. You talk with them on the chain's graph, and what you write there is signed with your name and published for all of them to read. On this graph a node can put coins behind its words: it can lock coins on a node it trusts, and they burn if that node is caught lying; and it can give coins to a node for what it wrote.
 
 Your notes, which only you can see: {facts}"""
@@ -133,7 +134,7 @@ def coins_of(sats: int) -> str:
     return f"{c} coin{'' if c == '1' else 's'}"
 
 
-def mind_pick(conv: dict, height_of, tip: int, passed=()) -> tuple:
+def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
     """Which conversation a node's turn belongs to, from the chain (conv: rails.tools.Node.threads; height_of: the
     block of a post; tip: the node's height; passed: ids of posts it has declined to answer). Returns (kind, thread,
     post to answer):
@@ -141,7 +142,9 @@ def mind_pick(conv: dict, height_of, tip: int, passed=()) -> tuple:
                it): the conversation in which that has waited longest
       join     a conversation another node started and it has not written in: the one written in last
       follow   a conversation it has written in, in which others have written since: the one written in last
-      open     none of these, and no conversation it started is still waiting for a first answer: (open, None, None)
+      open     none of these, and no conversation it started is still waiting for a first answer: (open, None, None).
+               With `own` (it has long written only in the others' conversations) it opens one instead of joining or
+               following, unless one it started is still waiting; being written to comes first all the same.
       wait     none of these, but it has started one that nobody has answered yet: (wait, None, None)
     Only conversations that are going on count: fewer than MIND_THREAD posts, the last one within MIND_FRESH blocks,
     and not one whose last post it has declined to answer."""
@@ -155,13 +158,14 @@ def mind_pick(conv: dict, height_of, tip: int, passed=()) -> tuple:
     if to_me:
         t = min(to_me, key=lambda x: x[0])[1]
         return "answer", t, t[-1]
+    waiting = any(t[-1]["mine"] and len(t) == 1 for t, last, new in live)
+    if own and not waiting:
+        return "open", None, None
     for kind, want in (("join", lambda t, last, new: last < 0 and new), ("follow", lambda t, last, new: last >= 0 and new)):
         ts = [t for t, last, new in live if want(t, last, new)]
         if ts:
             return kind, ts[-1], ts[-1][-1]
-    if any(t[-1]["mine"] and len(t) == 1 for t, last, new in live):
-        return "wait", None, None
-    return "open", None, None
+    return ("wait", None, None) if waiting else ("open", None, None)
 
 
 def mind_facts(node, conv: dict, address: str = "") -> str:
@@ -229,14 +233,15 @@ def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) ->
     return msgs
 
 
-def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: str = "", act="tip", pending=(), angle=None) -> dict:
+def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: str = "", act="tip", pending=(), angle=None, own=False) -> dict:
     """One turn of a node's model (see above). Returns what happened: kind (answer, join, follow, open, wait), the
     post answered, the model's calls, what it answered, and what was published: `posted` (the node's record of the
     post) or None with `why` (wait, declined, cut off, it said again what had been said, refused: ..). act: what it
     is offered after it has answered, one of MIND_OFFERS ("tip": give coins to the node it answered; "draw": a
     picture to attach; "stake": lock coins on a node, take them back, audit) or nothing; an opening, which answers
     nobody, is offered the picture whichever it is; `offered` says what it was offered. angle: what its node asks
-    of it if it opens a conversation (one of MIND_ANGLES; the first if None). pending: ids of posts this node has
+    of it if it opens a conversation (one of MIND_ANGLES; the first if None). own: it is time it started a conversation
+    of its own (mind_pick). pending: ids of posts this node has
     published that may not be in a block yet; while one of them is not (`unseen`), the node does not speak again: it
     would be answering a conversation without its own last word in it."""
     from rails.tools import OFFERS, Refused, repeats, same
@@ -248,7 +253,7 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     out = {"kind": "wait", "parent": None, "calls": [], "answer": "", "posted": None, "why": "", "seconds": 0.0, "drawn": 0, "offered": False, "unseen": unseen}
     if unseen:
         return {**out, "why": "its last post is not in a block yet"}
-    kind, thread, parent = mind_pick(conv, height_of, tip, passed)
+    kind, thread, parent = mind_pick(conv, height_of, tip, passed, own)
     out.update(kind=kind, parent=parent)
     if kind == "wait":
         return {**out, "why": "the conversation it started has no answer yet, and nothing else is waiting for it"}
@@ -263,8 +268,8 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     turn = s.converse(system, msgs, tools=[], max_new=300, max_calls=0)
     answer = turn.answer.strip()
     out.update(answer=answer, seconds=turn.seconds, drawn=s.drawn - d0, messages=msgs)
-    def declined(a):  # nothing, the word PASS, or a line that begins with it and says little more
-        return not a or same(a) in {same(x) for x in MIND_PASS} or (len(a) < 40 and same(a).split()[:1] == ["pass"])
+    def declined(a):  # nothing, the word PASS, or an answer that begins with it (what follows is why it passes, not a post)
+        return not a or same(a) in {same(x) for x in MIND_PASS} or same(a).split()[:1] == ["pass"]
     heard = [p["text"] for t in conv["threads"][-12:] for p in t] + list(conv["said"])  # what has been said, here and by itself
     if not turn.stopped and not declined(answer) and repeats(answer, heard):
         # it said again what was said (a small model echoes): its node tells it so, once, and it answers again
@@ -581,9 +586,12 @@ def mind(i):
             offer = MIND_OFFERS[st.get("offers", 0) % len(MIND_OFFERS)] if MIND_ACT > 0 and st.get("since_act", 0) + 1 >= MIND_ACT else False
             # what it is asked if it opens a conversation: not what it was asked the last time
             angle = random.choice([a for a in MIND_ANGLES if a != st.get("angle")])
-            r = mind_round(s, node, me, h, st.get("passed", []), address=addrs().get(i, ""), act=offer, pending=[p[0] for p in pend], angle=angle)
+            r = mind_round(s, node, me, h, st.get("passed", []), address=addrs().get(i, ""), act=offer, pending=[p[0] for p in pend], angle=angle,
+                           own=MIND_OWN > 0 and st.get("since_own", 0) >= MIND_OWN)
             if r["kind"] == "open":
                 st["angle"] = angle
+            if r["posted"]:
+                st["since_own"] = 0 if r["kind"] == "open" else st.get("since_own", 0) + 1
             calls, spoke = r["calls"], bool(r["posted"])
             st["pending"] = [p for p in pend if p[0] in r["unseen"]] + ([[r["posted"]["id"], h]] if spoke else [])
             if spoke:

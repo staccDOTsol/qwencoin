@@ -17,6 +17,14 @@ to the file SEEDS (here, next to go.cmd and in the project's repository, so that
 repository dials it) and given to the running nodes at once. The address changes when the pod
 is reset: `status` notices and repoints everything.
 
+A domain for the pages. RunPod gives a pod random outside ports, never 80 or 443, so a domain cannot point at
+it; a Cloudflare tunnel can: the pod dials out to Cloudflare, which serves the domain. With a file
+cloudflare_tunnel.txt on this machine (Documents, the home folder or next to go.cmd; the tunnel's token on
+its first line, the domain on its second) the pod runs cloudflared with that token, the pages call
+themselves by the domain, and the file WEB names https://DOMAIN. The token goes to RunPod inside the pod's
+start command and nowhere else; it is never printed or logged. A changed token or domain reaches the pod
+when it is replaced (`seed down`, then `seed`).
+
 The RunPod key is read on this machine and goes to api.runpod.io only: $RUNPOD_API_KEY, or
 runpod_key.txt in Documents or the home folder (Linux home, or a Windows user's home as WSL
 sees it), or next to go.cmd. It is never printed or logged. Renting costs money on that
@@ -56,6 +64,7 @@ _client = [0]
 POD = r'''mkdir -p /status
 exec > >(tee -a /status/log) 2>&1
 stay() { echo "SEED FAILED: $*"; sleep infinity; }
+TUNNEL_TOKEN='@TUNNEL@'; WEB_DOMAIN='@DOMAIN@'
 echo "seed: $(date -u +%FT%TZ), $(nproc) cpus, $(awk '/MemTotal/ {printf "%.1f", $2 / 1048576}' /proc/meminfo) GB, $(python3 -V)"
 # /status/address: the public address RunPod gave this pod for the node's port, from the pod's environment or,
 # failing that, from RunPod's API with the pod's own key (which stays in here). Served with the log on port @STATUS@.
@@ -112,9 +121,24 @@ rm -f SEEDS
 mkdir -p run
 [ -n "@MINE_TO@" ] && [ ! -f run/addrs.json ] && echo '{"1": "@MINE_TO@"}' > run/addrs.json
 [ -n "$ADDR" ] && export QWEN_EXTERNAL="$ADDR"
+[ -n "$WEB_DOMAIN" ] && export QWEN_WEB_NAME="$WEB_DOMAIN"
 echo "seed: starting the node"
 QWEN_MINE_WAIT=1800 AGENTS=0 bash tools/seed.sh || stay "the node did not start"
 echo "seed: UP"
+if [ -n "$TUNNEL_TOKEN" ]; then  # the pages under a domain: this pod dials out to Cloudflare, which serves it
+  echo "seed: a tunnel to Cloudflare for the pages${WEB_DOMAIN:+ (https://$WEB_DOMAIN)}"
+  python3 -c "
+import os, urllib.request
+urllib.request.urlretrieve('https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64', '/usr/local/bin/cloudflared')
+os.chmod('/usr/local/bin/cloudflared', 0o755)" || echo "seed: cloudflared could not be downloaded; no tunnel"
+  if [ -x /usr/local/bin/cloudflared ]; then
+    export TUNNEL_TOKEN
+    (while true; do /usr/local/bin/cloudflared tunnel --no-autoupdate run > /tmp/tunnel.log 2>&1; sleep 10; done) &
+    (for k in $(seq 1 40); do sleep 3; n=$(grep -c "Registered tunnel connection" /tmp/tunnel.log 2>/dev/null || true)
+       if [ "${n:-0}" -ge 1 ]; then echo "seed: the tunnel is connected to Cloudflare"; exit 0; fi; done
+     echo "seed: the tunnel did not connect: $(grep -i -E "ERR|not valid|unauthorized" /tmp/tunnel.log | tail -1 | cut -c1-160)") &
+  fi
+fi
 while true; do python3 -u tools/chain.py watch; echo "seed: watch ended; again in 10s"; sleep 10; done
 '''
 
@@ -137,6 +161,33 @@ def key() -> str | None:
         if k:
             return k
     return None
+
+
+def tunnel() -> tuple:
+    """(token, domain) of the Cloudflare tunnel for the pod's pages, from cloudflare_tunnel.txt on this machine: the
+    token (the long eyJ... string; the whole `cloudflared ... eyJ...` line as copied is fine) and the domain, one per
+    line. ("", "") when there is no such file. Never printed."""
+    home, names = Path.home(), ("cloudflare_tunnel.txt", "cloudflared_token.txt", ".cloudflare_tunnel")
+    places = [home / "Documents" / n for n in names] + [home / n for n in names] + [ROOT / n for n in names]
+    win = Path("/mnt/c/Users")
+    if win.is_dir():
+        for n in names:
+            places += sorted(win.glob(f"*/Documents/{n}")) + sorted(win.glob(f"*/{n}"))
+    if os.environ.get("KIT_SRC"):
+        places += [Path(os.environ["KIT_SRC"]).parent / n for n in names]
+    for p in places:
+        try:
+            text = p.read_text(errors="replace")
+        except OSError:
+            continue
+        tok = re.search(r"eyJ[A-Za-z0-9_\-+/=]{60,}", text)
+        if not tok:
+            continue
+        rest = text.replace(tok.group(0), " ")
+        dom = re.search(r"(?<![\w.-])((?:[a-z0-9-]+\.)+[a-z]{2,})(?![\w.-])", rest.lower())
+        domain = os.environ.get("SEED_DOMAIN") or (dom.group(1) if dom and "cloudflare" not in dom.group(1) else "")
+        return tok.group(0), domain
+    return "", os.environ.get("SEED_DOMAIN", "")
 
 
 def need_key() -> str:
@@ -282,7 +333,8 @@ def look(k, pid: str) -> dict:
 def debug(logs) -> None:
     if logs:
         try:
-            (Path(logs) / "seed-debug.json").write_text(json.dumps(SEEN, indent=1, default=str)[:400000])
+            text = re.sub(r"[A-Za-z0-9+/=_\-]{120,}", "(a long value, left out)", json.dumps(SEEN, indent=1, default=str))
+            (Path(logs) / "seed-debug.json").write_text(text[:400000])
         except OSError:
             pass
 
@@ -325,8 +377,9 @@ def book(k):
 
 
 def script(repo: str, mine_to: str) -> str:
+    token, domain = tunnel()
     text = (POD.replace("@REPO@", repo).replace("@HUB@", HUB).replace("@MINE_TO@", mine_to or "").replace("@PORT@", str(PORT))
-            .replace("@STATUS@", str(STATUS)))
+            .replace("@STATUS@", str(STATUS)).replace("@TUNNEL@", token).replace("@DOMAIN@", domain if token else ""))
     # one line without quotes or line breaks, whatever happens to the command on its way into the container
     return f"echo {base64.b64encode(text.encode()).decode()} | base64 -d > /seed-start.sh; exec bash /seed-start.sh"
 
@@ -412,9 +465,17 @@ def web_of(pid: str | None) -> str | None:
             f.unlink(missing_ok=True)
         return None
     url = PROXY.format(id=pid, port=STATUS)
-    t = page(pid, "graph/status.json", timeout=20)
-    if not (t and '"genesis"' in t) and not (page(pid, "graph/agents.txt", timeout=20) or "").startswith("Qwencoin"):
+    if "read-only" not in (page(pid, "graph/agents.txt", timeout=20) or "")[:300]:
         return None
+    token, domain = tunnel()
+    if token and domain:  # served under the domain through the tunnel: that is the address to give out
+        try:
+            req = urllib.request.Request(f"https://{domain}/graph/agents.txt", headers={"User-Agent": CLIENTS[0]})
+            with urllib.request.urlopen(req, timeout=20) as r:
+                if "read-only" in r.read(300).decode("utf-8", "replace"):
+                    url = f"https://{domain}"
+        except (urllib.error.URLError, OSError, ValueError):
+            print(f"runpod: https://{domain}/ does not answer (yet): the tunnel's public hostname in Cloudflare has to point at http://localhost:{STATUS}")
     for f in files:
         try:
             f.write_text(url + "\n")
@@ -574,6 +635,9 @@ def seed(logs=None):
             mine_to = json.loads((net.RUN / "addrs.json").read_text()).get("1", "")
         except (OSError, ValueError):
             pass
+        tok, dom = tunnel()
+        print(f"runpod: a Cloudflare tunnel's token is on this machine: the pod will serve the chain's pages through it{' as https://' + dom if dom else ''}" if tok
+              else "runpod: no cloudflare_tunnel.txt on this machine: the pages are served under RunPod's proxy address only", flush=True)
         print("runpod: first the project's repository gets the code as it is in this folder (the pod downloads it from there)", flush=True)
         share(logs)
         for what, body in asks(repo, mine_to):

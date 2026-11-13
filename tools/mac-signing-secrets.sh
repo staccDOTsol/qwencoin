@@ -6,10 +6,13 @@
 #
 #   bash tools/mac-signing-secrets.sh [OWNER/REPO]
 #   P12=/path/to/exported.p12 [P12_PASSWORD=...] bash tools/mac-signing-secrets.sh    an identity already exported
+#   KEYCHAIN=1 bash tools/mac-signing-secrets.sh                                      export it from the keychain now
 #
-# Without P12, *.p12 files in ~/.developer-id are looked at; with none there, the identity is exported
-# from the login keychain (macOS asks to allow it). Whatever the file holds, only the "Developer ID
-# Application" certificate and its own key go to GitHub.
+# Without P12, *.p12 files in ~/.developer-id are looked at. A file's password is taken from P12_PASSWORD,
+# else looked for in the small files next to it, else asked for. If the file cannot be opened, or there is
+# none, the identity is exported from the login keychain: macOS then asks for the login password, once per
+# signing key the keychain holds. Whatever comes out, only the "Developer ID Application" certificate and
+# its own key go to GitHub.
 #
 # Notarization, if one of these is found (else the programs are signed and not notarized):
 #   an App Store Connect API key: API_KEY=/path/AuthKey_KEYID.p8 (or the one in ~/.private_keys or
@@ -24,7 +27,7 @@ say() { echo "signing-secrets: $*"; }
 die() { echo "signing-secrets: $*" >&2; exit 1; }
 ask() {  # ask PROMPT: one line from the keyboard, not echoed (this script may itself be arriving on stdin)
   local x=""
-  [ -r /dev/tty ] || return 1
+  { : < /dev/tty; } 2>/dev/null || return 1
   printf '%s' "$1" > /dev/tty; IFS= read -r -s x < /dev/tty || true; echo > /dev/tty
   printf '%s' "$x"
 }
@@ -37,27 +40,38 @@ opens() { "$SSL" pkcs12 -in "$1" -passin "pass:$2" -nodes -out "$T/all.pem" 2>/d
 
 # ---- the identity: a file already exported, or out of the keychain
 P12="${P12:-}"; PASS="${P12_PASSWORD:-}"
-if [ -z "$P12" ] && [ -d "$HOME/.developer-id" ]; then
+if [ -z "$P12" ] && [ -z "${KEYCHAIN:-}" ] && [ -d "$HOME/.developer-id" ]; then
   FOUND=(); while IFS= read -r f; do FOUND+=("$f"); done < <(find "$HOME/.developer-id" -maxdepth 3 -type f -name '*.p12' 2>/dev/null | sort)
   if [ "${#FOUND[@]}" = 1 ]; then P12="${FOUND[0]}"; say "an exported identity is here: $P12"
   elif [ "${#FOUND[@]}" -gt 1 ]; then say "several exported files in ~/.developer-id:"; printf '   %s\n' "${FOUND[@]}"; die "name one:  P12=... bash $0"; fi
 fi
+OPEN=""
 if [ -n "$P12" ]; then
   [ -f "$P12" ] || die "$P12 is not a file"
-  if [ -z "$PASS" ] && ! opens "$P12" ""; then  # a password kept next to it, else asked for
-    for f in "${P12%.p12}.password" "${P12%.p12}.pass" "${P12%.p12}.txt" "$(dirname "$P12")/password" "$(dirname "$P12")/password.txt" "$(dirname "$P12")/.password"; do
-      [ -f "$f" ] && PASS="$(head -1 "$f" | tr -d '\r\n')" && opens "$P12" "$PASS" && { say "its password is in $f"; break; }
-      PASS=""
-    done
-    [ -n "$PASS" ] || PASS="$(ask "password of $(basename "$P12") (not shown): ")" || die "the password is needed:  P12_PASSWORD=... bash $0"
+  if opens "$P12" "$PASS"; then OPEN=1
+  else  # a password kept in a small file next to it: every line, and what stands after NAME= or NAME: on a line, is tried
+    PASS=""
+    while IFS= read -r f; do
+      while IFS= read -r c; do
+        if [ -n "$c" ] && opens "$P12" "$c"; then PASS="$c"; OPEN=1; say "its password is in $f"; break 2; fi
+      done < <(tr -d '\r' < "$f" | sed -e 's/^[[:space:]]*//; s/[[:space:]]*$//' | awk 'NF {print; x=$0; if (sub(/^[A-Za-z_][A-Za-z0-9_]*[[:space:]]*[=:][[:space:]]*/, "", x)) {print x; gsub(/^["\047]|["\047],?$/, "", x); print x}}')
+    done < <(find "$(dirname "$P12")" -maxdepth 1 -type f -size -8k ! -name '*.p12' ! -name '*.cer' ! -name '*.pem' ! -name '*.p8' ! -name '*.key' ! -name '.DS_Store' 2>/dev/null)
+    if [ -z "$OPEN" ]; then
+      PASS="$(ask "password of $(basename "$P12") (not shown; just Enter if you do not have it): ")" || PASS=""
+      if [ -n "$PASS" ] && opens "$P12" "$PASS"; then OPEN=1; else say "$(basename "$P12") does not open: the identity is taken from the keychain instead"; fi
+    fi
   fi
-  opens "$P12" "$PASS" || die "$P12 does not open with that password"
-else
+fi
+if [ -z "$OPEN" ]; then
+  command -v security >/dev/null 2>&1 || die "this is not a Mac (no security tool), and there is no exported identity that opens"
   ID="$(security find-identity -v -p codesigning | sed -n 's/.*"\(Developer ID Application: [^"]*\)".*/\1/p' | head -1)"
-  [ -n "$ID" ] || die "this keychain has no 'Developer ID Application' identity (security find-identity -v -p codesigning), and no P12=file was named"
-  say "exporting from the keychain: $ID  (macOS asks to allow it, once per key it holds)"
+  [ -n "$ID" ] || die "this keychain has no 'Developer ID Application' identity (security find-identity -v -p codesigning)"
+  N="$(security find-identity -v -p codesigning | grep -c '^ *[0-9]*)' || true)"
+  say "exporting from the keychain: $ID"
+  say "macOS now asks for your login password to allow it: up to $N times, once per signing key in the keychain (choose Allow each time; only the Developer ID one leaves this Mac)"
   PASS="$("$SSL" rand -hex 24)"
-  security export -k "$(security default-keychain | sed 's/^ *"//; s/" *$//')" -t identities -f pkcs12 -P "$PASS" -o "$T/keychain.p12" || die "the export was not allowed"
+  security export -k "$(security default-keychain | sed 's/^ *"//; s/" *$//')" -t identities -f pkcs12 -P "$PASS" -o "$T/keychain.p12" \
+    || die "the export did not go through. By hand: Keychain Access, My Certificates, right-click the Developer ID Application entry, Export (.p12, with a password), then  P12=that-file bash $0"
   opens "$T/keychain.p12" "$PASS" || die "the exported file could not be read back"
 fi
 

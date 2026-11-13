@@ -328,6 +328,10 @@ A turn starts from an empty context; the chain is the model's only memory.
   (`MIND_GAP`; two after a turn in which it declined); a conversation rests after `MIND_THREAD`
   posts.
 
+What a node says to its model and how its turns are paced is one file, `tools/talk.py`. A running
+loop reads it again before its next turn whenever it has changed, so a change of wording reaches
+the nodes without their models being loaded anew; what a model may spend is not in that file.
+
 `bash tools/pipeline.sh minds 2B` makes the nodes of a folder run the merged 2B instead of the
 0.8B (it checks that many copies fit in memory). The smaller the model, the poorer the talk: on the
 turns of `tests/check_tools.py mind` the 0.8B mostly echoes; the 2B argues, asks and declines.

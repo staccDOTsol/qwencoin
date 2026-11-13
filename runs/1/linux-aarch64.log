@@ -1,0 +1,1590 @@
+Selecting previously unselected package build-essential.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 219527 files and directories currently installed.)
+Preparing to unpack .../00-build-essential_12.10ubuntu1_arm64.deb ...
+Unpacking build-essential (12.10ubuntu1) ...
+Selecting previously unselected package libjsoncpp25:arm64.
+Preparing to unpack .../01-libjsoncpp25_1.9.5-6build1_arm64.deb ...
+Unpacking libjsoncpp25:arm64 (1.9.5-6build1) ...
+Selecting previously unselected package librhash0:arm64.
+Preparing to unpack .../02-librhash0_1.4.3-3build1_arm64.deb ...
+Unpacking librhash0:arm64 (1.4.3-3build1) ...
+Selecting previously unselected package cmake-data.
+Preparing to unpack .../03-cmake-data_3.28.3-1build7_all.deb ...
+Unpacking cmake-data (3.28.3-1build7) ...
+Selecting previously unselected package cmake.
+Preparing to unpack .../04-cmake_3.28.3-1build7_arm64.deb ...
+Unpacking cmake (3.28.3-1build7) ...
+Selecting previously unselected package libblas3:arm64.
+Preparing to unpack .../05-libblas3_3.12.0-3build1.1_arm64.deb ...
+Unpacking libblas3:arm64 (3.12.0-3build1.1) ...
+Selecting previously unselected package libboost1.83-dev:arm64.
+Preparing to unpack .../06-libboost1.83-dev_1.83.0-2.1ubuntu3.2_arm64.deb ...
+Unpacking libboost1.83-dev:arm64 (1.83.0-2.1ubuntu3.2) ...
+Selecting previously unselected package libboost-dev:arm64.
+Preparing to unpack .../07-libboost-dev_1.83.0.1ubuntu2_arm64.deb ...
+Unpacking libboost-dev:arm64 (1.83.0.1ubuntu2) ...
+Selecting previously unselected package libevent-2.1-7t64:arm64.
+Preparing to unpack .../08-libevent-2.1-7t64_2.1.12-stable-9ubuntu2.2_arm64.deb ...
+Unpacking libevent-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Selecting previously unselected package libevent-extra-2.1-7t64:arm64.
+Preparing to unpack .../09-libevent-extra-2.1-7t64_2.1.12-stable-9ubuntu2.2_arm64.deb ...
+Unpacking libevent-extra-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Selecting previously unselected package libevent-openssl-2.1-7t64:arm64.
+Preparing to unpack .../10-libevent-openssl-2.1-7t64_2.1.12-stable-9ubuntu2.2_arm64.deb ...
+Unpacking libevent-openssl-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Selecting previously unselected package libevent-dev.
+Preparing to unpack .../11-libevent-dev_2.1.12-stable-9ubuntu2.2_arm64.deb ...
+Unpacking libevent-dev (2.1.12-stable-9ubuntu2.2) ...
+Selecting previously unselected package liblapack3:arm64.
+Preparing to unpack .../12-liblapack3_3.12.0-3build1.1_arm64.deb ...
+Unpacking liblapack3:arm64 (3.12.0-3build1.1) ...
+Selecting previously unselected package ninja-build.
+Preparing to unpack .../13-ninja-build_1.11.1-2_arm64.deb ...
+Unpacking ninja-build (1.11.1-2) ...
+Selecting previously unselected package python3-numpy.
+Preparing to unpack .../14-python3-numpy_1%3a1.26.4+ds-6ubuntu1_arm64.deb ...
+Unpacking python3-numpy (1:1.26.4+ds-6ubuntu1) ...
+Setting up libboost1.83-dev:arm64 (1.83.0-2.1ubuntu3.2) ...
+Setting up libevent-openssl-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Setting up libevent-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Setting up ninja-build (1.11.1-2) ...
+Setting up libblas3:arm64 (3.12.0-3build1.1) ...
+update-alternatives: using /usr/lib/aarch64-linux-gnu/blas/libblas.so.3 to provide /usr/lib/aarch64-linux-gnu/libblas.so.3 (libblas.so.3-aarch64-linux-gnu) in auto mode
+Setting up libjsoncpp25:arm64 (1.9.5-6build1) ...
+Setting up libevent-extra-2.1-7t64:arm64 (2.1.12-stable-9ubuntu2.2) ...
+Setting up librhash0:arm64 (1.4.3-3build1) ...
+Setting up build-essential (12.10ubuntu1) ...
+Setting up cmake-data (3.28.3-1build7) ...
+Setting up libboost-dev:arm64 (1.83.0.1ubuntu2) ...
+Setting up liblapack3:arm64 (3.12.0-3build1.1) ...
+update-alternatives: using /usr/lib/aarch64-linux-gnu/lapack/liblapack.so.3 to provide /usr/lib/aarch64-linux-gnu/liblapack.so.3 (liblapack.so.3-aarch64-linux-gnu) in auto mode
+Setting up libevent-dev (2.1.12-stable-9ubuntu2.2) ...
+Setting up python3-numpy (1:1.26.4+ds-6ubuntu1) ...
+Setting up cmake (3.28.3-1build7) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Not building database; man-db/auto-update is not 'true'.
+Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+cargo 1.100.0 (3acc79c0c 2026-11-05)
+linux-aarch64: Linux 7.0.0-1017-azure aarch64, 4 cpus, python 3.12.3, numpy 1.26.4
+Cloning into 'upstream/bitcoin'...
+warning: refs/tags/v29.4-inq d2f29dd04938927a3d00f0222b96747c33c11a0a is not a commit!
+Note: switching to '3db09a1b5821b049af295091055c39e0f80846c7'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /usr/include (found suitable version "3.45.1", minimum required is "3.7.17")
+-- Performing Test LINKER_SUPPORTS__WL___FATAL_WARNINGS
+-- Performing Test LINKER_SUPPORTS__WL___FATAL_WARNINGS - Success
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Boost: /usr/include (found suitable version "1.83.0", minimum required is "1.73.0")
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE - Success
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1")
+-- Found Libevent: /usr/lib/aarch64-linux-gnu (found suitable version "2.1.12-stable", minimum required is "2.1.8")
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR - Failed
+-- Looking for C++ include sys/prctl.h
+-- Looking for C++ include sys/prctl.h - found
+-- Looking for C++ include sys/resources.h
+-- Looking for C++ include sys/resources.h - not found
+-- Looking for C++ include sys/vmmeter.h
+-- Looking for C++ include sys/vmmeter.h - not found
+-- Looking for C++ include vm/vm_param.h
+-- Looking for C++ include vm/vm_param.h - not found
+-- Looking for O_CLOEXEC
+-- Looking for O_CLOEXEC - found
+-- Looking for fdatasync
+-- Looking for fdatasync - found
+-- Looking for fork
+-- Looking for fork - found
+-- Looking for pipe2
+-- Looking for pipe2 - found
+-- Looking for setsid
+-- Looking for setsid - found
+-- Looking for C++ include sys/types.h
+-- Looking for C++ include sys/types.h - found
+-- Looking for C++ include ifaddrs.h
+-- Looking for C++ include ifaddrs.h - found
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET - Success
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC - Success
+-- Looking for std::system
+-- Looking for std::system - found
+-- Looking for ::_wsystem
+-- Looking for ::_wsystem - not found
+-- Performing Test STRERROR_R_CHAR_P
+-- Performing Test STRERROR_R_CHAR_P - Success
+-- Looking for malloc_info
+-- Looking for malloc_info - found
+-- Performing Test HAVE_MALLOPT_ARENA_MAX
+-- Performing Test HAVE_MALLOPT_ARENA_MAX - Success
+-- Performing Test HAVE_POSIX_FALLOCATE
+-- Performing Test HAVE_POSIX_FALLOCATE - Success
+-- Performing Test HAVE_STRONG_GETAUXVAL
+-- Performing Test HAVE_STRONG_GETAUXVAL - Success
+-- Performing Test HAVE_SOCKADDR_UN
+-- Performing Test HAVE_SOCKADDR_UN - Success
+-- Performing Test HAVE_GETRANDOM
+-- Performing Test HAVE_GETRANDOM - Success
+-- Performing Test HAVE_GETENTROPY_RAND
+-- Performing Test HAVE_GETENTROPY_RAND - Success
+-- Performing Test HAVE_SYSCTL
+-- Performing Test HAVE_SYSCTL - Failed
+-- Performing Test HAVE_SYSCTL_ARND
+-- Performing Test HAVE_SYSCTL_ARND - Failed
+-- Performing Test HAVE_SSE41
+-- Performing Test HAVE_SSE41 - Failed
+-- Performing Test HAVE_AVX2
+-- Performing Test HAVE_AVX2 - Failed
+-- Performing Test HAVE_X86_SHANI
+-- Performing Test HAVE_X86_SHANI - Failed
+-- Performing Test HAVE_ARM_SHANI
+-- Performing Test HAVE_ARM_SHANI - Success
+-- Performing Test CXX_SUPPORTS__WALL
+-- Performing Test CXX_SUPPORTS__WALL - Success
+-- Performing Test CXX_SUPPORTS__WEXTRA
+-- Performing Test CXX_SUPPORTS__WEXTRA - Success
+-- Performing Test CXX_SUPPORTS__WGNU
+-- Performing Test CXX_SUPPORTS__WGNU - Failed
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY - Success
+-- Performing Test CXX_SUPPORTS__WVLA
+-- Performing Test CXX_SUPPORTS__WVLA - Success
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD - Failed
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY - Failed
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS - Failed
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION - Failed
+-- Performing Test CXX_SUPPORTS__WDATE_TIME
+-- Performing Test CXX_SUPPORTS__WDATE_TIME - Success
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Failed
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES - Success
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND - Success
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP - Success
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL - Success
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE - Success
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH - Success
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE - Success
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION - Failed
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN - Failed
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY - Success
+-- Performing Test CXX_SUPPORTS__WUNDEF
+-- Performing Test CXX_SUPPORTS__WUNDEF - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER - Success
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS - Success
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE - Success
+-- Performing Test LINKER_SUPPORTS__FSTACK_REUSE_NONE
+-- Performing Test LINKER_SUPPORTS__FSTACK_REUSE_NONE - Success
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL - Failed
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION - Success
+-- Performing Test LINKER_SUPPORTS__FSTACK_CLASH_PROTECTION
+-- Performing Test LINKER_SUPPORTS__FSTACK_CLASH_PROTECTION - Success
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_STANDARD
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_STANDARD - Success
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION - Failed
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE - Failed
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT - Failed
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO - Success
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW - Success
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE - Success
+-- Found Python3: /usr/bin/python3 (found suitable version "3.12.3", minimum required is "3.10") found components: Interpreter
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE dot) 
+-- Performing Test HAVE_BUILTIN_PREFETCH
+-- Performing Test HAVE_BUILTIN_PREFETCH - Success
+-- Performing Test HAVE_MM_PREFETCH
+-- Performing Test HAVE_MM_PREFETCH - Failed
+-- Performing Test HAVE_SSE42
+-- Performing Test HAVE_SSE42 - Failed
+-- Performing Test HAVE_ARM64_CRC32C
+-- Performing Test HAVE_ARM64_CRC32C - Success
+-- Looking for F_FULLFSYNC
+-- Looking for F_FULLFSYNC - not found
+-- Performing Test HAVE_CLMUL
+-- Performing Test HAVE_CLMUL - Failed
+
+Configuring secp256k1 subtree...
+-- The C compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test HAVE_X86_64_ASM
+-- Performing Test HAVE_X86_64_ASM - Failed
+-- Could NOT find Valgrind (missing: Valgrind_INCLUDE_DIR Valgrind_WORKS) 
+-- Performing Test C_SUPPORTS__PEDANTIC
+-- Performing Test C_SUPPORTS__PEDANTIC - Success
+-- Performing Test C_SUPPORTS__WALL
+-- Performing Test C_SUPPORTS__WALL - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN
+-- Performing Test C_SUPPORTS__WCAST_ALIGN - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT - Success
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Failed
+-- Performing Test C_SUPPORTS__WEXTRA
+-- Performing Test C_SUPPORTS__WEXTRA - Success
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS - Success
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG - Success
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS - Success
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION - Success
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER - Failed
+-- Performing Test C_SUPPORTS__WSHADOW
+-- Performing Test C_SUPPORTS__WSHADOW - Success
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES - Success
+-- Performing Test C_SUPPORTS__WUNDEF
+-- Performing Test C_SUPPORTS__WUNDEF - Success
+
+
+secp256k1 configure summary
+===========================
+Build artifacts:
+  library type ........................ Static
+Optional modules:
+  ECDH ................................ OFF
+  ECDSA pubkey recovery ............... ON
+  extrakeys ........................... ON
+  schnorrsig .......................... ON
+  musig ............................... OFF
+  ElligatorSwift ...................... ON
+Parameters:
+  ecmult window size .................. 15
+  ecmult gen table size ............... 86 KiB
+Optional features:
+  assembly ............................ OFF
+  external callbacks .................. OFF
+Optional binaries:
+  benchmark ........................... OFF
+  noverify_tests ...................... OFF
+  tests ............................... OFF
+  exhaustive tests .................... OFF
+  ctime_tests ......................... OFF
+  examples ............................ OFF
+
+Cross compiling ....................... FALSE
+Valgrind .............................. OFF
+Preprocessor defined macros ........... ENABLE_MODULE_ELLSWIFT=1 ENABLE_MODULE_SCHNORRSIG=1 ENABLE_MODULE_EXTRAKEYS=1 ENABLE_MODULE_RECOVERY=1 ECMULT_WINDOW_SIZE=15 COMB_BLOCKS=43 COMB_TEETH=6
+C compiler ............................ GNU 13.3.0, /usr/bin/cc
+CFLAGS ................................ 
+Compile options ....................... -pedantic -Wall -Wcast-align -Wcast-align=strict -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wshadow -Wstrict-prototypes -Wundef
+Build type:
+ - CMAKE_BUILD_TYPE ................... Release
+ - CFLAGS ............................. -O2 -g 
+ - LDFLAGS for executables ............ 
+ - LDFLAGS for shared libraries ....... 
+
+
+
+Configure summary
+=================
+Executables:
+  bitcoind ............................ ON
+  bitcoin-node (multiprocess) ......... OFF
+  bitcoin-qt (GUI) .................... OFF
+  bitcoin-gui (GUI, multiprocess) ..... OFF
+  bitcoin-cli ......................... ON
+  bitcoin-tx .......................... OFF
+  bitcoin-util ........................ OFF
+  bitcoin-wallet ...................... OFF
+  bitcoin-chainstate (experimental) ... OFF
+  libbitcoinkernel (experimental) ..... OFF
+Optional features:
+  wallet support ...................... ON
+   - descriptor wallets (SQLite) ...... ON
+   - legacy wallets (Berkeley DB) ..... OFF
+  external signer ..................... ON
+  ZeroMQ .............................. OFF
+  USDT tracing ........................ OFF
+  QR code (GUI) ....................... OFF
+  DBus (GUI) .......................... OFF
+Tests:
+  test_bitcoin ........................ OFF
+  test_bitcoin-qt ..................... OFF
+  bench_bitcoin ....................... OFF
+  fuzz binary ......................... OFF
+
+Cross compiling ....................... FALSE
+C++ compiler .......................... GNU 13.3.0, /usr/bin/c++
+CMAKE_BUILD_TYPE ...................... Release
+Preprocessor defined macros ........... 
+C++ compiler flags .................... -O2 -std=c++20 -fPIC -fno-extended-identifiers -fdebug-prefix-map=/home/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -fmacro-prefix-map=/home/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -fstack-reuse=none -Wall -Wextra -Wformat -Wformat-security -Wvla -Wredundant-decls -Wdate-time -Wduplicated-branches -Wduplicated-cond -Wlogical-op -Woverloaded-virtual -Wsuggest-override -Wimplicit-fallthrough -Wunreachable-code -Wbidi-chars=any -Wundef -Wno-unused-parameter -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -Wstack-protector -fstack-protector-all -fstack-clash-protection -mbranch-protection=standard
+Linker flags .......................... -O2 -fstack-reuse=none -fstack-protector-all -fstack-clash-protection -Wl,-z,relro -Wl,-z,now -Wl,-z,separate-code -fPIE -pie
+
+NOTE: The summary above may not exactly match the final applied build flags
+      if any additional CMAKE_* or environment variables have been modified.
+      To see the exact flags applied, build with the --verbose option.
+
+Attempt to harden executables ......... ON
+Treat compiler warnings as errors ..... OFF
+Use ccache for compiling .............. OFF
+
+
+-- Configuring done (12.5s)
+-- Generating done (0.1s)
+-- Build files have been written to: /home/runner/work/qwencoin/qwencoin/upstream/bitcoin/build
+[1/312] Generating src/binana.h and test/functional/data/binana.json
+[2/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_portable.cc.o
+[3/312] Generating bitcoin-build-info.h
+[4/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c.cc.o
+[5/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_arm64.cc.o
+[6/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/builder.cc.o
+[7/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/c.cc.o
+[8/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dbformat.cc.o
+[9/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_iter.cc.o
+[10/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/filename.cc.o
+[11/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dumpfile.cc.o
+[12/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_writer.cc.o
+[13/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_reader.cc.o
+[14/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/table_cache.cc.o
+[15/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/memtable.cc.o
+[16/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/repair.cc.o
+[17/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/write_batch.cc.o
+[18/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_edit.cc.o
+[19/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_impl.cc.o
+[20/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/filter_block.cc.o
+[21/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block.cc.o
+[22/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block_builder.cc.o
+[23/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/iterator.cc.o
+[24/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/format.cc.o
+[25/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/two_level_iterator.cc.o
+[26/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/merger.cc.o
+[27/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/arena.cc.o
+[28/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/bloom.cc.o
+[29/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_set.cc.o
+[30/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table.cc.o
+[31/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table_builder.cc.o
+[32/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/coding.cc.o
+[33/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/comparator.cc.o
+[34/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/crc32c.cc.o
+[35/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env.cc.o
+[36/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/filter_policy.cc.o
+[37/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/cache.cc.o
+[38/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/hash.cc.o
+[39/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/logging.cc.o
+[40/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/options.cc.o
+[41/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_1byte.cpp.o
+[42/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_2bytes.cpp.o
+[43/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_3bytes.cpp.o
+[44/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/status.cc.o
+[45/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_5bytes.cpp.o
+[46/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_6bytes.cpp.o
+[47/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_7bytes.cpp.o
+[48/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_8bytes.cpp.o
+[49/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/histogram.cc.o
+[50/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env_posix.cc.o
+[51/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/minisketch.cpp.o
+[52/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/helpers/memenv/memenv.cc.o
+[53/312] Building CXX object src/CMakeFiles/bitcoin_clientversion.dir/clientversion.cpp.o
+[54/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[55/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_4bytes.cpp.o
+[56/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/hash.cpp.o
+[57/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[58/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[59/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/transaction.cpp.o
+[60/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script_error.cpp.o
+[61/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script.cpp.o
+[62/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/pubkey.cpp.o
+[63/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/uint256.cpp.o
+[64/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/block.cpp.o
+[65/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/base58.cpp.o
+[66/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/addresstype.cpp.o
+[67/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/bech32.cpp.o
+[68/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparamsbase.cpp.o
+[69/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chain.cpp.o
+[70/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/interpreter.cpp.o
+[71/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/bloom.cpp.o
+[72/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/coins.cpp.o
+[73/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparams.cpp.o
+[74/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/interfaces.cpp.o
+[75/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/messages.cpp.o
+[76/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/init.cpp.o
+[77/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/args.cpp.o
+[78/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/config.cpp.o
+[79/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/netif.cpp.o
+[80/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/url.cpp.o
+[81/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/compressor.cpp.o
+[82/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/run_command.cpp.o
+[83/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/pcp.cpp.o
+[84/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/signmessage.cpp.o
+[85/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/settings.cpp.o
+[86/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/system.cpp.o
+[87/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/deploymentinfo.cpp.o
+[88/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/consensus/tx_verify.cpp.o
+[89/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/key.cpp.o
+[90/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/core_read.cpp.o
+[91/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/external_signer.cpp.o
+[92/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/init/common.cpp.o
+[93/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/key_io.cpp.o
+[94/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/core_write.cpp.o
+[95/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/merkleblock.cpp.o
+[96/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/kernel/chainparams.cpp.o
+[97/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/net_permissions.cpp.o
+[98/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/net_types.cpp.o
+[99/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/outputtype.cpp.o
+[100/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/netaddress.cpp.o
+[101/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/netbase.cpp.o
+[102/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/policy/feerate.cpp.o
+[103/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/policy/policy.cpp.o
+[104/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/pow.cpp.o
+[105/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/scheduler.cpp.o
+[106/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/protocol.cpp.o
+[107/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/rawtransaction_util.cpp.o
+[108/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/parsing.cpp.o
+[109/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/request.cpp.o
+[110/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/miniscript.cpp.o
+[111/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/util.cpp.o
+[112/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/solver.cpp.o
+[113/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/psbt.cpp.o
+[114/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/addrdb.cpp.o
+[115/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/signingprovider.cpp.o
+[116/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/bip324.cpp.o
+[117/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/sign.cpp.o
+[118/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/banman.cpp.o
+[119/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/dbwrapper.cpp.o
+[120/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/deploymentstatus.cpp.o
+[121/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/blockfilter.cpp.o
+[122/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/flatfile.cpp.o
+[123/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/addrman.cpp.o
+[124/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/descriptor.cpp.o
+[125/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/blockencodings.cpp.o
+[126/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/httpserver.cpp.o
+[127/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/headerssync.cpp.o
+[128/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/httprpc.cpp.o
+[129/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/blockfilterindex.cpp.o
+[130/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/i2p.cpp.o
+[131/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/chain.cpp.o
+[132/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/base.cpp.o
+[133/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/checks.cpp.o
+[134/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/txindex.cpp.o
+[135/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/coinstatsindex.cpp.o
+[136/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/mempool_removal_reason.cpp.o
+[137/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/cs_main.cpp.o
+[138/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/context.cpp.o
+[139/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/disconnected_transactions.cpp.o
+[140/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/mapport.cpp.o
+[141/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/coinstats.cpp.o
+[142/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/abort.cpp.o
+[143/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/netgroup.cpp.o
+[144/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/blockmanager_args.cpp.o
+[145/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/caches.cpp.o
+[146/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/init.cpp.o
+[147/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/chainstate.cpp.o
+[148/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/coins_view_args.cpp.o
+[149/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/chainstatemanager_args.cpp.o
+[150/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/connection_types.cpp.o
+[151/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/net.cpp.o
+[152/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/database_args.cpp.o
+[153/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/coin.cpp.o
+[154/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/eviction.cpp.o
+[155/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/blockstorage.cpp.o
+[156/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/kernel_notifications.cpp.o
+[157/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/interfaces.cpp.o
+[158/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_args.cpp.o
+[159/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/context.cpp.o
+[160/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/interface_ui.cpp.o
+[161/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/net_processing.cpp.o
+[162/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/minisketchwrapper.cpp.o
+[163/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/peerman_args.cpp.o
+[164/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_persist_args.cpp.o
+[165/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mini_miner.cpp.o
+[166/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/timeoffsets.cpp.o
+[167/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/miner.cpp.o
+[168/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/psbt.cpp.o
+[169/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_persist.cpp.o
+[170/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/warnings.cpp.o
+[171/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/txreconciliation.cpp.o
+[172/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/transaction.cpp.o
+[173/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/noui.cpp.o
+[174/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/fees_args.cpp.o
+[175/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/txdownloadman_impl.cpp.o
+[176/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/utxo_snapshot.cpp.o
+[177/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/ephemeral_policy.cpp.o
+[178/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/settings.cpp.o
+[179/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/packages.cpp.o
+[180/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/fees.cpp.o
+[181/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/rbf.cpp.o
+[182/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/truc_policy.cpp.o
+[183/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/external_signer.cpp.o
+[184/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/fees.cpp.o
+[185/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rest.cpp.o
+[186/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/mining.cpp.o
+[187/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/net.cpp.o
+[188/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/mempool.cpp.o
+[189/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/output_script.cpp.o
+[190/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/node.cpp.o
+[191/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/server_util.cpp.o
+[192/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/server.cpp.o
+[193/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/script/sigcache.cpp.o
+[194/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/blockchain.cpp.o
+[195/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/signmessage.cpp.o
+[196/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/signet.cpp.o
+[197/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/txoutproof.cpp.o
+[198/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txdb.cpp.o
+[199/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/torcontrol.cpp.o
+[200/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txrequest.cpp.o
+[201/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/validationinterface.cpp.o
+[202/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txorphanage.cpp.o
+[203/312] Building CXX object src/CMakeFiles/bitcoin_cli.dir/compat/stdin.cpp.o
+[204/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/rawtransaction.cpp.o
+[205/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/versionbits.cpp.o
+[206/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
+[207/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txmempool.cpp.o
+[208/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue.cpp.o
+[209/312] Building CXX object src/CMakeFiles/bitcoin_cli.dir/rpc/client.cpp.o
+[210/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.o
+[211/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
+[212/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
+[213/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
+[214/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
+[215/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
+[216/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
+[217/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
+[218/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
+[219/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
+[220/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.o
+[221/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
+[222/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/qwork.cpp.o
+[223/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/qsha.cpp.o
+[224/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1.dir/secp256k1.c.o
+[225/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha1.cpp.o
+[226/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/ripemd160.cpp.o
+[227/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha3.cpp.o
+[228/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha256.cpp.o
+[229/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/__/support/cleanse.cpp.o
+[230/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha512.cpp.o
+[231/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
+[232/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/siphash.cpp.o
+[233/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/wallet/init.cpp.o
+[234/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/batchpriority.cpp.o
+[235/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/bip32.cpp.o
+[236/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/bytevectorhash.cpp.o
+[237/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/chaintype.cpp.o
+[238/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/check.cpp.o
+[239/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/feefrac.cpp.o
+[240/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/asmap.cpp.o
+[241/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/fs.cpp.o
+[242/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/moneystr.cpp.o
+[243/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/exception.cpp.o
+[244/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/serfloat.cpp.o
+[245/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/hasher.cpp.o
+[246/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/readwritefile.cpp.o
+[247/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/rbf.cpp.o
+[248/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/signalinterrupt.cpp.o
+[249/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/strencodings.cpp.o
+[250/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/syserror.cpp.o
+[251/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/fs_helpers.cpp.o
+[252/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/sock.cpp.o
+[253/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/validation.cpp.o
+[254/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/threadnames.cpp.o
+[255/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/tokenpipe.cpp.o
+[256/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/time.cpp.o
+[257/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/threadinterrupt.cpp.o
+[258/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/string.cpp.o
+[259/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/support/lockedpool.cpp.o
+[260/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/thread.cpp.o
+[261/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/randomenv.cpp.o
+[262/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/streams.cpp.o
+[263/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/logging.cpp.o
+[264/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/sync.cpp.o
+[265/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/context.cpp.o
+[266/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/random.cpp.o
+[267/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
+[268/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/crypter.cpp.o
+[269/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/db.cpp.o
+[270/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coinselection.cpp.o
+[271/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/fees.cpp.o
+[272/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/dump.cpp.o
+[273/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/external_signer_scriptpubkeyman.cpp.o
+[274/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/feebumper.cpp.o
+[275/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/load.cpp.o
+[276/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/migrate.cpp.o
+[277/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/interfaces.cpp.o
+[278/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/receive.cpp.o
+[279/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/addresses.cpp.o
+[280/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/coins.cpp.o
+[281/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/encrypt.cpp.o
+[282/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/signmessage.cpp.o
+[283/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/util.cpp.o
+[284/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/transactions.cpp.o
+[285/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/backup.cpp.o
+[286/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/transaction.cpp.o
+[287/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/wallet.cpp.o
+[288/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/spend.cpp.o
+[289/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/walletutil.cpp.o
+[290/312] Linking CXX static library src/libcrc32c.a
+[291/312] Linking CXX static library src/libleveldb.a
+[292/312] Linking CXX static library src/libminisketch.a
+[293/312] Linking CXX static library lib/libbitcoin_clientversion.a
+[294/312] Linking CXX static library lib/libbitcoin_consensus.a
+[295/312] Linking CXX static library lib/libbitcoin_common.a
+[296/312] Linking CXX static library lib/libbitcoin_node.a
+[297/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/spend.cpp.o
+[298/312] Building CXX object src/CMakeFiles/bitcoind.dir/bitcoind.cpp.o
+[299/312] Linking CXX static library lib/libbitcoin_cli.a
+[300/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/walletdb.cpp.o
+[301/312] Linking CXX static library src/univalue/libunivalue.a
+[302/312] Linking CXX static library src/secp256k1/lib/libsecp256k1.a
+[303/312] Linking CXX static library lib/libbitcoin_crypto.a
+[304/312] Linking CXX static library lib/libbitcoin_util.a
+[305/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/scriptpubkeyman.cpp.o
+[306/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/sqlite.cpp.o
+[307/312] Building CXX object src/CMakeFiles/bitcoind.dir/init/bitcoind.cpp.o
+[308/312] Building CXX object src/CMakeFiles/bitcoin-cli.dir/bitcoin-cli.cpp.o
+[309/312] Linking CXX executable bin/qwencoin-cli
+[310/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/wallet.cpp.o
+[311/312] Linking CXX static library lib/libbitcoin_wallet.a
+[312/312] Linking CXX executable bin/qwencoind
+Cloning into 'upstream/ord'...
+warning: refs/tags/0.29.1 5754f92c2188ea6dc8b7d4d906df39960b3a88ef is not a commit!
+Note: switching to 'd2ff0a789033e3d784048a23e856f15c54e88806'.
+
+You are in 'detached HEAD' state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by switching back to a branch.
+
+If you want to create a new branch to retain commits you create, you may
+do so (now or later) by using -c with the switch command. Example:
+
+  git switch -c <new-branch-name>
+
+Or undo this operation with:
+
+  git switch -
+
+Turn off this advice by setting config variable advice.detachedHead to false
+
+    Updating crates.io index
+     Locking 30 packages to highest compatible versions
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding secp256k1 v0.29.100 (available: v0.33.1)
+      Adding sha2 v0.10.9 (available: v0.11.1)
+ Downloading crates ...
+  Downloaded version_check v0.9.5
+  Downloaded proc-macro2 v1.0.107
+  Downloaded block-buffer v0.10.4
+  Downloaded bitcoin-io v0.1.101
+  Downloaded arrayvec v0.7.8
+  Downloaded bitcoin-internals v0.7.0
+  Downloaded bitcoin-consensus-encoding v1.3.0
+  Downloaded typenum v1.20.1
+  Downloaded serde_core v1.0.229
+  Downloaded unicode-ident v1.0.27
+  Downloaded generic-array v0.14.7
+  Downloaded cpufeatures v0.2.17
+  Downloaded digest v0.10.7
+  Downloaded find-msvc-tools v0.1.15
+  Downloaded serde v1.0.229
+  Downloaded cfg-if v1.0.5
+  Downloaded hex-conservative v0.2.3
+  Downloaded quote v1.0.47
+  Downloaded sha2 v0.10.9
+  Downloaded crypto-common v0.1.7
+  Downloaded shlex v2.0.1
+  Downloaded serde_derive v1.0.229
+  Downloaded hex-conservative v1.3.0
+  Downloaded secp256k1 v0.29.100
+  Downloaded cc v1.11.2
+  Downloaded syn v3.0.10
+  Downloaded libc v0.2.191
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.15
+   Compiling version_check v0.9.5
+   Compiling typenum v1.20.1
+   Compiling cc v1.11.2
+   Compiling libc v0.2.191
+   Compiling generic-array v0.14.7
+   Compiling bitcoin-io v0.1.101
+   Compiling arrayvec v0.7.8
+   Compiling hex-conservative v0.2.3
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling cfg-if v1.0.5
+   Compiling digest v0.10.7
+   Compiling cpufeatures v0.2.17
+   Compiling sha2 v0.10.9
+   Compiling qsha-sys v0.1.0 (/home/runner/work/qwencoin/qwencoin/upstream/rust/qsha-sys)
+   Compiling secp256k1-sys v0.10.1 (/home/runner/work/qwencoin/qwencoin/upstream/rust/secp256k1-sys)
+   Compiling bitcoin_hashes v0.14.101 (/home/runner/work/qwencoin/qwencoin/upstream/rust/bitcoin_hashes)
+   Compiling secp256k1 v0.29.100
+   Compiling qsha-check v0.1.0 (/home/runner/work/qwencoin/qwencoin/upstream/rust/qsha-check)
+    Finished `release` profile [optimized] target(s) in 6.52s
+     Running `target/release/qsha-check`
+OK: 1506 digests equal the sha2 crate's, tagged hash, HMAC, genesis header, BIP340 vector 0, ECDSA; 11445294 model tokens
+warning: `package.homepage` is redundant with `package.repository`
+  --> Cargo.toml:10:1
+   |
+10 | homepage.workspace = true
+   | ^^^^^^^^
+11 | license.workspace = true
+12 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `ord` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/audit-cache/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `audit-cache` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/ordinals/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `ordinals` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/update-contributors/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `update-contributors` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/audit-content-security-policy/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `audit-content-security-policy` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/mockcore/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `mockcore` (manifest) generated 1 warning
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded derive_builder_macro v0.20.2
+  Downloaded adler2 v2.0.1
+  Downloaded derive_builder_core v0.20.2
+  Downloaded derive_builder v0.20.2
+  Downloaded derive_more v2.1.1
+  Downloaded dyn-clone v1.0.20
+  Downloaded webpki-roots v0.26.11
+  Downloaded tokio-rustls v0.26.6
+  Downloaded want v0.3.2
+  Downloaded dunce v1.0.5
+  Downloaded either v1.19.0
+  Downloaded env_filter v2.0.0
+  Downloaded env_logger v0.11.11
+  Downloaded foldhash v0.2.0
+  Downloaded utf8parse v0.2.2
+  Downloaded derive_more-impl v2.1.1
+  Downloaded dirs v7.0.0
+  Downloaded displaydoc v0.2.7
+  Downloaded errno v0.3.14
+  Downloaded event-listener-strategy v0.5.4
+  Downloaded fnv v1.0.7
+  Downloaded futures v0.3.34
+  Downloaded futures-executor v0.3.34
+  Downloaded unicase v2.10.0
+  Downloaded walkdir v2.5.0
+  Downloaded digest v0.11.3
+  Downloaded diligent-date-parser v0.1.5
+  Downloaded equivalent v1.0.3
+  Downloaded form_urlencoded v1.2.2
+  Downloaded getrandom v0.2.17
+  Downloaded writeable v0.6.4
+  Downloaded event-listener v5.4.2
+  Downloaded fastrand v2.5.0
+  Downloaded futures-rustls v0.26.0
+  Downloaded futures-task v0.3.34
+  Downloaded ident_case v1.0.1
+  Downloaded tokio-stream v0.1.19
+  Downloaded futures-sink v0.3.34
+  Downloaded hyper-rustls v0.27.10
+  Downloaded yasna v0.5.2
+  Downloaded bitflags v2.13.2
+  Downloaded futures-io v0.3.34
+  Downloaded futures-macro v0.3.34
+  Downloaded unsafe-libyaml v0.2.11
+  Downloaded heck v0.5.0
+  Downloaded hex v0.4.3
+  Downloaded lazy_static v1.5.1
+  Downloaded mime v0.3.17
+  Downloaded dirs-sys v0.5.0
+  Downloaded futures-core v0.3.34
+  Downloaded is_terminal_polyfill v1.70.2
+  Downloaded fs_extra v1.3.0
+  Downloaded httparse v1.10.1
+  Downloaded hex_lit v0.1.1
+  Downloaded itoa v1.0.18
+  Downloaded atomic-waker v1.1.2
+  Downloaded http-body v1.1.0
+  Downloaded httpdate v1.0.3
+  Downloaded idna_adapter v1.2.2
+  Downloaded lru-slab v0.1.3
+  Downloaded maybe-uninit v2.0.0
+  Downloaded multiversion_no_op v1.0.0
+  Downloaded nodrop v0.1.14
+  Downloaded strsim v0.11.1
+  Downloaded time-core v0.1.9
+  Downloaded futures-channel v0.3.34
+  Downloaded futures-lite v2.6.1
+  Downloaded rusticata-macros v4.1.0
+  Downloaded subtle v2.6.1
+  Downloaded darling_macro v0.20.11
+  Downloaded rustc_version v0.4.1
+  Downloaded untrusted v0.9.0
+  Downloaded colorchoice v1.0.5
+  Downloaded ctrlc v3.5.2
+  Downloaded jobserver v0.1.35
+  Downloaded jsonrpc v0.18.0
+  Downloaded humantime v2.4.0
+  Downloaded mime_guess v2.0.5
+  Downloaded new_mime_guess v4.0.4
+  Downloaded synstructure v0.13.2
+  Downloaded axum-core v0.5.6
+  Downloaded fs-err v3.3.2
+  Downloaded hybrid-array v0.4.15
+  Downloaded hyper-util v0.1.21
+  Downloaded indexmap v1.9.3
+  Downloaded ipnet v2.12.2
+  Downloaded keccak v0.2.2
+  Downloaded litemap v0.8.3
+  Downloaded matchit v0.8.4
+  Downloaded minicbor v2.3.1
+  Downloaded minicbor-derive v0.19.5
+  Downloaded minreq v2.14.1
+  Downloaded num-conv v0.2.2
+  Downloaded num-integer v0.1.47
+  Downloaded rand_chacha v0.3.1
+  Downloaded rand_core v0.6.4
+  Downloaded sha2 v0.11.1
+  Downloaded smallvec v0.6.14
+  Downloaded socket2 v0.6.5
+  Downloaded time-macros v0.2.32
+  Downloaded tinystr v0.8.4
+  Downloaded tower-layer v0.3.3
+  Downloaded try-lock v0.2.5
+  Downloaded unicode-xid v0.2.6
+  Downloaded yoke-derive v0.8.4
+  Downloaded zerofrom-derive v0.1.8
+  Downloaded asn1-rs-derive v0.6.0
+  Downloaded asn1-rs-impl v0.2.0
+  Downloaded boilerplate-parser v0.0.1
+  Downloaded cmake v0.1.58
+  Downloaded darling v0.20.11
+  Downloaded darling v0.23.0
+  Downloaded darling v0.24.1
+  Downloaded data-encoding v2.11.1
+  Downloaded defmt v1.2.0
+  Downloaded defmt-macros v1.2.0
+  Downloaded getrandom v0.4.3
+  Downloaded http-body-util v0.1.5
+  Downloaded iana-time-zone v0.1.65
+  Downloaded icu_locale_core v2.3.0
+  Downloaded icu_normalizer_data v2.3.0
+  Downloaded icu_provider v2.3.1
+  Downloaded indexmap v2.14.2
+  Downloaded indicatif v0.18.6
+  Downloaded log v0.4.34
+  Downloaded miniz_oxide v0.9.1
+  Downloaded mp4 v0.14.0
+  Downloaded num-rational v0.4.2
+  Downloaded pem v3.0.6
+  Downloaded piper v0.2.5
+  Downloaded pkg-config v0.3.34
+  Downloaded polling v3.11.0
+  Downloaded rustls-acme v0.15.4
+  Downloaded synstructure v0.14.0
+  Downloaded tinyvec v1.13.3
+  Downloaded tower-service v0.3.3
+  Downloaded unit-prefix v0.5.2
+  Downloaded utf8_iter v1.0.4
+  Downloaded anstyle-query v1.1.5
+  Downloaded async-channel v2.5.0
+  Downloaded base58ck v0.1.101
+  Downloaded block-buffer v0.12.1
+  Downloaded boilerplate-macros v0.0.4
+  Downloaded cfg_aliases v0.2.2
+  Downloaded darling_core v0.20.11
+  Downloaded darling_core v0.23.0
+  Downloaded darling_core v0.24.1
+  Downloaded darling_macro v0.23.0
+  Downloaded darling_macro v0.24.1
+  Downloaded flate2 v1.1.10
+  Downloaded h2 v0.4.20
+  Downloaded half v2.7.1
+  Downloaded hashbrown v0.12.3
+  Downloaded hashbrown v0.17.1
+  Downloaded http v1.5.0
+  Downloaded icu_collections v2.3.0
+  Downloaded icu_properties v2.3.0
+  Downloaded idna v1.1.0
+  Downloaded jiff-core v0.1.1
+  Downloaded memchr v2.8.3
+  Downloaded minimal-lexical v0.2.1
+  Downloaded mio v1.2.4
+  Downloaded nom v7.1.3
+  Downloaded num-bigint v0.4.8
+  Downloaded same-file v1.0.6
+  Downloaded sync_wrapper v1.0.2
+  Downloaded tokio-macros v2.7.2
+  Downloaded urlencoding v2.1.3
+  Downloaded zerofrom v0.1.8
+  Downloaded alloc-stdlib v0.3.0
+  Downloaded anstyle v1.0.14
+  Downloaded array-init v0.0.4
+  Downloaded async-task v4.7.1
+  Downloaded async-trait v0.1.92
+  Downloaded ciborium-io v0.2.2
+  Downloaded ciborium-ll v0.2.2
+  Downloaded futures-util v0.3.34
+  Downloaded hyper v1.12.0
+  Downloaded icu_properties_data v2.3.0
+  Downloaded option-ext v0.2.0
+  Downloaded potential_utf v0.1.6
+  Downloaded powerfmt v0.2.1
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded regex v1.13.1
+  Downloaded rust-embed-impl v8.13.0
+  Downloaded rust-embed-utils v8.13.0
+  Downloaded schemars v0.9.0
+  Downloaded scopeguard v1.2.0
+  Downloaded semver v1.0.28
+  Downloaded sponge-cursor v0.1.0
+  Downloaded stable_deref_trait v1.2.1
+  Downloaded syn v2.0.119
+  Downloaded time v0.3.55
+  Downloaded tower v0.5.3
+  Downloaded zeroize v1.9.1
+  Downloaded zerovec-derive v0.11.6
+  Downloaded async-http-codec v0.8.0
+  Downloaded async-net v2.0.0
+  Downloaded async-web-client v0.6.3
+  Downloaded autocfg v1.5.1
+  Downloaded bitflags v1.3.2
+  Downloaded blocking v1.7.0
+  Downloaded deranged v0.5.9
+  Downloaded rustls-native-certs v0.8.5
+  Downloaded rustls-pki-types v1.15.1
+  Downloaded rustls-platform-verifier v0.7.1
+  Downloaded rustls-webpki v0.103.15
+  Downloaded schemars v1.2.3
+  Downloaded serde_yaml v0.9.34+deprecated
+  Downloaded smallvec v1.16.3
+  Downloaded thiserror v1.0.69
+  Downloaded thiserror-impl v1.0.69
+  Downloaded unicode-normalization v0.1.26
+  Downloaded x509-parser v0.18.1
+  Downloaded yoke v0.8.3
+  Downloaded zmij v1.0.23
+  Downloaded alloc-no-stdlib v3.0.0
+  Downloaded anstream v1.0.0
+  Downloaded anstyle-parse v1.0.0
+  Downloaded async-io v2.6.0
+  Downloaded bip322 v0.0.12
+  Downloaded bitcoincore-rpc-json v0.19.0
+  Downloaded boilerplate v1.2.2
+  Downloaded byteorder v1.5.0
+  Downloaded crypto-common v0.2.2
+  Downloaded rustix v1.1.5
+  Downloaded rustls v0.23.46
+  Downloaded secp256k1 v0.29.1
+  Downloaded simd-adler32 v0.3.10
+  Downloaded simdutf8 v0.1.5
+  Downloaded slab v0.4.12
+  Downloaded anyhow v1.0.104
+  Downloaded atom_syndication v0.12.10
+  Downloaded bitcoincore-rpc v0.19.0
+  Downloaded bs58 v0.5.1
+  Downloaded ciborium v0.2.2
+  Downloaded clap v4.6.7
+  Downloaded compression-core v0.4.34
+  Downloaded concurrent-queue v2.5.0
+  Downloaded cpufeatures v0.3.1
+  Downloaded portable-atomic v1.15.0
+  Downloaded rand_pcg v0.10.2
+  Downloaded rustc-hash v2.1.3
+  Downloaded snafu v0.9.2
+  Downloaded snafu-derive v0.9.2
+  Downloaded thiserror v2.0.21
+  Downloaded thiserror-impl v2.0.21
+  Downloaded tokio-util v0.7.20
+  Downloaded unicode-segmentation v1.13.3
+  Downloaded base64 v0.13.1
+  Downloaded bitcoin-units v0.1.101
+  Downloaded cc v1.9.0
+  Downloaded clap_derive v4.6.7
+  Downloaded clap_lex v1.1.1
+  Downloaded colored v3.1.1
+  Downloaded compression-codecs v0.4.46
+  Downloaded console v0.16.6
+  Downloaded defmt-parser v1.1.0
+  Downloaded openssl-probe v0.2.1
+  Downloaded parking v2.2.1
+  Downloaded quick-xml v0.41.0
+  Downloaded ref-cast v1.0.27
+  Downloaded ref-cast-impl v1.0.27
+  Downloaded serde-hex v0.1.0
+  Downloaded sysinfo v0.39.6
+  Downloaded tracing-core v0.1.36
+  Downloaded axum-server v0.8.0
+  Downloaded base64 v0.22.1
+  Downloaded chacha20 v0.10.2
+  Downloaded convert_case v0.10.0
+  Downloaded crc32fast v1.5.2
+  Downloaded der-parser v10.0.0
+  Downloaded icu_normalizer v2.3.0
+  Downloaded oid-registry v0.8.1
+  Downloaded percent-encoding v2.3.2
+  Downloaded rand_core v0.10.1
+  Downloaded rustversion v1.0.23
+  Downloaded serde_urlencoded v0.7.1
+  Downloaded tempfile v3.27.0
+  Downloaded bech32 v0.11.1
+  Downloaded crossbeam-utils v0.8.23
+  Downloaded num-traits v0.2.19
+  Downloaded once_cell v1.21.4
+  Downloaded pin-project-lite v0.2.17
+  Downloaded quinn-udp v0.5.16
+  Downloaded rcgen v0.13.2
+  Downloaded serde_path_to_error v0.1.20
+  Downloaded tower-http v0.6.11
+  Downloaded arc-swap v1.9.3
+  Downloaded const-oid v0.10.2
+  Downloaded encoding_rs v0.8.42
+  Downloaded rand v0.8.8
+  Downloaded serde_with_macros v3.24.0
+  Downloaded syn v3.0.9
+  Downloaded zerotrie v0.2.5
+  Downloaded rss v2.1.2
+  Downloaded url v2.5.8
+  Downloaded asn1-rs v0.7.2
+  Downloaded clap_builder v4.6.7
+  Downloaded rand v0.10.3
+  Downloaded async-compression v0.4.51
+  Downloaded base64 v0.23.1
+  Downloaded bytes v1.12.1
+  Downloaded quinn v0.11.12
+  Downloaded ryu v1.0.23
+  Downloaded jiff v0.2.38
+  Downloaded redb v3.1.3
+  Downloaded bip39 v3.0.0
+  Downloaded webpki-roots v1.0.10
+  Downloaded zerocopy-derive v0.8.63
+  Downloaded zerovec v0.11.8
+  Downloaded axum v0.8.9
+  Downloaded quinn-proto v0.11.19
+  Downloaded aho-corasick v1.1.5
+  Downloaded reqwest v0.13.5
+  Downloaded serde_json v1.0.154
+  Downloaded zlib-rs v0.6.8
+  Downloaded sha3 v0.12.0
+  Downloaded tower-http v0.7.1
+  Downloaded aws-lc-rs v1.18.2
+  Downloaded serde_with v3.24.0
+  Downloaded chrono v0.4.45
+  Downloaded brotli-decompressor v6.0.1
+  Downloaded nix v0.31.3
+  Downloaded regex-syntax v0.8.11
+  Downloaded unicode-width v0.2.2
+  Downloaded zerocopy v0.8.63
+  Downloaded bitcoin v0.32.102
+  Downloaded tracing v0.1.44
+  Downloaded regex-automata v0.4.18
+  Downloaded miniscript v13.2.0
+  Downloaded brotli v9.0.0
+  Downloaded rust-embed v8.13.0
+  Downloaded tokio v1.54.0
+  Downloaded ring v0.17.14
+  Downloaded linux-raw-sys v0.12.1
+  Downloaded aws-lc-sys v0.46.0
+   Compiling proc-macro2 v1.0.107
+   Compiling quote v1.0.47
+   Compiling unicode-ident v1.0.27
+   Compiling libc v0.2.191
+   Compiling cfg-if v1.0.5
+   Compiling shlex v2.0.1
+   Compiling find-msvc-tools v0.1.15
+   Compiling memchr v2.8.3
+   Compiling syn v3.0.9
+   Compiling syn v2.0.119
+   Compiling jobserver v0.1.35
+   Compiling cc v1.9.0
+   Compiling serde_core v1.0.229
+   Compiling pin-project-lite v0.2.17
+   Compiling serde v1.0.229
+   Compiling futures-core v0.3.34
+   Compiling autocfg v1.5.1
+   Compiling itoa v1.0.18
+   Compiling bytes v1.12.1
+   Compiling futures-io v0.3.34
+   Compiling getrandom v0.2.17
+   Compiling log v0.4.34
+   Compiling ident_case v1.0.1
+   Compiling strsim v0.11.1
+   Compiling once_cell v1.21.4
+   Compiling synstructure v0.14.0
+   Compiling futures-sink v0.3.34
+   Compiling cmake v0.1.58
+   Compiling mio v1.2.4
+   Compiling socket2 v0.6.5
+   Compiling dunce v1.0.5
+   Compiling pkg-config v0.3.34
+   Compiling serde_derive v1.0.229
+   Compiling tokio-macros v2.7.2
+   Compiling displaydoc v0.2.7
+   Compiling fs_extra v1.3.0
+   Compiling slab v0.4.12
+   Compiling aws-lc-sys v0.46.0
+   Compiling tokio v1.54.0
+   Compiling zerofrom-derive v0.1.8
+   Compiling equivalent v1.0.3
+   Compiling hashbrown v0.17.1
+   Compiling zerocopy v0.8.63
+   Compiling zeroize v1.9.1
+   Compiling zerofrom v0.1.8
+   Compiling indexmap v2.14.2
+   Compiling yoke-derive v0.8.4
+   Compiling zerocopy-derive v0.8.63
+   Compiling http v1.5.0
+   Compiling num-traits v0.2.19
+   Compiling stable_deref_trait v1.2.1
+   Compiling yoke v0.8.3
+   Compiling rustls-pki-types v1.15.1
+   Compiling futures-channel v0.3.34
+   Compiling qsha-sys v0.1.0 (/home/runner/work/qwencoin/qwencoin/upstream/rust/qsha-sys)
+   Compiling aws-lc-rs v1.18.2
+   Compiling typenum v1.20.1
+   Compiling zerovec-derive v0.11.6
+   Compiling futures-macro v0.3.34
+   Compiling ring v0.17.14
+   Compiling futures-task v0.3.34
+   Compiling futures-util v0.3.34
+   Compiling zerovec v0.11.8
+   Compiling tracing-core v0.1.36
+   Compiling bitflags v2.13.2
+   Compiling smallvec v1.16.3
+   Compiling bitcoin-io v0.1.101
+   Compiling atomic-waker v1.1.2
+   Compiling unicase v2.10.0
+   Compiling arrayvec v0.7.8
+   Compiling rustversion v1.0.23
+   Compiling tracing v0.1.44
+   Compiling http-body v1.1.0
+   Compiling zmij v1.0.23
+   Compiling untrusted v0.9.0
+   Compiling httparse v1.10.1
+   Compiling percent-encoding v2.3.2
+   Compiling hex-conservative v0.2.3
+   Compiling tokio-util v0.7.20
+   Compiling rustls v0.23.46
+   Compiling tower-service v0.3.3
+   Compiling serde_json v1.0.154
+   Compiling bitcoin_hashes v0.14.101 (/home/runner/work/qwencoin/qwencoin/upstream/rust/bitcoin_hashes)
+   Compiling tinystr v0.8.4
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_core v0.6.4
+   Compiling secp256k1-sys v0.10.1 (/home/runner/work/qwencoin/qwencoin/upstream/rust/secp256k1-sys)
+   Compiling time-core v0.1.9
+   Compiling crossbeam-utils v0.8.23
+   Compiling litemap v0.8.3
+   Compiling foldhash v0.2.0
+   Compiling parking v2.2.1
+   Compiling num-conv v0.2.2
+   Compiling subtle v2.6.1
+   Compiling writeable v0.6.4
+   Compiling time-macros v0.2.32
+   Compiling icu_locale_core v2.3.0
+   Compiling rand_chacha v0.3.1
+   Compiling potential_utf v0.1.6
+   Compiling zerotrie v0.2.5
+   Compiling utf8_iter v1.0.4
+   Compiling rustix v1.1.5
+   Compiling fnv v1.0.7
+   Compiling hex_lit v0.1.1
+   Compiling icu_properties_data v2.3.0
+   Compiling powerfmt v0.2.1
+   Compiling crc32fast v1.5.2
+   Compiling version_check v0.9.5
+   Compiling deranged v0.5.9
+   Compiling fastrand v2.5.0
+   Compiling thiserror v2.0.21
+   Compiling alloc-no-stdlib v3.0.0
+   Compiling try-lock v0.2.5
+   Compiling icu_normalizer_data v2.3.0
+   Compiling hybrid-array v0.4.15
+   Compiling want v0.3.2
+   Compiling time v0.3.55
+   Compiling alloc-stdlib v0.3.0
+   Compiling generic-array v0.14.7
+   Compiling darling_core v0.20.11
+   Compiling h2 v0.4.20
+   Compiling icu_provider v2.3.1
+   Compiling icu_collections v2.3.0
+   Compiling rand v0.8.8
+   Compiling thiserror-impl v2.0.21
+   Compiling minimal-lexical v0.2.1
+   Compiling bitcoin v0.32.102
+   Compiling httpdate v1.0.3
+   Compiling linux-raw-sys v0.12.1
+   Compiling adler2 v2.0.1
+   Compiling simd-adler32 v0.3.10
+   Compiling base64 v0.23.1
+   Compiling miniz_oxide v0.9.1
+   Compiling hyper v1.12.0
+   Compiling nom v7.1.3
+   Compiling concurrent-queue v2.5.0
+   Compiling secp256k1 v0.29.1
+   Compiling darling_macro v0.20.11
+   Compiling brotli-decompressor v6.0.1
+   Compiling event-listener v5.4.2
+   Compiling base58ck v0.1.101
+   Compiling encoding_rs v0.8.42
+   Compiling mime_guess v2.0.5
+   Compiling num-integer v0.1.47
+   Compiling bitcoin-units v0.1.101
+   Compiling synstructure v0.13.2
+   Compiling mime v0.3.17
+   Compiling ipnet v2.12.2
+   Compiling bech32 v0.11.1
+   Compiling tower-layer v0.3.3
+   Compiling hyper-util v0.1.21
+   Compiling asn1-rs-derive v0.6.0
+   Compiling brotli v9.0.0
+   Compiling num-bigint v0.4.8
+   Compiling event-listener-strategy v0.5.4
+   Compiling icu_normalizer v2.3.0
+   Compiling flate2 v1.1.10
+   Compiling icu_properties v2.3.0
+   Compiling darling v0.20.11
+   Compiling rusticata-macros v4.1.0
+   Compiling crypto-common v0.2.2
+   Compiling block-buffer v0.12.1
+   Compiling futures-lite v2.6.1
+   Compiling form_urlencoded v1.2.2
+   Compiling asn1-rs-impl v0.2.0
+   Compiling darling_core v0.24.1
+   Compiling async-io v2.6.0
+   Compiling sync_wrapper v1.0.2
+   Compiling cpufeatures v0.3.1
+   Compiling compression-core v0.4.34
+   Compiling anyhow v1.0.104
+   Compiling utf8parse v0.2.2
+   Compiling multiversion_no_op v1.0.0
+   Compiling heck v0.5.0
+   Compiling scopeguard v1.2.0
+   Compiling iana-time-zone v0.1.65
+   Compiling simdutf8 v0.1.5
+   Compiling thiserror v1.0.69
+   Compiling const-oid v0.10.2
+   Compiling digest v0.11.3
+   Compiling darling_macro v0.24.1
+   Compiling chrono v0.4.45
+   Compiling anstyle-parse v1.0.0
+   Compiling compression-codecs v0.4.46
+   Compiling asn1-rs v0.7.2
+   Compiling idna_adapter v1.2.2
+   Compiling derive_builder_core v0.20.2
+   Compiling async-channel v2.5.0
+   Compiling polling v3.11.0
+   Compiling piper v0.2.5
+   Compiling http-body-util v0.1.5
+   Compiling new_mime_guess v4.0.4
+   Compiling rustls-webpki v0.103.15
+   Compiling futures-executor v0.3.34
+   Compiling thiserror-impl v1.0.69
+   Compiling darling_core v0.23.0
+   Compiling fs-err v3.3.2
+   Compiling aho-corasick v1.1.5
+   Compiling oid-registry v0.8.1
+   Compiling base64 v0.22.1
+   Compiling cfg_aliases v0.2.2
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling async-task v4.7.1
+   Compiling regex-syntax v0.8.11
+   Compiling anstyle v1.0.14
+   Compiling anstyle-query v1.1.5
+   Compiling colorchoice v1.0.5
+   Compiling unicode-segmentation v1.13.3
+   Compiling same-file v1.0.6
+   Compiling maybe-uninit v2.0.0
+   Compiling tokio-rustls v0.26.6
+   Compiling regex-automata v0.4.18
+   Compiling walkdir v2.5.0
+   Compiling convert_case v0.10.0
+   Compiling anstream v1.0.0
+   Compiling sha2 v0.11.1
+   Compiling darling_macro v0.23.0
+   Compiling blocking v1.7.0
+   Compiling nix v0.31.3
+   Compiling futures v0.3.34
+   Compiling derive_builder_macro v0.20.2
+   Compiling idna v1.1.0
+   Compiling async-compression v0.4.51
+   Compiling darling v0.24.1
+   Compiling tower v0.5.3
+   Compiling crypto-common v0.1.7
+   Compiling block-buffer v0.10.4
+   Compiling half v2.7.1
+   Compiling webpki-roots v1.0.10
+   Compiling unicode-xid v0.2.6
+   Compiling getrandom v0.4.3
+   Compiling lazy_static v1.5.1
+   Compiling ryu v1.0.23
+   Compiling openssl-probe v0.2.1
+   Compiling portable-atomic v1.15.0
+   Compiling rustls-native-certs v0.8.5
+   Compiling derive_more-impl v2.1.1
+   Compiling webpki-roots v0.26.11
+   Compiling digest v0.10.7
+   Compiling serde_with_macros v3.24.0
+   Compiling async-http-codec v0.8.0
+   Compiling url v2.5.8
+   Compiling derive_builder v0.20.2
+   Compiling async-net v2.0.0
+   Compiling darling v0.23.0
+   Compiling rust-embed-utils v8.13.0
+   Compiling regex v1.13.1
+   Compiling futures-rustls v0.26.0
+   Compiling pem v3.0.6
+   Compiling der-parser v10.0.0
+   Compiling diligent-date-parser v0.1.5
+   Compiling quick-xml v0.41.0
+   Compiling snafu-derive v0.9.2
+   Compiling yasna v0.5.2
+   Compiling minreq v2.14.1
+   Compiling arc-swap v1.9.3
+   Compiling cpufeatures v0.2.17
+   Compiling either v1.19.0
+   Compiling ref-cast v1.0.27
+   Compiling redb v3.1.3
+   Compiling boilerplate-parser v0.0.1
+   Compiling nodrop v0.1.14
+   Compiling clap_lex v1.1.1
+   Compiling unicode-width v0.2.2
+   Compiling jiff-core v0.1.1
+   Compiling option-ext v0.2.0
+   Compiling data-encoding v2.11.1
+   Compiling tinyvec v1.13.3
+   Compiling ciborium-io v0.2.2
+   Compiling base64 v0.13.1
+   Compiling ciborium-ll v0.2.2
+   Compiling jsonrpc v0.18.0
+   Compiling unicode-normalization v0.1.26
+   Compiling jiff v0.2.38
+   Compiling x509-parser v0.18.1
+   Compiling dirs-sys v0.5.0
+   Compiling console v0.16.6
+   Compiling clap_builder v4.6.7
+   Compiling boilerplate-macros v0.0.4
+   Compiling array-init v0.0.4
+   Compiling axum-server v0.8.0
+   Compiling sha2 v0.10.9
+   Compiling snafu v0.9.2
+   Compiling rcgen v0.13.2
+   Compiling atom_syndication v0.12.10
+   Compiling async-web-client v0.6.3
+   Compiling env_filter v2.0.0
+   Compiling smallvec v0.6.14
+   Compiling rust-embed-impl v8.13.0
+   Compiling tower-http v0.6.11
+   Compiling derive_more v2.1.1
+   Compiling serde_with v3.24.0
+   Compiling rustls-platform-verifier v0.7.1
+   Compiling serde_urlencoded v0.7.1
+   Compiling hyper-rustls v0.27.10
+   Compiling axum-core v0.5.6
+   Compiling clap_derive v4.6.7
+   Compiling keccak v0.2.2
+   Compiling bitcoincore-rpc-json v0.19.0
+   Compiling num-rational v0.4.2
+   Compiling hex-conservative v1.3.0
+   Compiling ref-cast-impl v1.0.27
+   Compiling async-trait v0.1.92
+   Compiling minicbor-derive v0.19.5
+   Compiling serde_path_to_error v0.1.20
+   Compiling sponge-cursor v0.1.0
+   Compiling ord v0.29.1 (/home/runner/work/qwencoin/qwencoin/upstream/ord)
+   Compiling unsafe-libyaml v0.2.11
+   Compiling byteorder v1.5.0
+   Compiling matchit v0.8.4
+   Compiling unit-prefix v0.5.2
+   Compiling indicatif v0.18.6
+   Compiling minicbor v2.3.1
+   Compiling bitcoincore-rpc v0.19.0
+   Compiling axum v0.8.9
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling mp4 v0.14.0
+   Compiling rustls-acme v0.15.4
+   Compiling sha3 v0.12.0
+   Compiling miniscript v13.2.0
+   Compiling clap v4.6.7
+   Compiling ordinals v0.0.17 (/home/runner/work/qwencoin/qwencoin/upstream/ord/crates/ordinals)
+   Compiling reqwest v0.13.5
+   Compiling tempfile v3.27.0
+   Compiling rust-embed v8.13.0
+   Compiling ctrlc v3.5.2
+   Compiling serde-hex v0.1.0
+   Compiling env_logger v0.11.11
+   Compiling rss v2.1.2
+   Compiling bip322 v0.0.12
+   Compiling boilerplate v1.2.2
+   Compiling dirs v7.0.0
+   Compiling bip39 v3.0.0
+   Compiling ciborium v0.2.2
+   Compiling tower-http v0.7.1
+   Compiling tokio-stream v0.1.19
+   Compiling sysinfo v0.39.6
+   Compiling hex v0.4.3
+   Compiling humantime v2.4.0
+   Compiling urlencoding v2.1.3
+   Compiling colored v3.1.1
+warning: unused dependency `tempfile`
+  --> Cargo.toml:95:1
+   |
+95 | tempfile.workspace = true
+   | ^^^^^^^^
+   |
+   = note: `cargo::unused_dependencies` is set to `warn` by default
+help: consider removing the dependency on `tempfile`
+warning: `ord` (manifest) generated 1 warning
+    Finished `release` profile [optimized] target(s) in 2m 40s
+Qwencoin daemon version v29.4.0
+ord 0.29.1
+dist/node/linux-aarch64: qwencoind, qwencoin-cli, ord; libraries: ld-linux-aarch64.so.1, libc.so.6, libevent_core-2.1.so.7, libevent_extra-2.1.so.7, libevent_pthreads-2.1.so.7, libgcc_s.so.1, libm.so.6, libsqlite3.so.0, libstdc++.so.6
+-rw-r--r-- 1 runner runner 21208567 Nov 13 18:36 dist/qwencoin-node-linux-aarch64.tar.gz
+5a817a1ab33d2151fc539327bf9fb5af9d44026f1e58f3b171205d1c8583adb1  dist/qwencoin-node-linux-aarch64.tar.gz
+the chain's work table (505 MB) from https://huggingface.co/staccs/qwencoin/resolve/main/qwork.bin
+the packed executor (exec/libqsha.so): SHA-256 of 8 random strings of 0 to 1000 bytes equals hashlib
+table /home/runner/work/qwencoin/qwencoin/dist/qwork.bin: fnv64 0x33a548a33925d201
+1 a node without the right weights does not start
+    no file: Error: The work table /home/runner/work/qwencoin/qwencoin/work/qwork-net/absent.bin cannot be opened. On this chain a proof of work is a pass through 
+    not a table: Error: /home/runner/work/qwencoin/qwencoin/work/qwork-net/junk.bin is not a work table (QWRK1, 24 layers of 3584 x 1024). On this chain a proof of wor
+    one weight changed (of 264,241,152): Error: The work table /home/runner/work/qwencoin/qwencoin/work/qwork-net/forged.bin has checksum 7315469c47bcd201, this chain's is 33a548a33925d201. On this chain a proof of work is a pass t
+2 three nodes up (6s); genesis
+    hash 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5
+    work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d  (node == numpy reference == C kernel == the constant; under the target 00ffff000000..; the hash itself is not)
+3 mining 8 blocks on two nodes
+    n1 mined height 1 fc31d545503e5bf6.. at nonce 24
+Traceback (most recent call last):
+  File "/home/runner/work/qwencoin/qwencoin/tests/check_qwork_node.py", line 271, in <module>
+    main()
+  File "/home/runner/work/qwencoin/qwencoin/tests/check_qwork_node.py", line 170, in main
+    wait_same_tip((1, 2, 3))
+  File "/home/runner/work/qwencoin/qwencoin/tests/check_qwork_node.py", line 93, in wait_same_tip
+    raise AssertionError(f"tips did not converge: {[(i, net.cli(i, 'getblockcount')) for i in nodes]}")
+AssertionError: tips did not converge: [(1, 1), (2, 0), (3, 0)]

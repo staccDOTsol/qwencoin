@@ -1,0 +1,2741 @@
+Collecting numpy
+  Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.4-cp315-cp315-macosx_14_0_arm64.whl (5.5 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 5.5/5.5 MB 53.9 MB/s  0:00:00
+Installing collected packages: numpy
+Successfully installed numpy-2.5.4
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+Apple clang version 17.0.0 (clang-1700.0.13.5)
+cargo 1.100.0 (3acc79c0c 2026-11-05)
+macos-arm64: Darwin 24.6.0 arm64, 3 cpus, python 3.15.2, numpy 2.5.4
+Cloning into 'upstream/bitcoin'...
+warning: refs/tags/v29.4-inq d2f29dd04938927a3d00f0222b96747c33c11a0a is not a commit!
+/bin/sh: command -v llvm-ranlib: No such file or directory
+/bin/sh: command -v llvm-strip: No such file or directory
+/bin/sh: command -v llvm-nm: No such file or directory
+/bin/sh: command -v llvm-objcopy: No such file or directory
+/bin/sh: command -v llvm-objdump: No such file or directory
+/bin/sh: command -v dsymutil: No such file or directory
+Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0 10  133M   10 13.8M    0     0  52.3M      0  0:00:02 --:--:--  0:00:02 52.2M 71  133M   71 95.3M    0     0  75.1M      0  0:00:01  0:00:01 --:--:-- 75.1M100  133M  100  133M    0     0  74.1M      0  0:00:01  0:00:01 --:--:-- 74.1M
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+Extracting boost...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/boost_1_81_0.tar.gz: OK
+Preprocessing boost...
+Configuring boost...
+Building boost...
+Staging boost...
+Postprocessing boost...
+Caching boost...
+Fetching libevent-2.1.12-stable.tar.gz from https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1075k  100 1075k    0     0  3432k      0 --:--:-- --:--:-- --:--:-- 3432k
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/libevent-2.1.12-stable/libevent-2.1.12-stable.tar.gz.temp: OK
+Extracting libevent...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/libevent-2.1.12-stable.tar.gz: OK
+Preprocessing libevent...
+patching file CMakeLists.txt
+patching file kqueue.c
+patching file event_iocp.c
+patching file evthread_win32.c
+patching file evutil.c
+patching file listener.c
+Configuring libevent...
+CMake Warning (deprecated) at CMakeLists.txt:22 (cmake_minimum_required):
+  Compatibility with CMake < 3.10 will be removed from a future version of
+  CMake.
+
+  Update the VERSION argument <min> value.  Or, use the <min>...<max> syntax
+  to tell CMake that the project requires at least <min> but has been updated
+  to work with policies introduced by <max> or earlier.
+This warning is for project developers.  Use -Wno-author or -Wno-deprecated
+to suppress it.
+
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found Git: /opt/homebrew/bin/git (found version "2.56.0")
+-- Performing Test check_c_compiler_flag__Wall
+-- Performing Test check_c_compiler_flag__Wall - Success
+-- Performing Test check_c_compiler_flag__Wextra
+-- Performing Test check_c_compiler_flag__Wextra - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter
+-- Performing Test check_c_compiler_flag__Wno_unused_parameter - Success
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing
+-- Performing Test check_c_compiler_flag__Wstrict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes
+-- Performing Test check_c_compiler_flag__Wstrict_prototypes - Success
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing
+-- Performing Test check_c_compiler_flag__fno_strict_aliasing - Success
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes
+-- Performing Test check_c_compiler_flag__Wmissing_prototypes - Success
+-- Performing Test check_c_compiler_flag__Winit_self
+-- Performing Test check_c_compiler_flag__Winit_self - Success
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers
+-- Performing Test check_c_compiler_flag__Wmissing_field_initializers - Success
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement
+-- Performing Test check_c_compiler_flag__Wdeclaration_after_statement - Success
+-- Performing Test check_c_compiler_flag__Waddress
+-- Performing Test check_c_compiler_flag__Waddress - Success
+-- Performing Test check_c_compiler_flag__Wnormalized_id
+-- Performing Test check_c_compiler_flag__Wnormalized_id - Failed
+-- Performing Test check_c_compiler_flag__Woverride_init
+-- Performing Test check_c_compiler_flag__Woverride_init - Success
+-- Performing Test check_c_compiler_flag__Wlogical_op
+-- Performing Test check_c_compiler_flag__Wlogical_op - Failed
+-- Performing Test check_c_compiler_flag__Wwrite_strings
+-- Performing Test check_c_compiler_flag__Wwrite_strings - Success
+-- Performing Test check_c_compiler_flag__Wno_unused_function
+-- Performing Test check_c_compiler_flag__Wno_unused_function - Success
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations
+-- Performing Test check_c_compiler_flag__Wno_error_deprecated_declarations - Success
+-- Performing Test check_c_compiler_flag__Qunused_arguments
+-- Performing Test check_c_compiler_flag__Qunused_arguments - Success
+-- Looking for __GNU_LIBRARY__
+-- Looking for __GNU_LIBRARY__ - not found
+-- Looking for _GNU_SOURCE
+-- Looking for _GNU_SOURCE - not found
+-- Looking for include file fcntl.h
+-- Looking for include file fcntl.h - found
+-- Looking for include files fcntl.h, inttypes.h
+-- Looking for include files fcntl.h, inttypes.h - found
+-- Looking for 3 include files fcntl.h, ..., memory.h
+-- Looking for 3 include files fcntl.h, ..., memory.h - found
+-- Looking for 4 include files fcntl.h, ..., signal.h
+-- Looking for 4 include files fcntl.h, ..., signal.h - found
+-- Looking for 5 include files fcntl.h, ..., stdarg.h
+-- Looking for 5 include files fcntl.h, ..., stdarg.h - found
+-- Looking for 6 include files fcntl.h, ..., stddef.h
+-- Looking for 6 include files fcntl.h, ..., stddef.h - found
+-- Looking for 7 include files fcntl.h, ..., stdint.h
+-- Looking for 7 include files fcntl.h, ..., stdint.h - found
+-- Looking for 8 include files fcntl.h, ..., stdlib.h
+-- Looking for 8 include files fcntl.h, ..., stdlib.h - found
+-- Looking for 9 include files fcntl.h, ..., string.h
+-- Looking for 9 include files fcntl.h, ..., string.h - found
+-- Looking for 10 include files fcntl.h, ..., errno.h
+-- Looking for 10 include files fcntl.h, ..., errno.h - found
+-- Looking for 11 include files fcntl.h, ..., unistd.h
+-- Looking for 11 include files fcntl.h, ..., unistd.h - found
+-- Looking for 12 include files fcntl.h, ..., time.h
+-- Looking for 12 include files fcntl.h, ..., time.h - found
+-- Looking for 13 include files fcntl.h, ..., sys/types.h
+-- Looking for 13 include files fcntl.h, ..., sys/types.h - found
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h
+-- Looking for 14 include files fcntl.h, ..., sys/stat.h - found
+-- Looking for 15 include files fcntl.h, ..., sys/time.h
+-- Looking for 15 include files fcntl.h, ..., sys/time.h - found
+-- Looking for 16 include files fcntl.h, ..., sys/param.h
+-- Looking for 16 include files fcntl.h, ..., sys/param.h - found
+-- Looking for 17 include files fcntl.h, ..., netdb.h
+-- Looking for 17 include files fcntl.h, ..., netdb.h - found
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h
+-- Looking for 18 include files fcntl.h, ..., dlfcn.h - found
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h
+-- Looking for 19 include files fcntl.h, ..., arpa/inet.h - found
+-- Looking for 20 include files fcntl.h, ..., poll.h
+-- Looking for 20 include files fcntl.h, ..., poll.h - found
+-- Looking for 21 include files fcntl.h, ..., port.h
+-- Looking for 21 include files fcntl.h, ..., port.h - not found
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h
+-- Looking for 21 include files fcntl.h, ..., sys/socket.h - found
+-- Looking for 22 include files fcntl.h, ..., sys/random.h
+-- Looking for 22 include files fcntl.h, ..., sys/random.h - found
+-- Looking for 23 include files fcntl.h, ..., sys/un.h
+-- Looking for 23 include files fcntl.h, ..., sys/un.h - found
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/devpoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h
+-- Looking for 24 include files fcntl.h, ..., sys/epoll.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h
+-- Looking for 24 include files fcntl.h, ..., sys/eventfd.h - not found
+-- Looking for 24 include files fcntl.h, ..., sys/event.h
+-- Looking for 24 include files fcntl.h, ..., sys/event.h - found
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h
+-- Looking for 25 include files fcntl.h, ..., sys/ioctl.h - found
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h
+-- Looking for 26 include files fcntl.h, ..., sys/mman.h - found
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h
+-- Looking for 27 include files fcntl.h, ..., sys/queue.h - found
+-- Looking for 28 include files fcntl.h, ..., sys/select.h
+-- Looking for 28 include files fcntl.h, ..., sys/select.h - found
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h
+-- Looking for 29 include files fcntl.h, ..., sys/sendfile.h - not found
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h
+-- Looking for 29 include files fcntl.h, ..., sys/uio.h - found
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h
+-- Looking for 30 include files fcntl.h, ..., sys/wait.h - found
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h
+-- Looking for 31 include files fcntl.h, ..., sys/resource.h - found
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h
+-- Looking for 32 include files fcntl.h, ..., sys/timerfd.h - not found
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h
+-- Looking for 32 include files fcntl.h, ..., netinet/in.h - found
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h
+-- Looking for 33 include files fcntl.h, ..., netinet/in6.h - not found
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h
+-- Looking for 33 include files fcntl.h, ..., netinet/tcp.h - found
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h
+-- Looking for 34 include files fcntl.h, ..., ifaddrs.h - found
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h
+-- Looking for 35 include files fcntl.h, ..., sys/sysctl.h - found
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h
+-- Looking for 36 include files fcntl.h, ..., mach/mach_time.h - found
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h
+-- Looking for 37 include files fcntl.h, ..., mach/mach.h - found
+-- Looking for getaddrinfo
+-- Looking for getaddrinfo - found
+-- Looking for getnameinfo
+-- Looking for getnameinfo - found
+-- Looking for getprotobynumber
+-- Looking for getprotobynumber - found
+-- Looking for getservbyname
+-- Looking for getservbyname - found
+-- Looking for gethostbyname
+-- Looking for gethostbyname - found
+-- Looking for inet_ntop
+-- Looking for inet_ntop - found
+-- Looking for inet_pton
+-- Looking for inet_pton - found
+-- Looking for gettimeofday
+-- Looking for gettimeofday - found
+-- Looking for signal
+-- Looking for signal - found
+-- Looking for strtoll
+-- Looking for strtoll - found
+-- Looking for splice
+-- Looking for splice - not found
+-- Looking for strlcpy
+-- Looking for strlcpy - found
+-- Looking for strsep
+-- Looking for strsep - found
+-- Looking for strtok_r
+-- Looking for strtok_r - found
+-- Looking for vasprintf
+-- Looking for vasprintf - found
+-- Looking for timerclear
+-- Looking for timerclear - found
+-- Looking for timercmp
+-- Looking for timercmp - found
+-- Looking for timerisset
+-- Looking for timerisset - found
+-- Looking for timeradd
+-- Looking for timeradd - found
+-- Looking for nanosleep
+-- Looking for nanosleep - found
+-- Looking for putenv
+-- Looking for putenv - found
+-- Looking for umask
+-- Looking for umask - found
+-- Looking for clock_gettime
+-- Looking for clock_gettime - found
+-- Looking for getifaddrs
+-- Looking for getifaddrs - found
+-- Looking for select
+-- Looking for select - found
+-- Looking for epoll_create
+-- Looking for epoll_create - not found
+-- Looking for epoll_create1
+-- Looking for epoll_create1 - not found
+-- Looking for epoll_ctl
+-- Looking for epoll_ctl - not found
+-- Looking for eventfd
+-- Looking for eventfd - not found
+-- Looking for poll
+-- Looking for poll - found
+-- Looking for port_create
+-- Looking for port_create - not found
+-- Looking for kqueue
+-- Looking for kqueue - found
+-- Looking for fcntl
+-- Looking for fcntl - found
+-- Looking for mmap
+-- Looking for mmap - found
+-- Looking for pipe
+-- Looking for pipe - found
+-- Looking for pipe2
+-- Looking for pipe2 - not found
+-- Looking for sendfile
+-- Looking for sendfile - found
+-- Looking for sigaction
+-- Looking for sigaction - found
+-- Looking for strsignal
+-- Looking for strsignal - found
+-- Looking for sysctl
+-- Looking for sysctl - found
+-- Looking for accept4
+-- Looking for accept4 - not found
+-- Looking for arc4random
+-- Looking for arc4random - found
+-- Looking for arc4random_buf
+-- Looking for arc4random_buf - found
+-- Looking for arc4random_addrandom
+-- Looking for arc4random_addrandom - found
+-- Looking for getrandom
+-- Looking for getrandom - not found
+-- Looking for getegid
+-- Looking for getegid - found
+-- Looking for geteuid
+-- Looking for geteuid - found
+-- Looking for issetugid
+-- Looking for issetugid - found
+-- Looking for usleep
+-- Looking for usleep - found
+-- Looking for timerfd_create
+-- Looking for timerfd_create - not found
+-- Looking for setenv
+-- Looking for setenv - found
+-- Looking for unsetenv
+-- Looking for unsetenv - found
+-- Looking for setrlimit
+-- Looking for setrlimit - found
+-- Looking for gethostbyname_r
+-- Looking for gethostbyname_r - not found
+-- Looking for mach_absolute_time
+-- Looking for mach_absolute_time - found
+-- Looking for sys/types.h
+-- Looking for sys/types.h - found
+-- Looking for stdint.h
+-- Looking for stdint.h - found
+-- Looking for stddef.h
+-- Looking for stddef.h - found
+-- Check size of struct sockaddr_un
+-- Check size of struct sockaddr_un - done
+-- Check size of uint8_t
+-- Check size of uint8_t - done
+-- Check size of uint16_t
+-- Check size of uint16_t - done
+-- Check size of uint32_t
+-- Check size of uint32_t - done
+-- Check size of uint64_t
+-- Check size of uint64_t - done
+-- Check size of short
+-- Check size of short - done
+-- Check size of int
+-- Check size of int - done
+-- Check size of unsigned
+-- Check size of unsigned - done
+-- Check size of unsigned int
+-- Check size of unsigned int - done
+-- Check size of long
+-- Check size of long - done
+-- Check size of long long
+-- Check size of long long - done
+-- Performing Test HAVE_INLINE
+-- Performing Test HAVE_INLINE - Success
+-- Looking for __func__
+-- Looking for __func__ - found
+-- Looking for __FUNCTION__
+-- Looking for __FUNCTION__ - found
+-- Looking for TAILQ_FOREACH
+-- Looking for TAILQ_FOREACH - found
+-- Performing Test EVENT__HAVE_DECL_CTL_KERN
+-- Performing Test EVENT__HAVE_DECL_CTL_KERN - Success
+-- Looking for CTL_KERN - found
+-- Performing Test EVENT__HAVE_DECL_KERN_ARND
+-- Performing Test EVENT__HAVE_DECL_KERN_ARND - Failed
+-- Looking for KERN_ARND - not found
+-- Looking for F_SETFD
+-- Looking for F_SETFD - found
+-- Check size of fd_mask
+-- Check size of fd_mask - done
+-- Check size of size_t
+-- Check size of size_t - done
+-- Check size of off_t
+-- Check size of off_t - done
+-- Check size of ssize_t
+-- Check size of ssize_t - done
+-- Check size of SSIZE_T
+-- Check size of SSIZE_T - failed
+-- Check size of socklen_t
+-- Check size of socklen_t - done
+-- Check size of pid_t
+-- Check size of pid_t - done
+-- Check size of pthread_t
+-- Check size of pthread_t - done
+-- Check size of uintptr_t
+-- Check size of uintptr_t - done
+-- Check size of void *
+-- Check size of void * - done
+-- Check size of time_t
+-- Check size of time_t - done
+CMake Warning at CMakeLists.txt:663 (message):
+  Cannot check if kqueue works with pipes when crosscompiling, use
+  EVENT__FORCE_KQUEUE_CHECK to be sure (this requires manually running a test
+  program on the cross compilation target)
+
+
+-- Check size of struct addrinfo
+-- Check size of struct addrinfo - done
+-- Check size of struct in6_addr
+-- Check size of struct in6_addr - done
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR16
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR16 - Failed
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR32
+-- Performing Test EVENT__HAVE_STRUCT_IN6_ADDR_S6_ADDR32 - Failed
+-- Check size of sa_family_t
+-- Check size of sa_family_t - done
+-- Check size of struct sockaddr_in6
+-- Check size of struct sockaddr_in6 - done
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN6_SIN6_LEN
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN6_SIN6_LEN - Success
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN_SIN_LEN
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_IN_SIN_LEN - Failed
+-- Check size of struct sockaddr_storage
+-- Check size of struct sockaddr_storage - done
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE_SS_FAMILY - Success
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE___SS_FAMILY
+-- Performing Test EVENT__HAVE_STRUCT_SOCKADDR_STORAGE___SS_FAMILY - Failed
+-- Check size of struct linger
+-- Check size of struct linger - done
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- 
+--         ---( Libevent 2.1.12-stable )---
+-- 
+-- Available event backends: 
+-- CMAKE_BINARY_DIR:         /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- CMAKE_CURRENT_BINARY_DIR: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- CMAKE_SOURCE_DIR:         /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- CMAKE_CURRENT_SOURCE_DIR: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- PROJECT_BINARY_DIR:       /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+-- PROJECT_SOURCE_DIR:       /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a
+-- CMAKE_MODULE_PATH:        /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/cmake/
+-- CMAKE_COMMAND:            /opt/homebrew/bin/cmake
+-- CMAKE_ROOT:               /opt/homebrew/share/cmake
+-- CMAKE_SYSTEM:             Darwin-24.6.0
+-- CMAKE_SYSTEM_NAME:        Darwin
+-- CMAKE_SYSTEM_VERSION:     24.6.0
+-- CMAKE_SYSTEM_PROCESSOR:   arm64
+-- CMAKE_SKIP_RPATH:         NO
+-- CMAKE_VERBOSE_MAKEFILE:   
+-- CMAKE_C_FLAGS:            -I/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include -D_GNU_SOURCE -D_FORTIFY_SOURCE=3     -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64 -O2 -fdebug-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a=/usr -fmacro-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a=/usr -Wall -Wextra -Wno-unused-parameter -Wstrict-aliasing -Wstrict-prototypes -fno-strict-aliasing -Wmissing-prototypes -Winit-self -Wmissing-field-initializers -Wdeclaration-after-statement -Waddress -Woverride-init -Wwrite-strings -Wno-unused-function -Wno-error=deprecated-declarations -Qunused-arguments
+-- CMAKE_BUILD_TYPE:         None
+-- CMAKE_C_COMPILER:         /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang (id AppleClang, clang 1, GNUC 1)
+-- CMAKE_AR:                 /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+-- CMAKE_RANLIB:             /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
+-- 
+-- Configuring done (33.3s)
+-- Generating done (0.0s)
+CMake Warning (unused-cli):
+  Manually-specified variables were not used by the project:
+
+    CMAKE_INSTALL_LIBDIR
+
+
+-- Build files have been written to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/build
+Building libevent...
+[  3%] Building C object CMakeFiles/event_core_static.dir/bufferevent.c.o
+[  3%] Building C object CMakeFiles/event_core_static.dir/bufferevent_filter.c.o
+[  5%] Building C object CMakeFiles/event_core_static.dir/buffer.c.o
+[  7%] Building C object CMakeFiles/event_core_static.dir/bufferevent_pair.c.o
+[  9%] Building C object CMakeFiles/event_core_static.dir/bufferevent_ratelim.c.o
+[ 11%] Building C object CMakeFiles/event_core_static.dir/bufferevent_sock.c.o
+[ 13%] Building C object CMakeFiles/event_core_static.dir/event.c.o
+[ 15%] Building C object CMakeFiles/event_core_static.dir/evmap.c.o
+[ 17%] Building C object CMakeFiles/event_core_static.dir/evthread.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:77:60: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   77 | struct evthread_lock_callbacks *evthread_get_lock_callbacks()
+      |                                                            ^
+      |                                                             void
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:82:70: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   82 | struct evthread_condition_callbacks *evthread_get_condition_callbacks()
+      |                                                                      ^
+      |                                                                       void
+2 warnings generated.
+[ 19%] Building C object CMakeFiles/event_core_static.dir/evutil.c.o
+[ 21%] Building C object CMakeFiles/event_core_static.dir/evutil_rand.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil_rand.c:197:2: warning: 'arc4random_addrandom' is deprecated: first deprecated in macOS 10.12 - use arc4random_stir [-Wdeprecated-declarations]
+  197 |         arc4random_addrandom((unsigned char*)buf,
+      |         ^
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:283:7: note: 'arc4random_addrandom' has been explicitly marked deprecated here
+  283 | void     arc4random_addrandom(unsigned char *_LIBC_COUNT(__datlen) /*dat*/, int __datlen)
+      |          ^
+1 warning generated.
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil.c:216:21: warning: argument 'fd' of type 'int[2]' with mismatched bound [-Warray-parameter]
+  216 |     evutil_socket_t fd[2])
+      |                     ^
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/util-internal.h:306:62: note: previously declared as 'int[]' here
+  306 | int evutil_ersatz_socketpair_(int, int , int, evutil_socket_t[]);
+      |                                                              ^
+[ 23%] Building C object CMakeFiles/event_core_static.dir/evutil_time.c.o
+[ 25%] Building C object CMakeFiles/event_core_static.dir/listener.c.o
+[ 27%] Building C object CMakeFiles/event_core_static.dir/log.c.o
+1 warning generated.
+[ 29%] Building C object CMakeFiles/event_core_static.dir/signal.c.o
+[ 31%] Building C object CMakeFiles/event_core_static.dir/strlcpy.c.o
+[ 33%] Building C object CMakeFiles/event_core_static.dir/select.c.o
+[ 35%] Building C object CMakeFiles/event_core_static.dir/poll.c.o
+[ 37%] Building C object CMakeFiles/event_core_static.dir/kqueue.c.o
+[ 39%] Linking C static library lib/libevent_core.a
+[ 39%] Built target event_core_static
+[ 41%] Building C object CMakeFiles/event_extra_static.dir/event_tagging.c.o
+[ 43%] Building C object CMakeFiles/event_static.dir/buffer.c.o
+[ 45%] Building C object CMakeFiles/event_pthreads_static.dir/evthread_pthread.c.o
+[ 47%] Linking C static library lib/libevent_pthreads.a
+[ 49%] Building C object CMakeFiles/event_extra_static.dir/http.c.o
+[ 49%] Built target event_pthreads_static
+[ 50%] Building C object CMakeFiles/event_static.dir/bufferevent.c.o
+[ 52%] Building C object CMakeFiles/event_static.dir/bufferevent_filter.c.o
+[ 54%] Building C object CMakeFiles/event_static.dir/bufferevent_pair.c.o
+[ 56%] Building C object CMakeFiles/event_static.dir/bufferevent_ratelim.c.o
+[ 58%] Building C object CMakeFiles/event_static.dir/bufferevent_sock.c.o
+[ 60%] Building C object CMakeFiles/event_extra_static.dir/evdns.c.o
+[ 62%] Building C object CMakeFiles/event_static.dir/event.c.o
+[ 64%] Building C object CMakeFiles/event_static.dir/evmap.c.o
+[ 66%] Building C object CMakeFiles/event_static.dir/evthread.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:77:60: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   77 | struct evthread_lock_callbacks *evthread_get_lock_callbacks()
+      |                                                            ^
+      |                                                             void
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evthread.c:82:70: warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
+   82 | struct evthread_condition_callbacks *evthread_get_condition_callbacks()
+      |                                                                      ^
+      |                                                                       void
+2 warnings generated.
+[ 68%] Building C object CMakeFiles/event_static.dir/evutil.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil.c:216:21: warning: argument 'fd' of type 'int[2]' with mismatched bound [-Warray-parameter]
+  216 |     evutil_socket_t fd[2])
+      |                     ^
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/util-internal.h:306:62: note: previously declared as 'int[]' here
+  306 | int evutil_ersatz_socketpair_(int, int , int, evutil_socket_t[]);
+      |                                                              ^
+[ 70%] Building C object CMakeFiles/event_extra_static.dir/evrpc.c.o
+1 warning generated.
+[ 72%] Building C object CMakeFiles/event_static.dir/evutil_rand.c.o
+[ 74%] Building C object CMakeFiles/event_static.dir/evutil_time.c.o
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/build/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/evutil_rand.c:197:2: warning: 'arc4random_addrandom' is deprecated: first deprecated in macOS 10.12 - use arc4random_stir [-Wdeprecated-declarations]
+  197 |         arc4random_addrandom((unsigned char*)buf,
+      |         ^
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include/_stdlib.h:283:7: note: 'arc4random_addrandom' has been explicitly marked deprecated here
+  283 | void     arc4random_addrandom(unsigned char *_LIBC_COUNT(__datlen) /*dat*/, int __datlen)
+      |          ^
+1 warning generated.
+[ 76%] Building C object CMakeFiles/event_static.dir/listener.c.o
+[ 78%] Building C object CMakeFiles/event_static.dir/log.c.o
+[ 80%] Linking C static library lib/libevent_extra.a
+[ 82%] Building C object CMakeFiles/event_static.dir/signal.c.o
+[ 84%] Building C object CMakeFiles/event_static.dir/strlcpy.c.o
+[ 84%] Built target event_extra_static
+[ 86%] Building C object CMakeFiles/event_static.dir/select.c.o
+[ 88%] Building C object CMakeFiles/event_static.dir/poll.c.o
+[ 90%] Building C object CMakeFiles/event_static.dir/kqueue.c.o
+[ 92%] Building C object CMakeFiles/event_static.dir/event_tagging.c.o
+[ 94%] Building C object CMakeFiles/event_static.dir/http.c.o
+[ 96%] Building C object CMakeFiles/event_static.dir/evdns.c.o
+[ 98%] Building C object CMakeFiles/event_static.dir/evrpc.c.o
+[100%] Linking C static library lib/libevent.a
+[100%] Built target event_static
+Staging libevent...
+[ 39%] Built target event_core_static
+[ 43%] Built target event_pthreads_static
+[ 52%] Built target event_extra_static
+[100%] Built target event_static
+Install the project...
+-- Install configuration: "None"
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_core.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_core.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_extra.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_extra.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_pthreads.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent_pthreads.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent.a
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig/libevent.pc
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evdns.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evrpc.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evhttp.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/evutil.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/buffer.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/bufferevent_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/buffer_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/dns_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/http_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/keyvalq_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/listener.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/rpc_struct.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/tag.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/tag_compat.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/thread.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/util.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/visibility.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include/event2/event-config.h
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventConfig.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventConfigVersion.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventTargets-static.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent/LibeventTargets-static-none.cmake
+-- Installing: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/libevent/2.1.12-stable-4621947913a/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/bin/event_rpcgen.py
+Postprocessing libevent...
+Caching libevent...
+Fetching sqlite-autoconf-3460100.tar.gz from https://sqlite.org/2024/
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0100 3189k  100 3189k    0     0  13.7M      0 --:--:-- --:--:-- --:--:-- 13.7M
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/sqlite-3460100/sqlite-autoconf-3460100.tar.gz.temp: OK
+Extracting sqlite...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/sqlite-autoconf-3460100.tar.gz: OK
+Preprocessing sqlite...
+Configuring sqlite...
+checking for a BSD-compatible install... /usr/bin/install -c
+checking whether build environment is sane... yes
+checking for a race-free mkdir -p... ././install-sh -c -d
+checking for gawk... no
+checking for mawk... no
+checking for nawk... no
+checking for awk... awk
+checking whether make sets $(MAKE)... yes
+checking whether make supports nested variables... yes
+checking whether make supports the include directive... yes (GNU style)
+checking for aarch64-apple-darwin24.6.0-gcc... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether the compiler supports GNU C... yes
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk accepts -g... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to enable C11 features... none needed
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk understands -c and -o together... yes
+checking dependency style of /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... gcc3
+checking for special C compiler options needed for large files... no
+checking for _FILE_OFFSET_BITS value needed for large files... no
+checking for aarch64-apple-darwin24.6.0-gcc... (cached) /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+checking whether the compiler supports GNU C... (cached) yes
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk accepts -g... (cached) yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to enable C11 features... (cached) none needed
+checking whether /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk understands -c and -o together... (cached) yes
+checking dependency style of /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... (cached) gcc3
+checking build system type... aarch64-apple-darwin24.6.0
+checking host system type... aarch64-apple-darwin24.6.0
+checking how to print strings... printf
+checking for a sed that does not truncate output... /usr/bin/sed
+checking for grep that handles long lines and -e... /usr/bin/grep
+checking for egrep... /usr/bin/grep -E
+checking for fgrep... /usr/bin/grep -F
+checking for ld used by /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld
+checking if the linker (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) is GNU ld... no
+checking for BSD- or MS-compatible name lister (nm)... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm
+checking the name lister (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm) interface... BSD nm
+checking whether ln -s works... yes
+checking the maximum length of command line arguments... 786432
+checking how to convert aarch64-apple-darwin24.6.0 file names to aarch64-apple-darwin24.6.0 format... func_convert_file_noop
+checking how to convert aarch64-apple-darwin24.6.0 file names to toolchain format... func_convert_file_noop
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld option to reload object files... -r
+checking for aarch64-apple-darwin24.6.0-objdump... no
+checking for objdump... objdump
+checking how to recognize dependent libraries... pass_all
+checking for aarch64-apple-darwin24.6.0-dlltool... no
+checking for dlltool... no
+checking how to associate runtime and link libraries... printf %s\n
+checking for aarch64-apple-darwin24.6.0-ar... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar
+checking for archiver @FILE support... no
+checking for aarch64-apple-darwin24.6.0-strip... no
+checking for strip... strip
+checking for aarch64-apple-darwin24.6.0-ranlib... /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib
+checking command to parse /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/nm output from /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk object... ok
+checking for sysroot... no
+checking for a working dd... /bin/dd
+checking how to truncate binary pipes... /bin/dd bs=4096 count=1
+checking for aarch64-apple-darwin24.6.0-mt... no
+checking for mt... no
+checking if : is a manifest tool... no
+checking for aarch64-apple-darwin24.6.0-dsymutil... no
+checking for dsymutil... dsymutil
+checking for aarch64-apple-darwin24.6.0-nmedit... no
+checking for nmedit... nmedit
+checking for aarch64-apple-darwin24.6.0-lipo... no
+checking for lipo... lipo
+checking for aarch64-apple-darwin24.6.0-otool... no
+checking for otool... otool
+checking for aarch64-apple-darwin24.6.0-otool64... no
+checking for otool64... no
+checking for -single_module linker flag... ld: warning: -single_module is obsolete
+no
+checking for -exported_symbols_list linker flag... yes
+checking for -force_load linker flag... yes
+checking for stdio.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for strings.h... yes
+checking for sys/stat.h... yes
+checking for sys/types.h... yes
+checking for unistd.h... yes
+checking for dlfcn.h... yes
+checking for objdir... .libs
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -fno-rtti -fno-exceptions... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk option to produce PIC... -fno-common -DPIC
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk PIC flag -fno-common -DPIC works... yes
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk static flag -static works... no
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -c -o file.o... yes
+checking if /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk supports -c -o file.o... (cached) yes
+checking whether the /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk linker (/Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld) supports shared libraries... yes
+checking dynamic linker characteristics... darwin24.6.0 dyld
+checking how to hardcode library paths into programs... immediate
+checking whether stripping libraries is possible... yes
+checking if libtool supports shared libraries... yes
+checking whether to build shared libraries... no
+checking whether to build static libraries... yes
+checking for fdatasync... yes
+checking for usleep... yes
+checking for fullfsync... no
+checking for localtime_r... yes
+checking for gmtime_r... yes
+checking for /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk options needed to detect all undeclared functions... none needed
+checking whether strerror_r is declared... yes
+checking whether strerror_r returns char *... no
+checking for editline/readline.h... yes
+checking for library containing readline... no
+checking for library containing pthread_create... none required
+checking for library containing pthread_mutexattr_init... none required
+checking for whether to support dynamic extensions... no
+checking SQL math functions... enabled
+checking for library containing ceil... none required
+checking FTS4 extension... disabled
+checking FTS3 extension... disabled
+checking FTS5 extension... disabled
+checking RTREE extension... disabled
+checking Session extension... disabled
+checking Build type... release
+checking for posix_fallocate... no
+checking for zlib.h... yes
+checking for library containing deflate... -lz
+checking for library containing system... none required
+checking that generated files are newer than configure... done
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating sqlite3.pc
+config.status: executing depfiles commands
+config.status: executing libtool commands
+Building sqlite...
+libtool: compile:  /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -DPACKAGE_NAME=\"sqlite\" -DPACKAGE_TARNAME=\"sqlite\" -DPACKAGE_VERSION=\"3.46.1\" "-DPACKAGE_STRING=\"sqlite 3.46.1\"" -DPACKAGE_BUGREPORT=\"http://www.sqlite.org\" -DPACKAGE_URL=\"\" -DPACKAGE=\"sqlite\" -DVERSION=\"3.46.1\" -DHAVE_STDIO_H=1 -DHAVE_STDLIB_H=1 -DHAVE_STRING_H=1 -DHAVE_INTTYPES_H=1 -DHAVE_STDINT_H=1 -DHAVE_STRINGS_H=1 -DHAVE_SYS_STAT_H=1 -DHAVE_SYS_TYPES_H=1 -DHAVE_UNISTD_H=1 -DSTDC_HEADERS=1 -DHAVE_DLFCN_H=1 -DLT_OBJDIR=\".libs/\" -DHAVE_FDATASYNC=1 -DHAVE_USLEEP=1 -DHAVE_LOCALTIME_R=1 -DHAVE_GMTIME_R=1 -DHAVE_DECL_STRERROR_R=1 -DHAVE_STRERROR_R=1 -DHAVE_EDITLINE_READLINE_H=1 -DHAVE_ZLIB_H=1 -I. -I/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include -DSQLITE_DQS=0 -DSQLITE_DEFAULT_MEMSTATUS=0 -DSQLITE_OMIT_DEPRECATED -DSQLITE_OMIT_SHARED_CACHE -DSQLITE_OMIT_JSON -DSQLITE_LIKE_DOESNT_MATCH_BLOBS -DSQLITE_OMIT_DECLTYPE -DSQLITE_OMIT_PROGRESS_CALLBACK -DSQLITE_OMIT_AUTOINIT -D_REENTRANT=1 -DSQLITE_THREADSAFE=1 -DSQLITE_OMIT_LOAD_EXTENSION=1 -DSQLITE_ENABLE_MATH_FUNCTIONS -DSQLITE_HAVE_ZLIB -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64 -O2 -MT sqlite3.lo -MD -MP -MF .deps/sqlite3.Tpo -c sqlite3.c  -fno-common -DPIC -o sqlite3.o
+libtool: link: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar cr .libs/libsqlite3.a  sqlite3.o
+libtool: link: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib .libs/libsqlite3.a
+libtool: link: ( cd ".libs" && rm -f "libsqlite3.la" && ln -s "../libsqlite3.la" "libsqlite3.la" )
+Staging sqlite...
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include'
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+ ././install-sh -c -d '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig'
+ /bin/sh ./libtool   --mode=install /usr/bin/install -c   libsqlite3.la '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+ /usr/bin/install -c -m 644 sqlite3.h sqlite3ext.h '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include'
+ /usr/bin/install -c -m 644 sqlite3.pc '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/pkgconfig'
+libtool: install: /usr/bin/install -c .libs/libsqlite3.lai /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.la
+libtool: install: /usr/bin/install -c .libs/libsqlite3.a /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: install: chmod 644 /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: install: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/staging/aarch64-apple-darwin24.6.0/sqlite/3460100-3d02e80c1c2/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a
+libtool: warning: remember to run 'libtool --finish /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib'
+Postprocessing sqlite...
+Caching sqlite...
+copying packages: boost libevent sqlite
+to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0
+To build Bitcoin Core with these packages, pass '--toolchain /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/toolchain.cmake' to the first CMake invocation.
+/bin/sh: command -v llvm-objcopy: No such file or directory
+-- The CXX compiler identification is AppleClang 17.0.0.17000013
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Performing Test CXX_SUPPORTS__WERROR
+-- Performing Test CXX_SUPPORTS__WERROR - Success
+-- Performing Test CXX_SUPPORTS__G3
+-- Performing Test CXX_SUPPORTS__G3 - Success
+-- Performing Test LINKER_SUPPORTS__G3
+-- Performing Test LINKER_SUPPORTS__G3 - Success
+-- Performing Test CXX_SUPPORTS__FTRAPV
+-- Performing Test CXX_SUPPORTS__FTRAPV - Success
+-- Performing Test LINKER_SUPPORTS__FTRAPV
+-- Performing Test LINKER_SUPPORTS__FTRAPV - Success
+-- Found SQLite3: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libsqlite3.a (found suitable version "3.46.1", minimum required is "3.7.17")
+-- Performing Test LINKER_SUPPORTS__WL__FATAL_WARNINGS
+-- Performing Test LINKER_SUPPORTS__WL__FATAL_WARNINGS - Success
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP - Success
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP_DYLIBS
+-- Performing Test LINKER_SUPPORTS__WL__DEAD_STRIP_DYLIBS - Success
+-- Performing Test LINKER_SUPPORTS__WL__HEADERPAD_MAX_INSTALL_NAMES
+-- Performing Test LINKER_SUPPORTS__WL__HEADERPAD_MAX_INSTALL_NAMES - Success
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE
+-- Found Boost: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/include (found suitable version "1.81.0", minimum required is "1.73.0")
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE
+-- Performing Test NO_DIAGNOSTICS_BOOST_NO_CXX98_FUNCTION_BASE - Failed
+-- Found Libevent: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/cmake/libevent (found suitable version "2.1.12", minimum required is "2.1.8")
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR
+-- Performing Test HAVE_EVHTTP_CONNECTION_GET_PEER_CONST_CHAR - Failed
+-- Looking for C++ include sys/prctl.h
+-- Looking for C++ include sys/prctl.h - not found
+-- Looking for C++ include sys/resources.h
+-- Looking for C++ include sys/resources.h - not found
+-- Looking for C++ include sys/vmmeter.h
+-- Looking for C++ include sys/vmmeter.h - found
+-- Looking for C++ include vm/vm_param.h
+-- Looking for C++ include vm/vm_param.h - not found
+-- Looking for O_CLOEXEC
+-- Looking for O_CLOEXEC - found
+-- Looking for fdatasync
+-- Looking for fdatasync - not found
+-- Looking for fork
+-- Looking for fork - found
+-- Looking for pipe2
+-- Looking for pipe2 - not found
+-- Looking for setsid
+-- Looking for setsid - found
+-- Looking for C++ include sys/types.h
+-- Looking for C++ include sys/types.h - found
+-- Looking for C++ include ifaddrs.h
+-- Looking for C++ include ifaddrs.h - found
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET
+-- Performing Test IFADDR_LINKS_WITHOUT_LIBSOCKET - Success
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC
+-- Performing Test STD_ATOMIC_LINKS_WITHOUT_LIBATOMIC - Success
+-- Looking for std::system
+-- Looking for std::system - found
+-- Looking for ::_wsystem
+-- Looking for ::_wsystem - not found
+-- Performing Test STRERROR_R_CHAR_P
+-- Performing Test STRERROR_R_CHAR_P - Failed
+-- Looking for malloc_info
+-- Looking for malloc_info - not found
+-- Performing Test HAVE_MALLOPT_ARENA_MAX
+-- Performing Test HAVE_MALLOPT_ARENA_MAX - Failed
+-- Performing Test HAVE_POSIX_FALLOCATE
+-- Performing Test HAVE_POSIX_FALLOCATE - Failed
+-- Performing Test HAVE_STRONG_GETAUXVAL
+-- Performing Test HAVE_STRONG_GETAUXVAL - Failed
+-- Performing Test HAVE_SOCKADDR_UN
+-- Performing Test HAVE_SOCKADDR_UN - Success
+-- Performing Test HAVE_GETRANDOM
+-- Performing Test HAVE_GETRANDOM - Failed
+-- Performing Test HAVE_GETENTROPY_RAND
+-- Performing Test HAVE_GETENTROPY_RAND - Success
+-- Performing Test HAVE_SYSCTL
+-- Performing Test HAVE_SYSCTL - Success
+-- Performing Test HAVE_SYSCTL_ARND
+-- Performing Test HAVE_SYSCTL_ARND - Failed
+-- Performing Test HAVE_SSE41
+-- Performing Test HAVE_SSE41 - Failed
+-- Performing Test HAVE_AVX2
+-- Performing Test HAVE_AVX2 - Failed
+-- Performing Test HAVE_X86_SHANI
+-- Performing Test HAVE_X86_SHANI - Failed
+-- Performing Test HAVE_ARM_SHANI
+-- Performing Test HAVE_ARM_SHANI - Success
+-- Performing Test CXX_SUPPORTS__WALL
+-- Performing Test CXX_SUPPORTS__WALL - Success
+-- Performing Test CXX_SUPPORTS__WEXTRA
+-- Performing Test CXX_SUPPORTS__WEXTRA - Success
+-- Performing Test CXX_SUPPORTS__WGNU
+-- Performing Test CXX_SUPPORTS__WGNU - Success
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY
+-- Performing Test CXX_SUPPORTS__WFORMAT__WFORMAT_SECURITY - Success
+-- Performing Test CXX_SUPPORTS__WVLA
+-- Performing Test CXX_SUPPORTS__WVLA - Success
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD
+-- Performing Test CXX_SUPPORTS__WSHADOW_FIELD - Success
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY
+-- Performing Test CXX_SUPPORTS__WTHREAD_SAFETY - Success
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS
+-- Performing Test CXX_SUPPORTS__WLOOP_ANALYSIS - Success
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS
+-- Performing Test CXX_SUPPORTS__WREDUNDANT_DECLS - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION
+-- Performing Test CXX_SUPPORTS__WUNUSED_MEMBER_FUNCTION - Success
+-- Performing Test CXX_SUPPORTS__WDATE_TIME
+-- Performing Test CXX_SUPPORTS__WDATE_TIME - Success
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test CXX_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Success
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_BRANCHES - Failed
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND
+-- Performing Test CXX_SUPPORTS__WDUPLICATED_COND - Failed
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP
+-- Performing Test CXX_SUPPORTS__WLOGICAL_OP - Failed
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL
+-- Performing Test CXX_SUPPORTS__WOVERLOADED_VIRTUAL - Success
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE
+-- Performing Test CXX_SUPPORTS__WSUGGEST_OVERRIDE - Success
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH
+-- Performing Test CXX_SUPPORTS__WIMPLICIT_FALLTHROUGH - Success
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE
+-- Performing Test CXX_SUPPORTS__WUNREACHABLE_CODE - Success
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION
+-- Performing Test CXX_SUPPORTS__WDOCUMENTATION - Success
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN
+-- Performing Test CXX_SUPPORTS__WSELF_ASSIGN - Success
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY
+-- Performing Test CXX_SUPPORTS__WBIDI_CHARS_ANY - Failed
+-- Performing Test CXX_SUPPORTS__WUNDEF
+-- Performing Test CXX_SUPPORTS__WUNDEF - Success
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER
+-- Performing Test CXX_SUPPORTS__WUNUSED_PARAMETER - Success
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS
+-- Performing Test CXX_SUPPORTS__FNO_EXTENDED_IDENTIFIERS - Failed
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FDEBUG_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B
+-- Performing Test CXX_SUPPORTS__FMACRO_PREFIX_MAP_A_B - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE
+-- Performing Test CXX_SUPPORTS__FSTACK_REUSE_NONE - Failed
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test CXX_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10
+-- Performing Test LINKER_SUPPORTS__U_FORTIFY_SOURCE__D_FORTIFY_SOURCE_3_cc10 - Success
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR
+-- Performing Test CXX_SUPPORTS__WSTACK_PROTECTOR - Success
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test CXX_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL
+-- Performing Test LINKER_SUPPORTS__FSTACK_PROTECTOR_ALL - Success
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL
+-- Performing Test CXX_SUPPORTS__FCF_PROTECTION_FULL - Failed
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION
+-- Performing Test CXX_SUPPORTS__FSTACK_CLASH_PROTECTION - Failed
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_BTI
+-- Performing Test CXX_SUPPORTS__MBRANCH_PROTECTION_BTI - Success
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION
+-- Performing Test LINKER_SUPPORTS__WL___ENABLE_RELOC_SECTION - Failed
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE
+-- Performing Test LINKER_SUPPORTS__WL___DYNAMICBASE - Failed
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT
+-- Performing Test LINKER_SUPPORTS__WL___NXCOMPAT - Failed
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA
+-- Performing Test LINKER_SUPPORTS__WL___HIGH_ENTROPY_VA - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO
+-- Performing Test LINKER_SUPPORTS__WL__Z_RELRO - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW
+-- Performing Test LINKER_SUPPORTS__WL__Z_NOW - Failed
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE
+-- Performing Test LINKER_SUPPORTS__WL__Z_SEPARATE_CODE - Failed
+-- Performing Test LINKER_SUPPORTS__WL__FIXUP_CHAINS
+-- Performing Test LINKER_SUPPORTS__WL__FIXUP_CHAINS - Success
+-- Found Python3: /opt/homebrew/bin/python3 (found suitable version "3.15.2", minimum required is "3.10") found components: Interpreter
+-- Could NOT find Doxygen (missing: DOXYGEN_EXECUTABLE dot) 
+-- Performing Test HAVE_BUILTIN_PREFETCH
+-- Performing Test HAVE_BUILTIN_PREFETCH - Success
+-- Performing Test HAVE_MM_PREFETCH
+-- Performing Test HAVE_MM_PREFETCH - Failed
+-- Performing Test HAVE_SSE42
+-- Performing Test HAVE_SSE42 - Failed
+-- Performing Test HAVE_ARM64_CRC32C
+-- Performing Test HAVE_ARM64_CRC32C - Success
+-- Looking for F_FULLFSYNC
+-- Looking for F_FULLFSYNC - found
+-- Performing Test HAVE_CLMUL
+-- Performing Test HAVE_CLMUL - Failed
+
+Configuring secp256k1 subtree...
+-- The C compiler identification is AppleClang 17.0.0.17000013
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Performing Test HAVE_X86_64_ASM
+-- Performing Test HAVE_X86_64_ASM - Failed
+-- Could NOT find Valgrind (missing: Valgrind_INCLUDE_DIR Valgrind_WORKS) 
+-- Performing Test C_SUPPORTS__PEDANTIC
+-- Performing Test C_SUPPORTS__PEDANTIC - Success
+-- Performing Test C_SUPPORTS__WALL
+-- Performing Test C_SUPPORTS__WALL - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN
+-- Performing Test C_SUPPORTS__WCAST_ALIGN - Success
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT
+-- Performing Test C_SUPPORTS__WCAST_ALIGN_STRICT - Failed
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED
+-- Performing Test C_SUPPORTS__WCONDITIONAL_UNINITIALIZED - Success
+-- Performing Test C_SUPPORTS__WEXTRA
+-- Performing Test C_SUPPORTS__WEXTRA - Success
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS
+-- Performing Test C_SUPPORTS__WNESTED_EXTERNS - Success
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG
+-- Performing Test C_SUPPORTS__WNO_LONG_LONG - Success
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS
+-- Performing Test C_SUPPORTS__WNO_OVERLENGTH_STRINGS - Success
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION
+-- Performing Test C_SUPPORTS__WNO_UNUSED_FUNCTION - Success
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER
+-- Performing Test C_SUPPORTS__WRESERVED_IDENTIFIER - Success
+-- Performing Test C_SUPPORTS__WSHADOW
+-- Performing Test C_SUPPORTS__WSHADOW - Success
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES
+-- Performing Test C_SUPPORTS__WSTRICT_PROTOTYPES - Success
+-- Performing Test C_SUPPORTS__WUNDEF
+-- Performing Test C_SUPPORTS__WUNDEF - Success
+
+
+secp256k1 configure summary
+===========================
+Build artifacts:
+  library type ........................ Static
+Optional modules:
+  ECDH ................................ OFF
+  ECDSA pubkey recovery ............... ON
+  extrakeys ........................... ON
+  schnorrsig .......................... ON
+  musig ............................... OFF
+  ElligatorSwift ...................... ON
+Parameters:
+  ecmult window size .................. 15
+  ecmult gen table size ............... 86 KiB
+Optional features:
+  assembly ............................ OFF
+  external callbacks .................. OFF
+Optional binaries:
+  benchmark ........................... OFF
+  noverify_tests ...................... OFF
+  tests ............................... OFF
+  exhaustive tests .................... OFF
+  ctime_tests ......................... OFF
+  examples ............................ OFF
+
+Cross compiling ....................... FALSE
+Valgrind .............................. OFF
+Preprocessor defined macros ........... ENABLE_MODULE_ELLSWIFT=1 ENABLE_MODULE_SCHNORRSIG=1 ENABLE_MODULE_EXTRAKEYS=1 ENABLE_MODULE_RECOVERY=1 ECMULT_WINDOW_SIZE=15 COMB_BLOCKS=43 COMB_TEETH=6
+C compiler ............................ AppleClang 17.0.0.17000013, /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang
+CFLAGS ................................ -pipe -std=c11 -mmacos-version-min=13.0 -arch arm64
+Compile options ....................... -pedantic -Wall -Wcast-align -Wconditional-uninitialized -Wextra -Wnested-externs -Wno-long-long -Wno-overlength-strings -Wno-unused-function -Wreserved-identifier -Wshadow -Wstrict-prototypes -Wundef
+Build type:
+ - CMAKE_BUILD_TYPE ................... Release
+ - CFLAGS ............................. -O2 -O2 -g 
+ - LDFLAGS for executables ............ 
+ - LDFLAGS for shared libraries ....... 
+
+
+
+Configure summary
+=================
+Executables:
+  bitcoind ............................ ON
+  bitcoin-node (multiprocess) ......... OFF
+  bitcoin-qt (GUI) .................... OFF
+  bitcoin-gui (GUI, multiprocess) ..... OFF
+  bitcoin-cli ......................... ON
+  bitcoin-tx .......................... OFF
+  bitcoin-util ........................ OFF
+  bitcoin-wallet ...................... OFF
+  bitcoin-chainstate (experimental) ... OFF
+  libbitcoinkernel (experimental) ..... OFF
+Optional features:
+  wallet support ...................... ON
+   - descriptor wallets (SQLite) ...... ON
+   - legacy wallets (Berkeley DB) ..... OFF
+  external signer ..................... ON
+  ZeroMQ .............................. OFF
+  USDT tracing ........................ OFF
+  QR code (GUI) ....................... OFF
+  DBus (GUI) .......................... OFF
+Tests:
+  test_bitcoin ........................ OFF
+  test_bitcoin-qt ..................... OFF
+  bench_bitcoin ....................... OFF
+  fuzz binary ......................... OFF
+
+Cross compiling ....................... FALSE
+C++ compiler .......................... AppleClang 17.0.0.17000013, /Applications/Xcode_16.4.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
+CMAKE_BUILD_TYPE ...................... Release
+Preprocessor defined macros ........... OBJC_OLD_DISPATCH_PROTOTYPES=0
+C++ compiler flags .................... -stdlib=libc++ -isysroot/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -pipe -std=c++20 -mmacos-version-min=13.0 -arch arm64 -O2 -std=c++20 -fPIC -fdebug-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -fmacro-prefix-map=/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/src=. -Wall -Wextra -Wgnu -Wformat -Wformat-security -Wvla -Wshadow-field -Wthread-safety -Wloop-analysis -Wredundant-decls -Wunused-member-function -Wdate-time -Wconditional-uninitialized -Woverloaded-virtual -Wsuggest-override -Wimplicit-fallthrough -Wunreachable-code -Wdocumentation -Wself-assign -Wundef -Wno-unused-parameter -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=3 -Wstack-protector -fstack-protector-all -mbranch-protection=bti
+Linker flags .......................... -pipe -std=c++20 -mmacos-version-min=13.0 -arch arm64 -O2 -Wl,-platform_version,macos,13.0,14.0 -Wl,-dead_strip -Wl,-dead_strip_dylibs -Wl,-headerpad_max_install_names -fstack-protector-all -Wl,-fixup_chains -fPIE -Xlinker -pie
+
+NOTE: The summary above may not exactly match the final applied build flags
+      if any additional CMAKE_* or environment variables have been modified.
+      To see the exact flags applied, build with the --verbose option.
+
+Attempt to harden executables ......... ON
+Treat compiler warnings as errors ..... OFF
+Use ccache for compiling .............. OFF
+
+
+-- Configuring done (19.8s)
+-- Generating done (0.1s)
+-- Build files have been written to: /Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/build
+[1/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_portable.cc.o
+[2/312] Generating src/binana.h and test/functional/data/binana.json
+[3/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c_arm64.cc.o
+[4/312] Building CXX object src/CMakeFiles/crc32c.dir/crc32c/src/crc32c.cc.o
+[5/312] Generating bitcoin-build-info.h
+[6/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/c.cc.o
+[7/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/builder.cc.o
+[8/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_iter.cc.o
+[9/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/filename.cc.o
+[10/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dbformat.cc.o
+[11/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/dumpfile.cc.o
+[12/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/db_impl.cc.o
+[13/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_reader.cc.o
+[14/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/log_writer.cc.o
+[15/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/memtable.cc.o
+[16/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/table_cache.cc.o
+[17/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_edit.cc.o
+[18/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/write_batch.cc.o
+[19/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/repair.cc.o
+[20/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block.cc.o
+[21/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/iterator.cc.o
+[22/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/block_builder.cc.o
+[23/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/format.cc.o
+[24/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/filter_block.cc.o
+[25/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/db/version_set.cc.o
+[26/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/merger.cc.o
+[27/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/two_level_iterator.cc.o
+[28/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table.cc.o
+[29/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/table/table_builder.cc.o
+[30/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/bloom.cc.o
+[31/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/arena.cc.o
+[32/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/cache.cc.o
+[33/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/coding.cc.o
+[34/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/comparator.cc.o
+[35/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/crc32c.cc.o
+[36/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/filter_policy.cc.o
+[37/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env.cc.o
+[38/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/hash.cc.o
+[39/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/histogram.cc.o
+[40/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/options.cc.o
+[41/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/logging.cc.o
+[42/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_1byte.cpp.o
+[43/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/status.cc.o
+[44/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_2bytes.cpp.o
+[45/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_3bytes.cpp.o
+[46/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_5bytes.cpp.o
+[47/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_6bytes.cpp.o
+[48/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_7bytes.cpp.o
+[49/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_8bytes.cpp.o
+[50/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/util/env_posix.cc.o
+[51/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/minisketch.cpp.o
+[52/312] Building CXX object src/CMakeFiles/leveldb.dir/leveldb/helpers/memenv/memenv.cc.o
+[53/312] Building CXX object src/CMakeFiles/minisketch.dir/minisketch/src/fields/generic_4bytes.cpp.o
+[54/312] Building CXX object src/CMakeFiles/bitcoin_clientversion.dir/clientversion.cpp.o
+[55/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/arith_uint256.cpp.o
+[56/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/merkle.cpp.o
+[57/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/consensus/tx_check.cpp.o
+[58/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/hash.cpp.o
+[59/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/block.cpp.o
+[60/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/pubkey.cpp.o
+[61/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/primitives/transaction.cpp.o
+[62/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script_error.cpp.o
+[63/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/script.cpp.o
+[64/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/uint256.cpp.o
+[65/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/base58.cpp.o
+[66/312] Building CXX object src/CMakeFiles/bitcoin_consensus.dir/script/interpreter.cpp.o
+[67/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/bech32.cpp.o
+[68/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/addresstype.cpp.o
+[69/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chain.cpp.o
+[70/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparamsbase.cpp.o
+[71/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/chainparams.cpp.o
+[72/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/coins.cpp.o
+[73/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/bloom.cpp.o
+[74/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/args.cpp.o
+[75/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/config.cpp.o
+[76/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/interfaces.cpp.o
+[77/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/init.cpp.o
+[78/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/messages.cpp.o
+[79/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/netif.cpp.o
+[80/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/run_command.cpp.o
+[81/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/pcp.cpp.o
+[82/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/settings.cpp.o
+[83/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/signmessage.cpp.o
+[84/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/url.cpp.o
+[85/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/common/system.cpp.o
+[86/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/compressor.cpp.o
+[87/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/consensus/tx_verify.cpp.o
+[88/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/deploymentinfo.cpp.o
+[89/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/core_read.cpp.o
+[90/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/core_write.cpp.o
+[91/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/init/common.cpp.o
+[92/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/key.cpp.o
+[93/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/key_io.cpp.o
+[94/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/merkleblock.cpp.o
+[95/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/kernel/chainparams.cpp.o
+[96/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/net_permissions.cpp.o
+[97/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/external_signer.cpp.o
+[98/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/net_types.cpp.o
+[99/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/netaddress.cpp.o
+[100/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/policy/feerate.cpp.o
+[101/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/outputtype.cpp.o
+[102/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/netbase.cpp.o
+[103/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/policy/policy.cpp.o
+[104/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/protocol.cpp.o
+[105/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/pow.cpp.o
+[106/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/request.cpp.o
+[107/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/scheduler.cpp.o
+[108/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/rawtransaction_util.cpp.o
+[109/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/parsing.cpp.o
+[110/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/miniscript.cpp.o
+[111/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/rpc/util.cpp.o
+[112/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/psbt.cpp.o
+[113/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/solver.cpp.o
+[114/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/signingprovider.cpp.o
+[115/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/addrdb.cpp.o
+[116/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/banman.cpp.o
+[117/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/bip324.cpp.o
+[118/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/addrman.cpp.o
+[119/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/sign.cpp.o
+[120/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/blockfilter.cpp.o
+[121/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/deploymentstatus.cpp.o
+[122/312] Building CXX object src/CMakeFiles/bitcoin_common.dir/script/descriptor.cpp.o
+[123/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/dbwrapper.cpp.o
+[124/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/blockencodings.cpp.o
+[125/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/flatfile.cpp.o
+[126/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/headerssync.cpp.o
+[127/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/i2p.cpp.o
+[128/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/httprpc.cpp.o
+[129/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/httpserver.cpp.o
+[130/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/base.cpp.o
+[131/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/chain.cpp.o
+[132/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/coinstatsindex.cpp.o
+[133/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/txindex.cpp.o
+[134/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/index/blockfilterindex.cpp.o
+[135/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/checks.cpp.o
+[136/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/cs_main.cpp.o
+[137/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/context.cpp.o
+[138/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/mempool_removal_reason.cpp.o
+[139/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/disconnected_transactions.cpp.o
+[140/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/kernel/coinstats.cpp.o
+[141/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/mapport.cpp.o
+[142/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/netgroup.cpp.o
+[143/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/abort.cpp.o
+[144/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/init.cpp.o
+[145/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/caches.cpp.o
+[146/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/blockmanager_args.cpp.o
+[147/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/net.cpp.o
+[148/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/chainstatemanager_args.cpp.o
+[149/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/chainstate.cpp.o
+[150/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/connection_types.cpp.o
+[151/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/blockstorage.cpp.o
+[152/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/coins_view_args.cpp.o
+[153/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/database_args.cpp.o
+[154/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/coin.cpp.o
+[155/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/net_processing.cpp.o
+[156/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/eviction.cpp.o
+[157/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/context.cpp.o
+[158/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/kernel_notifications.cpp.o
+[159/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_args.cpp.o
+[160/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_persist.cpp.o
+[161/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mempool_persist_args.cpp.o
+[162/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/interfaces.cpp.o
+[163/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/interface_ui.cpp.o
+[164/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/minisketchwrapper.cpp.o
+[165/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/miner.cpp.o
+[166/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/peerman_args.cpp.o
+[167/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/mini_miner.cpp.o
+[168/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/timeoffsets.cpp.o
+[169/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/psbt.cpp.o
+[170/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/txreconciliation.cpp.o
+[171/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/transaction.cpp.o
+[172/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/warnings.cpp.o
+[173/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/utxo_snapshot.cpp.o
+[174/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/node/txdownloadman_impl.cpp.o
+[175/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/noui.cpp.o
+[176/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/fees_args.cpp.o
+[177/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/ephemeral_policy.cpp.o
+[178/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/settings.cpp.o
+[179/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/fees.cpp.o
+[180/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/packages.cpp.o
+[181/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/rbf.cpp.o
+[182/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/policy/truc_policy.cpp.o
+[183/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/external_signer.cpp.o
+[184/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/fees.cpp.o
+[185/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rest.cpp.o
+[186/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/mempool.cpp.o
+[187/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/node.cpp.o
+[188/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/mining.cpp.o
+[189/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/output_script.cpp.o
+[190/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/net.cpp.o
+[191/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/blockchain.cpp.o
+[192/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/server.cpp.o
+[193/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/signmessage.cpp.o
+[194/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/server_util.cpp.o
+[195/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/script/sigcache.cpp.o
+[196/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/signet.cpp.o
+[197/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/txoutproof.cpp.o
+[198/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txdb.cpp.o
+[199/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/torcontrol.cpp.o
+[200/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txorphanage.cpp.o
+[201/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/rpc/rawtransaction.cpp.o
+[202/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txrequest.cpp.o
+[203/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/versionbits.cpp.o
+[204/312] Building CXX object src/CMakeFiles/bitcoin_cli.dir/compat/stdin.cpp.o
+[205/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/txmempool.cpp.o
+[206/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/validationinterface.cpp.o
+[207/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue.cpp.o
+[208/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_get.cpp.o
+[209/312] Building CXX object src/CMakeFiles/bitcoin_cli.dir/rpc/client.cpp.o
+[210/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_read.cpp.o
+[211/312] Building CXX object src/univalue/CMakeFiles/univalue.dir/lib/univalue_write.cpp.o
+[212/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult_gen.c.o
+[213/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/aes.cpp.o
+[214/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1_precomputed.dir/precomputed_ecmult.c.o
+[215/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20poly1305.cpp.o
+[216/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/wallet/init.cpp.o
+[217/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/chacha20.cpp.o
+[218/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hkdf_sha256_32.cpp.o
+[219/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha512.cpp.o
+[220/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hmac_sha256.cpp.o
+[221/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/hex_base.cpp.o
+[222/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/qsha.cpp.o
+[223/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/qwork.cpp.o
+[224/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/ripemd160.cpp.o
+[225/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha1.cpp.o
+[226/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/poly1305.cpp.o
+[227/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/muhash.cpp.o
+[228/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha256.cpp.o
+[229/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha512.cpp.o
+[230/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/__/support/cleanse.cpp.o
+[231/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/sha3.cpp.o
+[232/312] Building CXX object src/crypto/CMakeFiles/bitcoin_crypto.dir/siphash.cpp.o
+[233/312] Building C object src/secp256k1/src/CMakeFiles/secp256k1.dir/secp256k1.c.o
+[234/312] Building CXX object src/CMakeFiles/bitcoin_node.dir/validation.cpp.o
+[235/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/batchpriority.cpp.o
+[236/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/asmap.cpp.o
+[237/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/bip32.cpp.o
+[238/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/chaintype.cpp.o
+[239/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/bytevectorhash.cpp.o
+[240/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/check.cpp.o
+[241/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/feefrac.cpp.o
+[242/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/exception.cpp.o
+[243/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/fs.cpp.o
+[244/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/moneystr.cpp.o
+[245/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/hasher.cpp.o
+[246/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/serfloat.cpp.o
+[247/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/fs_helpers.cpp.o
+[248/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/readwritefile.cpp.o
+[249/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/rbf.cpp.o
+[250/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/signalinterrupt.cpp.o
+[251/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/syserror.cpp.o
+[252/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/strencodings.cpp.o
+[253/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/sock.cpp.o
+[254/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/thread.cpp.o
+[255/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/tokenpipe.cpp.o
+[256/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/threadinterrupt.cpp.o
+[257/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/string.cpp.o
+[258/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/threadnames.cpp.o
+[259/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/time.cpp.o
+[260/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/randomenv.cpp.o
+[261/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/streams.cpp.o
+[262/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/random.cpp.o
+[263/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/support/lockedpool.cpp.o
+[264/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/logging.cpp.o
+[265/312] Building CXX object src/util/CMakeFiles/bitcoin_util.dir/__/sync.cpp.o
+[266/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/context.cpp.o
+[267/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/crypter.cpp.o
+[268/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coincontrol.cpp.o
+[269/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/db.cpp.o
+[270/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/coinselection.cpp.o
+[271/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/external_signer_scriptpubkeyman.cpp.o
+[272/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/fees.cpp.o
+[273/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/dump.cpp.o
+[274/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/feebumper.cpp.o
+[275/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/migrate.cpp.o
+[276/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/load.cpp.o
+[277/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/interfaces.cpp.o
+[278/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/receive.cpp.o
+[279/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/addresses.cpp.o
+[280/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/encrypt.cpp.o
+[281/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/signmessage.cpp.o
+[282/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/coins.cpp.o
+[283/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/backup.cpp.o
+[284/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/util.cpp.o
+[285/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/transactions.cpp.o
+[286/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/wallet.cpp.o
+[287/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/transaction.cpp.o
+[288/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/rpc/spend.cpp.o
+[289/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/walletutil.cpp.o
+[290/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/spend.cpp.o
+[291/312] Linking CXX static library src/libcrc32c.a
+[292/312] Linking CXX static library src/libleveldb.a
+[293/312] Linking CXX static library src/libminisketch.a
+[294/312] Linking CXX static library lib/libbitcoin_clientversion.a
+[295/312] Linking CXX static library lib/libbitcoin_consensus.a
+[296/312] Linking CXX static library lib/libbitcoin_common.a
+[297/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/scriptpubkeyman.cpp.o
+[298/312] Linking CXX static library lib/libbitcoin_node.a
+[299/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/sqlite.cpp.o
+[300/312] Linking CXX static library lib/libbitcoin_cli.a
+[301/312] Building CXX object src/CMakeFiles/bitcoind.dir/init/bitcoind.cpp.o
+[302/312] Linking CXX static library src/univalue/libunivalue.a
+[303/312] Linking CXX static library src/secp256k1/lib/libsecp256k1.a
+[304/312] Linking CXX static library lib/libbitcoin_crypto.a
+[305/312] Linking CXX static library lib/libbitcoin_util.a
+[306/312] Building CXX object src/CMakeFiles/bitcoind.dir/bitcoind.cpp.o
+[307/312] Building CXX object src/CMakeFiles/bitcoin-cli.dir/bitcoin-cli.cpp.o
+[308/312] Linking CXX executable bin/qwencoin-cli
+ld: warning: ignoring duplicate libraries: '/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/aarch64-apple-darwin24.6.0/lib/libevent_core.a'
+[309/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/walletdb.cpp.o
+[310/312] Building CXX object src/wallet/CMakeFiles/bitcoin_wallet.dir/wallet.cpp.o
+[311/312] Linking CXX static library lib/libbitcoin_wallet.a
+[312/312] Linking CXX executable bin/qwencoind
+Cloning into 'upstream/ord'...
+warning: refs/tags/0.29.1 5754f92c2188ea6dc8b7d4d906df39960b3a88ef is not a commit!
+    Updating crates.io index
+     Locking 30 packages to highest compatible versions
+      Adding generic-array v0.14.7 (available: v0.14.9)
+      Adding secp256k1 v0.29.100 (available: v0.33.1)
+      Adding sha2 v0.10.9 (available: v0.11.1)
+ Downloading crates ...
+  Downloaded cfg-if v1.0.5
+  Downloaded quote v1.0.47
+  Downloaded cpufeatures v0.2.17
+  Downloaded generic-array v0.14.7
+  Downloaded bitcoin-io v0.1.101
+  Downloaded block-buffer v0.10.4
+  Downloaded crypto-common v0.1.7
+  Downloaded version_check v0.9.5
+  Downloaded sha2 v0.10.9
+  Downloaded shlex v2.0.1
+  Downloaded find-msvc-tools v0.1.15
+  Downloaded arrayvec v0.7.8
+  Downloaded bitcoin-consensus-encoding v1.3.0
+  Downloaded bitcoin-internals v0.7.0
+  Downloaded digest v0.10.7
+  Downloaded hex-conservative v1.3.0
+  Downloaded serde_derive v1.0.229
+  Downloaded unicode-ident v1.0.27
+  Downloaded hex-conservative v0.2.3
+  Downloaded proc-macro2 v1.0.107
+  Downloaded serde v1.0.229
+  Downloaded serde_core v1.0.229
+  Downloaded typenum v1.20.1
+  Downloaded secp256k1 v0.29.100
+  Downloaded cc v1.11.2
+  Downloaded syn v3.0.10
+  Downloaded libc v0.2.191
+   Compiling find-msvc-tools v0.1.15
+   Compiling shlex v2.0.1
+   Compiling version_check v0.9.5
+   Compiling cc v1.11.2
+   Compiling typenum v1.20.1
+   Compiling generic-array v0.14.7
+   Compiling libc v0.2.191
+   Compiling qsha-sys v0.1.0 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/qsha-sys)
+   Compiling secp256k1-sys v0.10.1 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/secp256k1-sys)
+   Compiling bitcoin-io v0.1.101
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling arrayvec v0.7.8
+   Compiling hex-conservative v0.2.3
+   Compiling cpufeatures v0.2.17
+   Compiling digest v0.10.7
+   Compiling cfg-if v1.0.5
+   Compiling sha2 v0.10.9
+   Compiling bitcoin_hashes v0.14.101 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/bitcoin_hashes)
+   Compiling secp256k1 v0.29.100
+   Compiling qsha-check v0.1.0 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/qsha-check)
+    Finished `release` profile [optimized] target(s) in 14.12s
+     Running `target/release/qsha-check`
+OK: 1506 digests equal the sha2 crate's, tagged hash, HMAC, genesis header, BIP340 vector 0, ECDSA; 11445294 model tokens
+warning: `package.homepage` is redundant with `package.repository`
+  --> Cargo.toml:10:1
+   |
+10 | homepage.workspace = true
+   | ^^^^^^^^
+11 | license.workspace = true
+12 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `ord` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/ordinals/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `ordinals` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/update-contributors/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `update-contributors` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/audit-content-security-policy/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `audit-content-security-policy` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/mockcore/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `mockcore` (manifest) generated 1 warning
+warning: `package.homepage` is redundant with `package.repository`
+  --> crates/audit-cache/Cargo.toml:8:1
+   |
+ 8 | homepage.workspace = true
+   | ^^^^^^^^
+ 9 | license.workspace = true
+10 | repository.workspace = true
+   | ----------
+   |
+   = note: `cargo::redundant_homepage` is set to `warn` by default
+help: consider removing `package.homepage`
+warning: `audit-cache` (manifest) generated 1 warning
+    Updating crates.io index
+ Downloading crates ...
+  Downloaded anstyle v1.0.14
+  Downloaded asn1-rs-derive v0.6.0
+  Downloaded adler2 v2.0.1
+  Downloaded alloc-no-stdlib v3.0.0
+  Downloaded alloc-stdlib v0.3.0
+  Downloaded anstyle-parse v1.0.0
+  Downloaded anstyle-query v1.1.5
+  Downloaded array-init v0.0.4
+  Downloaded anyhow v1.0.104
+  Downloaded asn1-rs v0.7.2
+  Downloaded asn1-rs-impl v0.2.0
+  Downloaded async-http-codec v0.8.0
+  Downloaded axum v0.8.9
+  Downloaded anstream v1.0.0
+  Downloaded async-io v2.6.0
+  Downloaded atomic-waker v1.1.2
+  Downloaded clap_lex v1.1.1
+  Downloaded darling_macro v0.23.0
+  Downloaded arc-swap v1.9.3
+  Downloaded async-channel v2.5.0
+  Downloaded async-compression v0.4.51
+  Downloaded async-net v2.0.0
+  Downloaded async-task v4.7.1
+  Downloaded async-trait v0.1.92
+  Downloaded async-web-client v0.6.3
+  Downloaded atom_syndication v0.12.10
+  Downloaded autocfg v1.5.1
+  Downloaded axum-core v0.5.6
+  Downloaded axum-server v0.8.0
+  Downloaded base58ck v0.1.101
+  Downloaded base64 v0.13.1
+  Downloaded base64 v0.22.1
+  Downloaded base64 v0.23.1
+  Downloaded bech32 v0.11.1
+  Downloaded bip322 v0.0.12
+  Downloaded bip39 v3.0.0
+  Downloaded bitcoin-units v0.1.101
+  Downloaded bitcoincore-rpc v0.19.0
+  Downloaded bitcoincore-rpc-json v0.19.0
+  Downloaded bitflags v2.13.2
+  Downloaded blocking v1.7.0
+  Downloaded boilerplate-macros v0.0.4
+  Downloaded chacha20 v0.10.2
+  Downloaded ciborium-io v0.2.2
+  Downloaded compression-codecs v0.4.46
+  Downloaded core-foundation v0.10.1
+  Downloaded core-foundation-sys v0.8.7
+  Downloaded cpufeatures v0.3.1
+  Downloaded crypto-common v0.2.2
+  Downloaded ctrlc v3.5.2
+  Downloaded darling_core v0.20.11
+  Downloaded darling_core v0.23.0
+  Downloaded darling_macro v0.20.11
+  Downloaded darling_macro v0.24.1
+  Downloaded data-encoding v2.11.1
+  Downloaded defmt-parser v1.1.0
+  Downloaded dirs-sys v0.5.0
+  Downloaded env_filter v2.0.0
+  Downloaded equivalent v1.0.3
+  Downloaded aho-corasick v1.1.5
+  Downloaded bitflags v1.3.2
+  Downloaded block-buffer v0.12.1
+  Downloaded block2 v0.6.2
+  Downloaded boilerplate v1.2.2
+  Downloaded boilerplate-parser v0.0.1
+  Downloaded bs58 v0.5.1
+  Downloaded byteorder v1.5.0
+  Downloaded cfg_aliases v0.2.2
+  Downloaded ciborium v0.2.2
+  Downloaded ciborium-ll v0.2.2
+  Downloaded clap_derive v4.6.7
+  Downloaded cmake v0.1.58
+  Downloaded colorchoice v1.0.5
+  Downloaded colored v3.1.1
+  Downloaded compression-core v0.4.34
+  Downloaded concurrent-queue v2.5.0
+  Downloaded console v0.16.6
+  Downloaded convert_case v0.10.0
+  Downloaded core-foundation v0.9.4
+  Downloaded crc32fast v1.5.2
+  Downloaded crossbeam-utils v0.8.23
+  Downloaded darling v0.20.11
+  Downloaded darling v0.23.0
+  Downloaded defmt v1.2.0
+  Downloaded defmt-macros v1.2.0
+  Downloaded deranged v0.5.9
+  Downloaded derive_builder v0.20.2
+  Downloaded derive_builder_core v0.20.2
+  Downloaded derive_builder_macro v0.20.2
+  Downloaded digest v0.11.3
+  Downloaded diligent-date-parser v0.1.5
+  Downloaded dirs v7.0.0
+  Downloaded displaydoc v0.2.7
+  Downloaded dyn-clone v1.0.20
+  Downloaded either v1.19.0
+  Downloaded env_logger v0.11.11
+  Downloaded event-listener v5.4.2
+  Downloaded event-listener-strategy v0.5.4
+  Downloaded fastrand v2.5.0
+  Downloaded fs-err v3.3.2
+  Downloaded futures-core v0.3.34
+  Downloaded aws-lc-rs v1.18.2
+  Downloaded bytes v1.12.1
+  Downloaded cc v1.9.0
+  Downloaded clap v4.6.7
+  Downloaded clap_builder v4.6.7
+  Downloaded const-oid v0.10.2
+  Downloaded darling v0.24.1
+  Downloaded darling_core v0.24.1
+  Downloaded der-parser v10.0.0
+  Downloaded derive_more v2.1.1
+  Downloaded derive_more-impl v2.1.1
+  Downloaded dispatch2 v0.3.1
+  Downloaded dunce v1.0.5
+  Downloaded flate2 v1.1.10
+  Downloaded futures-sink v0.3.34
+  Downloaded futures-task v0.3.34
+  Downloaded errno v0.3.14
+  Downloaded fnv v1.0.7
+  Downloaded foldhash v0.2.0
+  Downloaded form_urlencoded v1.2.2
+  Downloaded fs_extra v1.3.0
+  Downloaded futures v0.3.34
+  Downloaded futures-channel v0.3.34
+  Downloaded futures-executor v0.3.34
+  Downloaded futures-io v0.3.34
+  Downloaded futures-lite v2.6.1
+  Downloaded futures-macro v0.3.34
+  Downloaded futures-rustls v0.26.0
+  Downloaded hex v0.4.3
+  Downloaded quick-xml v0.41.0
+  Downloaded redb v3.1.3
+  Downloaded bitcoin v0.32.102
+  Downloaded brotli-decompressor v6.0.1
+  Downloaded chrono v0.4.45
+  Downloaded futures-util v0.3.34
+  Downloaded getrandom v0.2.17
+  Downloaded getrandom v0.4.3
+  Downloaded half v2.7.1
+  Downloaded hashbrown v0.12.3
+  Downloaded hashbrown v0.17.1
+  Downloaded heck v0.5.0
+  Downloaded hex_lit v0.1.1
+  Downloaded http v1.5.0
+  Downloaded http-body v1.1.0
+  Downloaded http-body-util v0.1.5
+  Downloaded httparse v1.10.1
+  Downloaded humantime v2.4.0
+  Downloaded icu_provider v2.3.1
+  Downloaded ident_case v1.0.1
+  Downloaded idna_adapter v1.2.2
+  Downloaded ipnet v2.12.2
+  Downloaded is_terminal_polyfill v1.70.2
+  Downloaded keccak v0.2.2
+  Downloaded lazy_static v1.5.1
+  Downloaded litemap v0.8.3
+  Downloaded log v0.4.34
+  Downloaded lru-slab v0.1.3
+  Downloaded matchit v0.8.4
+  Downloaded maybe-uninit v2.0.0
+  Downloaded mime v0.3.17
+  Downloaded minicbor v2.3.1
+  Downloaded minicbor-derive v0.19.5
+  Downloaded minimal-lexical v0.2.1
+  Downloaded minreq v2.14.1
+  Downloaded mio v1.2.4
+  Downloaded multiversion_no_op v1.0.0
+  Downloaded nodrop v0.1.14
+  Downloaded num-bigint v0.4.8
+  Downloaded num-traits v0.2.19
+  Downloaded once_cell v1.21.4
+  Downloaded option-ext v0.2.0
+  Downloaded parking v2.2.1
+  Downloaded pem v3.0.6
+  Downloaded percent-encoding v2.3.2
+  Downloaded pin-project-lite v0.2.17
+  Downloaded potential_utf v0.1.6
+  Downloaded powerfmt v0.2.1
+  Downloaded ppv-lite86 v0.2.21
+  Downloaded quinn-udp v0.5.16
+  Downloaded rand v0.10.3
+  Downloaded rand_chacha v0.3.1
+  Downloaded ref-cast v1.0.27
+  Downloaded ref-cast-impl v1.0.27
+  Downloaded rust-embed-impl v8.13.0
+  Downloaded rust-embed-utils v8.13.0
+  Downloaded rustc-hash v2.1.3
+  Downloaded rusticata-macros v4.1.0
+  Downloaded same-file v1.0.6
+  Downloaded system-configuration-sys v0.6.0
+  Downloaded h2 v0.4.20
+  Downloaded httpdate v1.0.3
+  Downloaded hybrid-array v0.4.15
+  Downloaded hyper-rustls v0.27.10
+  Downloaded hyper-util v0.1.21
+  Downloaded iana-time-zone v0.1.65
+  Downloaded icu_collections v2.3.0
+  Downloaded icu_locale_core v2.3.0
+  Downloaded icu_normalizer_data v2.3.0
+  Downloaded icu_properties v2.3.0
+  Downloaded indexmap v1.9.3
+  Downloaded indexmap v2.14.2
+  Downloaded indicatif v0.18.6
+  Downloaded itoa v1.0.18
+  Downloaded jobserver v0.1.35
+  Downloaded jsonrpc v0.18.0
+  Downloaded mime_guess v2.0.5
+  Downloaded miniz_oxide v0.9.1
+  Downloaded new_mime_guess v4.0.4
+  Downloaded num-conv v0.2.2
+  Downloaded num-integer v0.1.47
+  Downloaded num-rational v0.4.2
+  Downloaded objc2-encode v4.1.0
+  Downloaded oid-registry v0.8.1
+  Downloaded piper v0.2.5
+  Downloaded pkg-config v0.3.34
+  Downloaded rand_core v0.6.4
+  Downloaded rand_core v0.10.1
+  Downloaded rand_pcg v0.10.2
+  Downloaded rustc_version v0.4.1
+  Downloaded rustls-pki-types v1.15.1
+  Downloaded rustversion v1.0.23
+  Downloaded scopeguard v1.2.0
+  Downloaded serde-hex v0.1.0
+  Downloaded sponge-cursor v0.1.0
+  Downloaded stable_deref_trait v1.2.1
+  Downloaded strsim v0.11.1
+  Downloaded sync_wrapper v1.0.2
+  Downloaded thiserror v1.0.69
+  Downloaded thiserror v2.0.21
+  Downloaded thiserror-impl v2.0.21
+  Downloaded encoding_rs v0.8.42
+  Downloaded memchr v2.8.3
+  Downloaded mp4 v0.14.0
+  Downloaded objc2-open-directory v0.3.2
+  Downloaded polling v3.11.0
+  Downloaded quinn v0.11.12
+  Downloaded rss v2.1.2
+  Downloaded rustls-acme v0.15.4
+  Downloaded rustls-platform-verifier v0.7.1
+  Downloaded ryu v1.0.23
+  Downloaded security-framework-sys v2.17.0
+  Downloaded serde_path_to_error v0.1.20
+  Downloaded serde_urlencoded v0.7.1
+  Downloaded serde_with_macros v3.24.0
+  Downloaded simd-adler32 v0.3.10
+  Downloaded simdutf8 v0.1.5
+  Downloaded slab v0.4.12
+  Downloaded smallvec v0.6.14
+  Downloaded snafu-derive v0.9.2
+  Downloaded subtle v2.6.1
+  Downloaded synstructure v0.13.2
+  Downloaded synstructure v0.14.0
+  Downloaded system-configuration v0.7.0
+  Downloaded thiserror-impl v1.0.69
+  Downloaded time-core v0.1.9
+  Downloaded jiff-core v0.1.1
+  Downloaded nom v7.1.3
+  Downloaded rand v0.8.8
+  Downloaded rcgen v0.13.2
+  Downloaded rustls-webpki v0.103.15
+  Downloaded semver v1.0.28
+  Downloaded sha2 v0.11.1
+  Downloaded tower-layer v0.3.3
+  Downloaded reqwest v0.13.5
+  Downloaded smallvec v1.16.3
+  Downloaded tinystr v0.8.4
+  Downloaded tokio-macros v2.7.2
+  Downloaded tower-service v0.3.3
+  Downloaded idna v1.1.0
+  Downloaded regex v1.13.1
+  Downloaded socket2 v0.6.5
+  Downloaded objc2-core-foundation v0.3.2
+  Downloaded tempfile v3.27.0
+  Downloaded tokio-rustls v0.26.6
+  Downloaded try-lock v0.2.5
+  Downloaded unicode-xid v0.2.6
+  Downloaded unit-prefix v0.5.2
+  Downloaded urlencoding v2.1.3
+  Downloaded utf8_iter v1.0.4
+  Downloaded utf8parse v0.2.2
+  Downloaded want v0.3.2
+  Downloaded icu_properties_data v2.3.0
+  Downloaded objc2-io-kit v0.3.2
+  Downloaded portable-atomic v1.15.0
+  Downloaded schemars v0.9.0
+  Downloaded security-framework v3.7.0
+  Downloaded snafu v0.9.2
+  Downloaded unicase v2.10.0
+  Downloaded untrusted v0.9.0
+  Downloaded unsafe-libyaml v0.2.11
+  Downloaded quinn-proto v0.11.19
+  Downloaded serde_yaml v0.9.34+deprecated
+  Downloaded time-macros v0.2.32
+  Downloaded tinyvec v1.13.3
+  Downloaded tokio-stream v0.1.19
+  Downloaded walkdir v2.5.0
+  Downloaded time v0.3.55
+  Downloaded url v2.5.8
+  Downloaded nix v0.31.3
+  Downloaded objc2 v0.6.5
+  Downloaded hyper v1.12.0
+  Downloaded objc2-foundation v0.3.2
+  Downloaded schemars v1.2.3
+  Downloaded unicode-normalization v0.1.26
+  Downloaded yoke-derive v0.8.4
+  Downloaded zerofrom-derive v0.1.8
+  Downloaded unicode-segmentation v1.13.3
+  Downloaded webpki-roots v0.26.11
+  Downloaded zerofrom v0.1.8
+  Downloaded tracing-core v0.1.36
+  Downloaded yoke v0.8.3
+  Downloaded zeroize v1.9.1
+  Downloaded zerovec-derive v0.11.6
+  Downloaded zmij v1.0.23
+  Downloaded regex-syntax v0.8.11
+  Downloaded rustls v0.23.46
+  Downloaded writeable v0.6.4
+  Downloaded yasna v0.5.2
+  Downloaded secp256k1 v0.29.1
+  Downloaded serde_json v1.0.154
+  Downloaded tower v0.5.3
+  Downloaded rustix v1.1.5
+  Downloaded x509-parser v0.18.1
+  Downloaded zerotrie v0.2.5
+  Downloaded tokio-util v0.7.20
+  Downloaded tower-http v0.6.11
+  Downloaded unicode-width v0.2.2
+  Downloaded sha3 v0.12.0
+  Downloaded zerovec v0.11.8
+  Downloaded serde_with v3.24.0
+  Downloaded zerocopy-derive v0.8.63
+  Downloaded regex-automata v0.4.18
+  Downloaded brotli v9.0.0
+  Downloaded sysinfo v0.39.6
+  Downloaded tower-http v0.7.1
+  Downloaded syn v2.0.119
+  Downloaded webpki-roots v1.0.10
+  Downloaded zlib-rs v0.6.8
+  Downloaded syn v3.0.9
+  Downloaded zerocopy v0.8.63
+  Downloaded icu_normalizer v2.3.0
+  Downloaded tracing v0.1.44
+  Downloaded rust-embed v8.13.0
+  Downloaded jiff v0.2.38
+  Downloaded miniscript v13.2.0
+  Downloaded tokio v1.54.0
+  Downloaded ring v0.17.14
+  Downloaded aws-lc-sys v0.46.0
+   Compiling proc-macro2 v1.0.107
+   Compiling unicode-ident v1.0.27
+   Compiling quote v1.0.47
+   Compiling libc v0.2.191
+   Compiling cfg-if v1.0.5
+   Compiling syn v3.0.9
+   Compiling syn v2.0.119
+   Compiling jobserver v0.1.35
+   Compiling find-msvc-tools v0.1.15
+   Compiling shlex v2.0.1
+   Compiling cc v1.9.0
+   Compiling memchr v2.8.3
+   Compiling serde_core v1.0.229
+   Compiling pin-project-lite v0.2.17
+   Compiling serde v1.0.229
+   Compiling serde_derive v1.0.229
+   Compiling futures-core v0.3.34
+   Compiling itoa v1.0.18
+   Compiling autocfg v1.5.1
+   Compiling bitflags v2.13.2
+   Compiling bytes v1.12.1
+   Compiling futures-io v0.3.34
+   Compiling getrandom v0.2.17
+   Compiling log v0.4.34
+   Compiling strsim v0.11.1
+   Compiling once_cell v1.21.4
+   Compiling ident_case v1.0.1
+   Compiling synstructure v0.14.0
+   Compiling futures-sink v0.3.34
+   Compiling core-foundation-sys v0.8.7
+   Compiling tokio-macros v2.7.2
+   Compiling displaydoc v0.2.7
+   Compiling cmake v0.1.58
+   Compiling mio v1.2.4
+   Compiling socket2 v0.6.5
+   Compiling slab v0.4.12
+   Compiling dunce v1.0.5
+   Compiling fs_extra v1.3.0
+   Compiling pkg-config v0.3.34
+   Compiling tokio v1.54.0
+   Compiling zerofrom-derive v0.1.8
+   Compiling aws-lc-sys v0.46.0
+   Compiling zerocopy v0.8.63
+   Compiling equivalent v1.0.3
+   Compiling hashbrown v0.17.1
+   Compiling indexmap v2.14.2
+   Compiling zerofrom v0.1.8
+   Compiling yoke-derive v0.8.4
+   Compiling http v1.5.0
+   Compiling num-traits v0.2.19
+   Compiling zerocopy-derive v0.8.63
+   Compiling stable_deref_trait v1.2.1
+   Compiling zeroize v1.9.1
+   Compiling yoke v0.8.3
+   Compiling futures-channel v0.3.34
+   Compiling qsha-sys v0.1.0 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/qsha-sys)
+   Compiling typenum v1.20.1
+   Compiling aws-lc-rs v1.18.2
+   Compiling rustls-pki-types v1.15.1
+   Compiling zerovec-derive v0.11.6
+   Compiling futures-macro v0.3.34
+   Compiling ring v0.17.14
+   Compiling futures-task v0.3.34
+   Compiling futures-util v0.3.34
+   Compiling zerovec v0.11.8
+   Compiling tracing-core v0.1.36
+   Compiling unicase v2.10.0
+   Compiling rustversion v1.0.23
+   Compiling atomic-waker v1.1.2
+   Compiling smallvec v1.16.3
+   Compiling bitcoin-io v0.1.101
+   Compiling arrayvec v0.7.8
+   Compiling tracing v0.1.44
+   Compiling http-body v1.1.0
+   Compiling percent-encoding v2.3.2
+   Compiling zmij v1.0.23
+   Compiling httparse v1.10.1
+   Compiling untrusted v0.9.0
+   Compiling hex-conservative v0.2.3
+   Compiling tokio-util v0.7.20
+   Compiling tower-service v0.3.3
+   Compiling rustls v0.23.46
+   Compiling objc2 v0.6.5
+   Compiling serde_json v1.0.154
+   Compiling bitcoin_hashes v0.14.101 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/bitcoin_hashes)
+   Compiling tinystr v0.8.4
+   Compiling ppv-lite86 v0.2.21
+   Compiling rand_core v0.6.4
+   Compiling secp256k1-sys v0.10.1 (/Users/runner/work/qwencoin/qwencoin/upstream/rust/secp256k1-sys)
+   Compiling writeable v0.6.4
+   Compiling system-configuration-sys v0.6.0
+   Compiling num-conv v0.2.2
+   Compiling objc2-encode v4.1.0
+   Compiling time-core v0.1.9
+   Compiling foldhash v0.2.0
+   Compiling litemap v0.8.3
+   Compiling crossbeam-utils v0.8.23
+   Compiling subtle v2.6.1
+   Compiling parking v2.2.1
+   Compiling icu_locale_core v2.3.0
+   Compiling time-macros v0.2.32
+   Compiling rand_chacha v0.3.1
+   Compiling potential_utf v0.1.6
+   Compiling zerotrie v0.2.5
+   Compiling version_check v0.9.5
+   Compiling utf8_iter v1.0.4
+   Compiling icu_normalizer_data v2.3.0
+   Compiling fnv v1.0.7
+   Compiling alloc-no-stdlib v3.0.0
+   Compiling icu_properties_data v2.3.0
+   Compiling rustix v1.1.5
+   Compiling fastrand v2.5.0
+   Compiling deranged v0.5.9
+   Compiling try-lock v0.2.5
+   Compiling powerfmt v0.2.1
+   Compiling thiserror v2.0.21
+   Compiling hex_lit v0.1.1
+   Compiling crc32fast v1.5.2
+   Compiling darling_core v0.20.11
+   Compiling time v0.3.55
+   Compiling want v0.3.2
+   Compiling hybrid-array v0.4.15
+   Compiling alloc-stdlib v0.3.0
+   Compiling h2 v0.4.20
+   Compiling icu_collections v2.3.0
+   Compiling generic-array v0.14.7
+   Compiling icu_provider v2.3.1
+   Compiling rand v0.8.8
+   Compiling core-foundation v0.9.4
+   Compiling thiserror-impl v2.0.21
+   Compiling errno v0.3.14
+   Compiling minimal-lexical v0.2.1
+   Compiling adler2 v2.0.1
+   Compiling simd-adler32 v0.3.10
+   Compiling httpdate v1.0.3
+   Compiling base64 v0.23.1
+   Compiling bitcoin v0.32.102
+   Compiling hyper v1.12.0
+   Compiling miniz_oxide v0.9.1
+   Compiling nom v7.1.3
+   Compiling system-configuration v0.7.0
+   Compiling concurrent-queue v2.5.0
+   Compiling secp256k1 v0.29.1
+   Compiling brotli-decompressor v6.0.1
+   Compiling darling_macro v0.20.11
+   Compiling event-listener v5.4.2
+   Compiling base58ck v0.1.101
+   Compiling encoding_rs v0.8.42
+   Compiling mime_guess v2.0.5
+   Compiling num-integer v0.1.47
+   Compiling bitcoin-units v0.1.101
+   Compiling synstructure v0.13.2
+   Compiling tower-layer v0.3.3
+   Compiling mime v0.3.17
+   Compiling ipnet v2.12.2
+   Compiling bech32 v0.11.1
+   Compiling hyper-util v0.1.21
+   Compiling rustls-webpki v0.103.15
+   Compiling asn1-rs-derive v0.6.0
+   Compiling num-bigint v0.4.8
+   Compiling event-listener-strategy v0.5.4
+   Compiling flate2 v1.1.10
+   Compiling darling v0.20.11
+   Compiling icu_properties v2.3.0
+   Compiling brotli v9.0.0
+   Compiling icu_normalizer v2.3.0
+   Compiling rusticata-macros v4.1.0
+   Compiling block-buffer v0.12.1
+   Compiling crypto-common v0.2.2
+   Compiling futures-lite v2.6.1
+   Compiling form_urlencoded v1.2.2
+   Compiling iana-time-zone v0.1.65
+   Compiling darling_core v0.24.1
+   Compiling async-io v2.6.0
+   Compiling sync_wrapper v1.0.2
+   Compiling asn1-rs-impl v0.2.0
+   Compiling cpufeatures v0.3.1
+   Compiling heck v0.5.0
+   Compiling anyhow v1.0.104
+   Compiling thiserror v1.0.69
+   Compiling utf8parse v0.2.2
+   Compiling const-oid v0.10.2
+   Compiling compression-core v0.4.34
+   Compiling multiversion_no_op v1.0.0
+   Compiling scopeguard v1.2.0
+   Compiling simdutf8 v0.1.5
+   Compiling darling_macro v0.24.1
+   Compiling digest v0.11.3
+   Compiling compression-codecs v0.4.46
+   Compiling anstyle-parse v1.0.0
+   Compiling asn1-rs v0.7.2
+   Compiling chrono v0.4.45
+   Compiling idna_adapter v1.2.2
+   Compiling derive_builder_core v0.20.2
+   Compiling async-channel v2.5.0
+   Compiling tokio-rustls v0.26.6
+   Compiling polling v3.11.0
+   Compiling piper v0.2.5
+   Compiling http-body-util v0.1.5
+   Compiling new_mime_guess v4.0.4
+   Compiling futures-executor v0.3.34
+   Compiling darling_core v0.23.0
+   Compiling fs-err v3.3.2
+   Compiling thiserror-impl v1.0.69
+   Compiling aho-corasick v1.1.5
+   Compiling regex-syntax v0.8.11
+   Compiling anstyle v1.0.14
+   Compiling anstyle-query v1.1.5
+   Compiling colorchoice v1.0.5
+   Compiling is_terminal_polyfill v1.70.2
+   Compiling base64 v0.22.1
+   Compiling async-task v4.7.1
+   Compiling maybe-uninit v2.0.0
+   Compiling cfg_aliases v0.2.2
+   Compiling same-file v1.0.6
+   Compiling unicode-segmentation v1.13.3
+   Compiling oid-registry v0.8.1
+   Compiling convert_case v0.10.0
+   Compiling walkdir v2.5.0
+   Compiling nix v0.31.3
+   Compiling blocking v1.7.0
+   Compiling regex-automata v0.4.18
+   Compiling anstream v1.0.0
+   Compiling sha2 v0.11.1
+   Compiling darling_macro v0.23.0
+   Compiling futures v0.3.34
+   Compiling derive_builder_macro v0.20.2
+   Compiling idna v1.1.0
+   Compiling async-compression v0.4.51
+   Compiling darling v0.24.1
+   Compiling tower v0.5.3
+   Compiling block-buffer v0.10.4
+   Compiling crypto-common v0.1.7
+   Compiling objc2-core-foundation v0.3.2
+   Compiling webpki-roots v1.0.10
+   Compiling half v2.7.1
+   Compiling security-framework-sys v2.17.0
+   Compiling core-foundation v0.10.1
+   Compiling getrandom v0.4.3
+   Compiling lazy_static v1.5.1
+   Compiling ryu v1.0.23
+   Compiling portable-atomic v1.15.0
+   Compiling unicode-xid v0.2.6
+   Compiling derive_more-impl v2.1.1
+   Compiling security-framework v3.7.0
+   Compiling webpki-roots v0.26.11
+   Compiling digest v0.10.7
+   Compiling serde_with_macros v3.24.0
+   Compiling url v2.5.8
+   Compiling async-http-codec v0.8.0
+   Compiling derive_builder v0.20.2
+   Compiling async-net v2.0.0
+   Compiling regex v1.13.1
+   Compiling darling v0.23.0
+   Compiling rust-embed-utils v8.13.0
+   Compiling pem v3.0.6
+   Compiling diligent-date-parser v0.1.5
+   Compiling der-parser v10.0.0
+   Compiling quick-xml v0.41.0
+   Compiling snafu-derive v0.9.2
+   Compiling futures-rustls v0.26.0
+   Compiling yasna v0.5.2
+   Compiling objc2-foundation v0.3.2
+   Compiling block2 v0.6.2
+   Compiling minreq v2.14.1
+   Compiling arc-swap v1.9.3
+   Compiling cpufeatures v0.2.17
+   Compiling ref-cast v1.0.27
+   Compiling jiff-core v0.1.1
+   Compiling ciborium-io v0.2.2
+   Compiling boilerplate-parser v0.0.1
+   Compiling redb v3.1.3
+   Compiling data-encoding v2.11.1
+   Compiling clap_lex v1.1.1
+   Compiling nodrop v0.1.14
+   Compiling either v1.19.0
+   Compiling base64 v0.13.1
+   Compiling option-ext v0.2.0
+   Compiling unicode-width v0.2.2
+   Compiling tinyvec v1.13.3
+   Compiling console v0.16.6
+   Compiling unicode-normalization v0.1.26
+   Compiling dirs-sys v0.5.0
+   Compiling jsonrpc v0.18.0
+   Compiling axum-server v0.8.0
+   Compiling array-init v0.0.4
+   Compiling clap_builder v4.6.7
+   Compiling x509-parser v0.18.1
+   Compiling jiff v0.2.38
+   Compiling boilerplate-macros v0.0.4
+   Compiling ciborium-ll v0.2.2
+   Compiling sha2 v0.10.9
+   Compiling dispatch2 v0.3.1
+   Compiling objc2-open-directory v0.3.2
+   Compiling snafu v0.9.2
+   Compiling rcgen v0.13.2
+   Compiling async-web-client v0.6.3
+   Compiling atom_syndication v0.12.10
+   Compiling rust-embed-impl v8.13.0
+   Compiling smallvec v0.6.14
+   Compiling env_filter v2.0.0
+   Compiling tower-http v0.6.11
+   Compiling serde_with v3.24.0
+   Compiling rustls-platform-verifier v0.7.1
+   Compiling derive_more v2.1.1
+   Compiling serde_urlencoded v0.7.1
+   Compiling objc2-io-kit v0.3.2
+   Compiling axum-core v0.5.6
+   Compiling hyper-rustls v0.27.10
+   Compiling clap_derive v4.6.7
+   Compiling keccak v0.2.2
+   Compiling num-rational v0.4.2
+   Compiling bitcoincore-rpc-json v0.19.0
+   Compiling hex-conservative v1.3.0
+   Compiling serde_path_to_error v0.1.20
+   Compiling async-trait v0.1.92
+   Compiling ref-cast-impl v1.0.27
+   Compiling minicbor-derive v0.19.5
+   Compiling matchit v0.8.4
+   Compiling unit-prefix v0.5.2
+   Compiling unsafe-libyaml v0.2.11
+   Compiling byteorder v1.5.0
+   Compiling sponge-cursor v0.1.0
+   Compiling ord v0.29.1 (/Users/runner/work/qwencoin/qwencoin/upstream/ord)
+   Compiling sha3 v0.12.0
+   Compiling bitcoincore-rpc v0.19.0
+   Compiling mp4 v0.14.0
+   Compiling minicbor v2.3.1
+   Compiling serde_yaml v0.9.34+deprecated
+   Compiling indicatif v0.18.6
+   Compiling axum v0.8.9
+   Compiling rustls-acme v0.15.4
+   Compiling miniscript v13.2.0
+   Compiling clap v4.6.7
+   Compiling ordinals v0.0.17 (/Users/runner/work/qwencoin/qwencoin/upstream/ord/crates/ordinals)
+   Compiling reqwest v0.13.5
+   Compiling sysinfo v0.39.6
+   Compiling tempfile v3.27.0
+   Compiling env_logger v0.11.11
+   Compiling ctrlc v3.5.2
+   Compiling serde-hex v0.1.0
+   Compiling rust-embed v8.13.0
+   Compiling rss v2.1.2
+   Compiling bip322 v0.0.12
+   Compiling ciborium v0.2.2
+   Compiling boilerplate v1.2.2
+   Compiling bip39 v3.0.0
+   Compiling dirs v7.0.0
+   Compiling tower-http v0.7.1
+   Compiling tokio-stream v0.1.19
+   Compiling urlencoding v2.1.3
+   Compiling hex v0.4.3
+   Compiling humantime v2.4.0
+   Compiling colored v3.1.1
+warning: unused dependency `tempfile`
+  --> Cargo.toml:95:1
+   |
+95 | tempfile.workspace = true
+   | ^^^^^^^^
+   |
+   = note: `cargo::unused_dependencies` is set to `warn` by default
+help: consider removing the dependency on `tempfile`
+warning: `ord` (manifest) generated 1 warning
+    Finished `release` profile [optimized] target(s) in 4m 17s
+Qwencoin daemon version v29.4.0
+ord 0.29.1
+dist/node/macos-arm64/libexec/qwencoind: replacing existing signature
+dist/node/macos-arm64/libexec/qwencoin-cli: replacing existing signature
+dist/node/macos-arm64/libexec/ord: replacing existing signature
+dist/node/macos-arm64/exec/libqsha.so: replacing existing signature
+dist/node/macos-arm64/exec/libqwork.so: replacing existing signature
+dist/node/macos-arm64: qwencoind, qwencoin-cli, ord; no libraries packed
+-rw-r--r--  1 runner  staff  16908700 Nov 13 19:06 dist/qwencoin-node-macos-arm64.tar.gz
+dd1210546fc06d8923b5ef390ddf4a72aa31f41a84539b5363bfba86fc353e6b  dist/qwencoin-node-macos-arm64.tar.gz
+the chain's work table (505 MB) from https://huggingface.co/staccs/qwencoin/resolve/main/qwork.bin
+the packed executor (exec/libqsha.so): SHA-256 of 8 random strings of 0 to 1000 bytes equals hashlib
+table /Users/runner/work/qwencoin/qwencoin/dist/qwork.bin: fnv64 0x33a548a33925d201
+1 a node without the right weights does not start
+    no file: Error: The work table /Users/runner/work/qwencoin/qwencoin/work/qwork-net/absent.bin cannot be opened. On this chain a proof of work is a pass through
+    not a table: Error: /Users/runner/work/qwencoin/qwencoin/work/qwork-net/junk.bin is not a work table (QWRK1, 24 layers of 3584 x 1024). On this chain a proof of wo
+    one weight changed (of 264,241,152): Error: The work table /Users/runner/work/qwencoin/qwencoin/work/qwork-net/forged.bin has checksum 7315469c47bcd201, this chain's is 33a548a33925d201. On this chain a proof of work is a pass 
+2 three nodes up (11s); genesis
+    hash 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5
+    work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d  (node == numpy reference == C kernel == the constant; under the target 00ffff000000..; the hash itself is not)
+3 mining 8 blocks on two nodes
+    n1 mined height 1 2fde8c601d5d2e8f.. at nonce 378
+    n2 mined height 2 021ae38874ea93f5.. at nonce 445
+    n1 mined height 3 77712322ffe9a216.. at nonce 100
+    n2 mined height 4 e288a5c6e0c70aed.. at nonce 103
+    n1 mined height 5 74e81fb34e7cb751.. at nonce 36
+    n2 mined height 6 fed45d14710a3f23.. at nonce 380
+    n1 mined height 7 4af468418ee28208.. at nonce 225
+    n2 mined height 8 c1bd518b5cfceee6.. at nonce 215
+    1890 passes in 50s: 27 ms per attempt in the node (the pass, one SHA-256 in the weights, the template); all three nodes at height 8, tip c1bd518b5cfceee6..
+    every header 0..8: work value by the reference == all three nodes', and under the target; hash by hashlib == the node's. (The hashes themselves are ordinary numbers: the largest has 256 bits.)
+4 blocks ground the Bitcoin way
+    hash 00763361affae92cb8ee.. is under the target; submitblock: 'high-hash'; submitheader: 'high-hash'
+    4 of 4 refused, the tip did not move
+5 a block mined outside the node
+    385 passes with the C kernel, winner confirmed by the reference; accepted by n2, relayed: all three at height 9, tip 7adc36dbedcbc462..
+6 the same block with nonce 385 instead of 384: 'high-hash'
+7 restart and reindex
+    n3 restarted: same tip (4s)
+    n3 restarted with -reindex: every block's work evaluated again, same tip (5s)
+8 a new node from genesis
+    n4 synchronised 9 blocks from its peers: same tip (5s), peers 3
+OK (107s)
+ci-join: head on Darwin 24.6.0 arm64, 3 cpus
+== qwencoin: uv (it installs Python and packages), into /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.8 aarch64-apple-darwin
+installing to /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /Users/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (3.4MiB)
+ Downloaded hf-xet
+Installed 15 packages in 34ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 133 files:   0%|          | 0/133 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 133 files:   1%|          | 1/133 [00:00<00:31,  4.19it/s]Fetching 133 files:   2%|▏         | 3/133 [00:00<00:14,  9.12it/s]Fetching 133 files:   5%|▌         | 7/133 [00:00<00:07, 16.74it/s]Fetching 133 files:  10%|▉         | 13/133 [00:00<00:04, 28.00it/s]Fetching 133 files:  13%|█▎        | 17/133 [00:00<00:04, 28.11it/s]Fetching 133 files:  17%|█▋        | 22/133 [00:00<00:03, 30.97it/s]Fetching 133 files:  21%|██        | 28/133 [00:01<00:03, 32.43it/s]Fetching 133 files:  25%|██▍       | 33/133 [00:01<00:03, 32.08it/s]Fetching 133 files:  28%|██▊       | 37/133 [00:01<00:02, 33.58it/s]Fetching 133 files:  31%|███       | 41/133 [00:01<00:02, 32.28it/s]Fetching 133 files:  35%|███▌      | 47/133 [00:01<00:02, 30.86it/s]Fetching 133 files:  39%|███▉      | 52/133 [00:01<00:02, 34.96it/s]Fetching 133 files:  42%|████▏     | 56/133 [00:01<00:02, 33.90it/s]Fetching 133 files:  45%|████▌     | 60/133 [00:02<00:02, 32.67it/s]Fetching 133 files:  48%|████▊     | 64/133 [00:02<00:02, 33.59it/s]Fetching 133 files:  51%|█████     | 68/133 [00:02<00:01, 33.90it/s]Fetching 133 files:  54%|█████▍    | 72/133 [00:02<00:01, 32.53it/s]Fetching 133 files:  57%|█████▋    | 76/133 [00:02<00:01, 30.10it/s]Fetching 133 files:  62%|██████▏   | 82/133 [00:02<00:01, 32.49it/s]Fetching 133 files:  65%|██████▍   | 86/133 [00:02<00:01, 31.85it/s]Fetching 133 files:  68%|██████▊   | 90/133 [00:03<00:01, 30.71it/s]Fetching 133 files:  71%|███████   | 94/133 [00:03<00:01, 28.40it/s]Fetching 133 files:  74%|███████▎  | 98/133 [00:03<00:01, 26.72it/s]Fetching 133 files:  76%|███████▌  | 101/133 [00:03<00:01, 26.15it/s]Fetching 133 files:  79%|███████▉  | 105/133 [00:03<00:01, 23.05it/s]Fetching 133 files:  83%|████████▎ | 110/133 [00:03<00:00, 27.42it/s]Fetching 133 files:  85%|████████▍ | 113/133 [00:03<00:00, 24.32it/s]Fetching 133 files:  87%|████████▋ | 116/133 [00:04<00:00, 25.10it/s]Fetching 133 files:  89%|████████▉ | 119/133 [00:04<00:00, 19.70it/s]Fetching 133 files:  93%|█████████▎| 124/133 [00:04<00:00, 23.61it/s]Fetching 133 files:  95%|█████████▌| 127/133 [00:04<00:00, 22.61it/s]Fetching 133 files:  98%|█████████▊| 131/133 [00:04<00:00, 23.94it/s]Fetching 133 files: 100%|██████████| 133/133 [00:05<00:00, 22.50it/s]
+qwencoin: the files of /Users/runner/work/qwencoin/qwencoin are laid over the download
+== qwencoin: the node programs for macos-arm64 from file:///Users/runner/work/qwencoin/qwencoin/dist/qwencoin-node-macos-arm64.tar.gz
+
+=== qwencoin pipeline 2026-11-13 19:08:52 in /Users/runner/work/_temp/qwencoin-join/qwencoin
+cpu: Apple M1 (Virtual), 3 threads
+memory: 7 GB
+disk free here: 42G
+os: macOS 15.8.2, arm64, kernel 24.6.0
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.10 interpreter at: /usr/local/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+   torch: none for macos-arm64
+   no torch on this machine: the node runs without a model
+Resolved 16 packages in 154ms
+Downloading numpy (5.2MiB)
+ Downloaded numpy
+Prepared 1 package in 236ms
+Installed 16 packages in 37ms
+ + anyio==4.16.0
+ + click==8.5.1
+ + filelock==4.2.10
+ + fsspec==2026.9.0
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + numpy==2.5.4
+ + packaging==26.3
+ + pyyaml==6.0.3
+ + tqdm==4.70.1
+ + truststore==0.10.5
+ + typing-extensions==4.16.0
+python 3.12.10 | numpy 2.5.4 | no torch: the node runs without a model
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 34 ms; one SHA-256 in the circuit's executor 6.3 ms; one fsync 0.3 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+19:08:58 starting 1 qwencoind (datadirs in /Users/runner/work/_temp/qwencoin-join/qwencoin/run)
+19:09:02 nodes answer; heights [0]
+19:09:03 ord 1 has indexed its node's chain
+19:09:04 n1's wallet is ready; it mines to bc1p0h3lk7wjyu606mq2m2mzpyz2j77fqhdch3t3zmywt27xna3m9zdqyca3zf
+19:09:04 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+== the node's model is NOT started: there is no torch on this machine (macos-arm64). The node runs without it.
+  n1 qwen-901349f9  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+=== joined 2026-11-13 19:09:05, without a model.  bash tools/pipeline.sh status | down
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+19:09:06 height      0 51ebb1f392844e411a0c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.1s)
+  n1 qwen-901349f9  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: the installer has joined after 26s
+ci-join: height 0, the best a peer has 4039, peers 1 (0s)
+ci-join: height 0, the best a peer has 4039, peers 1 (20s)
+ci-join: height 0, the best a peer has 4039, peers 1 (40s)
+ci-join: height 0, the best a peer has 4039, peers 1 (60s)
+ci-join: height 0, the best a peer has 4039, peers 1 (81s)
+ci-join: height 0, the best a peer has 4039, peers 1 (101s)
+ci-join: height 0, the best a peer has 4039, peers 1 (121s)
+ci-join: height 0, the best a peer has 4039, peers 1 (142s)
+ci-join: height 0, the best a peer has 4039, peers 1 (209s)
+ci-join: height 0, the best a peer has 4039, peers 1 (229s)
+ci-join: height 0, the best a peer has 4039, peers 1 (249s)
+ci-join: height 0, the best a peer has 4039, peers 1 (270s)
+ci-join: height 0, the best a peer has 4039, peers 1 (290s)
+ci-join: height 0, the best a peer has 4039, peers 1 (310s)
+ci-join: height 0, the best a peer has 4039, peers 1 (376s)
+19:15:24 height      4 01230d4820821f4f41a4.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+378.4s)
+19:15:25 height      9 a53e3c0e0f2368a51c9b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:25 height     14 c6aaad79ec467d79bbd4.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:26 height     16 4a2856274c0d558c0fc9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:31 height     21 e01733f24d35f28b2f90.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+4.7s)
+19:15:32 height     26 6e87f173dbc9d9d2b865.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:15:33 height     31 3e6b5b3488dded17e7db.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:15:33 height     36 0722b9717fd03e3e1267.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:34 height     41 af96de2ed6d81786b3fb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:35 height     46 a78a5ab9ae330bc7e7fd.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:36 height     51 29e39c3c61a6b4b92988.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:36 height     55 44c725866c28600a1e3c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:37 height     61 201662426d476c989de1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:38 height     65 f8cf8017b2a6a5d190cc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:39 height     69 49a63677f70e759f3016.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:15:39 height     73 9b1a71f91187a0b3deb9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:40 height     76 3462701296c009e40e6c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:41 height     81 9a7020c06461f4643573.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:42 height     85 966336d66406ae0188e6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:42 height     89 853fe834e5340354b5c1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:43 height     93 eb00a02c421bdada55c4.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+ci-join: height 94, the best a peer has 4049, peers 1 (396s)
+19:15:44 height     97 460390760a08e9a55d6d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:15:45 height    102 eb9bf0379890c3131a4e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:15:46 height    105 2458273e813b35a4f33d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:47 height    108 98040c6178768e6f36d1.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:15:49 height    109 e98f047882c6c233537c.. bits 2000ffff difficulty 5.96e-08 txs 7 by n? (+1.8s)
+19:15:50 height    114 9844c8d73fb7ab862759.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:15:52 height    115 072df45be6f60ba85876.. bits 2000ffff difficulty 5.96e-08 txs 9 by n? (+2.7s)
+19:15:54 height    120 8ecc367ed602e15be2ed.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.3s)
+19:15:55 height    126 71fb7648deb752e8836b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:15:55 height    128 e576f9beeade80c998e3.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:15:58 height    142 75d5604d859147d3f018.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+2.8s)
+19:15:59 height    148 b7ee5ad7ebb4e2fa443f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:00 height    151 36aa656c9b8dd032e317.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:16:01 height    156 73114896c428204165ea.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:16:01 height    159 ef2e77021d778055038d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:16:02 height    160 e220a5b07234b72f837a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:16:03 height    162 0315aec7c03373d4e21c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+ci-join: height 164, the best a peer has 4049, peers 1 (417s)
+19:16:04 height    164 6f2c337a35633b84933c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:16:05 height    165 dfb3c4bf502acb54e595.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:06 height    166 87aa96bac2313cc43a50.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.1s)
+19:16:07 height    174 9ea7a620aa7ad64a2854.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:16:07 height    177 4bc24982b3e6153819f0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:16:08 height    179 83eed686acf12c64896d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:16:09 height    182 565fc820c226d4c6b9f9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:09 height    186 0d7a9211e6382a2ed22f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:16:10 height    190 11163a181095658a309f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:11 height    194 9db531172cf0ca123151.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:12 height    198 08366c828d875a0766fa.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:16:13 height    202 71356d382cb71a1d4118.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:16:14 height    206 70d731e365f69001eff9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:16:14 height    210 09ea2fe43ea1dc5a630e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:16:15 height    214 cf8355d549719a0412ca.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:16:16 height    219 e2043c0bf27721b8aa9e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:17 height    220 880d5d893d0b6885ed28.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+19:16:18 height    221 8ff4355ad1825125b1a0.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.3s)
+19:16:19 height    225 442e1697ee29784b0c1f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+  n1 qwen-901349f9  height    225  tip 442e1697ee29784b  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 247, the best a peer has 4049, peers 1 (437s)
+  graph (as node 1's ord sees it): qwen-3947121e 100,000,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:16:35 height    291 1c75db736077c3118356.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+16.4s)
+19:16:36 height    295 7947275385058300cc9d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:37 height    300 d994967474153cd2be1c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+  n1 qwen-901349f9  height    301  tip 56ddf38681719a00  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 332, the best a peer has 4049, peers 1 (458s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:16:56 height    376 510f85ea8df04b061fa2.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+19.5s)
+19:16:57 height    381 d38d71e271079b28e194.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:16:58 height    384 0b5c6516af48626f788d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.2s)
+19:16:59 height    388 37f602144e6773dbd591.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.7s)
+19:17:00 height    391 6dd9c57b2a780e262d5c.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+19:17:01 height    394 5903d63433e755f308ab.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:02 height    395 d7f08eea0936c452fe6d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:17:02 height    402 52c0cff00e796ba04d46.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:03 height    406 876d6c33e84aa1bdaae0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:04 height    412 0606eeab348d88e03536.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:05 height    416 b0f05fc9d912aba1df3c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+ci-join: height 417, the best a peer has 4052, peers 1 (478s)
+19:17:06 height    419 164121205068b7d9ceff.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:17:07 height    421 ec214bf20f33f8487414.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:07 height    424 494ac6ec0e46fc3b1494.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:08 height    427 f7d4ffa6a8b1c6dfa7cf.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:17:11 height    438 f6950fd9f3dde6585d56.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+2.9s)
+19:17:12 height    442 083db4e6159767ba73ac.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:17:13 height    446 8df6097bbac111797d3e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:14 height    449 b73bc9bee98b8ff1f856.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:17:15 height    454 fadbbff89ed1e532d362.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:17:16 height    458 d12f8f8d2ffc567ccf43.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:17 height    462 5698964d8309dd2e5c13.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:17 height    468 1d3717eec58ef6d0a63a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:18 height    473 e2f101a806017f0872bc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:19 height    477 3b4bc74eb6e1b0862d61.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:17:20 height    481 b44c48164490f7e853cf.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+19:17:21 height    486 59f2eadc9266f8cd09d3.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:17:22 height    491 9d7660dd4f7178f0f837.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:23 height    494 6134e2c94d2ef9d0ddf9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:23 height    498 8dff0704f4ec1b71a1e9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:17:24 height    504 ffacfb4fc12f3ee3a78b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+ci-join: height 507, the best a peer has 4052, peers 1 (498s)
+19:17:25 height    507 2a284a031ec95185385a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.2s)
+19:17:26 height    511 463630a55a0eabf5c215.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:27 height    514 0a9909b54cb283e530fa.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:28 height    517 ca2b6b4959927801101a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:17:29 height    524 043040989395719df1a1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:17:30 height    528 406b2067964478924233.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:31 height    533 6cca38846d41b3bccd95.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:31 height    537 5040fe3ba1cef3a98a00.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:32 height    540 a9a9098e3c4dee437ce2.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:17:33 height    544 9362e5f26ed14fdb4f7f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:34 height    549 92fbed14194df1be81cb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:35 height    554 7e8ce39e23689f1ac1c8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:35 height    559 7f31a05ec85b025681a6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:36 height    561 9bfabba4197cb5ad85e1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:37 height    563 c9a432aea6f5a7f20d7e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:38 height    566 09cf9eb1420b6499ab43.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:17:39 height    568 45babf6fd2645f327bad.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.1s)
+19:17:40 height    571 81f4eb54c0234a41d35f.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:17:40 height    576 a6a31d7f60359af3264a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:41 height    580 729473f09350ea3c559f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:44 height    593 0206ced98e673b2ead73.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+2.6s)
+19:17:45 height    597 57d38418f6e34a0d4153.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:46 height    599 8d6a4c63953c79e9344a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+ci-join: height 600, the best a peer has 4052, peers 1 (519s)
+19:17:46 height    604 9c1e5c9b63a23af8761e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:47 height    609 9f66a03a434a9121f9c6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:17:48 height    613 46a7f8d2122e5abbd7d8.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:17:49 height    616 9ac556d74cae9898e1c3.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+19:17:50 height    618 a32b7a73db4c3017ea67.. bits 2000ffff difficulty 5.96e-08 txs 4 by n? (+1.0s)
+19:17:51 height    622 39cad4404d7cdb065442.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:17:52 height    624 e6578e218443037a8966.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:53 height    627 3bfbdd0b90df3a8eefb2.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:17:53 height    631 9d9b35dcb9c8cb02968b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:54 height    634 bd12f8ed6a18728856a2.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:17:55 height    640 e28266bf1fe413d80509.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:17:56 height    645 3845beb614be9da567db.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:57 height    647 98cc5ecab0427f0c53f0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:57 height    652 c2225dbe46c42419823c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:17:58 height    655 a1e8aa186288477e726c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:17:59 height    658 5eaa832970ce6a2a051a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:00 height    663 afd0523b9069ba8a7ad5.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:01 height    666 fbd1789751e3ffc74609.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.1s)
+19:18:02 height    670 1f68eeb5aa2d6c2afb36.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:03 height    673 5c2e1e0e3a5eaadd3f5e.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+19:18:03 height    676 4d7acfb05ce3fa8b8e2c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:04 height    679 90102f7317c2de55c2bb.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:18:05 height    684 f64c1d95acd80e33bf1a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:06 height    686 3b8f6b4e9b92a83c9425.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+ci-join: height 687, the best a peer has 4052, peers 1 (539s)
+19:18:07 height    692 579a928fa32139fd4e6d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:08 height    697 6dc1bba339df39e7d745.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:08 height    701 ce9f04f4fd70b2d2ed1b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:18:09 height    704 1e36640e32040b2e2737.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:10 height    709 a2abd18127da12f9afc5.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:11 height    712 6b6d44e822280a3b37e0.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:18:12 height    718 a13e863e9a3d3c6622c3.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:12 height    721 96e986e5fe9899a54125.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:15 height    736 5b790c75d35c4a0e4414.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+2.6s)
+19:18:16 height    740 082cb23095d0cdc2b6be.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:16 height    742 f16ed80b73985d681bed.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:17 height    744 463c96a3937a86294d2d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:18:18 height    749 8a26248da91903f6e8d1.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+19:18:19 height    751 d9d1604955567d92fc21.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:18:20 height    756 19c24270246799267ff4.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:21 height    758 a05418b6d67a9e891007.. bits 2000ffff difficulty 5.96e-08 txs 4 by n? (+1.0s)
+19:18:22 height    763 05d105a38998f10bb6b0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:23 height    767 5feb76ce041e21c35ce0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:24 height    773 f735d1dffee39991eae8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:24 height    778 63f9e72c8e9e3aafcab1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:25 height    784 a62f9a2c1a3fd98525be.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:26 height    789 0c847e873a065c655bdb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+ci-join: height 789, the best a peer has 4053, peers 1 (559s)
+19:18:27 height    792 ba0a41a7fc9da07b76af.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:28 height    795 cef950b9fa19e1e7eeac.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:28 height    799 69fa3cf7151cfcfe60ee.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:29 height    802 5e6d81f70ca3b2e1afca.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:30 height    808 5fdf0850739a10c0e0e6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:31 height    813 7ec6efa8b2b6da3a2b11.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:32 height    818 ff73e6ba6b0cec70fcd9.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:33 height    819 cff7caab152187368193.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:18:34 height    823 a37a83a06528abcb9a3c.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:18:34 height    826 3fd7898cdb49611d0b80.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:18:35 height    829 40dfe48cde426e6db071.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:36 height    831 fcc1c31cd8f7db23d5c6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:37 height    835 c2960e4675d9ddf1d9fc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:37 height    839 2e1b1ad1cbd8d9af02cb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:38 height    841 ca1ffa41b865ff89b562.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:18:39 height    843 dfd4ecc1e9a104cb7cec.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+19:18:40 height    849 ece3c22165e0f04352a8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:40 height    853 34ca1551d6c082a13d66.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:18:42 height    854 c7310a2492ada9b4aa5e.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.1s)
+19:18:42 height    859 130871e17d7a268e89ef.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:43 height    861 08c8c5eb3a2bec436d08.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:18:44 height    866 70729a316838f3a71769.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:18:45 height    869 82f5e9aea4f53419bb44.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+ci-join: height 874, the best a peer has 4053, peers 1 (580s)
+19:18:47 height    877 b469480c2a6567a5128c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+2.3s)
+19:18:48 height    880 1f998692385f9f6bda69.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:18:49 height    884 562b19e85689fd7933fc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:18:49 height    888 5f5f11f90296d6ad515d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:18:50 height    889 c5a8cf3637590289237a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:18:51 height    892 dee9f6bbf07abdec7521.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:18:52 height    895 e1247e46991bd22fb2dc.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:18:53 height    900 d16feb1c6b7be46c4a6c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+  n1 qwen-901349f9  height    901  tip d2d8d2a5ad517900  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 965, the best a peer has 4054, peers 1 (600s)
+ci-join: height 1057, the best a peer has 4054, peers 1 (620s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:19:43 height   1129 725da65554f0a23c396b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+50.6s)
+19:19:44 height   1131 9c7fe29c975a7266f006.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:19:45 height   1134 be2de1e32bd3b070854a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:19:46 height   1138 39e18e10b3898d1a1031.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:19:47 height   1142 ea025deaddde137d2966.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:19:47 height   1146 255733db40e559ebf27c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+ci-join: height 1147, the best a peer has 4055, peers 1 (640s)
+19:19:49 height   1148 71f7697c770c56dd4124.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.3s)
+19:19:49 height   1155 4bdcc396e0c8f1b81b9b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:19:51 height   1156 2199581c73d290178a0a.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.2s)
+19:19:52 height   1159 8e8da461bac794b1e6dc.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.2s)
+19:19:53 height   1164 5271e5ee5ec8af9b2bfe.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:19:54 height   1167 a590968c7301aba98652.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+19:19:55 height   1170 b2aab9a405c72cdb366c.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+19:19:55 height   1175 707f6293a7e13a5cb182.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+  n1 qwen-901349f9  height   1176  tip 625eef923fcf172a  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 1233, the best a peer has 4055, peers 1 (661s)
+ci-join: height 1330, the best a peer has 4055, peers 1 (681s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:20:44 height   1404 44d4dd32391e2b25f488.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+48.9s)
+19:20:45 height   1408 94cce1e7f3990f93d467.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:20:46 height   1412 f3ae92664908dcce7e26.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:20:47 height   1416 7064c270fce7e7379b5d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:20:48 height   1419 87560058c31a98e1d4a7.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+ci-join: height 1422, the best a peer has 4055, peers 1 (701s)
+19:20:48 height   1423 d5facc4ad47b6a0059ef.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:20:50 height   1424 97937278135e4aa8f15e.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.7s)
+19:20:51 height   1427 da4f8c0bcd7aa2f391a2.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:20:52 height   1431 f6b6fd2a80c117d94d02.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:20:53 height   1434 4a396706e9762bd583f9.. bits 2000ffff difficulty 5.96e-08 txs 4 by n? (+1.3s)
+19:20:54 height   1437 5876f8355082eb509fe5.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+19:20:54 height   1442 d97952c7941f26eeb125.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:20:55 height   1446 2919f951d33fa1ac8bd8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:20:56 height   1450 b2b4551348ae2e69c1bc.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+  n1 qwen-901349f9  height   1451  tip a69c4f3a260bd7d0  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 1509, the best a peer has 4056, peers 1 (722s)
+ci-join: height 1602, the best a peer has 4058, peers 1 (742s)
+ci-join: height 1699, the best a peer has 4062, peers 1 (762s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:21:57 height   1730 4576b909b75016cf2efa.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+60.3s)
+19:21:58 height   1734 2445430b6015a49940c6.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+19:21:58 height   1737 86935cde910fa22406a0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:21:59 height   1742 c759a23e28e1b160dec8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:22:00 height   1747 17091f0fcd2f3178acd3.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:01 height   1753 f92702bd1c53df59f853.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:22:02 height   1758 58433b797ac5719d5d35.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:03 height   1763 b220f2cec61c3da7727c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:22:03 height   1766 fd3c640d6a261bf156db.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:04 height   1771 b1ed629a26a9d87893c1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:22:05 height   1774 ee1cdec992cfcfa43a8c.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:22:06 height   1777 d454c5d71b3d3c05783a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+19:22:07 height   1783 48b4a884e810626576a6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:22:08 height   1788 5c596dc8008fe2ac0214.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:09 height   1789 8f01f82db0fdaa938be8.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+ci-join: height 1792, the best a peer has 4062, peers 1 (782s)
+19:22:09 height   1792 f933cd0c475de4501130.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:22:10 height   1797 7dfe643db6359e90646e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:11 height   1801 ec336b9a448150a95d88.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+19:22:12 height   1807 5d1ce9855c912c74ded3.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+19:22:13 height   1812 189f1440614dfa9373ce.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+19:22:13 height   1816 369c2b72d548da89c13f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+19:22:14 height   1821 7996a0b73f2d81fa4869.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+19:22:15 height   1825 ae4047f28cd264ea31a6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+  n1 qwen-901349f9  height   1826  tip 49c2571645903f27  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 1907, the best a peer has 4062, peers 1 (803s)
+ci-join: height 2004, the best a peer has 4063, peers 1 (823s)
+ci-join: height 2069, the best a peer has 4063, peers 1 (843s)
+ci-join: height 2139, the best a peer has 4063, peers 1 (863s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+ci-join: height 2200, the best a peer has 4063, peers 1 (884s)
+19:23:51 height   2200 46ced5f7f0ad4274ef51.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+96.1s)
+  n1 qwen-901349f9  height   2202  tip 7665a0330621c72f  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 2264, the best a peer has 4063, peers 1 (904s)
+ci-join: height 2335, the best a peer has 4064, peers 1 (924s)
+ci-join: height 2398, the best a peer has 4064, peers 1 (944s)
+ci-join: height 2464, the best a peer has 4064, peers 1 (965s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:25:26 height   2506 561709f6fa0d8fa69228.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+94.7s)
+19:25:27 height   2510 8ae51824c0ee95c68234.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.0s)
+19:25:28 height   2512 8f56304987aa8df86c80.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.4s)
+19:25:29 height   2518 c8e98e3b9161062a37d1.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:25:30 height   2524 4b0c9b5566ed479b01fa.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.9s)
+19:25:30 height   2528 193e149acadf8d80e6c1.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:25:32 height   2530 f428d161bcd8acf152f0.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.1s)
+ci-join: height 2532, the best a peer has 4064, peers 1 (985s)
+19:25:32 height   2533 4779c7d1b4f7e35d69ac.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.9s)
+19:25:34 height   2536 2aeb44ee5e28d8e329bb.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.1s)
+19:25:35 height   2538 16ef497031181dd94307.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.1s)
+19:25:36 height   2542 95307f2271fd8edd45ae.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.2s)
+19:25:37 height   2546 5247a781ba2103e85a2f.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.9s)
+19:25:38 height   2547 43f049aea4df740f5323.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.1s)
+19:25:39 height   2552 211c6c4825022dcdc8d6.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+19:25:39 height   2556 98d45e47bcc4a49c8980.. bits 1f3fffc0 difficulty 2.384e-07 txs 2 by n? (+0.9s)
+19:25:40 height   2562 d776adfc47d2e05fd4e2.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:25:41 height   2565 6443aada815e3c7f7aba.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+19:25:42 height   2566 2e577c40082e0792e99a.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.3s)
+19:25:43 height   2571 3a87387baa34dd69313c.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+1.0s)
+19:25:44 height   2573 280ed688b50266a8b6e7.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.3s)
+19:25:46 height   2575 7321e75075e967c18a81.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.1s)
+  n1 qwen-901349f9  height   2578  tip 076f254cc39032f6  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 2600, the best a peer has 4064, peers 1 (1005s)
+ci-join: height 2680, the best a peer has 4066, peers 1 (1026s)
+ci-join: height 2738, the best a peer has 4066, peers 1 (1046s)
+ci-join: height 2805, the best a peer has 4067, peers 1 (1066s)
+ci-join: height 2871, the best a peer has 4067, peers 1 (1086s)
+ci-join: height 2937, the best a peer has 4068, peers 1 (1106s)
+ci-join: height 3005, the best a peer has 4069, peers 1 (1127s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:28:04 height   3040 bd09b717f3c37b69ecf6.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+138.5s)
+19:28:05 height   3043 9af425c6b3dc7fa90bdd.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+19:28:05 height   3047 bdc0b9ca513ec106283a.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:28:06 height   3050 8860108a5143e3275874.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+  n1 qwen-901349f9  height   3050  tip 8860108a5143e327  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 3079, the best a peer has 4070, peers 1 (1147s)
+ci-join: height 3145, the best a peer has 4070, peers 1 (1167s)
+ci-join: height 3220, the best a peer has 4070, peers 1 (1188s)
+ci-join: height 3292, the best a peer has 4070, peers 1 (1208s)
+ci-join: height 3402, the best a peer has 4070, peers 1 (1228s)
+ci-join: height 3517, the best a peer has 4070, peers 1 (1249s)
+ci-join: height 3635, the best a peer has 4070, peers 1 (1269s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+ci-join: height 3734, the best a peer has 4071, peers 1 (1289s)
+19:30:37 height   3736 f72f7e41ac0973513f43.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+150.9s)
+19:30:38 height   3739 e0163970f41f196d5fb1.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.8s)
+19:30:38 height   3741 63f65bc2b35ec3aa7117.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:30:39 height   3747 ab84eb5cce591b298ad9.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.8s)
+19:30:40 height   3749 e8bda898e240793a03c9.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.8s)
+19:30:41 height   3754 5904bad7713553725fd9.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:30:42 height   3759 d171058760a5ce387725.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.9s)
+19:30:43 height   3760 2bcdc88bb2584d1a68af.. bits 1f3fffc0 difficulty 2.384e-07 txs 6 by n? (+1.1s)
+19:30:44 height   3765 ff24f99bc52194885c7e.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.0s)
+19:30:45 height   3767 813eef45541051d06c95.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.2s)
+19:30:46 height   3772 bb748eb9585482bc102f.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.9s)
+19:30:47 height   3774 48e42dc641531cb1c3a5.. bits 1f3fffc0 difficulty 2.384e-07 txs 7 by n? (+1.7s)
+19:30:48 height   3781 a2a4599d20b5c5b98046.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:30:49 height   3785 b43aff892f2947b43592.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+1.1s)
+19:30:50 height   3786 b187e88e0339b4fac3ea.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.0s)
+19:30:51 height   3790 20da94f0bfabc48afb61.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+1.1s)
+19:30:52 height   3792 488d5c9bc15f3e4ce49d.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.1s)
+19:30:53 height   3796 7fd0c5f2f39e953fafb3.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+19:30:54 height   3800 9ceb0afd4c4ff7da8be9.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+  n1 qwen-901349f9  height   3800  tip 9ceb0afd4c4ff7da  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 3806, the best a peer has 4071, peers 1 (1309s)
+ci-join: height 3876, the best a peer has 4072, peers 1 (1330s)
+ci-join: height 3940, the best a peer has 4072, peers 1 (1350s)
+ci-join: height 4013, the best a peer has 4073, peers 1 (1371s)
+ci-join: height 4060, the best a peer has 4073, peers 1 (1391s)
+ci-join: height 4074, the best a peer has 4074, peers 1 (1411s)
+ci-join: on the public chain: height 4074 (peers have 4074), 1 peer(s), tip db1b422b75007c4e5daa1011720b443d9bac974436f9848b3dcb39d3f67c28ba, genesis 51ebb1f3..
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+19:33:44 height   4074 db1b422b75007c4e5daa.. bits 1f0ffff0 difficulty 9.537e-07 txs 5 by n? (+170.1s)
+19:34:29 height   4075 e11d59fc2342e2bca211.. bits 1f0ffff0 difficulty 9.537e-07 txs 5 by n? (+44.9s)
+  n1 qwen-901349f9  height   4075  tip e11d59fc2342e2bc  peers 1  mined-coins 0  miner off  agent on  model off
+  n1 qwen-901349f9  height   4074  tip db1b422b75007c4e  peers 1  mined-coins 0  miner off  agent on  model off
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+ci-join: no model on this machine (the installer says why above); the node runs without it
+ci-join: OK
+stopped; the chain and the wallets are in /Users/runner/work/_temp/qwencoin-join/qwencoin/run
+tools/ci-join.sh: line 39: 53707 Terminated: 15          tail -n +1 -f install.log 2> /dev/null
+tools/ci-join.sh: line 39: 53706 Terminated: 15          ( sed "s/@ACCOUNT@/$ACCOUNT/g; s#@GITHUB@#$GITHUB#g" "$SRC/tools/install.sh" | QWENCOIN_OVERLAY="$SRC" bash ) > install.log 2>&1
+dist/node/macos-arm64/libexec/ord: satisfies its Designated Requirement
+Signature size=9043;Authority=Developer ID Application: Jarett Dunn (38DS45YWYM);Authority=Developer ID Certification Authority;Authority=Apple Root CA;Timestamp=Nov 13, 2026 at 7:06:39 PM;TeamIdentifier=38DS45YWYM;Runtime Version=15.5.0;
+dist/node/macos-arm64/libexec/qwencoin-cli: satisfies its Designated Requirement
+Signature size=9043;Authority=Developer ID Application: Jarett Dunn (38DS45YWYM);Authority=Developer ID Certification Authority;Authority=Apple Root CA;Timestamp=Nov 13, 2026 at 7:06:39 PM;TeamIdentifier=38DS45YWYM;Runtime Version=14.0.0;
+dist/node/macos-arm64/libexec/qwencoind: satisfies its Designated Requirement
+Signature size=9043;Authority=Developer ID Application: Jarett Dunn (38DS45YWYM);Authority=Developer ID Certification Authority;Authority=Apple Root CA;Timestamp=Nov 13, 2026 at 7:06:39 PM;TeamIdentifier=38DS45YWYM;Runtime Version=14.0.0;
+dist/node/macos-arm64/exec/libqsha.so: satisfies its Designated Requirement
+Signature size=9043;Authority=Developer ID Application: Jarett Dunn (38DS45YWYM);Authority=Developer ID Certification Authority;Authority=Apple Root CA;Timestamp=Nov 13, 2026 at 7:06:39 PM;TeamIdentifier=38DS45YWYM;Runtime Version=15.5.0;
+dist/node/macos-arm64/exec/libqwork.so: satisfies its Designated Requirement
+Signature size=9042;Authority=Developer ID Application: Jarett Dunn (38DS45YWYM);Authority=Developer ID Certification Authority;Authority=Apple Root CA;Timestamp=Nov 13, 2026 at 7:06:40 PM;TeamIdentifier=38DS45YWYM;Runtime Version=15.5.0;
+Conducting pre-submission checks for notarize.zip and initiating connection to the Apple notary service...
+Error: HTTP status code: 403. A required agreement is missing or has expired. This request requires an in-effect agreement that has not been signed or has expired. Ensure your team has signed the necessary legal agreements and that they are not expired.

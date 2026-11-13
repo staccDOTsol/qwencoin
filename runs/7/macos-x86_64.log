@@ -1,0 +1,26 @@
+Collecting numpy
+  Downloading numpy-2.5.4-cp314-cp314-macosx_14_0_x86_64.whl.metadata (6.6 kB)
+Downloading numpy-2.5.4-cp314-cp314-macosx_14_0_x86_64.whl (6.8 MB)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 6.8/6.8 MB 13.6 MB/s  0:00:00
+Installing collected packages: numpy
+Successfully installed numpy-2.5.4
+/Applications/Xcode_16.4.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk
+Apple clang version 17.0.0 (clang-1700.0.13.5)
+cargo 1.100.0 (3acc79c0c 2026-11-05)
+macos-x86_64: Darwin 24.6.0 x86_64, 4 cpus, python 3.14.7, numpy 2.5.4
+Cloning into 'upstream/bitcoin'...
+warning: refs/tags/v29.4-inq d2f29dd04938927a3d00f0222b96747c33c11a0a is not a commit!
+Updating files:  58% (1615/2778)Updating files:  59% (1640/2778)Updating files:  60% (1667/2778)Updating files:  61% (1695/2778)Updating files:  62% (1723/2778)Updating files:  63% (1751/2778)Updating files:  64% (1778/2778)Updating files:  65% (1806/2778)Updating files:  66% (1834/2778)Updating files:  67% (1862/2778)Updating files:  68% (1890/2778)Updating files:  69% (1917/2778)Updating files:  70% (1945/2778)Updating files:  71% (1973/2778)Updating files:  72% (2001/2778)Updating files:  73% (2028/2778)Updating files:  74% (2056/2778)Updating files:  75% (2084/2778)Updating files:  76% (2112/2778)Updating files:  77% (2140/2778)Updating files:  78% (2167/2778)Updating files:  79% (2195/2778)Updating files:  80% (2223/2778)Updating files:  81% (2251/2778)Updating files:  82% (2278/2778)Updating files:  83% (2306/2778)Updating files:  84% (2334/2778)Updating files:  85% (2362/2778)Updating files:  86% (2390/2778)Updating files:  87% (2417/2778)Updating files:  88% (2445/2778)Updating files:  89% (2473/2778)Updating files:  90% (2501/2778)Updating files:  91% (2528/2778)Updating files:  92% (2556/2778)Updating files:  93% (2584/2778)Updating files:  94% (2612/2778)Updating files:  95% (2640/2778)Updating files:  96% (2667/2778)Updating files:  97% (2695/2778)Updating files:  98% (2723/2778)Updating files:  99% (2751/2778)Updating files: 100% (2778/2778)Updating files: 100% (2778/2778), done.
+/bin/sh: command -v llvm-ranlib: No such file or directory
+/bin/sh: command -v llvm-strip: No such file or directory
+/bin/sh: command -v llvm-nm: No such file or directory
+/bin/sh: command -v llvm-objcopy: No such file or directory
+/bin/sh: command -v llvm-objdump: No such file or directory
+/bin/sh: command -v dsymutil: No such file or directory
+Fetching boost_1_81_0.tar.gz from https://archives.boost.io/release/1.81.0/source/
+  % Total    % Received % Xferd  Average Speed  Time    Time    Time   Current
+                                 Dload  Upload  Total   Spent   Left   Speed
+  0      0   0      0   0      0      0      0                              0  2 133.7M   2  3.10M   0      0  2.39M      0   00:55   00:01   00:54  2.58M  5 133.7M   5  7.10M   0      0  3.03M      0   00:44   00:02   00:42  3.15M  9 133.7M   9 12.10M   0      0  3.47M      0   00:38   00:03   00:35  3.56M 12 133.7M  12 17.10M   0      0  3.70M      0   00:36   00:04   00:32  3.78M 15 133.7M  15 21.00M   0      0  3.64M      0   00:36   00:05   00:31  3.70M 18 133.7M  18 25.10M   0      0  3.68M      0   00:36   00:06   00:30  3.98M 21 133.7M  21 29.10M   0      0  3.69M      0   00:36   00:07   00:29  3.98M 26 133.7M  26 36.10M   0      0  3.95M      0   00:33   00:09   00:24  4.26M 30 133.7M  30 41.06M   0      0  4.00M      0   00:33   00:10   00:23  4.25M 35 133.7M  35 47.10M   0      0  4.10M      0   00:32   00:11   00:21  4.57M 38 133.7M  38 52.06M   0      0  4.14M      0   00:32   00:12   00:20  4.69M 42 133.7M  42 57.10M   0      0  4.15M      0   00:32   00:13   00:19  4.75M 48 133.7M  48 65.10M   0      0  4.37M      0   00:30   00:14   00:16  5.02M 53 133.7M  53 71.10M   0      0  4.41M      0   00:30   00:16   00:14  5.12M 59 133.7M  59 79.10M   0      0  4.59M      0   00:29   00:17   00:12  5.57M 65 133.7M  65 88.10M   0      0  4.82M      0   00:27   00:18   00:09  6.33M 69 133.7M  69 93.09M   0      0  4.79M      0   00:27   00:19   00:08  6.35M 77 133.7M  77 103.1M   0      0  5.00M      0   00:26   00:20   00:06  6.63M 86 133.7M  86 116.0M   0      0  5.34M      0   00:25   00:21   00:04  7.99M 91 133.7M  91 122.1M   0      0  5.31M      0   00:25   00:22   00:03  7.47M 96 133.7M  96 129.1M   0      0  5.38M      0   00:24   00:23   00:01  7.16M100 133.7M 100 133.7M   0      0  5.49M      0   00:24   00:24          7.16M100 133.7M 100 133.7M   0      0  5.49M      0   00:24   00:24          7.16M100 133.7M 100 133.7M   0      0  5.49M      0   00:24   00:24          7.16M
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/work/download/boost-1.81.0/boost_1_81_0.tar.gz.temp: OK
+Extracting boost...
+/Users/runner/work/qwencoin/qwencoin/upstream/bitcoin/depends/sources/boost_1_81_0.tar.gz: OK

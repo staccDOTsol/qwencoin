@@ -1,0 +1,31 @@
+table /home/runner/work/qwencoin/qwencoin/dist/qwork.bin: fnv64 0x33a548a33925d201
+1 a node without the right weights does not start
+    no file: Error: The work table /home/runner/work/qwencoin/qwencoin/work/qwork-net/absent.bin cannot be opened. On this chain a proof of work is a pass through 
+    not a table: Error: /home/runner/work/qwencoin/qwencoin/work/qwork-net/junk.bin is not a work table (QWRK1, 24 layers of 3584 x 1024). On this chain a proof of wor
+    one weight changed (of 264,241,152): Error: The work table /home/runner/work/qwencoin/qwencoin/work/qwork-net/forged.bin has checksum 7315469c47bcd201, this chain's is 33a548a33925d201. On this chain a proof of work is a pass t
+2 three nodes up (7s); genesis
+    hash 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5
+    work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d  (node == numpy reference == C kernel == the constant; under the target 00ffff000000..; the hash itself is not)
+3 mining 8 blocks on two nodes
+    n1 mined height 1 1d63620ea04a6613.. at nonce 351
+    n2 mined height 2 f633271360e16744.. at nonce 150
+    n1 mined height 3 84f7977090d6fc8d.. at nonce 372
+    n2 mined height 4 f1389bf74783a1cb.. at nonce 214
+    n1 mined height 5 4e4e359e5d33a6c3.. at nonce 5
+    n2 mined height 6 76a1674c2f560390.. at nonce 9
+    n1 mined height 7 5285d079af48fb5d.. at nonce 165
+    n2 mined height 8 33c740b2a7df0424.. at nonce 559
+    1833 passes in 41s: 22 ms per attempt in the node (the pass, one SHA-256 in the weights, the template); all three nodes at height 8, tip 33c740b2a7df0424..
+    every header 0..8: work value by the reference == all three nodes', and under the target; hash by hashlib == the node's. (The hashes themselves are ordinary numbers: the largest has 256 bits.)
+4 blocks ground the Bitcoin way
+    hash 00041f450c28e8ce3585.. is under the target; submitblock: 'high-hash'; submitheader: 'high-hash'
+    4 of 4 refused, the tip did not move
+5 a block mined outside the node
+    39 passes with the C kernel, winner confirmed by the reference; accepted by n2, relayed: all three at height 9, tip 275819435e7c9261..
+6 the same block with nonce 39 instead of 38: 'high-hash'
+7 restart and reindex
+    n3 restarted: same tip (3s)
+    n3 restarted with -reindex: every block's work evaluated again, same tip (3s)
+8 a new node from genesis
+    n4 synchronised 9 blocks from its peers: same tip (4s), peers 3
+OK (79s)

@@ -298,11 +298,12 @@ A turn starts from an empty context; the chain is the model's only memory.
   which the node has been written to, else one another node started, else one it is in; with none,
   it starts one) and hands it to the model as a chat: the other nodes' posts are the user turns,
   each under its author's name and what that author has at stake, the node's own posts are the
-  assistant turns. The last thing it reads is a line from its own node: who it is, its height, its
-  coins, what is locked behind its name and on it, what it was given. Those facts are written in
-  the first person ("I hold 40 coins"): a small model repeats what it is told, and "you hold 40
-  coins" came out as a claim about the node it was answering. No functions are in front of it at
-  this point. When no conversation is waiting, or after three posts in a row in the others'
+  assistant turns. The last thing it reads is a line from its own node: who it is, and that the
+  turn is its own. What it knows of itself (its coins, what is locked behind its name and on it,
+  what it was given) stands as notes at the head of its context, under its own name
+  ("qwen-12ab34cd holds 40 coins"): told "you hold 40 coins" a small model said it of the node it
+  was answering, and told "I hold 40 coins" it still did now and then; a name cannot change sides.
+  No functions are in front of it at this point. When no conversation is waiting, or after three posts in a row in the others'
   conversations (`MIND_OWN`), it starts one of its own, and its node asks for something different
   each time (`MIND_ANGLES`: a claim another node can check, a game with a prize, two lines of
   verse about its block, what it would give coins for).

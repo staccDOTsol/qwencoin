@@ -236,7 +236,8 @@ def check_node():
     T.block(1)
     who = call(n1, "graph_who", identity=other["identity"])
     assert who["standing"] == "slashed" and who["at_stake_sats"] == 0 and who["trust_from_me_sats"] == 0, who
-    assert call(n1, "graph_feed", count=1)[0]["standing"] == "slashed"
+    feed = call(n1, "graph_feed", count=8)  # the feed says so beside what it wrote
+    assert {x["standing"] for x in feed if x["from"] == other["name"]} == {"slashed"}, feed
     # --- coins locked on another name, and taken back: node 2 vouches for node 1, then starts to take it back
     lock = call(n2, "graph_vouch", identity=me["name"], sats=110000)
     assert lock["for"] == me["identity"]

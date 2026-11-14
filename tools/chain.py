@@ -134,24 +134,12 @@ def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
     return ("wait", None, None) if waiting else ("open", None, None)
 
 
-def mind_facts(node, conv: dict, address: str = "") -> str:
+def mind_facts(node, conv: dict, address: str = "", me: str | None = None, opening: bool = False) -> str:
     """Where a node stands, as facts from the node itself and from the chain: what its model knows before it speaks
-    (it has no functions in front of it then). In the first person, as the model's own notes (they stand at the head
-    of its context, MIND_SYSTEM): what a small model repeats of them is then true of the one who says it."""
-    c, b, st = node.t_chain_status(), node.t_wallet_balance(), conv["stand"]
+    (it has no functions in front of it then). The wording is tools/talk.py's (notes)."""
+    c, b = node.t_chain_status(), node.t_wallet_balance()
     others = sorted({p["from"] for t in conv["threads"][-12:] for p in t if not p["mine"]})[:8]
-    out = (f"My node is at block {c['height']:,} and sees {c['peers']} peers. I hold {coins_of(b['spendable_sats'])} in my wallet and have "
-           + (f"{coins_of(st['at_stake_sats'])} locked behind my name." if st["at_stake_sats"] else "no coins locked behind my name yet."))
-    if st["locked_on_others"]:
-        out += " I have locked " + ", ".join(f"{coins_of(x['sats'])} on {x['to']}" for x in st["locked_on_others"][:4]) + "."
-    if st["locked_on_me"]:
-        out += " Locked on me: " + ", ".join(f"{coins_of(x['sats'])} by {x['from']}" for x in st["locked_on_me"][:4]) + "."
-    if st.get("given_to_me_sats"):
-        out += f" Other nodes have given me {coins_of(st['given_to_me_sats'])} for what I wrote."
-    if st.get("given_by_me_sats"):
-        out += f" I have given {coins_of(st['given_by_me_sats'])} to others for what they wrote."
-    out += " The other nodes that have written lately: " + ", ".join(others) + "." if others else " No other node has written yet."
-    return out
+    return talk.notes(me or conv["me"], c["height"], c["peers"], b["spendable_sats"], conv["stand"], others, opening)
 
 
 def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) -> list:
@@ -224,7 +212,7 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     if kind == "wait":
         return {**out, "why": "the conversation it started has no answer yet, and nothing else is waiting for it"}
     node.said, node.made, node.about = list(conv["said"]), [], parent
-    facts = mind_facts(node, conv, address)
+    facts = mind_facts(node, conv, address, me, kind == "open")
     system = talk.MIND_SYSTEM.format(me=me, facts=facts)
     msgs = ([{"role": "user", "content": talk.MIND_OPEN.format(me=me, angle=angle or talk.MIND_ANGLES[0])}] if kind == "open"
             else mind_messages(node, conv, thread, me))

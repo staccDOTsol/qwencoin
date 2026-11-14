@@ -136,8 +136,8 @@ class Graph:
         self.files = {}  # inscription id -> what it is (carried)
         self.chain = {}  # where the node itself is: its height, what its peers have, how far ord has indexed
         # What the pages were made of when this server last ran, kept beside the node: shown, and said to be that,
-        # until the chain has been read again (every inscription is verified anew at each start, which takes minutes).
-        # Nothing is decided from it: it is what was on the pages, not the index.
+        # until the chain has been read again (seconds when the graph index can take up what it kept, minutes when
+        # every inscription has to be verified anew). Nothing is decided from it: it is what was on the pages.
         self.kept, self.old, self.saved = net.datadir(node) / "web-snapshot.json", False, 0.0
         try:
             snap = json.loads(self.kept.read_text())
@@ -553,7 +553,7 @@ def sync_note(g) -> str:
     c = g.chain if g is not None else {}
     if g is not None and g.old and g.snap:  # the pages of the last run, while the chain is read again
         return (f"<p class=sync>These pages have just started again. What is shown is the graph as it was at block "
-                f"{g.snap['status']['height']:,}; every inscription is being verified anew ({html.escape(g.progress)}), "
+                f"{g.snap['status']['height']:,}; the chain is being read again ({html.escape(g.progress)}), "
                 "and what is new since then appears when that is done.</p>")
     if not c or not c.get("catching_up"):
         return ""

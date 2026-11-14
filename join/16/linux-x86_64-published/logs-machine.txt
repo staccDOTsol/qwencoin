@@ -1,0 +1,6 @@
+cpu: AMD EPYC 9V74 80-Core Processor, 4 threads
+cpu flags: avx2 avx512_bf16 avx512f 
+memory: 15 GB
+disk free here: 85G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+speed: one pass through the work table 16 ms; one SHA-256 in the circuit's executor 3.6 ms; one fsync 2.5 ms

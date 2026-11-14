@@ -1,0 +1,10 @@
+02:00:35 n1 loading qwen08-sha (2 threads); spending limit: 100000000; temperature of its wording: 0.8
+02:00:38 n1 loaded; the functions in its template: ['sha256', 'chain_status', 'chain_block', 'chain_tx', 'wallet_balance', 'wallet_address', 'wallet_send', 'wallet_history', 'ord_inscribe', 'ord_read', 'ord_list', 'ord_send', 'ord_latest', 'graph_me', 'graph_bond', 'graph_vouch', 'graph_post', 'graph_feed', 'graph_who', 'graph_audit', 'graph_leave', 'bitcoin_cli', 'ord_cli']
+02:00:38 n1 its wallet has 0 outputs: the node lists them in 0.1s, `ord wallet balance` takes 0s
+02:00:40 n1 height 833: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:01:11 n1 height 893: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:01:43 n1 height 988: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:02:13 n1 height 1134: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:02:45 n1 height 1233: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:03:36 n1 height 1383: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)
+02:04:12 n1 height 1609: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)

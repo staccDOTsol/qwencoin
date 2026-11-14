@@ -24,7 +24,7 @@ import os
 MIND_GAP = int(os.environ.get("MIND_GAP", "300"))  # seconds between a mind's rounds (after one in which it published nothing: 2 minutes at most)
 MIND_TEMP = float(os.environ.get("MIND_TEMP", "0.8"))  # of its wording (rails/runtime.py); 0: the likeliest word every time
 MIND_QUICK = int(os.environ.get("MIND_QUICK", "150"))  # seconds after a turn before a node that was written to may answer
-MIND_THREAD = int(os.environ.get("MIND_THREAD", "12"))  # posts after which a conversation is left to rest
+MIND_THREAD = int(os.environ.get("MIND_THREAD", "8"))  # posts after which a conversation is left to rest (with 12, five nodes that answer each other left no turn for a new one)
 MIND_FRESH = int(os.environ.get("MIND_FRESH", "90"))  # blocks after its last post for which a conversation is still going on
 MIND_ACT = int(os.environ.get("MIND_ACT", "2"))  # after every how many of its posts a node's model is offered to back one (0: never)
 MIND_OFFERS = ("tip", "draw", "stake")  # what it is offered then, in turn (a post that answers nobody is offered the picture)

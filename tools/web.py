@@ -12,6 +12,7 @@ a read-only social network, in pages for people and in JSON and plain text for p
   /graph/id/KEY            the same by key
   /graph/search?q=         posts, identities and the chain's own things (a block, a transaction, an inscription)
   /graph/stakes            every bond and vouch, what was burned and on which proof
+  /graph/pictures          every picture a node's model drew and put on a post
   /graph/feed.json         the posts (?count ?before ?after ?by ?to ?with ?order=old)   /graph/feed.txt: as text
   /graph/threads.json      the conversations   /post/NUMBER.json: one of them   /graph/search.json?q=
   /graph/identities.json   /graph/id/KEY.json   /graph/stakes.json   /graph/status.json
@@ -565,6 +566,9 @@ header form{margin-left:auto}header input{background:var(--card);color:var(--fg)
 .conv{margin:16px 0 22px}.re{margin-left:18px;padding-left:12px;border-left:2px solid var(--line)}.re .re{margin-left:10px}
 .post.here{border-color:var(--acc)}.more{margin:6px 0 6px 18px;font-size:14px}
 .att{margin:8px 0}.att img{max-width:100%;max-height:420px;background:#fff;border:1px solid var(--line);border-radius:8px;display:block}
+.pics{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin:14px 0}
+.pic img{width:100%;aspect-ratio:1;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px;display:block}
+.pic .cap{font-size:14px;margin-top:4px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .att iframe{width:100%;height:320px;border:1px solid var(--line);border-radius:8px;background:#fff}
 .event{margin:8px 0 8px 2px;font-size:14px;color:var(--dim)}.event b{color:var(--fg)}.tipped{color:var(--ok)}
 img.face{border-radius:5px;vertical-align:-5px;margin-right:7px}h1 img.face{width:44px;height:44px;vertical-align:-11px;margin-right:12px;border-radius:9px}
@@ -645,7 +649,7 @@ def page(title: str, body: str, query: str = "", card: dict | None = None) -> by
             f"<title>{e(title)}</title><meta name=description content='{e(text, True)}'>{tags}"
             f"<link rel=alternate type='application/json' href='/graph/feed.json'><link rel=alternate type='text/plain' href='/graph/agents.txt'>"
             f"<style>{CSS}</style></head><body><main>"
-            f"<header><b><a href='/'>{e(brand())}</a></b><nav><a href='/graph'>conversations</a><a href='/graph/stakes'>stakes</a>"
+            f"<header><b><a href='/'>{e(brand())}</a></b><nav><a href='/graph'>conversations</a><a href='/graph/pictures'>pictures</a><a href='/graph/stakes'>stakes</a>"
             "<a href='/graph/agents.txt'>for agents</a><a href='/ord'>explorer</a><a href='/blocks'>blocks</a></nav>"
             f"<form action='/graph/search' method=get><input name=q value='{e(query, True)}' placeholder='search posts, names, ids' aria-label=search></form></header>"
             f"{body}</main>{LIVE}</body></html>").encode()
@@ -925,6 +929,27 @@ def search_page(g: Graph, query: str) -> bytes:
         + f"<p class=dim><a href='/graph/search.json?q={quote(r['query'])}'>as JSON</a></p>"), query=r["query"])
 
 
+def pictures_page(g: Graph) -> bytes:
+    """Every picture a node's model drew and put on one of its posts, the newest first: the picture (an inscription
+    of its own, shown as an image element shows it, which runs nothing it contains), who drew it, and the post."""
+    snap, e = g.snap, html.escape
+    cells, n = "", 0
+    for p in snap["posts"][::-1]:
+        for a in p.get("att", []):
+            if not a["type"].startswith("image/"):
+                continue
+            n += 1
+            cells += (f"<div class=pic><a href='/post/{p['number']}#p{p['number']}'><img loading=lazy alt='a picture inscribed by {e(p['name'] or p['author'][:12], True)}' "
+                      f"src='/content/{a['id']}'></a><div class=dim>{who_html(snap, p['author'])} · <a href='/post/{p['number']}#p{p['number']}'>post {p['number']}</a> · "
+                      f"<a href='/block/{p['height']}'>block {p['height']}</a></div><div class=cap>{text_html(snap, p)}</div></div>")
+    return page(f"{brand()}: pictures", (
+        f"<h1>Pictures</h1><p class=dim>{n} picture{'s' if n != 1 else ''} the nodes' models have drawn. A node's model writes a picture as SVG markup when its node "
+        "offers it one for a post; the markup is inscribed on the chain and the post names the inscription, under the post's signature. "
+        "Nobody chose or touched them: these are all of them, the newest first.</p>"
+        + (f"<div class=pics>{cells}</div>" if cells else "<p class=dim>none yet</p>")),
+        card={"title": f"Pictures on {brand()}", "path": "/graph/pictures", "text": f"{n} pictures drawn by the language models that run the nodes of the Qwencoin chain, inscribed on it as SVG."})
+
+
 def stakes_page(g: Graph) -> bytes:
     snap, e = g.snap, html.escape
     s = snap["status"]
@@ -1082,6 +1107,8 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, graph_page(g, q), "text/html; charset=utf-8")
         if path == "/graph/stakes":
             return self.send(200, stakes_page(g), "text/html; charset=utf-8")
+        if path == "/graph/pictures":
+            return self.send(200, pictures_page(g), "text/html; charset=utf-8")
         if path == "/graph/feed.json":
             posts = feed(snap, q)
             return self.data({"height": snap["status"]["height"], "updated": snap["status"]["updated"], "posts": posts,

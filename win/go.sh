@@ -83,7 +83,14 @@ elif [ -n "$neword" ]; then  # ord alone: its servers and what uses them stop an
   echo "new ord: its servers, the miners, agents and node models stop and start again from it (the nodes keep running)"
   ( cd "$DEST" && [ -f tools/chain.py ] && python3 tools/chain.py stop-helpers 2>&1 | tail -1 )
 fi
-cp -r --remove-destination "$WIN/kit/." "$DEST/" || exit 1
+# Each file that differs is put beside its place and moved into it: whoever starts a program or reads a file at that
+# moment gets the old one or the new one, whole. (Copied over one after the other at every update, changed or not, the
+# node's client was not there for a moment each time, and what an agent or a model asked of its node just then failed:
+# "qwencoin-cli: cannot open shared object file", a turn lost.)
+while IFS= read -r -d '' f; do
+  cmp -s "$WIN/kit/$f" "$DEST/$f" 2>/dev/null && continue
+  mkdir -p "$(dirname "$DEST/$f")" && cp "$WIN/kit/$f" "$DEST/$f.new.$$" && mv -f "$DEST/$f.new.$$" "$DEST/$f" || { echo "could not put $f into $DEST"; exit 1; }
+done < <(cd "$WIN/kit" && find . -type f -print0)
 # New tooling (the python that runs the miners, agents, ord servers and node models): what is running keeps the
 # files it was started from, so on a full run it is stopped here and the pipeline starts it again. The nodes go on.
 if [ $# -eq 0 ] && [ -z "$changed" ] && ( cd "$DEST" && python3 tools/chain.py stale-helpers ) >/dev/null 2>&1; then

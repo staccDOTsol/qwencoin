@@ -61,14 +61,39 @@ def up(height: int = 106, log=print) -> dict:
         if all(net.cli(i, "getconnectioncount") >= 1 for i in NODES):
             break
         time.sleep(1)
+    if any(net.cli(i, "getmempoolinfo")["size"] for i in NODES):  # what an earlier run left unconfirmed is confirmed before this one begins
+        left = level()
+        net.cli(1, "generatetoaddress", 1, a[1], 10_000_000)
+        net.settle(len(NODES), 300)
+        for i in NODES:
+            net.ord_wait(i, timeout=600)
+        log(f"what an earlier run had left in the mempools ({left} transaction(s) one node had and the other not) is in block {net.cli(1, 'getblockcount')}")
     return a
+
+
+def level() -> int:
+    """Each node is handed what the other's mempool has and its own has not, parents first. (A node relays a
+    transaction when it first takes it in: what a node that was stopped kept in its mempool, it does not offer
+    again, and the other never hears of it.) Returns how many were handed over."""
+    pools, n = {j: net.cli(j, "getrawmempool", "true") for j in NODES}, 0
+    for j in NODES:
+        for k in NODES:
+            for t in sorted((t for t in pools[j] if k != j and t not in pools[k]), key=lambda t: pools[j][t]["ancestorcount"]):
+                try:
+                    net.cli(k, "sendrawtransaction", net.cli(j, "getrawtransaction", t))
+                    n += 1
+                except RuntimeError:  # it spends what something in the other's mempool spends: it stays where it is
+                    pass
+    return n
 
 
 def block(i: int = 1, n: int = 1) -> int:
     """Mine n blocks on node i (confirming what is in its mempool) and wait until both ords have them."""
     a = addrs()
-    for _ in range(240):  # what one node sent has to reach the miner's mempool first (relay takes seconds)
+    for k in range(240):  # what one node sent has to reach the miner's mempool first (relay takes seconds)
         if len({tuple(sorted(net.cli(j, "getrawmempool"))) for j in NODES}) == 1:
+            break
+        if k % 20 == 19 and not level():  # ten seconds and still not the same: handed over; nothing to hand over: they will not be
             break
         time.sleep(0.5)
     net.cli(i, "generatetoaddress", n, a[i], 10_000_000)

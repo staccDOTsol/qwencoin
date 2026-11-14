@@ -132,7 +132,8 @@ class Graph:
 
     def __init__(self, node: int) -> None:
         self.node, self.snap, self.error, self.progress = node, None, None, "starting"
-        self.meta = {}  # inscription id -> (number, height, timestamp): fixed once it is in a block
+        self.meta = {}  # inscription id -> (number, height, timestamp), for one the graph index has not read: fixed once it is in a block
+        self.times = {}  # height -> the time in that block's header (asked of the node once)
         self.files = {}  # inscription id -> what it is (carried)
         self.chain = {}  # where the node itself is: its height, what its peers have, how far ord has indexed
         # What the pages were made of when this server last ran, kept beside the node: shown, and said to be that,
@@ -145,6 +146,18 @@ class Graph:
                 snap["post"] = {p["id"]: p for p in snap["posts"]}
                 snap["numbered"] = {p["number"]: p for p in snap["posts"]}
                 self.snap, self.old = snap, True
+                # What does not change is taken from it: the time of a block that was buried then (as deep as the
+                # graph index keeps what it read), and what an inscription is that a post of such a block carries.
+                # Looked up again, they were ten minutes of old pages at every start: ord takes seconds an inscription.
+                import calendar
+                from graph.index import KEEP_DEPTH
+                deep = snap["status"]["height"] - KEEP_DEPTH
+                for x in snap["posts"] + snap["stakes"] + snap["tips"]:
+                    if x.get("height") is not None and x["height"] <= deep and x.get("time"):
+                        self.times[x["height"]] = calendar.timegm(time.strptime(x["time"], "%Y-%m-%dT%H:%M:%SZ"))
+                for p in snap["posts"]:
+                    if p.get("height") is not None and p["height"] <= deep:
+                        self.files.update({a["id"]: a for a in p.get("att", []) if a.get("number") is not None})
         except Exception:  # noqa: BLE001  (none yet, or not one of this chain's: the pages wait for the chain to be read)
             pass
 
@@ -181,7 +194,15 @@ class Graph:
                 return {"id": iid, "type": "unknown", "bytes": None, "number": None, "text": None}
         return self.files[iid]
 
-    def about(self, iid: str) -> tuple:
+    def about(self, iid: str, ix=None) -> tuple:
+        """(ord's number, the block, that block's time) of an inscription: its number and block as the graph index
+        read them, the time from the block's header. One the index has not read is asked of ord, once."""
+        rec = ix.records.get(iid) if ix is not None else None
+        if rec and rec.get("height") is not None:
+            h = rec["height"]
+            if h not in self.times:
+                self.times[h] = net.cli(self.node, "getblockheader", net.cli(self.node, "getblockhash", h, timeout=30), timeout=30)["time"]
+            return rec["number"], h, self.times[h]
         if iid not in self.meta:
             m = net.ord_get(self.node, f"/inscription/{iid}")
             self.meta[iid] = (m.get("number", 0), m.get("height"), m.get("timestamp"))
@@ -203,6 +224,8 @@ class Graph:
         while True:
             try:
                 ix.refresh()
+                if self.snap is None or self.old:
+                    self.progress = f"{len(ix.seen)} inscriptions read and verified ({time.time() - t0:.0f}s); making the pages"
                 self.snap, self.old = self.build(ix), False
                 self.error = None
                 if time.time() - self.saved > 60:  # for the next start (see __init__)
@@ -227,7 +250,7 @@ class Graph:
         posts = []
         for iid, m in ix.seen.items():
             if m and m["op"] == "post":
-                number, height, ts = self.about(iid)
+                number, height, ts = self.about(iid, ix)
                 posts.append({"number": number, "id": iid, "height": height, "time": iso(ts), "author": m["id"],
                               "name": names.get(bytes.fromhex(m["id"])), "seq": int(m["seq"]), "text": m["text"], "sig": m["sig"]})
         posts.sort(key=lambda p: p["number"])
@@ -251,7 +274,7 @@ class Graph:
         # tips that count (graph/index.py): each a note born on its coins, at the receiver's own key
         tips = []
         for t in ix.given():
-            number, height, ts = self.about(t["id"])
+            number, height, ts = self.about(t["id"], ix)
             tips.append({"id": t["id"], "number": number, "height": height, "time": iso(ts), "from": t["from"].hex(), "from_name": names.get(t["from"]),
                          "to": t["to"].hex(), "to_name": names.get(t["to"]), "sats": t["sats"], "re": t["re"] if t["re"] in author else None})
         for p in posts:
@@ -290,7 +313,7 @@ class Graph:
             }
         st = []
         for s in stakes:
-            number, height, ts = self.about(s.inscription)
+            number, height, ts = self.about(s.inscription, ix)
             st.append({"id": s.inscription, "number": number, "kind": "bond" if s.kind == "id" else "vouch", "identity": s.bond.pid.hex(),
                        "name": names.get(s.bond.pid), "from": s.frm.hex() if s.frm else None, "from_name": names.get(s.frm) if s.frm else None,
                        "sats": s.bond.amount, "status": s.status, "height": height, "time": iso(ts),
@@ -1086,7 +1109,7 @@ class Handler(BaseHTTPRequestHandler):
             return self.data({"height": snap["status"]["height"], "stakes": snap["stakes"], "tips": snap["tips"], "proofs": snap["proofs"],
                               **{k: snap["status"][k] for k in ("at_stake_sats", "live_vouch_sats", "burned_stakes", "burned_sats")}})
         if path == "/graph/status.json":
-            return self.data({"name": brand(), **snap["status"], "reading": ("again: " + g.progress) if g.old else (g.error or "ok"), "node": g.chain})
+            return self.data({"name": brand(), **snap["status"], "reading": ("again: " + g.progress + (f" (the last try: {g.error})" if g.error else "")) if g.old else (g.error or "ok"), "node": g.chain})
         if path.startswith("/graph/id/"):
             who, as_json = unquote(path[len("/graph/id/"):]), False
             if who.endswith(".json"):

@@ -9,7 +9,8 @@ vouches, burns, posts with answers and pictures, tips paid and unpaid:
   3. a new index takes the file up and reads only what is not buried yet: it must be the reference in everything
      that is derived (stakes and where they stand, heads, attestations, posts and conversations, tips, weights,
      edges, proofs), and it must have asked the node for far less
-  4. a file kept under a block the chain does not have, or read by other code, is not taken up
+  4. a file kept under a block the chain does not have, or read by other code, is not taken up; one kept by an
+     earlier version whose reading was word for word this one's (graph/index.py READ_ALIKE) is
 """
 import json, os, sys, time
 from pathlib import Path
@@ -85,9 +86,11 @@ def main():
     print(f"  kept: {buried} of them, buried {I.KEEP_DEPTH} blocks or more, under block {kept['anchor'][0]} ({kept['anchor'][1][:16]}..)")
     print(f"  taken up: the same index in everything derived, {n_again[0]} inscriptions read in {t_again:.1f}s")
     # a file from another chain, or read by other code, is left alone
+    good = f.read_text()
+    assert json.loads(good)["reading"] == I.reading()
     for what, change in (("kept under a block this chain does not have", lambda k: k.update(anchor=[k["anchor"][0], "00" * 32])),
                          ("read by other code", lambda k: k.update(reading="00000000"))):
-        k = json.loads(f.read_text())
+        k = json.loads(good)
         change(k)
         f.write_text(json.dumps(k))
         ix = I.Index(node)
@@ -96,6 +99,20 @@ def main():
         ix.refresh()
         assert ix.taken_up == 0 and n[0] == len(ix.seen) >= len(ref.seen), (what, ix.taken_up, n[0], len(ix.seen))
         print(f"  a file {what}: not taken up, everything read again ({n[0]} inscriptions)")
+    # one kept by an earlier version that read an inscription word for word as this one does (READ_ALIKE) is taken up
+    for alike in I.READ_ALIKE:
+        k = json.loads(good)
+        k["reading"] = alike
+        f.write_text(json.dumps(k))
+        ix = I.Index(node)
+        n = counted(ix)
+        ix._keep = lambda: None
+        ix.refresh()
+        assert ix.taken_up == buried and n[0] == len(ix.seen) - buried, (alike, ix.taken_up, n[0], len(ix.seen))
+        c2 = state(ix)
+        for kk in a:
+            assert a[kk] == c2[kk], f"{kk}: the index that took up the earlier version's file differs"
+        print(f"  a file kept by an earlier version that read the same ({alike}): taken up, the same index")
     f.unlink()
     I.Index(node).refresh()  # the file as it should be, for whatever runs next
     print("OK")

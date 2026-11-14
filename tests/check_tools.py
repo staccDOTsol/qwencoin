@@ -12,7 +12,10 @@ its payment goes to node 2, its inscription and its post stay on the chain):
             against the chain: coins move, an inscription is written, read, listed and given
             away, identities bond, post and vouch, a lie is audited and its stake and the vouch
             on it burn, a stake starts to leave. Then what must be refused: unapproved spending,
-            bad addresses and amounts, key export, stopping the node, unknown functions.
+            bad addresses and amounts, key export, stopping the node, unknown functions. After
+            every refresh of a graph index, ord is asked where each stake's inscription is (the
+            index itself follows a stake by the node's unspent outputs), and at the end the two
+            indexes that lived through it must be the index a new process reads off the chain.
   tips      the part of `node` about coins given for a post, by itself (four blocks): the tip is
             one inscription that is also the payment, the receiver's identity collects it into
             its wallet; a note without its coins and a copy of a paid note do not count.
@@ -85,6 +88,54 @@ def err(node, name, **args) -> str:
     return r["error"]
 
 
+# Every refresh of a graph index in this process is followed by the long way round. graph/index.py follows a stake by
+# the node's own coins (while the output its inscription was found on is unspent it has not moved) and asks ord only
+# when that output is spent; here ord is asked about every stake after every refresh, and must give the standing, the
+# stage and the output the index has. (Not on the running chain, where a block may come between the two looks.)
+PLACES = {"refreshes": 0, "places": 0, "asked": 0}
+
+
+def watch_places():
+    import copy
+    from graph import index as I
+
+    refresh, locate, get = I.Index.refresh, I.Index._locate, net.ord_get
+    asked = [0]
+
+    def ord_get(i, path):
+        asked[0] += path.startswith("/inscription/")
+        return get(i, path)
+
+    def counted(self, st):
+        n = asked[0]
+        r = locate(self, st)
+        PLACES["asked"] += asked[0] > n
+        return r
+
+    def checked(self):
+        refresh(self)
+        PLACES["refreshes"] += 1
+        for st in self.stakes.values():
+            if st.status in ("invalid", "replay"):
+                continue
+            ref = copy.copy(st)
+            ref.at, ref.burned, ref.status, ref.stage = "", False, "unknown", None
+            locate(self, ref)
+            assert (ref.status, ref.stage) == (st.status, st.stage) and (ref.outpoint == st.outpoint or st.status == "exited"), \
+                f"a stake is not where ord has it: {st.inscription} is {st.status} (stage {st.stage}, {st.outpoint}) in the index, {ref.status} (stage {ref.stage}, {ref.outpoint}) by ord"
+            PLACES["places"] += 1
+        return self
+
+    net.ord_get, I.Index._locate, I.Index.refresh = ord_get, counted, checked
+
+
+def mined(i: int, h: int) -> int:
+    """What the coinbase of block h pays node i's wallet, in sats (50 coins and the block's fees, if it is its block)."""
+    cb = net.cli(i, "getblock", net.cli(i, "getblockhash", h), 2)["tx"][0]
+    return sum(round(o["value"] * 1e8) for o in cb["vout"]
+               if o["scriptPubKey"].get("address") and net.cli(i, "getaddressinfo", o["scriptPubKey"]["address"], wallet="ord")["ismine"])
+
+
 # ====================================================================== the node side
 def check_node():
     asked = []
@@ -110,15 +161,18 @@ def check_node():
     b1 = call(n1, "wallet_balance")
     assert b1["spendable_sats"] >= 50 * 10**8, b1
     a2 = call(n2, "wallet_address")
-    before2 = call(n2, "wallet_balance")["spendable_sats"]
+    before2, at2 = call(n2, "wallet_balance")["spendable_sats"], net.cli(2, "getblockcount")
     pay = call(n1, "wallet_send", address=a2, sats="5,000,000")
     assert asked[-1] == (f"pay 5,000,000 sats to {a2}", 5_000_000)
     assert call(n1, "chain_tx", txid=pay["txid"])["confirmations"] == 0
     T.block(1)
     tx = call(n2, "chain_tx", txid=pay["txid"])
     assert tx["confirmations"] == 1 and {"sats": 5_000_000, "address": a2} in tx["outputs"], tx
-    # n2's spendable coins grew by the payment, and by 50 coins for each of its own blocks that matured meanwhile
-    assert (call(n2, "wallet_balance")["spendable_sats"] - before2 - 5_000_000) % (50 * 10**8) == 0
+    # n2's spendable coins grew by the payment, and by what each of its own blocks that matured meanwhile paid it
+    # (a block's coins can be spent 100 blocks later: 50 coins and the fees of what was in it)
+    ripe = sum(mined(2, h) for h in range(at2 - 99, net.cli(2, "getblockcount") - 99))
+    grown = call(n2, "wallet_balance")["spendable_sats"] - before2
+    assert grown == 5_000_000 + ripe, (grown, ripe)
     hist = call(n1, "wallet_history", count=5)
     assert any(t["txid"] == pay["txid"] for t in hist), hist
     say(f"  wallet_balance / wallet_address / wallet_send / chain_tx / wallet_history: 5,000,000 sats from n1 to n2 in {pay['txid'][:16]}.., confirmed, n2's balance up by exactly that (beside its own maturing blocks)")
@@ -298,6 +352,24 @@ def check_node():
             "graph_who", "graph_audit", "graph_leave", "bitcoin_cli", "ord_cli", "sha256"}
     assert used == set(NAMES), set(NAMES) ^ used
     say(f"  all {len(NAMES)} declared functions exercised against the chain")
+    # the two nodes' graph indexes, which lived through all of it, against one that reads the whole chain now
+    from graph import index as I
+    from check_keep import state
+
+    def plain(ix):
+        s_ = state(ix.refresh())
+        s_["stakes"] = sorted((s.inscription, s.kind, s.status, s.stage, s.outpoint if s.status != "exited" else "", s.born, s.number, s.sats) for s in ix.stakes.values())
+        return s_
+
+    for n in (n1, n2):
+        os.environ["QWG_INDEX_KEEP"] = "0"
+        whole = plain(I.Index(n.i))
+        del os.environ["QWG_INDEX_KEEP"]
+        lived = plain(n._identity().agent.index)
+        for k in whole:
+            assert lived[k] == whole[k], f"n{n.i}'s index, {k}: after living through the test it differs from one that reads the chain now\n  lived: {lived[k]}\n  whole: {whole[k]}"
+    say(f"  the graph indexes that lived through it are the index a new process reads off the whole chain; in {PLACES['refreshes']} refreshes each stake's place was "
+        f"checked against ord ({PLACES['places']} looks, all as the index had it), and the index itself asked ord about a stake {PLACES['asked']} times")
 
 
 # ====================================================================== coins given for what was written
@@ -587,6 +659,8 @@ if __name__ == "__main__":
             say(f"   it is through ({time.strftime('%H:%M:%S')})")
     if what in ("node", "tips", "model", "mind", "all", "live"):
         T.up(106, log=say)
+    if not LIVE:
+        watch_places()
     if what in ("node", "all"):
         check_node()
     if what == "tips":

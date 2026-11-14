@@ -31,8 +31,16 @@ in) is done once; the result for every inscription buried KEEP_DEPTH blocks or m
 the node (qwg-index.json) and taken up again by the next process, if the chain still has the block
 it was kept under and the code that read it is the code here. Without that, every start of an
 agent, a model's loop or the pages verified the whole history again: a quarter of an hour with a
-thousand inscriptions, and longer with every block. Where a stake's inscription sits now is never
-kept: it is looked up at every refresh. QWG_INDEX_KEEP=0: nothing is kept or taken up.
+thousand inscriptions, and longer with every block. QWG_INDEX_KEEP=0: nothing is kept or taken up.
+
+Where a stake's inscription sits now is never kept between runs: it is read off the chain. An
+inscription moves only when the output it sits on is spent, so a process that has found a stake
+on an output asks its node, at every block, whether that output is still unspent (gettxout, the
+node's own coins), and asks ord where the inscription went only when it is not. (Asking ord about
+every stake at every refresh was most of what reading the graph took: two lookups a stake, and on
+the public node, where ord takes two seconds to look an inscription up, the pages were a minute
+and more behind the chain with nine stakes.) Likewise ord's list of inscriptions, newest first, is
+read only as far as it has something new, once a process has read all of it.
 """
 import json, os, sys, time, zlib
 from dataclasses import dataclass, field
@@ -60,6 +68,8 @@ class Stake:
     outpoint: str = ""
     stage: int | None = None
     status: str = "unknown"  # active | unbonding | slashed | exited | invalid | replay
+    at: str = ""  # the output ord last found its inscription on: while the node has that output unspent, it has not moved
+    burned: bool = False  # its inscription was burned (by a slash or by its owner): it moves no more
 
     @property
     def live(self) -> bool:
@@ -80,12 +90,27 @@ class Proof:
 KEEP_DEPTH = 24  # blocks under which what was read of an inscription is kept between runs
 
 
+_reading = []  # the fingerprint, taken once, when this module is loaded (at its end)
+
+
 def reading() -> str:
-    """A fingerprint of the code that reads an inscription: what another version read is not taken up."""
-    c = 0
-    for n in ("index.py", "protocol.py", "covenant.py"):
-        c = zlib.crc32((Path(__file__).parent / n).read_bytes(), c)
-    return f"{c:08x}"
+    """A fingerprint of the code that reads an inscription (Index._content, _read and _paid as they are written
+    here, the protocol and the covenant): what another version read is not taken up. Of the code as this process
+    loaded it: a process that runs on while the files are replaced under it goes on naming what it keeps by the
+    code it runs, not by what is on the disk by then."""
+    if not _reading:
+        import inspect
+
+        c = zlib.crc32("".join(inspect.getsource(f) for f in (Index._content, Index._read, Index._paid)).encode())
+        for n in ("protocol.py", "covenant.py"):
+            c = zlib.crc32((Path(__file__).parent / n).read_bytes(), c)
+        _reading.append(f"{c:08x}")
+    return _reading[0]
+
+
+# Fingerprints of earlier versions that read an inscription word for word as this one does (the fingerprint then was
+# of this whole file, and changed with every change to anything in it): what they kept is taken up.
+READ_ALIKE = ("b1fd6bb3",)
 
 
 @dataclass
@@ -95,6 +120,8 @@ class Index:
     records: dict = field(default_factory=dict)  # inscription id -> what reading it gave (_read), as it is kept
     taken_up: int = 0  # how many of them came from the file kept beside the node
     _kept: list = field(default_factory=lambda: [False, 0, 0.0])  # looked for the file; records in it; when it was last written
+    _swept: bool = False  # ord's whole list of inscriptions has been read by this process, and no reading of it since was cut short
+    _settled: str = ""  # the node's tip at which every stake was last found where the node's coins say it is
     stakes: dict = field(default_factory=dict)  # inscription id -> Stake
     heads: dict = field(default_factory=dict)  # (pid, epoch) -> {root: sig}
     attests: list = field(default_factory=list)  # (pid, x, y, sig, checked)
@@ -110,37 +137,45 @@ class Index:
         if not self._kept[0]:
             self._kept[0] = True
             self._take_up()
-        page = 0
+        # ord lists the inscriptions newest first, a hundred a page. A process reads the whole list once; after
+        # that, everything older than a page with nothing new on it has been read, and the reading stops there.
+        # (A reading that was cut short may have left a gap further down: the next one reads the whole list again.)
+        page, whole, self._swept = 0, not self._swept, False
         while True:
             r = net.ord_get(self.node, f"/inscriptions/{page}")
-            for iid in r["ids"]:
-                if iid not in self.seen:
-                    self._ingest(iid)
-            if not r.get("more"):
+            new = [iid for iid in r["ids"] if iid not in self.seen]
+            for iid in new:
+                self._settled = ""  # something new is read: the stakes are looked at again (below)
+                self._ingest(iid)
+            if not r.get("more") or not (new or whole):
                 break
             page += 1
+        self._swept = True
         first = {}  # signature -> the earliest inscription born on a bond with it
         for st in self.stakes.values():
             if st.born and (st.sig not in first or st.number < first[st.sig].number):
                 first[st.sig] = st
-        for st in self.stakes.values():
-            if not st.born:
-                st.stage, st.status = None, "invalid"
-            elif first[st.sig] is not st:
-                st.stage, st.status = None, "replay"
-            else:
-                self._locate(st)
+        # Where each stake's inscription sits: looked at when the node's chain has moved, when something new was read,
+        # and for as long as a stake is not where the node's coins say (ord's index a block behind the node) or a
+        # look was cut short.
+        tip = net.cli(self.node, "getbestblockhash", timeout=60)
+        if tip != self._settled:
+            self._settled, settled = "", True
+            for st in self.stakes.values():
+                if not st.born:
+                    st.stage, st.status, st.at = None, "invalid", ""
+                elif first[st.sig] is not st:
+                    st.stage, st.status, st.at = None, "replay", ""
+                else:
+                    settled = self._locate(st) and settled
+            self._settled = tip if settled else ""
         # A tip counts if it was paid: its note was born, alone, on an output of exactly its sats that only the
         # receiver's own key can spend, and it is the first note with its signature born that way. (The receiver's
         # own key is the `own` of its bond, so this is decided once the receiver's bond is known.)
         owns, seen = self.owns(), set()
         for t in sorted(self.tips, key=lambda t: t["number"]):
             if t["ok"] is None and t["to"] in owns:
-                reveal = net.ord_get(self.node, f"/tx/{t['id'][:64]}")
-                out0 = reveal["transaction"]["output"][0]
-                t["paid"] = out0["value"] if t["id"][64:] == "i0" and out0["script_pubkey"] == C.tip_spk(owns[t["to"]]).hex() else 0
-                t["ok"] = bool(t["paid"] == t["sats"] and reveal["inscription_count"] == 1)
-                self.records[t["id"]].update(paid=t["paid"], tip_ok=t["ok"])  # as read from the chain (a copy is told apart below)
+                self._paid(t, owns[t["to"]])
             sig = self.seen[t["id"]]["sig"]
             if t["ok"] and sig in seen:
                 t["ok"] = False  # the same signed note inscribed a second time
@@ -160,7 +195,7 @@ class Index:
             return
         try:
             k = json.loads(self._file().read_text())
-            if k["reading"] != reading() or net.cli(self.node, "getblockhash", k["anchor"][0]) != k["anchor"][1]:
+            if k["reading"] not in (reading(), *READ_ALIKE) or net.cli(self.node, "getblockhash", k["anchor"][0]) != k["anchor"][1]:
                 return
             for rec in k["records"]:
                 if rec["id"] not in self.seen:
@@ -226,6 +261,16 @@ class Index:
             rec["ok"] = bool(sha256(bytes.fromhex(m["x"])) == bytes.fromhex(m["y"]))  # recomputed in this node's weights
         return rec
 
+    def _paid(self, t: dict, own: bytes) -> None:
+        """What a tip's note was born on, read off its reveal: "paid", the sats of its output if that is the
+        receiver's own key and the note the reveal's first inscription, and "ok", paid exactly what it says with
+        no other inscription in the reveal. Into the tip and into what is kept of its inscription."""
+        reveal = net.ord_get(self.node, f"/tx/{t['id'][:64]}")
+        out0 = reveal["transaction"]["output"][0]
+        t["paid"] = out0["value"] if t["id"][64:] == "i0" and out0["script_pubkey"] == C.tip_spk(own).hex() else 0
+        t["ok"] = bool(t["paid"] == t["sats"] and reveal["inscription_count"] == 1)
+        self.records[t["id"]].update(paid=t["paid"], tip_ok=t["ok"])  # as read from the chain (a copy is told apart in refresh)
+
     def _apply(self, rec: dict) -> None:
         """Take what was read of an inscription into the index (nothing is asked of the node here)."""
         iid, m, number = rec["id"], rec["m"], rec["number"]
@@ -249,11 +294,23 @@ class Index:
             # ord's inscription number is the chain's order of inscriptions: the order of the feed
             self.posts.append((pid, int(m["seq"]), m["text"], number, iid, m.get("re"), tuple(m.get("att", []))))
 
-    def _locate(self, st: Stake) -> None:
+    def _unspent(self, outpoint: str) -> bool:
+        """Does the node's chain have that output unspent? (Its blocks only, as ord's index: not its mempool.)"""
+        txid, vout = outpoint.split(":")
+        try:
+            return bool(net.cli(self.node, "gettxout", txid, vout, "false", timeout=60))
+        except RuntimeError:
+            return False  # the node does not say: ord is asked
+
+    def _locate(self, st: Stake) -> bool:
         """Where a stake's inscription sits now (its confirmed location): on the bond, on the
-        unbonding output, burned out of one of them by a slash, or gone with its owner."""
-        if st.status == "slashed":
-            return  # a burn is final
+        unbonding output, burned out of one of them by a slash, or gone with its owner. While the node has the
+        output unspent on which ord last found it, it is where it was, and ord is not asked. True: where it was
+        found is where the node's coins say it is (False: ord's index has yet to read the block that moved it)."""
+        if st.burned:
+            return True  # a burn is final
+        if st.at and self._unspent(st.at):
+            return True
         info = net.ord_get(self.node, f"/inscription/{st.inscription}")
         outpoint = info["satpoint"].rsplit(":", 1)[0]
         if "burned" in info.get("charms", []):
@@ -262,8 +319,8 @@ class Index:
             ptxid, pvout = tx["input"][0]["previous_output"].split(":")
             prev = net.ord_get(self.node, f"/tx/{ptxid}")["transaction"]["output"][int(pvout)]
             slashed = len(tx["input"]) == 1 and st.bond.stage_of(prev["script_pubkey"]) is not None
-            st.stage, st.outpoint, st.status = None, outpoint, "slashed" if slashed else "exited"
-            return
+            st.stage, st.outpoint, st.status, st.at, st.burned = None, outpoint, "slashed" if slashed else "exited", "", True
+            return True
         out = net.ord_get(self.node, f"/output/{outpoint}")
         stage = st.bond.stage_of(out["script_pubkey"])
         if stage and out["value"] == st.bond.value(stage) and out["inscriptions"] == [st.inscription]:
@@ -271,6 +328,8 @@ class Index:
             st.status = "active" if stage == 1 else "unbonding"
         else:
             st.stage, st.status = None, "exited"
+        st.at = outpoint
+        return self._unspent(outpoint)
 
     def feed(self, count: int | None = None) -> list:
         """The signed posts, newest first: (identity, seq, text). Call refresh first."""
@@ -379,3 +438,6 @@ class Index:
                 cap[a, b] -= push
                 cap[b, a] = cap.get((b, a), 0) + push
             flow += push
+
+
+reading()  # now, of the files this process has just loaded

@@ -663,9 +663,14 @@ def tag(standing: str) -> str:
 
 
 def text_html(snap: dict, p: dict) -> str:
-    """A post's text, escaped, with the names of the identities it is written to as links to them."""
+    """A post's text, escaped, with the names of the identities it is written to as links to them. What its author
+    marked the way models mark things is shown so: **bold**, *italic*, a line that begins with # as a bold line.
+    Nothing else in a post is markup, and the text itself is what was signed (the JSON has it as it is)."""
     import re
     t = html.escape(p["text"])
+    t = re.sub(r"(?m)^#{1,3} +(\S.*)$", r"<b>\1</b>", t)
+    t = re.sub(r"\*\*([^*\n]+?)\*\*", r"<b>\1</b>", t)
+    t = re.sub(r"(?<![*\w])\*([^*\s][^*\n]*?)\*(?![*\w])", r"<i>\1</i>", t)
     for k in p.get("to", []):
         nm = html.escape(snap["identities"].get(k, {}).get("name") or "")
         if nm:

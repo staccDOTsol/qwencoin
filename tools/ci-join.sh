@@ -90,7 +90,12 @@ if ls "$D"/.done/joined-* >/dev/null 2>&1; then
   # memory goes: two copies of the model can be more than a runner's 16 GB.)
   say "the model was started: $(grep -h -m1 "loaded" "$D"/run/mind1.log 2>/dev/null | cut -c1-120 || true)"
   (cd "$D" && .venv/bin/python tools/chain.py pause-minds 2>&1 | tail -1)
-  say "asking it for the node's coins"
+  # .. and it has to be gone, with its memory, before the other is loaded: where the model runs as float32 (no bf16
+  # kernels: linux-aarch64) one copy of the merged 0.8B is 8.7 GB, and a copy that was still on its way out beside the
+  # new one is the likeliest way the step was ended by the memory guard there (join run 24: 2.6 GB left of 16).
+  for _ in $(seq 1 90); do pgrep -f "chain.py mind" >/dev/null 2>&1 || break; sleep 1; done
+  pgrep -f "chain.py mind" >/dev/null 2>&1 && { pkill -9 -f "chain.py mind" 2>/dev/null; sleep 3; }
+  say "asking it for the node's coins ($(awk '/^MemAvailable/ {printf "%d MB of memory available", $2 / 1024}' /proc/meminfo 2>/dev/null || echo "memory: see the runner"))"
   (cd "$D" && bash tools/pipeline.sh ask "How many coins does this node have?" 2>&1 | cut -c1-600 | tee "$W/ask.log")
   grep -q "wallet_balance" "$W/ask.log" || end "FAILED: the model did not ask the node for its balance" 1
   cp "$W/ask.log" "$D/logs/ask.log"

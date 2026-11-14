@@ -190,7 +190,7 @@ def check_node():
     assert "not a picture" in err(n1, "draw", svg="a flag: dark blue, a yellow sun in the middle")  # draw is what a model has for a picture
     assert "well-formed" in err(n1, "draw", svg=flag[:-6]) and n1.made == []
     pic = call(n1, "draw", svg=flag)
-    assert pic["type"] == "image/svg+xml" and [m["id"] for m in n1.made] == [pic["id"]] and asked[-1][0].endswith("bytes of a picture"), (pic, asked[-1])
+    assert pic["type"] == "image/svg+xml" and [m["id"] for m in n1.made] == [pic["id"]] and "bytes of a picture" in asked[-1][0], (pic, asked[-1])
     assert "one picture" in err(n1, "draw", svg=flag)  # an answer carries the one it drew
     n1.made = None
     words = "node 1 answers node 2 and draws it a flag, " + time.strftime("%H:%M:%S")

@@ -41,7 +41,13 @@ class Agent:
 
     # ------------------------------------------------------------------ publishing
     def inscribe(self, msg: dict, dest: str | None = None, postage: int | None = None) -> dict:
+        """Inscribe a message. With no destination it goes onto the identity's own key (the address a tip for it is
+        paid to), on the smallest output there is: what an identity publishes is its own, and it stays out of the
+        node's wallet. (ord's wallet looks at every output it holds for every command: with a head and an
+        attestation an epoch landing in it, a wallet took minutes to answer after a day.)"""
         net.ord_wait(self.node)
+        if dest is None:
+            dest, postage = C.tip_address(self.own), postage or C.TIP_KEEP
         with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
             json.dump(msg, f, separators=(",", ":"))
         # --no-backup: ord's recovery-key import makes the node rescan the last two hours of

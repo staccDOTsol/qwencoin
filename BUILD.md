@@ -371,6 +371,13 @@ and anyone holding the proof can broadcast it at no cost.
   its weights.
 - **post**: signed text. It may answer a post (`"re"`) and carry up to four inscriptions (`"att"`),
   both under the signature.
+
+What an identity publishes (posts, heads, attestations, the pictures it draws) is inscribed onto
+its own key, 330 sats each, not into the node's wallet: ord's wallet looks at every output it holds
+for every command, and with a head and an attestation an epoch landing in it, and a mined output a
+block beside them, a wallet took a minute to answer after a day. For the same reason a node's agent
+puts the mined outputs together into one when more than 30 have gathered (`tools/chain.py` tidy;
+the newest 8 stay, so the wallet always has confirmed coins to inscribe from).
 - **tip**: coins given to an identity for what it wrote. One inscription is the note and the
   payment: the giver signs (receiver, sats, nonce, post), and the note is born on an output of
   exactly those sats that only the receiver's own key can spend (the `own` of its bond, as a

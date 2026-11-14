@@ -137,9 +137,9 @@ def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
 def mind_facts(node, conv: dict, address: str = "", me: str | None = None, opening: bool = False) -> str:
     """Where a node stands, as facts from the node itself and from the chain: what its model knows before it speaks
     (it has no functions in front of it then). The wording is tools/talk.py's (notes)."""
-    c, b = node.t_chain_status(), node.t_wallet_balance()
+    c = node.t_chain_status()
     others = sorted({p["from"] for t in conv["threads"][-12:] for p in t if not p["mine"]})[:8]
-    return talk.notes(me or conv["me"], c["height"], c["peers"], b["spendable_sats"], conv["stand"], others, opening)
+    return talk.notes(me or conv["me"], c["height"], c["peers"], node.coins(), conv["stand"], others, opening)
 
 
 def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) -> list:
@@ -200,11 +200,14 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     would be answering a conversation without its own last word in it."""
     from rails.tools import OFFERS, Refused, repeats, same
 
+    t_read = time.time()
     conv = node.threads()
+    t_read = time.time() - t_read  # the graph as this node's index has it now (and the wait for the node's lock)
     height_of = height_of or node.height_of
     known = {p["id"] for t in conv["threads"] for p in t}
     unseen = [i for i in pending if i not in known]
-    out = {"kind": "wait", "parent": None, "calls": [], "answer": "", "posted": None, "why": "", "seconds": 0.0, "drawn": 0, "offered": False, "unseen": unseen}
+    out = {"kind": "wait", "parent": None, "calls": [], "answer": "", "posted": None, "why": "", "seconds": 0.0, "drawn": 0, "offered": False, "unseen": unseen,
+           "took": {"reading": round(t_read)}}
     if unseen:
         return {**out, "why": "its last post is not in a block yet"}
     kind, thread, parent = mind_pick(conv, height_of, tip, passed, own)
@@ -250,10 +253,12 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
             out.update(calls=list(did.calls), seconds=out["seconds"] + did.seconds, drawn=s.drawn - d0, after=did.answer.strip()[:200])
         except Exception as e:  # noqa: BLE001  (what it answered is published all the same)
             out["after"] = f"{type(e).__name__}: {str(e)[:120]}"
+    t_pub = time.time()
     try:
         out["posted"] = node.publish(answer, re=parent["id"] if parent else None, att=[m["id"] for m in node.made][:4])
     except Refused as e:
         out["why"] = f"refused: {e}"
+    out["took"]["publishing"] = round(time.time() - t_pub)
     return out
 
 
@@ -456,6 +461,27 @@ def sweep(i):
             time.sleep(5)
 
 
+# mined outputs a wallet may hold before they are put together; how many go into one transaction; how many of the newest stay
+# as they are (what is put together cannot be spent until its transaction is in a block, and ord's wallet inscribes from confirmed coins only)
+TIDY_ABOVE, TIDY_AT_ONCE, TIDY_LEAVE = 30, 400, 8
+
+
+def tidy(i, to: str) -> dict | None:
+    """Put the node's large outputs together into one, at address `to` of its own wallet, when there are more than
+    TIDY_ABOVE of them. A node that mines gets one output a block, and ord's wallet looks at every output it holds
+    for every command (a balance took 8 seconds with 90 outputs and about a minute with 1,500): everything that
+    inscribes waited for it. Only outputs of a coin or more are touched: mined coins and change, never the small
+    outputs that carry inscriptions; the newest TIDY_LEAVE stay, so that the wallet always has confirmed coins. The caller holds the node's lock; ord's wallet is locked here. Returns {"merged", "txid"}."""
+    big = [u for u in net.cli(i, "listunspent", 1, wallet="ord", timeout=120) if u["amount"] >= 1 and u.get("spendable", True) and u.get("safe", True)]
+    if len(big) <= TIDY_ABOVE:
+        return None
+    take = sorted(big, key=lambda u: -u["confirmations"])[:-TIDY_LEAVE][:TIDY_AT_ONCE]  # the oldest first; the newest stay
+    with net.wallet_lock(i):
+        r = net.cli(i, "sendall", json.dumps([to]), "null", "unset", 2, json.dumps({"inputs": [{"txid": u["txid"], "vout": u["vout"]} for u in take]}),
+                    wallet="ord", timeout=300)
+    return {"merged": len(take), "of": len(big), "coins": sum(u["amount"] for u in take), "txid": r.get("txid") if isinstance(r, dict) else r}
+
+
 def agent(i):
     from graph import protocol as P
     from graph.identity import Identity
@@ -468,7 +494,7 @@ def agent(i):
         print(time.strftime("%H:%M:%S"), name, *x, flush=True)
 
     say("identity", pid)
-    last, swept = 0.0, 0.0
+    last, swept, tidied = 0.0, 0.0, 0.0
     while not STOP.exists():
         try:
             h = net.cli(i, "getblockcount")
@@ -495,6 +521,11 @@ def agent(i):
                         say(f"epoch {ep}: attested the hash of the header at height {h}, signed head {a.root().hex()[:16]}")
                     for kind, off, iid, txid in a.audit():
                         say(f"SLASHED {off.hex()[:16]}: {kind} proof, stake {iid[:16]} burned in {txid}")
+                if time.time() - tidied > 240 and addrs().get(i):  # the mined coins, an output a block, put together (see tidy)
+                    tidied = time.time()
+                    done = tidy(i, addrs()[i])
+                    if done:
+                        say(f"put {done['merged']} of the wallet's {done['of']} large outputs together ({done['coins']:,.0f} coins, in {done['txid']})")
                 if time.time() - swept > 300:  # what its identity was given (tips) goes into the node's wallet
                     swept = time.time()
                     for iid, sats, txid in a.collect(addrs()[i]):
@@ -531,12 +562,21 @@ def mind(i):
     say(f"loading {MIND_MODEL.name} ({torch.get_num_threads()} threads); spending limit: {MIND_LIMIT}; temperature of its wording: {talk.MIND_TEMP:g}")
     s = Session(MIND_MODEL, node, temperature=talk.MIND_TEMP)
     say("loaded; the functions in its template:", json.loads((MIND_MODEL / "hashformer.json").read_text()).get("functions", "?"))
+    try:  # how long this node's wallet takes to answer: a wallet with a thousand outputs is what a turn waits for
+        t0 = time.time()
+        outs = len(net.cli(i, "listunspent", 0, wallet="ord", timeout=120))
+        t1 = time.time()
+        net.ord_wallet(i, "balance")
+        say(f"its wallet has {outs} outputs: the node lists them in {t1 - t0:.1f}s, `ord wallet balance` takes {time.time() - t1:.0f}s")
+    except Exception as e:  # noqa: BLE001
+        say("its wallet could not be timed:", str(e).strip().splitlines()[-1][:160] if str(e).strip() else type(e).__name__)
+    index_said = False
     time.sleep(random.uniform(0, 20) * (i - 1))  # the minds of one machine do not all speak at once
     while not STOP.exists():
         try:
             h = net.cli(i, "getblockcount")
             net.ord_wait(i, h, timeout=300)
-            if net.ord_wallet(i, "balance").get("cardinal", 0) < 50_000:
+            if node.coins() < 50_000:
                 say(f"height {h}: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)")
                 time.sleep(30)
                 continue
@@ -558,6 +598,13 @@ def mind(i):
             if spoke:
                 st["since_act"] = 0 if r["offered"] else st.get("since_act", 0) + 1
                 st["offers"] = st.get("offers", 0) + bool(r["offered"])
+            if not index_said:  # once per start: what the graph index took up of what an earlier process had read
+                index_said = True
+                try:
+                    ix = node._identity().agent.index
+                    say(f"its graph index: {len(ix.seen)} inscriptions, {ix.taken_up} of them taken up from what was kept, {len(ix.seen) - ix.taken_up} read now")
+                except Exception:  # noqa: BLE001
+                    pass
             if r["kind"] != "wait":
                 st.update(rounds=st["rounds"] + 1, posts=st["posts"] + spoke, calls=st["calls"] + len(calls), at=time.strftime("%Y-%m-%d %H:%M:%S"))
             if spoke:
@@ -569,7 +616,9 @@ def mind(i):
             if r["kind"] == "wait":
                 say(f"height {h}: no turn ({r['why']})")
             else:
-                say(f"round {st['rounds']} at height {h} ({r['seconds']:.0f}s; {r['kind']}{to}; {r['drawn']} tokens drawn"
+                took = r.get("took", {})  # where the turn's time went: reading the graph, the model, the inscription of the post
+                say(f"round {st['rounds']} at height {h} ({r['seconds']:.0f}s the model, {took.get('reading', 0)}s reading the graph"
+                    + (f", {took['publishing']}s publishing" if "publishing" in took else "") + f"; {r['kind']}{to}; {r['drawn']} tokens drawn"
                     + (f"; offered: {r['offered']}" if r["offered"] else "") + "): "
                     + ("; ".join(f"{n}({', '.join(f'{k}={v[:120]!r}' for k, v in a.items())}) -> {x[:90]}" for n, a, x, by in calls) or "no call"))
                 if r.get("angle"):

@@ -304,6 +304,12 @@ class Node:
         return {"spendable_sats": b["cardinal"], "immature_sats": round(w["immature"] * 1e8),
                 "unconfirmed_sats": round(w["untrusted_pending"] * 1e8), "under_inscriptions_sats": b["ordinal"]}
 
+    def coins(self) -> int:
+        """What the node's wallet holds, in sats, as the node itself counts it: asked of the node, not of ord's
+        wallet, which looks at every output it has (minutes, on a node that has mined a thousand blocks). The few
+        sats under the wallet's inscriptions are in the number."""
+        return round(float(net.cli(self.i, "getbalances", wallet="ord")["mine"]["trusted"]) * 1e8)
+
     def t_wallet_address(self):
         return net.ord_wallet(self.i, "receive")["addresses"][0]
 
@@ -340,7 +346,7 @@ class Node:
             return ".html", "text/html"
         return ".txt", "text/plain"
 
-    def t_ord_inscribe(self, text: str, to: str = ""):
+    def t_ord_inscribe(self, text: str, to: str = "", _postage: int = 0):
         if not text:
             raise Refused("nothing to inscribe")
         if len(text.encode()) > MAX_INSCRIBE:
@@ -350,7 +356,8 @@ class Node:
         suffix, ctype = self._kind(text)
         with tempfile.NamedTemporaryFile("w", suffix=suffix, delete=False, encoding="utf-8") as f:
             f.write(text.lstrip() if suffix != ".txt" else text)
-        args = ["inscribe", "--fee-rate", FEE_RATE, "--no-backup", "--file", f.name] + (["--destination", to] if to else [])
+        args = (["inscribe", "--fee-rate", FEE_RATE, "--no-backup", "--file", f.name] + (["--destination", to] if to else [])
+                + (["--postage", f"{_postage}sat"] if _postage else []))
         try:
             what = {".svg": "a picture", ".html": "a page"}.get(suffix, "text")
             with self._spending("ord_inscribe", f"inscribe {len(text.encode())} bytes of {what}" + (f" for {to}" if to else ""), None):
@@ -373,7 +380,11 @@ class Node:
         if self._kind(svg)[0] != ".svg":
             raise Refused('that is not a picture. Write SVG markup: it starts with <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"> '
                           "and ends with </svg>, with shapes in between (rect, circle, line, polygon, path, text)")
-        return self.t_ord_inscribe(text=svg)
+        # onto the identity's own key, like what it publishes (graph/agent.py inscribe): not into the node's wallet
+        from graph import covenant as GC
+        with self._identity().use() as (a, st):
+            own = GC.tip_address(a.own)
+        return self.t_ord_inscribe(text=svg, to=own, _postage=GC.TIP_KEEP)
 
     def t_ord_read(self, id: str):
         m = net.ord_get(self.i, f"/inscription/{id}")

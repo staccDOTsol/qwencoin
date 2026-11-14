@@ -164,6 +164,27 @@ w("`tests/check_remerge.py`: the merge as it is now against the checkpoint secti
 w(block(clean("remerge.log")) if read("remerge.log") else "(not run)")
 w("\n`tests/check_untied.py`: the path the 9B and 27B bases need (an output matrix of their own), on a 0.8B given one.\n")
 w(block(clean("untied.log")) if read("untied.log") else "(not run)")
+
+
+def last(name, mark):
+    """The last run in a log that runs are appended to (each begins with a line starting with mark)."""
+    text = clean(name)
+    return text[text.rfind(mark):] if mark in text else text
+
+
+w("\n## 13. hashfun on a node\n")
+w("`tests/check_fun.py all`: `tools/fun.py`, the `fun_` functions of `rails/tools.py` and `/fun` of the pages, against "
+  "stand-ins for the hashfun command line, the launches' nodes, the site and this node's qwencoind and wallets. No "
+  "network and no node programs; what is checked is this project's side.\n")
+w(block(last("fun.log", "== check_fun")))
+w("\nThe QWEN leg of a hashfun launch against this chain itself (`logs/fun-real.log`): the private two-node network of "
+  "section 11 (real qwencoind, the weights-bound rule, the real table), hashfun's rule set 3 node on the same table, and "
+  "`tools/fun.py` following the launch, giving its node the `fun` wallet's keys and starting the pool on the QWEN curve. A "
+  "block is mined and its qwen paid from the `fun` wallet; a proof of that payment at one confirmation of the two the "
+  "launch asks, and a real header with its nonce changed, are refused; the settler relays the headers (each a pass "
+  "through the weights in the launch's node) and proves the payment, and the block's coinbase becomes spendable. Then "
+  "the model's functions on the same nodes.\n")
+w(block(read("fun-real.log")) if read("fun-real.log") else "(not run)")
 w("")
 w((ROOT / "tools" / "results-notes.md").read_text().rstrip())
 sys.stdout.write("\n".join(out) + "\n")

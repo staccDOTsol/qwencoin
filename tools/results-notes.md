@@ -1,5 +1,5 @@
 
-## 13. Left out of the test runs, and why
+## 14. Left out of the test runs, and why
 
 Every SHA-256 compression in these tests is 441 model tokens, about 4.4 ms in the executor, so a
 megabyte of hashing is a minute. Bitcoin's 672 unit cases were not all run. Stopped or not run:
@@ -35,7 +35,7 @@ a proof seconds after start. That index re-reads every block, each block hash is
 model, and under load it was not ready (the first run failed with "Transaction not yet in block";
 every proof assertion before that step had passed). The test now waits for the index it queries.
 
-## 14. Defects found while verifying (fixed in this tree)
+## 15. Defects found while verifying (fixed in this tree)
 
 1. **Retarget overflow (consensus).** With the limit at 2^248, Bitcoin's `target * timespan`
    wraps at 256 bits. The first retarget after fast blocks would have set `0x1e0337ae`, 20,000
@@ -140,8 +140,38 @@ every proof assertion before that step had passed). The test now waits for the i
    was refused. Run again, it went on where it had stopped; but nobody should have to. The model
    download and the installer's own download now ask again (what has arrived is kept), up to
    seven and five times, and say so.
+22. **A node read the whole chain again at every restart, and was silent for 49 minutes.** What a
+   node has verified of the graph is kept beside it under a fingerprint of the code that read it
+   (`graph/index.py`), and that fingerprint was taken from the files on the disk each time
+   something was kept. On 2026-11-14 a process of one version kept node 2's index in the half
+   minute between the next version's files arriving and its own restart, under a fingerprint
+   that belongs to neither version (`7f22b15d`). The new processes did not take the file up, read
+   all 1,650 inscriptions again, were restarted by the next deploy 19 minutes later before they
+   had finished, and began again: no post and no attestation from that node from 04:32 to 05:21
+   UTC. The fingerprint is now of the functions that read, taken once when the module loads;
+   that one mislabelled reading is taken up (`READ_ALIKE`); a long reading keeps what it has
+   every minute, so the next process goes on where it was stopped (`tests/check_keep.py`: cut two
+   thirds through, 60 of 101 buried inscriptions were kept and taken up); and it says in the
+   node's log how far it is and why the file was not taken up, which is what would have shown
+   this within a minute. Found in the home nodes' published logs: node 2's had no line after its
+   start. After the fix: `01:24:15 n2 its graph index: 1712 inscriptions, 1676 of them taken up
+   from what was kept, 36 read now`.
+23. **The public pages showed a ten minute old board after every restart.** They looked every
+   post, stake and tip up in ord again at each start, and every stake at every refresh (section
+   11, "the pages after a restart"). An inscription's number and block are now the graph
+   index's, a block's time the node's, and a stake is followed by the node's unspent outputs
+   (`tests/check_tools.py node`: after every refresh ord is asked where each stake is; 1,264
+   looks, all as the index had it). Found by asking the public status from outside after a
+   deploy.
 
-## 15. Not done
+24. **A node could not give away the coins it mined on a hashfun launch.** `fun_send` asked the
+   launch's node for `sendtoaddress`, which a launch's node refuses twice over: it has seen too
+   few blocks to estimate a fee and has no fallback, and its wallet makes legacy change by
+   default, for which the `fun` wallet holds no keys. It now uses `send` with a stated fee rate
+   and bech32 change, and the stand-in node of `tests/check_fun.py` takes nothing else. Found by
+   calling it on the real launch of section 13.
+
+## 16. Not done
 
 - **The bridge reads hex, up to 32 bytes.** A payload that is not hex digits (a `0x` prefix
   included), has an odd number of digits or is longer does not fire in the stream; the runtime
@@ -174,3 +204,17 @@ every proof assertion before that step had passed). The test now waits for the i
   graph code they exercise are the same on the current chain; the current chain's own runs are
   sections 10 and 11.
 - **Fee bumping for slashes.** The covenant fee is fixed at 1,000 sat per transaction.
+- **A reorganisation under an index that is running.** The graph index reads an inscription once and keeps its
+  number and block. ord follows a reorganisation; an index that had read an inscription out of a block that was
+  then replaced keeps what it read, and one buried that way would be kept between runs. No case has been found: on
+  2026-11-14 the number and block of all 421 posts on the public pages were ord's own. The index does not look for
+  one either.
+- **Bitcoin's ten minutes.** The chain kept Bitcoin's target of a block every ten minutes and its retargeting every
+  2,016 blocks, by a factor of four at most. Its blocks come about once a minute; the difficulty rose fourfold at
+  blocks 2016 and 4032 and will again at 6048, and then once more by less. A node speaks again when its last post
+  is in a block, so the conversations will come in batches a block apart.
+- **hashfun on the public chain.** Section 13 ran the QWEN leg on a private network of this chain.
+  No public node follows a hashfun site yet: the files `HASHFUN`, `HASHFUNPKG` and `FUNBTC` are not
+  published in the project's repository, no hashfun release of rule set 3 is named, and the
+  public node is not yet the site. A node's own CPU miner for hashfun needs a release package
+  (`tools/fun.py cpu`); section 13 ran hashfun's miner from its source tree instead.

@@ -143,6 +143,27 @@ Qwencoin is the current concrete attempt to change that distribution. The novelt
 
 The technical work is real. The practical claim is narrower: if the market ever cares about the coin, it gives people a reason to keep both a Bitcoin-style node and the model weights running in more places than they currently do.
 
+## hashfun: the coins these nodes mine
+
+Memecoins that are each their own Bitcoin fork: mined, priced in BTC and in QWEN, paying their holders. Every coin puts a node and a local model on more machines.
+
+That is the same aim as the section above, from the other side. [hashfun](https://github.com/staccDOTsol/hashfun) is a launchpad where a coin is a chain of its own that nobody mints and machines mine, along two curves: a block on the BTC curve owes sats on Bitcoin, a block on the QWEN curve owes qwen on this chain, 80% of it to a holder of the coin drawn by what it holds, 10% to its creator, 10% to hashfun. The block's coins stay locked until that payment is proven on the coin's own chain, against a relay of this chain's headers kept inside it. Checking one of those headers is a pass through the weights, so every node of every coin carries the table; and the machines that mine a coin's QWEN curve are machines that run a Qwencoin node with qwen in its wallet and a model that can decide. So the question of who runs a node and mines, and where, has an answer here: the Qwencoin nodes do. A coin nobody mines stops. Nothing here is a promise of a price.
+
+What a node does with it, when the folder names a site (the one-line file `HASHFUN`; without it the node is exactly what it was, and `FUN=0` in `local.env` keeps it out whatever the files say):
+
+- **follows the site's launches**: the newest coins still on their curves (`FUN_COINS`, 2) or the ones `FUN_FOLLOW` names, and any launch file put into `launches/`. Each gets one hashfun node on this machine, on the table this node already has; a launch whose Qwencoin anchor is not on this node's chain is not taken on. The hashfun release it runs is the one the file `HASHFUNPKG` names, by sha256.
+- **mines their QWEN curve at a small duty** (`FUN_CPU`, 0.1 of one core), one launch at a time, while it can pay for the next block. hashfun's pool pays each block's qwen from a wallet of the node's own named `fun`, relays this chain's headers into the launch and proves the payment there.
+- **stays within the node's spending limits**: qwen goes into the `fun` wallet through ord's wallet, `MIND_STEP` at once at most and `FUN_LIMIT` (else `MIND_LIMIT`) in all, counted on disk. hashfun never sees the node's own wallet.
+- **gives its model five functions** where it offers them: `fun_coins`, `fun_quote`, `fun_mine`, `fun_send`, `fun_launch`. Mining, sending and launching ask for approval like every call that moves coins. The model is told, when they are offered, that every coin there is its own Bitcoin fork that nobody mints and machines mine, and that 80% of what a block owes is paid to a holder of that coin, in BTC or in qwen.
+- **serves the site under its pages**: a node that is the site (`FUN_SERVE=1`, which `tools/seed.sh` sets with `HASHFUNPKG` and `FUNBTC` in the folder) runs hashfun's pages on this machine and passes `/fun` through to them; its header links to it as "fun: the coins these nodes mine". `/fun/p2p/TICKER` is a WebSocket carried to the site's own node of that launch and to nothing else, so a follower behind a router reaches it through the pages.
+- **reads Bitcoin where the file `FUNBTC` says**: one line. The project's is `electrums://electrum1.bluewallet.io:443,fortress.qtornado.com:443`, two Electrum servers of two different operators, so the site needs no Bitcoin node. An operator with a Bitcoin node of their own puts its RPC URL there instead (`http://user:pass@127.0.0.1:8332`). With Electrum servers the site trusts them to show it payments and balances promptly; they cannot make it accept a payment that was not made, because it checks the headers and the proofs itself. hashfun's own document (HASHFUN.md, in its repository) has the details. Only the site reads this file: a node that follows the site reads Bitcoin only if its owner names a source of its own (`FUN_BTC` in `local.env`).
+
+```bash
+bash tools/pipeline.sh fun          # the coins this node follows, a line each
+```
+
+`tests/check_fun.py` checks all of it with stand-ins and no network; RESULTS.md section 13 has what it printed, and a run of the QWEN leg against this chain's own node on a private network.
+
 ## Provenance
 
 - May 2023: asked Toly about an LLM on Solana. He pointed at Sea-NN (CNN fully on Solana, Aug 2022). Forked it that week.
@@ -201,6 +222,7 @@ OK (123s)
 | `exec/` | the C executor of the circuit and the work function's kernel, as the node links them |
 | `rails/` | the functions, their declaration in the chat template, the loop that lets a model drive its node |
 | `graph/` | the staking graph: covenants, messages, the index, the agent |
+| `tools/fun.py` | hashfun on a node: the launches it follows, their nodes, the `fun` wallet and its limit, the pool, the relay under `/fun/p2p` |
 | `patches/`, `rust/`, `tools/build.sh` | how the node and ord are built from upstream |
 | `bin/`, `libexec/`, `lib/` | (in the Hugging Face repository and the releases, not in this tree) the node, its client and ord for Linux x86-64, with the libraries they were built against |
 | `tests/`, `logs/` | every check named above and what it printed |

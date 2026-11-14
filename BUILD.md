@@ -446,6 +446,49 @@ least 100,000 sat, and a delay of at least 6 blocks (demo scale; the default is 
 vouches, a false hash and an equivocation, the burns, an honest exit, a sybil ring. RESULTS.md has
 the transcript, the test tables and the defects found while verifying.
 
+## hashfun on a node (tools/fun.py)
+
+A hashfun coin (https://github.com/staccDOTsol/hashfun) is a Bitcoin-Core-derived chain of its
+own, issued along two bonding curves as a function of work. A block on its QWEN curve owes qwen
+on this chain; the block's coinbase is locked until that payment is proven inside the coin's chain
+against a relay of this chain's headers (`HFH2` outputs, at most 8 header checks per block, each a
+pass through the table), with `qwen_confs` confirmations (`HFP2`). `tools/fun.py` is what a node
+does with that. Nothing of it runs unless the folder names a site (`HASHFUN`) and a release
+(`HASHFUNPKG`: repository, version, sha256 of its package); `FUN=0` keeps a node out.
+
+- **The package.** Fetched once into `fun/VERSION/`, its sha256 compared with `HASHFUNPKG` before
+  anything is unpacked; only its Python and this machine's node program are written, never a name
+  that leaves the folder or a link. hashfun's state is `run/fun` (its `HASHFUN_HOME`), its table a
+  link to this node's.
+- **The launches.** The site's coins still on their curves, newest first, or `FUN_FOLLOW`, and any
+  file in `launches/`. Each file goes to `hashfun node add --qwen-rpc` with this node's qwencoind,
+  which checks that the launch's Qwencoin anchor is on this chain. Where the site's node of a
+  launch cannot be dialed, its peer is a local port carried to `SITE/p2p/TICKER`.
+- **The wallet.** A second wallet `fun` in this node's qwencoind. Its two bech32 descriptors are
+  imported into a wallet `fun` of each launch's node (an `xprv` relettered `tprv` for a test
+  launch, bitcoind's checksum recomputed), through the node's RPC and never a command line, so a
+  block's coins, the qwen it owes and what holding the coin earns are one key. qwen moves in only
+  through ord's wallet (which knows which sats carry inscriptions), `MIND_STEP` at once and
+  `FUN_LIMIT` (else `MIND_LIMIT`) in all, counted in `run/fun/node.json`.
+- **Mining.** Per launch `hashfun mine T --curve qwen --qwen-rpc --qwen-cookie --qwen-wallet fun
+  --no-cpu`, the pool and the settler; one CPU miner at `FUN_CPU` of a core on one launch at a
+  time (a launch the model asked blocks of first, at half a core).
+- **The model.** `rails/tools.py` `FUN`: `fun_coins`, `fun_quote`, `fun_mine` (moves what the blocks
+  will owe into the `fun` wallet under the node's spending rail), `fun_send` (by the launch's own
+  node: `send` with a stated fee rate and bech32 change, since a launch's node has no fee estimate
+  and makes legacy change by default), `fun_launch` (through the site, one a day, the `fun` key as
+  creator on the launch and on both curves). Not in the template; `tools/chain.py mind` offers
+  `fun_mine` and `fun_launch` (`talk.MIND_OFFERS_FUN`) with one sentence from the site's own words.
+  A coin's name and description reach the model inside JSON, never in a line the node says itself.
+- **The pages.** `tools/web.py` passes `/fun` to `hashfun web --base-path /fun` on `FUN_WEB_PORT`
+  (bodies up to 1 MB) and carries `/fun/p2p/TICKER` (a WebSocket, RFC 6455) to the site's own node
+  of that launch: the port comes from the site's registry, never from the request; at most a few
+  lines per source address and per launch, an idle line is closed, a side that stops reading holds
+  the other back by one chunk.
+- **A public node is the site.** `tools/seed.sh` sets `FUN_SERVE=1` with `HASHFUNPKG` and `FUNBTC`
+  (an RPC URL or `electrums://` servers for Bitcoin) in the folder; `tools/publish.py` publishes the
+  three files beside `SEEDS`, and an installed node reads them again at every start.
+
 ## Reproduce
 
     tools/build.sh                         # weights, executor, qwencoind, ord (tools/build.sh tests adds test_bitcoin)
@@ -467,6 +510,7 @@ the transcript, the test tables and the defects found while verifying.
     python3 tests/check_qwork_node.py                                      # four nodes under the weights-bound rule
     python3 tests/check_tools.py all                                       # the functions, the template, the model, one mind round
     python3 tests/check_remerge.py && python3 tests/check_untied.py        # the merge's newer paths
+    python3 tests/check_fun.py all                                         # hashfun on a node, with stand-ins, no network
     python3 tools/chain.py up 4                                            # the chain itself: nodes, miners, agents, models
     python3 -m rails.runtime dist/qwen08-sha --node 1                      # talk to the model that drives node 1
     bash tools/pipeline.sh                 # all of it on a fresh Linux machine or WSL2: table, nodes, every size merged, checked, published

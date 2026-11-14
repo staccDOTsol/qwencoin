@@ -1,0 +1,83 @@
+== the QWEN leg on a private network of this chain, 2026-11-14 (hashfun rule set 3 after review: hashfund sha256 98c8d98f12c384d7594b924f278195c99115aed1ad6b2bc9180fde097fcaa289 until the restart at 17:16:14, then its relink 9240b216128c409366a847e812e442cce17b4cb736fc17118f3451ae151393ef, a test seam and a pass counter only)
+17:09:56 == up
+17:10:02   qwencoin_height_at_start = 113
+17:10:03   fun_wallet_address = bc1q676flud2rj5yayhnrzcea2n0jztfkjd07v5fe4
+17:10:03 launch new: {"launch_id": "3c3e3bc3c6241a9b78b5efc9151e42effe51761c231695fb72e993bf4a7793eb", "genesis_hash": "26f0b11e7e8b27200600011b56fd069e66d7d5465a924c76ab3ffd4f0370400d", "genesis_valid": true, "name": "Real leg QLEG2", "ticker": "QLEG2", "hrp": "qleg2", "chain_id": 3517, "magic": "91f0beee", "p2p_port": 25266, "rpc_port": 25265, "datadir": "launch_qleg2_3c3e3bc3", "curve": {"virtual_work": 352918925, "virtual_tokens": 1200000000000000, "graduation_tokens": 886971109040074, "graduation_work": 999999998, "graduation_hashes_human": "1e+03 MH", "start_price_hashes_per_coin": 29.409910416666666, "gradu
+17:10:03   launch_id = 3c3e3bc3c6241a9b78b5efc9151e42effe51761c231695fb72e993bf4a7793eb
+17:10:03   qwen_regtest = False
+17:10:03   qwen_anchor_height = 107
+17:10:03   qwen_anchor_hash = a7725743e6e8e5675c72e1dd9dcde5ebf94b330eb6f5799ac3ae681095889b05
+17:10:03   qwen_confs = 2
+17:10:03   settle_deadline = 17280
+17:10:03 == follow, node up
+17:10:04 fun: following QLEG2 (launches/QLEG2.json); its node dials the seeds in its file
+17:10:06 {'QLEG2': 'started'}
+17:10:06   launch_node_start_seconds = 1.7
+17:10:07 n1 fun: QLEG2: its node holds the fun wallet's keys; what this node mines there is paid to qleg21q676flud2rj5yayhnrzcea2n0jztfkjd0m9zlwy
+17:10:07   payout_on_launch = qleg21q676flud2rj5yayhnrzcea2n0jztfkjd0m9zlwy
+17:10:07   qwen_curve_at_start = {'owed_num': 2882303767281724974, 'owed_shift': 58, 'min_payment': 10000, 'confs': 2, 'owed_per_coin': 294.0991047548649}
+17:10:07   block_cost_estimate = 10000
+17:10:08   fun_wallet_balance = 3181740
+17:10:08 == pool and miner until a payment in qwen is out
+17:10:21   launch height 15, ours 12, paid in qwen 0
+17:10:31   launch height 36, ours 12, paid in qwen 0
+17:10:41   launch height 50, ours 13, paid in qwen 1
+17:10:41   paid_block = {'height': 36, 'hash': '03c7963bfa2e23f129541d3627e843f503797e80729e2bda8c4e7d5eb2ce815e', 'pay': 10000, 'quote': 'qwen', 'payee': 'holder', 'pay_script': '0014d7b49ff1aa1ca84e92f318b19eaa6f90969b49af', 'deadline_height': 17316, 'txid': '0a0ba5e799d56a4c7655b91d42606d9ad04d6bd403e8d13e116b9ae781e7d00b'}
+17:10:41   launch_height_at_payment = 50
+17:10:41   seconds_to_first_payment = 30
+17:10:41   payment_confirmations_before = 0
+17:10:41   payment_output = {'vout': 0, 'value': 10000, 'script': '0014d7b49ff1aa1ca84e92f318b19eaa6f90969b49af'}
+17:10:41   spend_before_settled = {'allowed': False, 'reject-reason': 'bad-txns-unsettled-coinbase'}
+17:10:41 == a proof with too few confirmations
+17:11:03   qwencoin_block_seconds_2 = 21.7
+17:11:03   relay block 017f6927e81db452: submitblock None, 1 headers
+17:11:03   too_few = {'qwencoin_payment_block': 114, 'confirmations_on_qwencoin': 1, 'relay_height': 114, 'confirmations_required': 2, 'relay_qwen_passes_so_far': None}
+17:11:03   too_few_result = {'submitblock': None, 'block': '01e9dc2af98edca5da48cf33582c87bab41abd90ff3eb59b812cd58d7eec6563', 'settled': False, 'launch_height': 52}
+17:11:03 == a Qwencoin header with its nonce changed
+17:12:39   changed_nonce = {'qwencoin_height': 115, 'real_nonce': 1346, 'changed_nonce': 1347, 'real_value_meets_target': True, 'changed_value_meets_target': False, 'target': '0xffff0000000000000000000000000000000000000000000000000000000000'}
+17:12:39   changed_nonce_result = {'submitblock': None, 'block': '05d53eca3e0bac5a3cd22f01976eda012d45731d1073059e69183bedf412a9f6', 'relay_height_before': 114, 'relay_height_after': 114, 'relay_best_after': '21d78175ff718e41341b863af023c2f306dba81b400cd0c3f47769dbdcec163e', 'changed_header_hash': '895c7a284d26156326ccd783cb8ef5698d55613486de3b0c69cea549980848ca'}
+17:12:39 == pool and miner again, a Qwencoin block every minute, until the block is settled and its coinbase spendable
+17:12:57   settled_at_launch_height = 85
+17:12:57   relay_at_settlement = {'best': '1eeb4177adf9a5131c9700bb8da4684400ec892073a8502faedbe1cada0d6b2b', 'height': 115, 'headers': 9, 'anchor_height': 107, 'confirmations_required': 2}
+17:12:57   spend_after_settled_before_maturity = {'allowed': False, 'reject-reason': 'bad-txns-premature-spend-of-coinbase'}
+17:12:57   launch height 85 (block 36 matures for spending at 136), settled True, qwencoin 115
+17:13:12   launch height 99 (block 36 matures for spending at 136), settled True, qwencoin 115
+17:13:27   launch height 112 (block 36 matures for spending at 136), settled True, qwencoin 115
+17:13:42   launch height 117 (block 36 matures for spending at 136), settled True, qwencoin 115
+17:13:57   launch height 119 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:14:12   launch height 123 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:14:27   launch height 126 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:14:42   launch height 130 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:14:57   launch height 132 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:15:12   launch height 133 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:15:27   launch height 134 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:15:42   launch height 137 (block 36 matures for spending at 136), settled True, qwencoin 116
+17:15:42   spend_after_maturity = {'allowed': True, 'reject-reason': None}
+17:15:44   settler_summary = {'mine': 23, 'paid_open': 12, 'lost': []}
+17:15:44   launch_at_end = {'height': 137, 'qwen_blocks': 137, 'qwen_supply': 45051148992, 'btc_blocks': 0, 'graduated': False}
+17:15:44   fun_wallet_balance_end = 3136160
+17:15:44   book = {'moved': 0}
+17:15:44 == a Qwencoin header in a transaction that is not a coinbase
+17:16:13   hfh2_outside_coinbase = {'submitblock': None, 'tx_in_block': True, 'headers_in_it': 1, 'relay_height_before': 116, 'relay_height_after': 116, 'qwencoin_tip': 117}
+17:16:13   same_headers_in_a_coinbase = {'submitblock': None, 'headers': 1, 'relay_height_after': 117}
+17:16:13 == the launch node started again
+17:16:13   qwork_values_files = [('WORK/home/launches/QLEG2-3c3e3bc3/node/launch_qleg2_3c3e3bc3/qwork_values.dat', 792)]
+17:16:14   stop_seconds = 0.3
+17:16:15   start_seconds = 1.8
+17:16:15   relay_after_restart = {'height_before': 117, 'height_after': 117, 'best_same': True, 'headers': 11}
+17:16:15   debug_log_after_restart = ["2026-11-14T21:16:14Z Qwencoin work table /home/claude/qwen/qwencoin/dist/qwork.bin: checksum 33a548a33925d201; the launch's Qwencoin anchor a7725743e6e8e5675c72e1dd9dcde5ebf94b330eb6f5799ac3ae681095889b05 at height 107 has work value 00c51c5e41faf28f5404202fd0c61be5f5500c3fc4da24b52e2fb3353da2b0f3", '2026-11-14T21:16:14Z Command-line arg: qwork="/home/claude/qwen/qwencoin/dist/qwork.bin"']
+17:16:15 DONE
+== the launch node started again four times (qwork_values.dat: 72 bytes for every pass the node makes)
+{"file_dropped": false, "bytes_before": 792, "bytes_after": 792, "passes_made": 0, "start_to_relay_seconds": 0.79, "relay_height": 117, "relay_headers": 11}
+{"file_dropped": false, "bytes_before": 792, "bytes_after": 792, "passes_made": 0, "start_to_relay_seconds": 2.15, "relay_height": 117, "relay_headers": 11}
+{"file_dropped": true, "bytes_before": 792, "bytes_after": 792, "passes_made": 11, "start_to_relay_seconds": 2.76, "relay_height": 117, "relay_headers": 11}
+{"file_dropped": false, "bytes_before": 792, "bytes_after": 792, "passes_made": 0, "start_to_relay_seconds": 1.09, "relay_height": 117, "relay_headers": 11}
+== the model's functions on the same nodes (tools/fun.py: coins, quote, order, send, the limit)
+fun_coins: {"coin": "QLEG2", "height": 139, "qwen_curve_percent": 0.01, "price_sats_of_qwen": 294, "price_sats_of_btc": 147050, "that_price_is": "a bound: only the QWEN curve is being mined", "holds_sats": 4257049614, "owes_sats_of_qwen": 38110, "blocks_owed_for": 9}
+fun_quote: a block on the QWEN curve owes about 10000 sats of qwen
+fun_mine(3): 30000 sats of qwen moved by ord's wallet into the fun wallet, 24093bc6f13873bd8afd2ee01ff8cf129863f901dcccf7d4ad837308e427483a , 1 confirmation after a block
+fun_mine(5): 50000 sats moved; FUN_LIMIT 170000: refused: that would make 190,000 sats behind hashfun in all, and this node's limit is 170,000 (FUN_LIMIT, else MIND_LIMIT)
+fun_send(1 coin): 4da07a25bfd76d2961d91de1657d26d7d66f8cc8f1b626ecd0bbfe6e10ccb939 to qleg21qesf4cm8f7rx3aj7s6ep8mmtvcwqfwxxxhhxv66
+fun_send refused: 'bc1q9fjrht4tvj0cz787mmx588llddg4tmfqp47suw' is not an address of QLEG2
+fun_send refused: this node can spend 4,257,047,572 sats of QLEG2 now (a mined block's coins wait for its qwen to be paid and for 100 blocks)
+moved into the fun wallet in all: 160000

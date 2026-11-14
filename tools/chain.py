@@ -35,6 +35,12 @@ weights compute it and a head committing to everything it has published, and aud
 else: a false hash or two heads for one epoch burns every stake on the offender. Every few minutes
 it collects what its identity was given, and takes back a stake of the identity that has been
 unbonding for its whole delay (graph/agent.py reclaim).
+
+A node that follows a hashfun site (tools/fun.py: the files HASHFUN and HASHFUNPKG; FUN=0 for never) has
+one more helper, `fun`, for node FUN_NODE (1): it runs the chains of the site's coins, mines their QWEN
+curve with FUN_CPU of one core and pays what its blocks owe out of a wallet of its own that the node
+fills within FUN_LIMIT (MIND_LIMIT unless set). The node's model is then also offered, in its turn, to
+mine a block of such a coin or to make a coin of its own.
 """
 import json, os, signal, subprocess, sys, time
 from pathlib import Path
@@ -61,8 +67,8 @@ MIND_MODEL = Path(os.environ.get("MIND_MODEL") or ROOT / "dist" / "qwen08-sha")
 # and one call should not be able to empty a wallet.
 MIND_LIMIT = os.environ.get("MIND_LIMIT", "inf")
 MIND_STEP = os.environ.get("MIND_STEP", "100000000")
-MIND_FREE = {"graph_post", "ord_inscribe", "graph_audit", "graph_unvouch"}  # (draw is ord_inscribe)
-MIND_PAID = {"wallet_send", "graph_vouch", "graph_tip"}
+MIND_FREE = {"graph_post", "ord_inscribe", "graph_audit", "graph_unvouch", "fun_launch"}  # (draw is ord_inscribe; a coin made on hashfun costs this chain nothing)
+MIND_PAID = {"wallet_send", "graph_vouch", "graph_tip", "fun_mine"}  # (fun_mine: the qwen its blocks will owe; fun_send gives away coins of another chain: not under a limit)
 # What the node says to its model and how its turns are paced is in tools/talk.py (MIND_SYSTEM, MIND_REPLY, MIND_GAP ..),
 # and a running loop reads that file again when it changes (talk_again): chain.MIND_GAP and the like are talk's.
 import talk  # noqa: E402
@@ -266,9 +272,13 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     if act:
         if not parent or act not in OFFERS or (act == "stake" and parent["standing"] == "slashed"):
             act = "draw"  # the giving and the locking are for the node it answered (and nothing is locked on a convicted one)
+        fun_coins = fun_offer(node, act) if act in ("fun", "coin") else None
+        if act in ("fun", "coin") and not fun_coins:
+            act = "tip"  # nothing to mine here now, or no coin to be made: the giving instead
         out["offered"] = act
-        offer = talk.MIND_DRAW if act == "draw" else (talk.MIND_TIP if act == "tip" else talk.MIND_STAKE).format(other=parent["from"])
-        if act != "draw":  # what it holds, has locked and was given: the notes of a turn that decides about coins
+        offer = (talk.MIND_DRAW if act == "draw" else talk.MIND_FUN.format(coins=fun_coins) if act == "fun" else talk.MIND_COIN if act == "coin"
+                 else (talk.MIND_TIP if act == "tip" else talk.MIND_STAKE).format(other=parent["from"]))
+        if act not in ("draw", "coin"):  # what it holds, has locked and was given: the notes of a turn that decides about coins
             system = talk.MIND_SYSTEM.format(me=me, facts=mind_facts(node, conv, address, me, kind == "open", act))
         try:
             did = s.converse(system, msgs + [{"role": "assistant", "content": answer}, {"role": "user", "content": offer}],
@@ -284,6 +294,31 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
         out["why"] = f"refused: {e}"
     out["took"]["publishing"] = round(time.time() - t_pub)
     return out
+
+
+def fun_offer(node, act: str):
+    """What the node can say to its model when it offers it hashfun (tools/fun.py). For "fun": the coins it follows
+    that are still on their QWEN curve, as one line (talk.fun_lines), or nothing. For "coin": True if the site it
+    follows makes coins and this node has not made one lately. Nothing, when the node follows no site."""
+    try:
+        import fun
+        if os.environ.get("FUN", "1") == "0" or not fun.registry():
+            return None
+        if act == "fun":
+            return talk.fun_lines(fun.coins(node.i)) or None
+        made = max(fun.read_book()["launched"], default=0)
+        return bool(fun.site()) and time.time() - made > float(os.environ.get("FUN_LAUNCH_EVERY") or 24) * 3600
+    except Exception:  # noqa: BLE001  (a launch's node is starting: this turn's offer is the giving)
+        return None
+
+
+def fun_on() -> bool:
+    """Does this folder's node follow hashfun coins? (Then its model's offers are talk.MIND_OFFERS_FUN.)"""
+    try:
+        import fun
+        return os.environ.get("FUN", "1") != "0" and bool(fun.registry())
+    except Exception:  # noqa: BLE001
+        return False
 
 
 def mind_policy(node_ref: list):
@@ -330,7 +365,7 @@ def tooling(web: bool = True) -> str:
     change to them restarts nothing). tools/talk.py never counts: a running loop reads it again."""
     import zlib
     c = 0
-    for f in ([ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py"] + ([ROOT / "tools" / "web.py"] if web else [])
+    for f in ([ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py", ROOT / "tools" / "fun.py"] + ([ROOT / "tools" / "web.py"] if web else [])
               + sorted((ROOT / "graph").glob("*.py")) + sorted((ROOT / "rails").glob("*.py"))):
         if not f.exists():
             continue
@@ -399,6 +434,12 @@ def up(n):
         if os.environ.get("QWEN_SWEEP_TO"):
             spawn(f"sweeper{i}", "sweep", i)
     say(f"each node's model ({MIND_MODEL.name}) is {'loading or running' if with_minds else 'not started: no merged checkpoint yet'}")
+    import fun
+    fun.refresh()  # an installed copy: the project's hashfun site and release as they are now
+    if fun.wanted():  # the coins of a hashfun site: their chains, their QWEN curve (tools/fun.py)
+        fun.up()
+        spawn("fun", "fun", fun.node())
+        say(f"fun: node {fun.node()} follows {fun.site() or 'the launch files in launches/'} (run/fun.log)")
     if os.environ.get("QWEN_WEB_PORT", "0") not in ("", "0"):  # ord's explorer and the graph as a read-only site (tools/web.py)
         spawn("web", "web")
         say(f"web: http://{os.environ.get('QWEN_WEB_BIND', '127.0.0.1')}:{os.environ['QWEN_WEB_PORT']}/  (the explorer, the graph; run/web.log)")
@@ -656,7 +697,8 @@ def mind(i):
             if talk_again(say):  # its words and its pacing, if the file has changed (the model stays loaded)
                 s.temperature = talk.MIND_TEMP
             pend = [p for p in st.get("pending", []) if h - p[1] <= 30]  # a post that is in no block after 30 is taken for lost
-            offer = talk.MIND_OFFERS[st.get("offers", 0) % len(talk.MIND_OFFERS)] if talk.MIND_ACT > 0 and st.get("since_act", 0) + 1 >= talk.MIND_ACT else False
+            offers = talk.MIND_OFFERS_FUN if i == int(os.environ.get("FUN_NODE", "1")) and fun_on() else talk.MIND_OFFERS
+            offer = offers[st.get("offers", 0) % len(offers)] if talk.MIND_ACT > 0 and st.get("since_act", 0) + 1 >= talk.MIND_ACT else False
             # what it is asked if it opens a conversation: not what it was asked the last time
             angle = random.choice([a for a in talk.MIND_ANGLES if a != st.get("angle")])
             t_turn = time.time()
@@ -776,6 +818,12 @@ def status(out=print):
         except Exception as e:
             out(f"  n{i} not answering: {str(e)[:80]}")
     try:
+        import fun
+        for line in fun.status_lines():
+            out(line)
+    except Exception as e:  # noqa: BLE001
+        out(f"  hashfun: not readable ({str(e)[:60]})")
+    try:
         from graph.index import Index
         ix = Index(1).refresh()
         w, names = ix.weight(), ix.identities()
@@ -849,6 +897,11 @@ def down():
             pass
         f.unlink()
     subprocess.run(["pkill", "-f", "--", f"--data-dir {RUN}/ord"], capture_output=True)
+    try:  # the nodes of the hashfun launches this folder follows, before the node whose chain they read
+        import fun
+        fun.down()
+    except Exception as e:  # noqa: BLE001
+        print(f"fun: {str(e)[:120]}")
     net.down()
     print("stopped; the chain and the wallets are in", RUN)
 
@@ -865,6 +918,9 @@ if __name__ == "__main__":
         mind(int(sys.argv[2]))
     elif cmd == "sweep":
         sweep(int(sys.argv[2]))
+    elif cmd == "fun":
+        import fun
+        fun.Helper(int(sys.argv[2]) if len(sys.argv) > 2 else fun.node()).run()
     elif cmd == "web":
         import web
         web.from_env()

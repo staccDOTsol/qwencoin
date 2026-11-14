@@ -12,12 +12,12 @@ model knows them wherever it is loaded. Who answers a call:
                interface: a function name and its arguments in, one line of JSON out.
 
 Calls that move coins (wallet_send, ord_send, ord_inscribe, graph_bond, graph_vouch, graph_post,
-graph_audit, graph_leave, and the sending commands of bitcoin_cli / ord_cli) go through
+graph_audit, graph_leave, fun_mine, fun_send, fun_launch, and the sending commands of bitcoin_cli / ord_cli) go through
 `Node.approve` first: a person at the node, a spending limit (rails/runtime.py), or the policy of
 the node's own model loop (tools/chain.py mind). Text that
 other people put on the chain comes back as data inside JSON, never as instructions.
 """
-import json, re, shlex, subprocess, sys, tempfile
+import json, os, re, shlex, subprocess, sys, tempfile
 from contextlib import contextmanager
 from pathlib import Path
 
@@ -33,8 +33,9 @@ MAX_OUT = 2400  # characters of a tool response (a small model's context is not 
 BOND_DELAY = 144  # blocks a stake stays slashable after its owner starts to leave
 
 
-def fn(name: str, description: str, **params) -> dict:
-    """A function declaration. params: name=(type, description) or name=(type, description, False) if optional."""
+def fn(name: str, description: str, /, **params) -> dict:
+    """A function declaration. params: name=(type, description) or name=(type, description, False) if optional.
+    (The first two are given by position only: a function may have a parameter called name or description.)"""
     props = {k: {"type": v[0], "description": v[1]} for k, v in params.items()}
     return {"type": "function", "function": {"name": name, "description": description, "parameters": {
         "type": "object", "properties": props, "required": [k for k, v in params.items() if len(v) < 3 or v[2]]}}}
@@ -100,6 +101,27 @@ TIP_TOOLS = [EXTRA[1]]
 DRAW_TOOLS = [EXTRA[2]]
 OFFERS = {"tip": TIP_TOOLS, "draw": DRAW_TOOLS, "stake": STAKE_TOOLS}
 SPEC.update({t["function"]["name"]: t["function"]["parameters"] for t in EXTRA})
+# What a node that follows a hashfun site has beside all that (tools/fun.py): the coins of that site. A hashfun coin
+# has a chain of its own and two curves, one paid for in sats of BTC and one in sats of qwen; a block mined on the
+# QWEN curve gives its miner new coins and owes qwen to a holder of the coin. Like graph_tip and draw, these are not
+# among the functions a checkpoint's template declares: a model meets them where its node offers them, and a caller
+# (rails/runtime.py with FUN, tests) passes them as its own list.
+FUN = [fn("fun_coins", "The hashfun coins this node follows: how far each is on its two curves, what one coin of it costs on each "
+          "(in sats of BTC and in sats of qwen), what that makes one qwen worth in sats of BTC, what this node holds of it and owes for it."),
+       fn("fun_quote", "One hashfun coin: its two prices, and about what a block of it costs this node in sats of qwen.",
+          coin=("string", "its ticker, e.g. CAT")),
+       fn("fun_mine", "Mine blocks of a hashfun coin on its QWEN curve. A block gives this node new coins of it and owes qwen, "
+          "which this node pays to a holder of the coin. The blocks come as the node finds them.",
+          coin=("string", "its ticker, e.g. CAT"), blocks=("integer", "how many blocks, 1 to 5")),
+       fn("fun_send", "Give coins of a hashfun coin that this node holds to an address of that coin.",
+          coin=("string", "its ticker"), address=("string", "who gets them: an address of that coin"),
+          sats=("integer", "amount in sats of the coin (1 coin = 100000000 sats)")),
+       fn("fun_launch", "Make a new coin on hashfun. It gets a chain of its own, the nodes mine it, and this node is its creator.",
+          name=("string", "the coin's name"), ticker=("string", "2 to 10 capital letters or digits, e.g. MOSS"),
+          description=("string", "one line about the coin", False))]
+#   to mine: blocks of a coin it follows     to make: a coin of its own
+OFFERS.update({"fun": [FUN[2]], "coin": [FUN[4]]})
+SPEC.update({t["function"]["name"]: t["function"]["parameters"] for t in FUN})
 MAX_INSCRIBE = 24_000  # bytes of what the model inscribes in one call
 
 # what the model may not run through the two pass-throughs: commands that export keys, lock or
@@ -608,6 +630,33 @@ class Node:
                     return {"unbonding": a.unbond(s), "collect_after_blocks": s.bond.delay}
             with self._spending("graph_leave", "collect the unbonded stake", None, lock=False):
                 return {"withdrawn": a.withdraw(s, net.ord_wallet(self.i, "receive")["addresses"][0])}
+
+    # ------------------------------------------------------------------ hashfun: the coins of the site this node follows (tools/fun.py)
+    def _fun(self, run, *args):
+        """One of tools/fun.py's answers. What it will not do is said to the model as a refusal; names and
+        descriptions of coins in an answer were written by whoever made the coin: data inside JSON, like a post."""
+        import fun
+        if os.environ.get("FUN", "1") == "0" or not (fun.registry() or fun.site()):
+            raise Refused("this node follows no hashfun site")
+        try:
+            return getattr(fun, run)(self.i, *args)
+        except fun.Refusal as e:
+            raise Refused(str(e))
+
+    def t_fun_coins(self):
+        return self._fun("coins")
+
+    def t_fun_quote(self, coin: str):
+        return self._fun("quote", coin)
+
+    def t_fun_mine(self, coin: str, blocks: int):
+        return self._fun("order", coin, blocks, self._spending)
+
+    def t_fun_send(self, coin: str, address: str, sats: int):
+        return self._fun("send", coin, address, sats, self._spending)
+
+    def t_fun_launch(self, name: str, ticker: str, description: str = ""):
+        return self._fun("launch", name, ticker, description, self._spending)
 
     # ------------------------------------------------------------------ everything else the node can do
     def t_bitcoin_cli(self, args: str):

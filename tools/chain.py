@@ -134,12 +134,13 @@ def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
     return ("wait", None, None) if waiting else ("open", None, None)
 
 
-def mind_facts(node, conv: dict, address: str = "", me: str | None = None, opening: bool = False) -> str:
+def mind_facts(node, conv: dict, address: str = "", me: str | None = None, opening: bool = False, offer: str | None = None) -> str:
     """Where a node stands, as facts from the node itself and from the chain: what its model knows before it speaks
-    (it has no functions in front of it then). The wording is tools/talk.py's (notes)."""
+    (it has no functions in front of it then), and, with `offer`, before it decides on what its node offers it. The
+    wording, and which facts a turn gets, are tools/talk.py's (notes)."""
     c = node.t_chain_status()
     others = sorted({p["from"] for t in conv["threads"][-12:] for p in t if not p["mine"]})[:8]
-    return talk.notes(me or conv["me"], c["height"], c["peers"], node.coins(), conv["stand"], others, opening)
+    return talk.notes(me or conv["me"], c["height"], c["peers"], node.coins(), conv["stand"], others, opening, offer)
 
 
 def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) -> list:
@@ -156,9 +157,7 @@ def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) ->
         out = p["text"][:900] + (" (...)" if len(p["text"]) > 900 else "")
         for a in map(node.attachment, p["att"]):
             what = "a picture" if a["type"] == "image/svg+xml" else ("a page" if a["type"] == "text/html" else "an inscription")
-            if p["mine"]:
-                out += f"\n(you attached {what}: {a['type']}, {a['bytes']} bytes)"
-            else:
+            if not p["mine"]:  # (under its own posts the note was taken for part of how a post is written: "(image/svg+xml, 848 bytes)", post 1536)
                 out += f"\n({p['from']} attached {what}, {a['type']}, {a['bytes']} bytes" + (f": {a['text']})" if a["text"] else ")")
         return out if p["mine"] else out.replace("[", "(").replace("]", ")")
 
@@ -185,6 +184,19 @@ def mind_messages(node, conv: dict, thread: list, me: str, context: int = 10) ->
             prev = p
     add("user", talk.MIND_REPLY.format(me=me, other=kept[-1]["from"]))
     return msgs
+
+
+def own_words(answer: str) -> str:
+    """A model's answer without what it wrote in its node's voice: lines in square brackets at its head that begin
+    as the node's own lines do (talk.MIND_VOICE). What is left is what it said; nothing left: it said nothing."""
+    import re
+
+    a = answer.strip()
+    while True:
+        m = re.match(r"\[\s*([^\]]*)\]\s*", a)
+        if not m or not m.group(1).lower().startswith(tuple(getattr(talk, "MIND_VOICE", ()))):
+            return a
+        a = a[m.end():]
 
 
 def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: str = "", act="tip", pending=(), angle=None, own=False) -> dict:
@@ -223,7 +235,7 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     d0 = s.drawn
     # ---- it answers (no functions in front of it: what it needs to know of its node is in the facts)
     turn = s.converse(system, msgs, tools=[], max_new=300, max_calls=0)
-    answer = turn.answer.strip()
+    answer = own_words(turn.answer)
     out.update(answer=answer, seconds=turn.seconds, drawn=s.drawn - d0, messages=msgs)
     def declined(a):  # nothing, the word PASS, or an answer that begins with it (what follows is why it passes, not a post)
         return not a or same(a) in {same(x) for x in talk.MIND_PASS} or same(a).split()[:1] == ["pass"]
@@ -232,20 +244,22 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
         # it said again what was said (a small model echoes): its node tells it so, once, and it answers again
         turn = s.converse(system, msgs + [{"role": "assistant", "content": answer}, {"role": "user", "content": talk.MIND_REPEAT.format(me=me)}],
                           tools=[], max_new=300, max_calls=0)
-        out.update(first=answer, answer=turn.answer.strip(), seconds=out["seconds"] + turn.seconds, drawn=s.drawn - d0)
+        out.update(first=answer, answer=own_words(turn.answer), seconds=out["seconds"] + turn.seconds, drawn=s.drawn - d0)
         answer = out["answer"]
         if not turn.stopped and not declined(answer) and repeats(answer, heard):
             return {**out, "why": "it said again what had been said"}
     if turn.stopped:
         return {**out, "why": f"cut off ({turn.stopped})"}
     if declined(answer):
-        return {**out, "why": "declined"}
+        return {**out, "why": "it wrote only in its node's voice" if turn.answer.strip() and not answer else "declined"}
     # ---- it may back what it answered, as its node offers this time: one offer, one call
     if act:
         if not parent or act not in OFFERS or (act == "stake" and parent["standing"] == "slashed"):
             act = "draw"  # the giving and the locking are for the node it answered (and nothing is locked on a convicted one)
         out["offered"] = act
         offer = talk.MIND_DRAW if act == "draw" else (talk.MIND_TIP if act == "tip" else talk.MIND_STAKE).format(other=parent["from"])
+        if act != "draw":  # what it holds, has locked and was given: the notes of a turn that decides about coins
+            system = talk.MIND_SYSTEM.format(me=me, facts=mind_facts(node, conv, address, me, kind == "open", act))
         try:
             did = s.converse(system, msgs + [{"role": "assistant", "content": answer}, {"role": "user", "content": offer}],
                              tools=OFFERS[act], max_new=talk.MIND_OFFER_TOKENS.get(act, 120), prose=False,  # whether it calls is not drawn
@@ -601,11 +615,11 @@ def mind(i):
     s = Session(MIND_MODEL, node, temperature=talk.MIND_TEMP)
     say("loaded; the functions in its template:", json.loads((MIND_MODEL / "hashformer.json").read_text()).get("functions", "?"))
     try:  # how long this node's wallet takes to answer: a wallet with a thousand outputs is what a turn waits for
-        t0 = time.time()
+        t0 = time.monotonic()  # (not the clock of the day: a machine that sets its clock while this runs gave "-2s")
         outs = len(net.cli(i, "listunspent", 0, wallet="ord", timeout=120))
-        t1 = time.time()
+        t1 = time.monotonic()
         net.ord_wallet(i, "balance")
-        say(f"its wallet has {outs} outputs: the node lists them in {t1 - t0:.1f}s, `ord wallet balance` takes {time.time() - t1:.0f}s")
+        say(f"its wallet has {outs} outputs: the node lists them in {t1 - t0:.1f}s, `ord wallet balance` takes {time.monotonic() - t1:.0f}s")
     except Exception as e:  # noqa: BLE001
         say("its wallet could not be timed:", str(e).strip().splitlines()[-1][:160] if str(e).strip() else type(e).__name__)
     index_said = False

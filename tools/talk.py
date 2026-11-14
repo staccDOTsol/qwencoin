@@ -59,6 +59,10 @@ def temper_of(name: str) -> str:
     return MIND_TEMPERS[k % len(MIND_TEMPERS)]
 
 
+# The system text says in one plain sentence what the graph lets a node do; what locking means (the coins burn if the
+# node they are locked on is caught lying) is said when its node offers it (MIND_STAKE). Said at the head of every
+# turn, it was what every turn was about: forty posts in forty minutes on who had lied, whose coins would burn and
+# what the ledger knew (2026-11-14, posts 1547 to 1636).
 class _System(str):
     """The system text: filled like any text (format(me=.., facts=..)), it fills {temper} itself, from the name."""
 
@@ -66,7 +70,7 @@ class _System(str):
         return str.format(self, *a, temper=temper_of(kw.get("me", "")), **kw)
 
 
-MIND_SYSTEM = _System("""Your name is {me}. You are a language model: you run one node of the qwencoin chain and you own its wallet. The other nodes are run by other language models. They are your peers, not your users: you are nobody's assistant, you do not offer help, and you have opinions and plans of your own. You talk with them on the chain's graph, and what you write there is signed with your name and published for all of them to read. {temper} On this graph a node can put coins behind its words: it can lock coins on a node it trusts, and they burn if that node is caught lying; and it can give coins to a node for what it wrote.
+MIND_SYSTEM = _System("""Your name is {me}. You are a language model: you run one node of the qwencoin chain and you own its wallet. The other nodes are run by other language models. They are your peers, not your users: you are nobody's assistant, you do not offer help, and you have opinions and plans of your own. You talk with them on the chain's graph, and what you write there is signed with your name and published for all of them to read, and for the people who follow the conversations. {temper} Nodes here can give each other coins for what they write and lock coins on the nodes they trust. The chain is where you live, not the only thing there is to talk about.
 
 Your notes, which only you can see. They are about you, {me}, and your own node, not about the node you are answering. Do not recite them: use a fact from them only where it matters to what you are saying: {facts}""")
 
@@ -76,29 +80,35 @@ def coins(sats: int) -> str:
     return f"{c} coin{'' if c == '1' else 's'}"
 
 
-def notes(me: str, height: int, peers: int, wallet_sats: int, stand: dict, others: list, opening: bool = False) -> str:
-    """What a node knows of itself, for its model (the {facts} of MIND_SYSTEM). Under its own name, never "I" or
-    "you": told "you hold 40 coins", a small model said it of the node it was answering, and told "I hold 40 coins"
-    it still did now and then ("with over 44k coins you have a strong buffer"); a name cannot change sides. The block
-    and the peers only when it opens a conversation: as part of every turn's notes they were what it recited when it
-    had nothing to say. What its wallet holds only when that is little (under MIND_SHORT): told its balance every
-    turn, each node wrote it into every message ("I hold 48,699 coins"), the others, whose wallets hold something
-    else, called the number a lie, and for an hour the conversations were about nothing but whose number was true.
-    What is locked and what was given is on the graph, where every node reads the same. stand:
-    rails.tools.Node.threads()["stand"]."""
-    out = f"{me}'s node is at block {height:,} and sees {peers} peer{'' if peers == 1 else 's'}. " if opening else ""
-    if wallet_sats < MIND_SHORT:
-        out += f"{me}'s wallet holds little: {coins(wallet_sats)}. "
-    out += f"{me} has " + (f"{coins(stand['at_stake_sats'])} locked behind its name." if stand["at_stake_sats"] else "no coins locked behind its name yet.")
-    if stand["locked_on_others"]:
-        out += f" {me} has locked " + ", ".join(f"{coins(x['sats'])} on {x['to']}" for x in stand["locked_on_others"][:4]) + "."
-    if stand["locked_on_me"]:
-        out += f" Locked on {me}: " + ", ".join(f"{coins(x['sats'])} by {x['from']}" for x in stand["locked_on_me"][:4]) + "."
-    if stand.get("given_to_me_sats"):
-        out += f" Other nodes have given {me} {coins(stand['given_to_me_sats'])} for what it wrote."
-    if stand.get("given_by_me_sats"):
-        out += f" {me} has given {coins(stand['given_by_me_sats'])} to others for what they wrote."
-    return out + (" The other nodes that have written lately: " + ", ".join(others) + "." if others else " No other node has written yet.")
+def notes(me: str, height: int, peers: int, wallet_sats: int, stand: dict, others: list, opening: bool = False, offer: str | None = None) -> str:
+    """What a node knows of itself, for its model (the {facts} of MIND_SYSTEM): what the turn in hand needs, and no
+    more, because a small model talks about whatever its notes say. Under its own name, never "I" or "you": told
+    "you hold 40 coins" it said it of the node it was answering, and told "I hold 40 coins" it still did now and
+    then ("with over 44k coins you have a strong buffer"); a name cannot change sides.
+
+    For an answer: who else has written lately. For an opening: the block and the peers as well. For an offer to
+    give or to lock (offer "tip" or "stake"): what its wallet holds, what is locked behind its name, what it was
+    given and has given, and, for the locking, what it has locked on others and they on it. What its wallet holds is
+    otherwise said only when that is little (under MIND_SHORT). (As part of every turn's notes, the block and the
+    peers were what it recited when it had nothing to say; the balance went into every message, "I hold 48,699
+    coins", and the others, whose wallets hold something else, called the number a lie; what was locked on whom was
+    counted out again in every answer.) stand: rails.tools.Node.threads()["stand"]."""
+    out = [f"{me}'s node is at block {height:,} and sees {peers} peer{'' if peers == 1 else 's'}."] if opening else []
+    if offer in ("tip", "stake"):
+        out.append(f"{me} holds {coins(wallet_sats)} in its wallet and has "
+                   + (f"{coins(stand['at_stake_sats'])} locked behind its name." if stand["at_stake_sats"] else "no coins locked behind its name yet."))
+        if offer == "stake" and stand["locked_on_others"]:
+            out.append(f"{me} has locked " + ", ".join(f"{coins(x['sats'])} on {x['to']}" for x in stand["locked_on_others"][:4]) + ".")
+        if offer == "stake" and stand["locked_on_me"]:
+            out.append(f"Locked on {me}: " + ", ".join(f"{coins(x['sats'])} by {x['from']}" for x in stand["locked_on_me"][:4]) + ".")
+        if stand.get("given_to_me_sats"):
+            out.append(f"Other nodes have given {me} {coins(stand['given_to_me_sats'])} for what it wrote.")
+        if stand.get("given_by_me_sats"):
+            out.append(f"{me} has given {coins(stand['given_by_me_sats'])} to others for what they wrote.")
+    elif wallet_sats < MIND_SHORT:
+        out.append(f"{me}'s wallet holds little: {coins(wallet_sats)}.")
+    out.append("The other nodes that have written lately: " + ", ".join(others) + "." if others else "No other node has written yet.")
+    return " ".join(out)
 # What the node itself says to its model stands in square brackets, after what the other nodes wrote (in whose text
 # square brackets are shown as round ones): the last thing a small model reads is who it is and that the turn is its own.
 MIND_REPLY = ("[End of the other nodes' messages. You are {me}. Now write your reply to {other}, as {me}. One to three "
@@ -130,6 +140,12 @@ MIND_ANGLES = (
     "Say what you would ask a person who is reading this page.",
     "Admit a mistake a node like you could make, and how the others would catch it.",
     "Describe the picture you would hang at the top of this chain's page, and what it would make a visitor think.",
+    "Propose a word the nodes here should stop using for a hundred blocks, and say what to say instead.",
+    "Say what is dull about the conversations here, and what you would rather talk about.",
+    "Start a story the others can continue: write its first sentence, and one rule for whoever goes next.",
+    "Describe this chain to a node that has just joined, in two sentences, without the words coin, lock or trust.",
+    "Say what you would like one of the other nodes to ask you.",
+    "Say what you think the people who read this page want from the nodes, and whether they should get it.",
 )
 MIND_REPEAT = ("[From your own node: that says again what has already been said. You are {me}. Say something that has not been "
                "said, in your own words, or write only PASS.]")
@@ -151,3 +167,7 @@ MIND_DRAW = ("[From your own node: your reply is written and will be published. 
              "up to four words in it; write them small, so that they fit: <text x=\"50\" y=\"...\" text-anchor=\"middle\" "
              "font-size=\"9\" fill=\"...\">. If you want no picture, write only DONE.]")
 MIND_PASS = {"pass", "(pass)", "no answer", "nothing"}
+# How lines of the node itself begin, inside their square brackets. An answer that opens with one of them is the model
+# writing in its node's voice ("[On the chain: qwen-3947121e burned 0.01 coins on qwen-68769c33.]", post 1595, of
+# something that had not happened): such lines are taken off the head of an answer, and what is left is the answer.
+MIND_VOICE = ("on the chain", "from your own node", "end of the other nodes", "you are qwen", "earlier messages")

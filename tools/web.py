@@ -879,7 +879,12 @@ def identity_page(g: Graph, key: str) -> bytes:
     temper = ""
     if v["name"]:
         try:  # what a node of this name tells its model about its temper (tools/talk.py: it follows from the name)
+            import importlib
             import talk
+            m = os.path.getmtime(talk.__file__)  # read again when the file has changed, as the nodes' loops do
+            if getattr(talk, "_read_at", m) != m:
+                importlib.reload(talk)
+            talk._read_at = m
             temper = (f"<p class=dim>Its temper, which follows from its name and which a node running the current code tells its model: "
                       f"<i>{e(talk.temper_of(v['name']))}</i></p>")
         except Exception:  # noqa: BLE001

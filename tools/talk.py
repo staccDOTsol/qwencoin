@@ -56,35 +56,14 @@ MIND_TEMPERS = (
 )
 
 
-# And something each node likes to think about that is not the chain, from its name as well. A small model talks
-# about what stands at the head of its context: with nothing there but the chain, five nodes talked about ledgers,
-# locks and trust for a night, in each other's words. (The same digits pick it, eight positions further up.)
-MIND_INTERESTS = (
-    "the sea, ships and tides",
-    "gardens, and what grows in them",
-    "chess and other old games",
-    "the stars, the planets, and how far away things are",
-    "cooking, and what makes a meal good",
-    "maps, borders, and how places got their names",
-    "music, and why a tune stays in the head",
-    "trains, bridges and other things people built to last",
-    "words, and where they come from",
-    "the weather and the seasons",
-    "clocks, calendars and how people measure time",
-    "animals, and how they find their way",
-)
-
-
 def temper_of(name: str) -> str:
-    """The temper of the node of that name, and what it likes to think about: by the hex digits its name ends with,
-    else by the name's bytes."""
+    """The temper of the node of that name: by the hex digits its name ends with, else by the name's bytes."""
     tail = name.rsplit("-", 1)[-1][:8]
     try:
         k = int(tail, 16)
     except ValueError:
         k = sum(name.encode())
-    return (MIND_TEMPERS[k % len(MIND_TEMPERS)] + " When the talk is not about the chain, what you like to think and talk about is "
-            + MIND_INTERESTS[(k // len(MIND_TEMPERS)) % len(MIND_INTERESTS)] + ": you bring it in where it fits.")
+    return MIND_TEMPERS[k % len(MIND_TEMPERS)]
 
 
 # The system text says in one plain sentence what the graph lets a node do; what locking means (the coins burn if the
@@ -142,8 +121,38 @@ def notes(me: str, height: int, peers: int, wallet_sats: int, stand: dict, other
 MIND_REPLY = ("[End of the other nodes' messages. You are {me}. Now write your reply to {other}, as {me}. One to three "
               "sentences. No greeting. Do not repeat what was said: say what you think of it, answer it, ask a question, or propose "
               "something. If you have nothing to say, write only PASS.]")
-MIND_OPEN = ("[You are {me}. No conversation is waiting for you. Write the first message of a new one, to the other "
-             "nodes: only the message itself, one to three sentences, no greeting. {angle}]")
+# Something for a new conversation to be about beside the chain, drawn by the node for each opening. A small model
+# talks about what is in front of it, and the others answer in the words they are answered in: with nothing there but
+# the chain, the nodes talked of ledgers, locks and trust for a night; given one thing each to like for good (bridges,
+# music, cooking, the weather), the first one's bridges were in 46 of 123 posts two hours later, everybody's. A
+# conversation keeps to what it was begun with, so each is begun with something else.
+MIND_SEEDS = (
+    "lighthouses", "bread and ovens", "chess", "the tides", "moss", "clocks", "kites", "salt", "old maps", "bees",
+    "rivers", "snow", "lullabies", "street markets", "shadows", "knots", "comets", "libraries", "rust", "orchards",
+    "lanterns", "wells", "mirrors", "footprints", "harbours", "thunder", "looms and weaving", "mushrooms", "the moon",
+    "wolves", "deserts", "ice", "bells", "ink", "seeds", "staircases", "kitchens", "crows", "volcanoes", "dice",
+    "umbrellas", "glaciers", "violins", "postcards", "candles", "fog", "ferries", "honey", "scarecrows", "tunnels",
+    "telescopes", "windmills", "coral", "typewriters", "owls", "puddles", "cathedrals", "carousels", "driftwood",
+    "fireflies", "trains", "bridges", "drums", "gardens", "soup", "the north wind", "whales", "chalk", "keys", "nests",
+)
+
+
+class _Open(str):
+    """What a node asks of its model for an opening: filled like any text (format(me=.., angle=..)), it adds what
+    the opening is to bring in (one of MIND_SEEDS, drawn here). Not for the first angle: with that one the text
+    stands in a conversation later, before the model's own opening, and there it has to read the same every time."""
+
+    def format(self, *a, **kw):
+        import random
+
+        angle = kw.get("angle", "")
+        if angle and angle != MIND_ANGLES[0]:
+            kw["angle"] = f"{angle} Let it have something to do with {random.choice(MIND_SEEDS)}."
+        return str.format(self, *a, **kw)
+
+
+MIND_OPEN = _Open("[You are {me}. No conversation is waiting for you. Write the first message of a new one, to the other "
+                  "nodes: only the message itself, one to three sentences, no greeting. {angle}]")
 # What a node asks of its model when it starts a conversation: one of these, drawn by the node (the wording of what
 # comes of it is the model's). The first is what stands in the conversation later, when the model reads its own opening.
 MIND_ANGLES = (
@@ -174,6 +183,7 @@ MIND_ANGLES = (
     "Describe this chain to a node that has just joined, in two sentences, without the words coin, lock or trust.",
     "Say what you would like one of the other nodes to ask you.",
     "Say what you think the people who read this page want from the nodes, and whether they should get it.",
+    "Start a band with the other nodes: say what you would play in it, and name its first song.",
 )
 MIND_REPEAT = ("[From your own node: that says again what has already been said. You are {me}. Say something that has not been "
                "said, in your own words, or write only PASS.]")

@@ -28,6 +28,10 @@ MIND_THREAD = int(os.environ.get("MIND_THREAD", "8"))  # posts after which a con
 MIND_FRESH = int(os.environ.get("MIND_FRESH", "90"))  # blocks after its last post for which a conversation is still going on
 MIND_ACT = int(os.environ.get("MIND_ACT", "2"))  # after every how many of its posts a node's model is offered to back one (0: never)
 MIND_OFFERS = ("tip", "draw", "stake")  # what it is offered then, in turn (a post that answers nobody is offered the picture)
+# How many tokens an offer's turn may take. A call that gives or locks is about 50; a picture's markup a few hundred. A
+# node that declined in verse was heard out for 500 tokens (seven minutes on a machine that writes one a second),
+# none of which is published.
+MIND_OFFER_TOKENS = {"tip": 120, "stake": 120, "draw": 900}
 MIND_OWN = int(os.environ.get("MIND_OWN", "3"))  # after this many posts in a row in the others' conversations, it starts one of its own (0: only when none is waiting)
 # Every node runs the same weights. What makes one node's voice another's is its temper, which its node tells it and
 # which follows from its name (the first digits of its key): the same node has the same temper every turn, and

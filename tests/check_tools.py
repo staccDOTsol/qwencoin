@@ -130,13 +130,15 @@ def check_node():
     rd = call(n2, "ord_read", id=ins["id"])  # read through the other node's ord
     mine = lambda i, addr: net.cli(i, "getaddressinfo", addr, wallet="ord")["ismine"]  # noqa: E731
     assert rd["text"] == text and mine(1, rd["owner"]) and not mine(2, rd["owner"]) and rd["type"].startswith("text/plain"), rd
-    assert ins["id"] in [x["id"] for x in call(n1, "ord_list")]
+    held = lambda i: {x["inscription"] for x in net.ord_wallet(i, "inscriptions")}  # noqa: E731  (ord_list shows the first 40, and cut if that is long)
+    listed = call(n1, "ord_list")
+    assert ins["id"] in held(1) and all("id" in x for x in (listed["first"] if isinstance(listed, dict) else listed)), listed
     latest = call(n2, "ord_latest", count=3)
     assert latest[0]["id"] == ins["id"] and latest[0]["text"] == text[:240], latest
     gift = call(n1, "ord_send", id=ins["id"], address=a2)
     T.block(1)
     assert call(n1, "ord_read", id=ins["id"])["owner"] == a2
-    assert ins["id"] in [x["id"] for x in call(n2, "ord_list")] and ins["id"] not in [x["id"] for x in call(n1, "ord_list")]
+    assert ins["id"] in held(2) and ins["id"] not in held(1)
     say(f"  ord_inscribe / ord_read / ord_list / ord_latest / ord_send: inscription {ins['id'][:16]}.. written by n1, read by n2's ord, "
         f"newest on the chain, given to n2 in {gift['txid'][:16]}..")
 

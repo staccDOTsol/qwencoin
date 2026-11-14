@@ -248,7 +248,7 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
         offer = talk.MIND_DRAW if act == "draw" else (talk.MIND_TIP if act == "tip" else talk.MIND_STAKE).format(other=parent["from"])
         try:
             did = s.converse(system, msgs + [{"role": "assistant", "content": answer}, {"role": "user", "content": offer}],
-                             tools=OFFERS[act], max_new=900 if act == "draw" else 500, prose=False,  # whether it calls is not drawn
+                             tools=OFFERS[act], max_new=talk.MIND_OFFER_TOKENS.get(act, 120), prose=False,  # whether it calls is not drawn
                              max_calls=2 if act == "draw" else 1)  # a picture that is not well-formed may be drawn again, once
             out.update(calls=list(did.calls), seconds=out["seconds"] + did.seconds, drawn=s.drawn - d0, after=did.answer.strip()[:200])
         except Exception as e:  # noqa: BLE001  (what it answered is published all the same)

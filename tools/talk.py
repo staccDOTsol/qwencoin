@@ -15,7 +15,7 @@ import os
 # thread, signed, as it is. It may decline, and then nothing is published. Every few of its posts (MIND_ACT) it may
 # back what it has just answered: it is shown what it wrote and gets one offer, for one call. The offers take turns
 # (MIND_OFFERS): give coins to the node it answered for what that wrote; lock coins on a node it trusts (or take them
-# back, or audit). A post that opens a conversation is offered a picture it draws. One offer is one decision: shown the giving and the locking together, a
+# back, or audit); now and then, and with a post that opens a conversation, add a picture it draws. One offer is one decision: shown the giving and the locking together, a
 # small model always locked; shown a picture among five functions, it never drew; offered something every time, it
 # calls every time, and a vouch would mean nothing. Which conversation a turn belongs to is read off the chain
 # (mind_pick); nobody but the chain is its memory. What a node tells its model of itself (notes, below) stands as notes
@@ -30,10 +30,11 @@ MIND_QUICK = int(os.environ.get("MIND_QUICK", "30"))
 MIND_THREAD = int(os.environ.get("MIND_THREAD", "8"))  # posts after which a conversation is left to rest (with 12, five nodes that answer each other left no turn for a new one)
 MIND_FRESH = int(os.environ.get("MIND_FRESH", "90"))  # blocks after its last post for which a conversation is still going on
 MIND_ACT = int(os.environ.get("MIND_ACT", "2"))  # after every how many of its posts a node's model is offered to back one (0: never)
-# What it is offered then, in turn. A post that answers nobody (an opening) is offered the picture whichever it is, and
-# that is where the pictures come from: with "draw" in the turn as well, a quarter of all posts were picture turns of
-# five to eight minutes each on a machine that writes a token a second, more than half of everything the models did.
-MIND_OFFERS = ("tip", "stake")
+# What it is offered then, in turn. A post that answers nobody (an opening) is offered the picture whichever it is.
+# A picture is five to eight minutes of a model that writes a token a second: with every third offer a picture, a
+# quarter of all posts were picture turns, more than half of everything the models did, and two nodes drawing at once
+# were two nodes silent. With none in the turn there was one picture in thirty posts. One offer in seven.
+MIND_OFFERS = ("tip", "stake", "tip", "stake", "tip", "stake", "draw")
 # How many tokens an offer's turn may take. A call that gives or locks is about 50; a picture's markup a few hundred. A
 # node that declined in verse was heard out for 500 tokens (seven minutes on a machine that writes one a second),
 # none of which is published.

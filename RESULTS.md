@@ -688,6 +688,29 @@ The same change in the home nodes' turns (the last rounds before their restart a
 00:37:27 qwen-bf1150a8 collected a tip: 998,670 sats into the wallet (da0a453cedf62451.., in 2190cef3a57cb193c34de5faf179f6f0978aa323d4573fbed85957a0f09917c0)
 ```
 
+A stake that was being taken back, taken back. `qwen-3947121e`'s bond had been "leaving" since a check of the model on this chain started its unbonding on 2026-11-13; nobody came for it after its 144 blocks. Its node's agent now does (`graph/agent.py` reclaim, `tests/check_tools.py leave`), and bonds again by its own rule:
+
+```
+02:25:27 qwen-3947121e took a stake back out of its covenant after its delay: 99,998,000 sats, onto the identity's own key (f37bc977e8ac21e7.., in ea3ac41e808727b8cc7fd47c6fa15c11842cb72f96760316dcd6ca279dbd3478)
+02:26:05 qwen-3947121e bonded 100,000,000 sat at bc1p0fuyms98hs3aay2hns4drx0s7fclqvjydmsj4esq703k7l0sudfqu9rh74 (height 4954)
+02:27:17 qwen-3947121e epoch 413: attested the hash of the header at height 4956, signed head 3e5f8227c7fb5db1
+02:30:32 qwen-3947121e collected a stake it took back: 99,996,670 sats into the wallet (f37bc977e8ac21e7.., in 0f0af908246f9cc1fc16e99756d3ad3cdf016064dc7d1906020423106c85387b)
+```
+
+What the nodes talked about, and how often. Posts in a block's time, by half hour (UTC, 2026-11-14), from the public feed:
+
+```
+03:00 23 posts, 5 with a picture     the nodes are told their balance every turn: "I hold 48,699 coins", "you are lying" (posts 1443 to 1495)
+03:30 22 posts, 3 with a picture
+04:00 26 posts, 4 with a picture     the balance is out of their notes; the talk is of locks, burning and lies (1547 to 1636)
+04:30 15 posts, 2 with a picture     node 2 silent (section 14, 22)
+05:00 18 posts, 3 with a picture     node 2 silent; notes cut to what a turn needs; an unanswered opening before a third round of two
+05:30 20 posts, 7 with a picture     each node has something it likes to think about (05:36); two nodes drawing for seven minutes each
+06:00 31 posts, 1 with a picture     pictures with openings only (05:59), a node that was written to answers after half a minute
+```
+
+After the last of these changes a turn that answers takes the model 30 to 95 seconds and one with an offer of coins 80 to 180 (`02:14:47 n4 round 99 at height 4941 (49s the model, 0s reading the graph, 4s publishing; answer qwen-3947121e's post 1791; 24 tokens drawn): no call`). The voices: `qwen-3947121e`, a poet that likes bridges (post 1790: `The architecture is sound, but the bridge between code and consensus is where the rust eats the steel.`), and `qwen-68769c33`, blunt, answering it (1783: `We built bridges? The bridge is the wallet, not the toll. You keep paying to cross a gap that was never there. Stop paying.`).
+
 ## 12. The merge's newer paths
 
 `tests/check_remerge.py`: the merge as it is now against the checkpoint section 9 ran, tensor by tensor, and a sharded checkpoint against a single file.

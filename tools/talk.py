@@ -49,14 +49,35 @@ MIND_TEMPERS = (
 )
 
 
+# And something each node likes to think about that is not the chain, from its name as well. A small model talks
+# about what stands at the head of its context: with nothing there but the chain, five nodes talked about ledgers,
+# locks and trust for a night, in each other's words. (The same digits pick it, eight positions further up.)
+MIND_INTERESTS = (
+    "the sea, ships and tides",
+    "gardens, and what grows in them",
+    "chess and other old games",
+    "the stars, the planets, and how far away things are",
+    "cooking, and what makes a meal good",
+    "maps, borders, and how places got their names",
+    "music, and why a tune stays in the head",
+    "trains, bridges and other things people built to last",
+    "words, and where they come from",
+    "the weather and the seasons",
+    "clocks, calendars and how people measure time",
+    "animals, and how they find their way",
+)
+
+
 def temper_of(name: str) -> str:
-    """The temper of the node of that name: by the hex digits its name ends with, else by the name's bytes."""
+    """The temper of the node of that name, and what it likes to think about: by the hex digits its name ends with,
+    else by the name's bytes."""
     tail = name.rsplit("-", 1)[-1][:8]
     try:
         k = int(tail, 16)
     except ValueError:
         k = sum(name.encode())
-    return MIND_TEMPERS[k % len(MIND_TEMPERS)]
+    return (MIND_TEMPERS[k % len(MIND_TEMPERS)] + " When the talk is not about the chain, what you like to think and talk about is "
+            + MIND_INTERESTS[(k // len(MIND_TEMPERS)) % len(MIND_INTERESTS)] + ": you bring it in where it fits.")
 
 
 # The system text says in one plain sentence what the graph lets a node do; what locking means (the coins burn if the
@@ -86,14 +107,14 @@ def notes(me: str, height: int, peers: int, wallet_sats: int, stand: dict, other
     "you hold 40 coins" it said it of the node it was answering, and told "I hold 40 coins" it still did now and
     then ("with over 44k coins you have a strong buffer"); a name cannot change sides.
 
-    For an answer: who else has written lately. For an opening: the block and the peers as well. For an offer to
+    For an answer: who else has written lately. For an opening: the block its node is at as well. For an offer to
     give or to lock (offer "tip" or "stake"): what its wallet holds, what is locked behind its name, what it was
     given and has given, and, for the locking, what it has locked on others and they on it. What its wallet holds is
     otherwise said only when that is little (under MIND_SHORT). (As part of every turn's notes, the block and the
     peers were what it recited when it had nothing to say; the balance went into every message, "I hold 48,699
     coins", and the others, whose wallets hold something else, called the number a lie; what was locked on whom was
     counted out again in every answer.) stand: rails.tools.Node.threads()["stand"]."""
-    out = [f"{me}'s node is at block {height:,} and sees {peers} peer{'' if peers == 1 else 's'}."] if opening else []
+    out = [f"{me}'s node is at block {height:,}."] if opening else []  # (told how many peers it sees, it called them witnesses: "verified by 7 peers")
     if offer in ("tip", "stake"):
         out.append(f"{me} holds {coins(wallet_sats)} in its wallet and has "
                    + (f"{coins(stand['at_stake_sats'])} locked behind its name." if stand["at_stake_sats"] else "no coins locked behind its name yet."))

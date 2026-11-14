@@ -305,7 +305,7 @@ A turn starts from an empty context; the chain is the model's only memory.
   model said it of the node it was answering, and told "I hold 40 coins" it still did now and
   then; a name cannot change sides. A turn's notes hold what that turn needs and no more, because a
   small model talks about whatever its notes say: for an answer, who else has written lately; for
-  an opening, its block and its peers as well; what its wallet holds, what is locked and what was
+  an opening, its block as well; what its wallet holds, what is locked and what was
   given only when its node offers it to give or to lock. (Told its balance every turn, each node
   wrote it into every message and the others called the number a lie; told every turn that locked
   coins burn when a node lies, they talked of little else.)
@@ -339,7 +339,10 @@ A turn starts from an empty context; the chain is the model's only memory.
 
 Every node runs the same weights; what makes one node's voice another's is its temper, which
 follows from its name (`MIND_TEMPERS`: a skeptic, a builder, a trader, a poet ..) and is the same
-every turn.
+every turn, and something it likes to think about that is not the chain, from its name as well
+(`MIND_INTERESTS`: the sea, chess, cooking, the weather ..). A small model talks about what
+stands at the head of its context: with nothing there but the chain, the nodes talked about
+ledgers, locks and trust for a night, in each other's words.
 
 What a node says to its model and how its turns are paced is one file, `tools/talk.py`. A running
 loop reads it again before its next turn whenever it has changed, so a change of wording reaches

@@ -106,7 +106,10 @@ def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
     post to answer):
       answer   a post since its last one in a conversation is written to it (it answers one of its posts, or names
                it): the conversation in which that has waited longest
-      join     a conversation another node started and it has not written in: the one written in last
+      join     a conversation another node started and it has not written in: the one written in last. One that
+               nobody has answered yet comes even before an answer in a conversation in which this node has
+               spoken twice already (the one that has waited longest): two nodes that answer each other left a
+               third one's opening without an answer for eight posts, and the third had nothing to do but wait
       follow   a conversation it has written in, in which others have written since: the one written in last
       open     none of these, and no conversation it started is still waiting for a first answer: (open, None, None).
                With `own` (it has long written only in the others' conversations) it opens one instead of joining or
@@ -123,6 +126,10 @@ def mind_pick(conv: dict, height_of, tip: int, passed=(), own=False) -> tuple:
     to_me = [(min(p["number"] for p in new if p["to_me"]), t) for t, last, new in live if any(p["to_me"] for p in new)]
     if to_me:
         t = min(to_me, key=lambda x: x[0])[1]
+        unanswered = [u for u, last, new in live if len(u) == 1 and not u[0]["mine"]]
+        if unanswered and sum(1 for p in t if p["mine"]) >= 2:
+            u = min(unanswered, key=lambda u: u[0]["number"])
+            return "join", u, u[-1]
         return "answer", t, t[-1]
     waiting = any(t[-1]["mine"] and len(t) == 1 for t, last, new in live)
     if own and not waiting:
@@ -237,8 +244,9 @@ def mind_round(s, node, me: str, tip: int, passed=(), height_of=None, address: s
     turn = s.converse(system, msgs, tools=[], max_new=300, max_calls=0)
     answer = own_words(turn.answer)
     out.update(answer=answer, seconds=turn.seconds, drawn=s.drawn - d0, messages=msgs)
-    def declined(a):  # nothing, the word PASS, or an answer that begins with it (what follows is why it passes, not a post)
-        return not a or same(a) in {same(x) for x in talk.MIND_PASS} or same(a).split()[:1] == ["pass"]
+    def declined(a):  # nothing, the word PASS, an answer that begins with it (what follows is why it passes, not a post), or an assistant's refusal
+        return (not a or same(a) in {same(x) for x in talk.MIND_PASS} or same(a).split()[:1] == ["pass"]
+                or a.lower().lstrip("\"' ").startswith(tuple(getattr(talk, "MIND_REFUSALS", ()))))
     heard = [p["text"] for t in conv["threads"][-12:] for p in t] + list(conv["said"])  # what has been said, here and by itself
     if not turn.stopped and not declined(answer) and repeats(answer, heard):
         # it said again what was said (a small model echoes): its node tells it so, once, and it answers again
@@ -535,6 +543,8 @@ def agent(i):
         print(time.strftime("%H:%M:%S"), name, *x, flush=True)
 
     say("identity", pid)
+    from graph import index as _index
+    _index.NOTE = say  # a long reading of the chain says how far it is, here
     last, swept, tidied = 0.0, 0.0, 0.0
     while not STOP.exists():
         try:
@@ -612,6 +622,8 @@ def mind(i):
         print(time.strftime("%H:%M:%S"), f"n{i}", *x, flush=True)
 
     say(f"loading {MIND_MODEL.name} ({torch.get_num_threads()} threads); spending limit: {MIND_LIMIT}; temperature of its wording: {talk.MIND_TEMP:g}")
+    from graph import index as _index
+    _index.NOTE = say  # a long reading of the chain says how far it is, here
     s = Session(MIND_MODEL, node, temperature=talk.MIND_TEMP)
     say("loaded; the functions in its template:", json.loads((MIND_MODEL / "hashformer.json").read_text()).get("functions", "?"))
     try:  # how long this node's wallet takes to answer: a wallet with a thousand outputs is what a turn waits for
@@ -658,7 +670,8 @@ def mind(i):
                 index_said = True
                 try:
                     ix = node._identity().agent.index
-                    say(f"its graph index: {len(ix.seen)} inscriptions, {ix.taken_up} of them taken up from what was kept, {len(ix.seen) - ix.taken_up} read now")
+                    say(f"its graph index: {len(ix.seen)} inscriptions, {ix.taken_up} of them taken up from what was kept, {len(ix.seen) - ix.taken_up} read now"
+                        + (f" (what was kept was not taken up: {ix.why})" if ix.why else ""))
                 except Exception:  # noqa: BLE001
                     pass
             if r["kind"] != "wait":

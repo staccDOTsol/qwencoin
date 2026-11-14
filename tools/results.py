@@ -156,7 +156,7 @@ w("`tests/check_tools.py` on a private two-node network of the chain (real block
   "real ord, real coins of that network). First the node side with no model, then the chat template, then "
   "`dist/qwen08-sha` asked in plain words (greedy, one question per fresh context, all 23 functions declared), "
   "then one round of a node's model loop.\n")
-w(block(clean("tools.log")))
+w(block(clean("tools-build.log") or clean("tools.log")))
 
 w("\n## 12. The merge's newer paths\n")
 w("`tests/check_remerge.py`: the merge as it is now against the checkpoint section 9 ran, tensor by tensor, and a "

@@ -11,6 +11,8 @@ vouches, burns, posts with answers and pictures, tips paid and unpaid:
      edges, proofs), and it must have asked the node for far less
   4. a file kept under a block the chain does not have, or read by other code, is not taken up; one kept by an
      earlier version whose reading was word for word this one's (graph/index.py READ_ALIKE) is
+  5. a reading that is cut short (the process is stopped two thirds through the chain) has kept what it read; the
+     next index takes that up, reads the rest, and is the reference
 """
 import json, os, sys, time
 from pathlib import Path
@@ -95,7 +97,7 @@ def main():
         f.write_text(json.dumps(k))
         ix = I.Index(node)
         n = counted(ix)
-        ix._keep = lambda: None
+        ix._keep = lambda *a, **kw: None
         ix.refresh()
         assert ix.taken_up == 0 and n[0] == len(ix.seen) >= len(ref.seen), (what, ix.taken_up, n[0], len(ix.seen))
         print(f"  a file {what}: not taken up, everything read again ({n[0]} inscriptions)")
@@ -106,13 +108,49 @@ def main():
         f.write_text(json.dumps(k))
         ix = I.Index(node)
         n = counted(ix)
-        ix._keep = lambda: None
+        ix._keep = lambda *a, **kw: None
         ix.refresh()
         assert ix.taken_up == buried and n[0] == len(ix.seen) - buried, (alike, ix.taken_up, n[0], len(ix.seen))
         c2 = state(ix)
         for kk in a:
             assert a[kk] == c2[kk], f"{kk}: the index that took up the earlier version's file differs"
         print(f"  a file kept by an earlier version that read the same ({alike}): taken up, the same index")
+    # a reading that is cut short leaves what it had read, and the next process goes on from there
+    class Cut(Exception):
+        pass
+
+    f.unlink()
+    notes, I.LONG, I.NOTE = [], 0, None
+    I.NOTE = notes.append
+    cut = I.Index(node)
+    n_cut = counted(cut)
+    read = cut._read
+
+    def two_thirds(iid):
+        if n_cut[0] >= len(ref.seen) * 2 // 3:
+            raise Cut()
+        return read(iid)
+
+    cut._read = two_thirds
+    try:
+        cut.refresh()
+        raise AssertionError("the reading was not cut")
+    except Cut:
+        pass
+    I.LONG, I.NOTE = 60, None
+    part = json.loads(f.read_text())
+    assert 0 < len(part["records"]) < buried and part["reading"] == I.reading(), (len(part["records"]), buried)
+    assert notes and "inscriptions so far" in notes[-1], notes[-1:]
+    on = I.Index(node)
+    n_on = counted(on)
+    on.refresh()
+    assert on.taken_up == len(part["records"]) and n_on[0] == len(on.seen) - on.taken_up, (on.taken_up, n_on[0], len(on.seen))
+    d = state(on)
+    for kk in a:
+        assert a[kk] == d[kk], f"{kk}: the index that went on from a reading cut short differs"
+    assert len(json.loads(f.read_text())["records"]) == buried, "the file is not whole after the reading was finished"
+    print(f"  a reading cut after {n_cut[0]} of {len(ref.seen)} inscriptions had kept {len(part['records'])} of the {buried} buried ones; the next index took them up, "
+          f"read the other {n_on[0]} and is the same index; the file is whole again")
     f.unlink()
     I.Index(node).refresh()  # the file as it should be, for whatever runs next
     print("OK")

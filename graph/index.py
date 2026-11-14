@@ -109,8 +109,14 @@ def reading() -> str:
 
 
 # Fingerprints of earlier versions that read an inscription word for word as this one does (the fingerprint then was
-# of this whole file, and changed with every change to anything in it): what they kept is taken up.
-READ_ALIKE = ("b1fd6bb3",)
+# of this whole file, and changed with every change to anything in it): what they kept is taken up. The second is
+# what a process of that version called its reading while the files of the next were already on its disk (it took
+# the fingerprint from the disk each time it kept something): a node whose file got that name in the half minute
+# between the new files and the restart read the whole chain again, for longer than the next restart let it.
+READ_ALIKE = ("b1fd6bb3", "7f22b15d")
+
+NOTE = None  # a function that is told how far a long reading of the chain is (a loop's log)
+LONG = 60  # seconds after which a reading says how far it is and keeps what it has, and every so many again
 
 
 @dataclass
@@ -119,6 +125,7 @@ class Index:
     seen: dict = field(default_factory=dict)  # inscription id -> parsed message or None
     records: dict = field(default_factory=dict)  # inscription id -> what reading it gave (_read), as it is kept
     taken_up: int = 0  # how many of them came from the file kept beside the node
+    why: str = ""  # why the file kept beside the node was not taken up, if there was one and it was not
     _kept: list = field(default_factory=lambda: [False, 0, 0.0])  # looked for the file; records in it; when it was last written
     _swept: bool = False  # ord's whole list of inscriptions has been read by this process, and no reading of it since was cut short
     _settled: str = ""  # the node's tip at which every stake was last found where the node's coins say it is
@@ -140,13 +147,22 @@ class Index:
         # ord lists the inscriptions newest first, a hundred a page. A process reads the whole list once; after
         # that, everything older than a page with nothing new on it has been read, and the reading stops there.
         # (A reading that was cut short may have left a gap further down: the next one reads the whole list again.)
-        page, whole, self._swept = 0, not self._swept, False
+        page, whole, self._swept, t0, mark = 0, not self._swept, False, time.time(), time.time()
         while True:
             r = net.ord_get(self.node, f"/inscriptions/{page}")
             new = [iid for iid in r["ids"] if iid not in self.seen]
             for iid in new:
                 self._settled = ""  # something new is read: the stakes are looked at again (below)
                 self._ingest(iid)
+                if time.time() - mark >= LONG:
+                    # A long reading (a node that could take nothing up reads every inscription: half an hour and
+                    # more on a busy machine) says how far it is and keeps what it has: the process that is
+                    # started in its place goes on from there, not from the beginning.
+                    mark = time.time()
+                    self._keep(now=True)
+                    if NOTE:
+                        NOTE(f"reading the graph from the chain: {len(self.seen)} inscriptions so far ({time.time() - t0:.0f}s)"
+                             + (f"; what was kept beside the node was not taken up: {self.why}" if self.why else ""))
             if not r.get("more") or not (new or whole):
                 break
             page += 1
@@ -181,7 +197,7 @@ class Index:
                 t["ok"] = False  # the same signed note inscribed a second time
             if t["ok"]:
                 seen.add(sig)
-        self._keep()
+        self._keep(now=whole)
         return self
 
     # ------------------------------------------------------------------ what was read, kept between runs
@@ -193,23 +209,31 @@ class Index:
         it was kept under."""
         if os.environ.get("QWG_INDEX_KEEP") == "0":
             return
+        if not self._file().exists():
+            return
         try:
             k = json.loads(self._file().read_text())
-            if k["reading"] not in (reading(), *READ_ALIKE) or net.cli(self.node, "getblockhash", k["anchor"][0]) != k["anchor"][1]:
+            if k["reading"] not in (reading(), *READ_ALIKE):
+                self.why = f"it was read by other code ({k['reading']}; this is {reading()})"
+                return
+            if net.cli(self.node, "getblockhash", k["anchor"][0]) != k["anchor"][1]:
+                self.why = f"the chain does not have the block it was kept under ({k['anchor'][0]})"
                 return
             for rec in k["records"]:
                 if rec["id"] not in self.seen:
                     self._apply(rec)
             self.taken_up = self._kept[1] = len(k["records"])
-        except Exception:  # noqa: BLE001  (no file, another chain, a block that is not there: everything is read again)
+        except Exception as e:  # noqa: BLE001  (another chain, a block that is not there, a file cut short: everything is read again)
             self.seen.clear(), self.records.clear(), self.stakes.clear(), self.heads.clear(), self.attests.clear()
             self.posts.clear(), self.tips.clear()
             self.hashes_checked = self.taken_up = 0
+            self.why = f"{type(e).__name__}: {str(e)[:80]}"
 
-    def _keep(self) -> None:
+    def _keep(self, now: bool = False) -> None:
         """Write what was read of every inscription buried KEEP_DEPTH blocks or more, when there is more of it than
-        the file has (at most every two minutes)."""
-        if os.environ.get("QWG_INDEX_KEEP") == "0" or time.time() - self._kept[2] < 120:
+        the file has (at most every two minutes; now: whenever there is more). What is written in the middle of a
+        long reading is not yet all of it: whoever takes it up reads ord's whole list once all the same."""
+        if os.environ.get("QWG_INDEX_KEEP") == "0" or (not now and time.time() - self._kept[2] < 120):
             return
         try:
             anchor = net.cli(self.node, "getblockcount") - KEEP_DEPTH
@@ -220,8 +244,9 @@ class Index:
             if len(deep) <= self._kept[1]:
                 return
             self._kept[2] = time.time()
-            try:  # another process of this node may have written more in the meantime
-                if len(json.loads(self._file().read_text()).get("records", [])) >= len(deep):
+            try:  # another process of this node may have written more in the meantime (a file nobody takes up does not count)
+                k = json.loads(self._file().read_text())
+                if k.get("reading") in (reading(), *READ_ALIKE) and len(k.get("records", [])) >= len(deep):
                     return
             except Exception:  # noqa: BLE001
                 pass

@@ -482,6 +482,33 @@ def tidy(i, to: str) -> dict | None:
     return {"merged": len(take), "of": len(big), "coins": sum(u["amount"] for u in take), "txid": r.get("txid") if isinstance(r, dict) else r}
 
 
+def tidy_small(i, own: str, to: str) -> dict | None:
+    """The other half of what a wallet gathers: the small outputs under what the node inscribed before its messages
+    went onto its identity's key (a post, a head or an attestation each, 10,000 sats apiece). When there are more
+    than TIDY_ABOVE they go, in one transaction, onto that key (address `own`), each inscription on its own sat as
+    before: where such a message sits means nothing to the graph, and to ord's wallet each was one more output to
+    look at. Only outputs of 10,000 sats or less are taken; one large output pays the fee and comes back to `to`,
+    so that no inscribed sat is spent as a fee (the transaction is built by hand for that: the small outputs first,
+    their sum as the first output). Returns {"moved", "txid"}."""
+    outs = net.cli(i, "listunspent", 1, wallet="ord", timeout=180)
+    small = [u for u in outs if u["amount"] <= 0.0001 and u.get("spendable", True)][:TIDY_AT_ONCE]
+    big = max((u for u in outs if u["amount"] >= 1 and u.get("spendable", True)), key=lambda u: u["amount"], default=None)
+    if len(small) <= TIDY_ABOVE or big is None:
+        return None
+    sats = lambda u: round(u["amount"] * 1e8)  # noqa: E731
+    total = sum(sats(u) for u in small)
+    fee = 2 * (11 + 58 * (len(small) + 1) + 43 * 2)  # 2 sat/vB: taproot key spends in, two taproot outputs out
+    ins = [{"txid": u["txid"], "vout": u["vout"]} for u in small + [big]]
+    outs_ = [{own: f"{total / 1e8:.8f}"}, {to: f"{(sats(big) - fee) / 1e8:.8f}"}]
+    with net.wallet_lock(i):
+        raw = net.cli(i, "createrawtransaction", json.dumps(ins), json.dumps(outs_), wallet="ord")
+        signed = net.cli(i, "signrawtransactionwithwallet", raw, wallet="ord", timeout=300)
+        if not signed.get("complete"):
+            raise RuntimeError("the wallet could not sign for all of its small outputs")
+        txid = net.cli(i, "sendrawtransaction", signed["hex"], timeout=300)
+    return {"moved": len(small), "sats": total, "txid": txid}
+
+
 def agent(i):
     from graph import protocol as P
     from graph.identity import Identity
@@ -526,6 +553,11 @@ def agent(i):
                     done = tidy(i, addrs()[i])
                     if done:
                         say(f"put {done['merged']} of the wallet's {done['of']} large outputs together ({done['coins']:,.0f} coins, in {done['txid']})")
+                    else:  # the large ones are few: now the small ones, under what it inscribed before
+                        from graph import covenant as GC
+                        done = tidy_small(i, GC.tip_address(a.own), addrs()[i])
+                        if done:
+                            say(f"moved {done['moved']} small outputs of the wallet, with the inscriptions on them, onto the identity's own key ({done['sats']:,d} sats, in {done['txid']})")
                 if time.time() - swept > 300:  # what its identity was given (tips) goes into the node's wallet
                     swept = time.time()
                     for iid, sats, txid in a.collect(addrs()[i]):

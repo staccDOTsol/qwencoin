@@ -613,7 +613,9 @@ def mind(i):
     while not STOP.exists():
         try:
             h = net.cli(i, "getblockcount")
+            t_ord = time.time()
             net.ord_wait(i, h, timeout=300)
+            t_ord = time.time() - t_ord  # how long this node's ord took to have the block the node has
             if node.coins() < 50_000:
                 say(f"height {h}: no spendable coins yet (a node's first coins mature 100 blocks after it mines them)")
                 time.sleep(30)
@@ -625,8 +627,10 @@ def mind(i):
             offer = talk.MIND_OFFERS[st.get("offers", 0) % len(talk.MIND_OFFERS)] if talk.MIND_ACT > 0 and st.get("since_act", 0) + 1 >= talk.MIND_ACT else False
             # what it is asked if it opens a conversation: not what it was asked the last time
             angle = random.choice([a for a in talk.MIND_ANGLES if a != st.get("angle")])
+            t_turn = time.time()
             r = mind_round(s, node, me, h, st.get("passed", []), address=addrs().get(i, ""), act=offer, pending=[p[0] for p in pend], angle=angle,
                            own=talk.MIND_OWN > 0 and st.get("since_own", 0) >= talk.MIND_OWN)
+            t_turn = time.time() - t_turn
             if r["kind"] == "open":
                 st["angle"] = angle
             if r["posted"]:
@@ -655,8 +659,11 @@ def mind(i):
                 say(f"height {h}: no turn ({r['why']})")
             else:
                 took = r.get("took", {})  # where the turn's time went: reading the graph, the model, the inscription of the post
+                rest = t_turn - r["seconds"] - took.get("reading", 0) - took.get("publishing", 0)  # choosing the conversation, the node's facts
                 say(f"round {st['rounds']} at height {h} ({r['seconds']:.0f}s the model, {took.get('reading', 0)}s reading the graph"
-                    + (f", {took['publishing']}s publishing" if "publishing" in took else "") + f"; {r['kind']}{to}; {r['drawn']} tokens drawn"
+                    + (f", {took['publishing']}s publishing" if "publishing" in took else "")
+                    + (f", {t_ord:.0f}s waiting for ord" if t_ord >= 5 else "") + (f", {rest:.0f}s the rest" if rest >= 5 else "")
+                    + f"; {r['kind']}{to}; {r['drawn']} tokens drawn"
                     + (f"; offered: {r['offered']}" if r["offered"] else "") + "): "
                     + ("; ".join(f"{n}({', '.join(f'{k}={v[:120]!r}' for k, v in a.items())}) -> {x[:90]}" for n, a, x, by in calls) or "no call"))
                 if r.get("angle"):

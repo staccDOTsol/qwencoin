@@ -524,9 +524,11 @@ class Node:
         return {"me": my, "threads": out, "said": said, "events": events, "stand": stand}
 
     def height_of(self, iid: str) -> int:
-        """The block an inscription is in (looked up once)."""
+        """The block an inscription is in: as the graph index read it, else asked of ord (once)."""
         if iid not in self._heights:
-            self._heights[iid] = net.ord_get(self.i, f"/inscription/{iid}")["height"]
+            rec = self._ident.agent.index.records.get(iid) if self._ident is not None and self._ident.agent is not None else None
+            h = rec.get("height") if rec else None
+            self._heights[iid] = h if h is not None else net.ord_get(self.i, f"/inscription/{iid}")["height"]
         return self._heights[iid]
 
     def attachment(self, iid: str, cap: int = 700) -> dict:

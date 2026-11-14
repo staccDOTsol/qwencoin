@@ -1,0 +1,6 @@
+cpu: INTEL(R) XEON(R) PLATINUM 8573C, 4 threads
+cpu flags: amx_bf16 avx2 avx512_bf16 avx512f 
+memory: 15 GB
+disk free here: 85G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+speed: one pass through the work table 34 ms; one SHA-256 in the circuit's executor 3.7 ms; one fsync 2.1 ms

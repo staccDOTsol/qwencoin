@@ -6,10 +6,12 @@ and whose dtype fits this machine. Prints "DEVICE DTYPE".
 
 In memory, on a CPU: the weights once (twice their bf16 size as float32), the largest tensor a
 second time while it loads, what a turn allocates beside them, and the nodes. As bfloat16 that is
-4 GB beside the weights. As float32 (a machine whose bf16 kernels do not compute the hash exactly:
-linux-aarch64) what a turn allocates is twice the size as well: the merged 0.8B, 8.7 GB of weights
-there, had 15.2 GB in use on a 16 GB machine while it answered one question with every function
-declared, and the step was ended before the machine stopped answering. 7 GB beside the weights.
+4 GB beside the weights. As float32 what a turn allocates is twice the size as well. On
+linux-aarch64 both dtypes compute the hash exactly and float32 is the faster one: with 4 GB
+allowed for either, a 16 GB machine there took the merged 0.8B as float32, 8.7 GB of weights, and
+had 15.2 GB in use while it answered one question with every function declared; the step was
+ended before the machine stopped answering. 7 GB beside the weights as float32: such a machine
+now takes the model as bfloat16, slower and in half the memory.
 """
 import json, math, sys
 

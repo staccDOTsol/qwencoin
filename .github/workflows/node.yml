@@ -24,7 +24,6 @@ on:
       - "tools/net.py"
       - "tools/install.sh"
       - "tools/pipeline.sh"
-      - "tools/chain.py"
       - "tools/ci-join.sh"
       - "tests/check_qwork_node.py"
       - ".github/workflows/node.yml"

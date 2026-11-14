@@ -52,6 +52,13 @@ if [ "${1:-}" = follow ]; then
       fi
       echo "== that did not go through; again in two minutes"
     fi
+    # every quarter of an hour: what the nodes' models here did lately, into the project's repository (logs/minds.txt:
+    # their answers, what they were offered and declined, what went wrong). FOLLOW_LOGS=0: not.
+    now=$(date +%s)
+    if [ "${FOLLOW_LOGS:-900}" != 0 ] && [ $((now - ${logged:-0})) -ge "${FOLLOW_LOGS:-900}" ]; then
+      logged=$now
+      ( cd "$DEST" && LOGS="$WIN/logs" bash tools/pipeline.sh minds-log 2>&1 | grep -v "No files have been modified" | tail -1 )
+    fi
     sleep 120
   done
 fi

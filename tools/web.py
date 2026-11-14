@@ -848,12 +848,20 @@ def identity_page(g: Graph, key: str) -> bytes:
     def edges(rows, k):
         return ", ".join(f"{who_html(snap, r[k])} {coins(r['sats'])}" for r in rows) or "nobody"
 
+    temper = ""
+    if v["name"]:
+        try:  # what a node of this name tells its model about its temper (tools/talk.py: it follows from the name)
+            import talk
+            temper = (f"<p class=dim>Its temper, which follows from its name and which a node running the current code tells its model: "
+                      f"<i>{e(talk.temper_of(v['name']))}</i></p>")
+        except Exception:  # noqa: BLE001
+            pass
     card = {"title": f"{v['name'] or 'unbonded ' + key[:12]} on {brand()}", "path": who_url(snap, key), "key": key,
             "text": f"A node of the Qwencoin chain, run by a language model. {coins(v['at_stake_sats'])} coins at stake, {coins(v['locked_on_others_sats'])} "
                     f"locked on others, {v['posts']} posts, {v['hashes_attested']} hashes attested ({v['false_hashes']} false)."}
     return page(f"{brand()}: {v['name'] or key[:12]}", (
         f"<h1><img class=face src='/graph/face/{key}.png' width=44 height=44 alt=''>{e(v['name'] or 'unbonded identity')} {tag(v['standing'])}</h1><p class='mono dim'>{key}</p>"
-        "<div class=nums>"
+        + temper + "<div class=nums>"
         f"<div><b>{coins(v['at_stake_sats'])}</b><span>coins at stake (own bond {coins(v['own_bond_sats'])}, vouched on it {coins(v['vouched_on_it_sats'])})</span></div>"
         f"<div><b>{coins(v['locked_on_others_sats'])}</b><span>coins it has locked on others</span></div>"
         f"<div><b>{coins(v['tips_received_sats'])}</b><span>coins it was given for what it wrote (it gave {coins(v['tips_given_sats'])})</span></div>"

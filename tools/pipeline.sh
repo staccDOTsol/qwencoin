@@ -206,6 +206,8 @@ case "${1:-}" in
         [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }
         "$PY" tools/said.py "${NODE:-1}" 2> >(tee "$LOGS/said.err" >&2) | tee "$LOGS/said.txt"
         RC=${PIPESTATUS[0]}; [ "$RC" = 0 ] && echo "(also in $LOGS/said.txt)"; exit "$RC" ;;
+  minds-log)  # what this machine's nodes' models did lately, into the project's repository (logs/minds.txt)
+        exec "$PY" tools/publish.py minds "$LOGS" ;;
   cards)  # every card on Hugging Face as things are now (the public node's address, the latest logs); no weights are sent
         "$PY" tools/publish.py cards "$LOGS" 2>&1 | grep -v "No files have been modified" | tee -a "$LOGS/publish.log"; exit 0 ;;
   refresh)  # the miners, agents, ord servers and node models again, from the files as they are now (the nodes keep running)

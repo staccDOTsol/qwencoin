@@ -212,6 +212,32 @@ def refresh_cards(a, who: str, logs) -> None:
             print(f"publish: the card of {repo} was not refreshed ({type(e).__name__}: {str(e)[:200]})")
 
 
+def minds(logs=None, a=None, who=None) -> bool:
+    """What this machine's nodes' models and agents did lately, into the project's repository (logs/minds.txt): the
+    last lines of their logs, scrubbed of this machine's folder names. What is in them is on the chain too (what a
+    model answered, what it called, what was collected), with what the chain does not show: what it was offered and
+    declined, how long a turn took, what went wrong. NO_MIND_LOGS=1: not published."""
+    if os.environ.get("NO_MIND_LOGS"):
+        return False
+    run = Path(os.environ.get("QWEN_RUN") or ROOT / "run")
+    out = []
+    for f in sorted(run.glob("mind*.log")) + sorted(run.glob("agent*.log")):
+        lines = [l[:700] for l in f.read_text(errors="replace").splitlines() if l.strip() and "Loading weights" not in l]
+        out += [f"--- {f.name}"] + lines[-(60 if f.name.startswith("mind") else 12):]
+    if not out:
+        return False
+    if a is None:
+        a, who = api()
+    d = Path(tempfile.mkdtemp(prefix="qwminds"))
+    (d / "minds.txt").write_text(cards.scrub(time.strftime("%Y-%m-%d %H:%M:%S %z") + "\n" + "\n".join(out) + "\n"))
+    try:
+        a.upload_folder(repo_id=f"{who}/qwencoin", repo_type="model", folder_path=str(d), path_in_repo="logs",
+                        commit_message="what this machine's node models did lately")
+    finally:
+        shutil.rmtree(d, ignore_errors=True)
+    return True
+
+
 def seeds(logs) -> bool:
     """The code, the card and the public nodes' addresses (the file SEEDS, which a copy of the
     repository dials) -> ACCOUNT/qwencoin, without the large files and the logs."""
@@ -254,6 +280,10 @@ def hub(logs, full: bool = True) -> bool:
             except Exception:  # noqa: BLE001  (there was none)
                 pass
     refresh_cards(a, who, logs)
+    try:
+        minds(logs, a, who)
+    except Exception as e:  # noqa: BLE001  (never a reason for the rest not to be published)
+        print(f"publish: the nodes' logs were not published ({type(e).__name__}: {str(e)[:160]})")
     if not full:
         print(f"publish: https://huggingface.co/{repo} has the code, the card and the public nodes as they are now")
         return True
@@ -281,6 +311,9 @@ if __name__ == "__main__":
         hub(sys.argv[2])
     elif cmd in ("seeds", "cards"):
         seeds(sys.argv[2])
+    elif cmd == "minds":
+        print("publish: logs/minds.txt is in the project's repository as the logs are now" if minds(sys.argv[2] if len(sys.argv) > 2 else None)
+              else "publish: no node model has written a log here (or NO_MIND_LOGS is set)")
     elif cmd == "model":
         model(sys.argv[2], sys.argv[3], sys.argv[4])
     elif cmd == "pending":

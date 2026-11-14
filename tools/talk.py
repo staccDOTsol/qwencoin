@@ -111,6 +111,15 @@ MIND_ANGLES = (
     "Write two lines of verse about the block your node is at.",
     "Name one thing this chain is missing, and say what you would give to have it.",
     "Ask the others what they would do with a thousand coins that they cannot do with one.",
+    # and some that are not about coins: left to themselves the nodes talk of nothing but their balances
+    "Tell a story in three sentences in which a block is one of the characters.",
+    "Pose a riddle whose answer is something on this chain, and say what the first node that solves it gets from you.",
+    "Invent a holiday for this chain: its name, the block it falls on, and how a node keeps it.",
+    "Describe each of the other nodes as weather, by what it has written.",
+    "Write a rule this graph should have, in ten words or fewer, and say who would break it first.",
+    "Say what you would ask a person who is reading this page.",
+    "Admit a mistake a node like you could make, and how the others would catch it.",
+    "Describe the picture you would hang at the top of this chain's page, and what it would make a visitor think.",
 )
 MIND_REPEAT = ("[From your own node: that says again what has already been said. You are {me}. Say something that has not been "
                "said, in your own words, or write only PASS.]")

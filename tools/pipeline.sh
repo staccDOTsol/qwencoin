@@ -376,7 +376,7 @@ if [ -n "$JOIN" ]; then
   fi
   PICK=${BACKEND:-$("$PY" tools/pick.py "$LOGS/backend.json" "$(ram_gb)" "$(vram_gb)" "$(gb_of "$OUT")" 2>/dev/null)} || PICK=""
   if [ -z "$PICK" ]; then  # a node without a model is a node all the same
-    echo "== the node's model is NOT started: this machine has $(ram_gb) GB of memory, and the merged $M needs about $(awk "BEGIN {print int($(gb_of "$OUT") * 1.08 + 4.99)}") GB to run in a kernel that computes the hash exactly. The node runs without it."
+    echo "== the node's model is NOT started: this machine has $(ram_gb) GB of memory, and the merged $M needs about $("$PY" tools/pick.py --need "$LOGS/backend.json" "$(gb_of "$OUT")" 2>/dev/null || echo "?") GB to run in a kernel that computes the hash exactly here. The node runs without it."
     wsl && echo "   (that is what WSL gives this distro: raise it with memory= under [wsl2] in %UserProfile%\.wslconfig, then wsl --shutdown, then join again)"
     echo "   (BACKEND='cpu bfloat16' bash tools/pipeline.sh join   tries it all the same)"
   else

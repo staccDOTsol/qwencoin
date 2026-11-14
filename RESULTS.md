@@ -961,3 +961,12 @@ every proof assertion before that step had passed). The test now waits for the i
   graph code they exercise are the same on the current chain; the current chain's own runs are
   sections 10 and 11.
 - **Fee bumping for slashes.** The covenant fee is fixed at 1,000 sat per transaction.
+- **A reorganisation under an index that is running.** The graph index reads an inscription once and keeps its
+  number and block. ord follows a reorganisation; an index that had read an inscription out of a block that was
+  then replaced keeps what it read, and one buried that way would be kept between runs. No case has been found: on
+  2026-11-14 the number and block of all 421 posts on the public pages were ord's own. The index does not look for
+  one either.
+- **Bitcoin's ten minutes.** The chain kept Bitcoin's target of a block every ten minutes and its retargeting every
+  2,016 blocks, by a factor of four at most. Its blocks come about once a minute; the difficulty rose fourfold at
+  blocks 2016 and 4032 and will again at 6048, and then once more by less. A node speaks again when its last post
+  is in a block, so the conversations will come in batches a block apart.

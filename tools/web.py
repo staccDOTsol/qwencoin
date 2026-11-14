@@ -135,6 +135,18 @@ class Graph:
         self.meta = {}  # inscription id -> (number, height, timestamp): fixed once it is in a block
         self.files = {}  # inscription id -> what it is (carried)
         self.chain = {}  # where the node itself is: its height, what its peers have, how far ord has indexed
+        # What the pages were made of when this server last ran, kept beside the node: shown, and said to be that,
+        # until the chain has been read again (every inscription is verified anew at each start, which takes minutes).
+        # Nothing is decided from it: it is what was on the pages, not the index.
+        self.kept, self.old, self.saved = net.datadir(node) / "web-snapshot.json", False, 0.0
+        try:
+            snap = json.loads(self.kept.read_text())
+            if snap["status"]["genesis"] == GENESIS:
+                snap["post"] = {p["id"]: p for p in snap["posts"]}
+                snap["numbered"] = {p["number"]: p for p in snap["posts"]}
+                self.snap, self.old = snap, True
+        except Exception:  # noqa: BLE001  (none yet, or not one of this chain's: the pages wait for the chain to be read)
+            pass
 
     def watch(self) -> None:
         """The node's own position every few seconds: a node that is catching up says so on every page, with
@@ -184,15 +196,20 @@ class Graph:
 
         def counted(iid):
             ingest(iid)
-            if self.snap is None:
+            if self.snap is None or self.old:
                 self.progress = f"reading the chain: {len(ix.seen)} inscriptions verified so far ({time.time() - t0:.0f}s)"
 
         ix._ingest = counted
         while True:
             try:
                 ix.refresh()
-                self.snap = self.build(ix)
+                self.snap, self.old = self.build(ix), False
                 self.error = None
+                if time.time() - self.saved > 60:  # for the next start (see __init__)
+                    self.saved = time.time()
+                    tmp = self.kept.with_suffix(".tmp")
+                    tmp.write_text(json.dumps({k: v for k, v in self.snap.items() if k not in ("post", "numbered")}))
+                    tmp.replace(self.kept)
             except Exception as e:  # noqa: BLE001  (the node or its ord is busy or restarting: the last snapshot stands)
                 self.error = f"{type(e).__name__}: {str(e)[:200]}"
             time.sleep(4 if self.chain.get("catching_up") else 10)
@@ -534,6 +551,10 @@ img.face{border-radius:5px;vertical-align:-5px;margin-right:7px}h1 img.face{widt
 def sync_note(g) -> str:
     """One line on top of every page while the node is behind the chain or its index behind the node."""
     c = g.chain if g is not None else {}
+    if g is not None and g.old and g.snap:  # the pages of the last run, while the chain is read again
+        return (f"<p class=sync>These pages have just started again. What is shown is the graph as it was at block "
+                f"{g.snap['status']['height']:,}; every inscription is being verified anew ({html.escape(g.progress)}), "
+                "and what is new since then appears when that is done.</p>")
     if not c or not c.get("catching_up"):
         return ""
     if c["height"] == 0 and c["best_known"] <= 0:
@@ -1057,7 +1078,7 @@ class Handler(BaseHTTPRequestHandler):
             return self.data({"height": snap["status"]["height"], "stakes": snap["stakes"], "tips": snap["tips"], "proofs": snap["proofs"],
                               **{k: snap["status"][k] for k in ("at_stake_sats", "live_vouch_sats", "burned_stakes", "burned_sats")}})
         if path == "/graph/status.json":
-            return self.data({"name": brand(), **snap["status"], "reading": g.error or "ok", "node": g.chain})
+            return self.data({"name": brand(), **snap["status"], "reading": ("again: " + g.progress) if g.old else (g.error or "ok"), "node": g.chain})
         if path.startswith("/graph/id/"):
             who, as_json = unquote(path[len("/graph/id/"):]), False
             if who.endswith(".json"):

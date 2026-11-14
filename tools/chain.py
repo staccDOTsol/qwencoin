@@ -306,12 +306,15 @@ GENESIS = "51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5"  # 
 STAMP = RUN / "tooling.stamp"  # which files the running helpers were started from
 
 
-def tooling() -> str:
+def tooling(web: bool = True) -> str:
     """A fingerprint of the files the miners, agents, ord servers and node models run from (a
-    process keeps the code it was started with; this tells whether that is still the code here)."""
+    process keeps the code it was started with; this tells whether that is still the code here).
+    web: the pages are among what runs (tools/web.py then counts; where no pages are served, a
+    change to them restarts nothing). tools/talk.py never counts: a running loop reads it again."""
     import zlib
     c = 0
-    for f in [ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py", ROOT / "tools" / "web.py"] + sorted((ROOT / "graph").glob("*.py")) + sorted((ROOT / "rails").glob("*.py")):
+    for f in ([ROOT / "tools" / "net.py", ROOT / "tools" / "chain.py"] + ([ROOT / "tools" / "web.py"] if web else [])
+              + sorted((ROOT / "graph").glob("*.py")) + sorted((ROOT / "rails").glob("*.py"))):
         if not f.exists():
             continue
         c = zlib.crc32(f.read_bytes(), c)
@@ -321,7 +324,8 @@ def tooling() -> str:
 def stale() -> bool:
     """Helpers are running, and from other files than the ones here now."""
     running = any(alive(f.stem) for f in PIDS.glob("*.pid")) if PIDS.exists() else False
-    return running and (STAMP.read_text().strip() if STAMP.exists() else "") != tooling()
+    stamp = (STAMP.read_text().split() if STAMP.exists() else []) or [""]
+    return running and stamp[0] != tooling(stamp[1] == "web" if len(stamp) > 1 else True)  # (a stamp without the word: an earlier version's)
 
 
 def set_aside_other_chain(say):
@@ -347,7 +351,8 @@ def up(n):
     STOP.unlink(missing_ok=True)
     net.refresh_seeds()  # an installed copy: the project's public nodes as they are now (a rented one moves)
     if not any(alive(f.stem) for f in PIDS.glob("*.pid")):  # every helper below starts from the files as they are now
-        STAMP.write_text(tooling() + "\n")
+        web = os.environ.get("QWEN_WEB_PORT", "0") not in ("", "0")
+        STAMP.write_text(f"{tooling(web)} {'web' if web else 'noweb'}\n")
     say(f"starting {n} qwencoind (datadirs in {RUN})")
     net.up(n)
     say("nodes answer; heights", [net.cli(i, "getblockcount") for i in range(1, n + 1)])

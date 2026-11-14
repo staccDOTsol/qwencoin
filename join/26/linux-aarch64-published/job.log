@@ -1,0 +1,108 @@
+ci-join: published on Linux 7.0.0-1017-azure aarch64, 4 cpus
+ci-join: curl -fsSL https://huggingface.co/staccs/qwencoin/resolve/main/install.sh | bash
+== qwencoin: uv (it installs Python and packages), into /home/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.8 aarch64-unknown-linux-gnu
+installing to /home/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /home/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (3.9MiB)
+ Downloaded hf-xet
+Installed 15 packages in 5ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 142 files:   0%|          | 0/142 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 142 files:   2%|▏         | 3/142 [00:00<00:04, 29.84it/s]Fetching 142 files:  11%|█         | 15/142 [00:00<00:01, 77.83it/s]Fetching 142 files:  18%|█▊        | 26/142 [00:00<00:01, 87.64it/s]Fetching 142 files:  25%|██▌       | 36/142 [00:00<00:01, 90.85it/s]Fetching 142 files:  32%|███▏      | 46/142 [00:00<00:01, 85.97it/s]Fetching 142 files:  39%|███▊      | 55/142 [00:00<00:01, 80.55it/s]Fetching 142 files:  45%|████▌     | 64/142 [00:00<00:01, 67.37it/s]Fetching 142 files:  51%|█████     | 72/142 [00:00<00:00, 70.50it/s]Fetching 142 files:  56%|█████▋    | 80/142 [00:01<00:00, 70.67it/s]Fetching 142 files:  62%|██████▏   | 88/142 [00:01<00:00, 66.52it/s]Fetching 142 files:  67%|██████▋   | 95/142 [00:01<00:00, 63.38it/s]Fetching 142 files:  72%|███████▏  | 102/142 [00:01<00:00, 63.74it/s]Fetching 142 files:  77%|███████▋  | 110/142 [00:01<00:00, 66.72it/s]Fetching 142 files:  82%|████████▏ | 117/142 [00:01<00:00, 67.58it/s]Fetching 142 files:  87%|████████▋ | 124/142 [00:01<00:00, 67.51it/s]Fetching 142 files:  92%|█████████▏| 131/142 [00:01<00:00, 67.28it/s]Fetching 142 files:  99%|█████████▊| 140/142 [00:01<00:00, 69.78it/s]Fetching 142 files: 100%|██████████| 142/142 [00:03<00:00, 36.25it/s]
+== qwencoin: the node programs for linux-aarch64 from https://github.com/staccDOTsol/qwencoin/releases
+
+=== qwencoin pipeline 2026-11-14 06:22:54 in /home/runner/work/_temp/qwencoin-join/qwencoin
+cpu: , 4 threads
+cpu flags: 
+memory: 15 GB
+disk free here: 106G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: .venv/bin/activate
+   torch build: cpu
+Resolved 10 packages in 289ms
+Downloading networkx (2.0MiB)
+Downloading sympy (6.0MiB)
+Downloading setuptools (1.2MiB)
+Downloading torch (151.9MiB)
+ Downloaded setuptools
+ Downloaded networkx
+ Downloaded sympy
+ Downloaded torch
+Prepared 10 packages in 1.23s
+Installed 10 packages in 119ms
+ + filelock==4.2.4
+ + fsspec==2026.9.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + mpmath==1.3.0
+ + networkx==3.7
+ + setuptools==78.1.0
+ + sympy==1.14.0
+ + torch==2.14.1+cpu
+ + typing-extensions==4.16.0
+Resolved 31 packages in 194ms
+Downloading pydantic-core (2.0MiB)
+Downloading tokenizers (3.4MiB)
+Downloading pygments (1.2MiB)
+Downloading numpy (15.0MiB)
+Downloading transformers (12.4MiB)
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded numpy
+ Downloaded transformers
+Prepared 16 packages in 285ms
+Installed 28 packages in 115ms
+ + annotated-doc==0.0.6
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + click==8.5.1
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + markdown-it-py==4.3.0
+ + mdurl==0.1.2
+ + numpy==2.5.4
+ + packaging==26.3
+ + pydantic==2.14.3
+ + pydantic-core==2.50.4
+ + pygments==2.21.0
+ + pyyaml==6.0.3
+ + regex==2026.11.9
+ + rich==15.0.0
+ + safetensors==0.8.0
+ + shellingham==1.5.4
+ + tokenizers==0.23.3
+ + tqdm==4.70.1
+ + transformers==5.22.2
+ + truststore==0.10.5
+ + typer==0.29.1
+ + typing-inspection==0.4.5
+python 3.12.3 | torch 2.14.1+cpu | transformers 5.22.2 | cuda False
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 36 ms; one SHA-256 in the circuit's executor 3.7 ms; one fsync 36.2 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+06:23:04 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+06:23:06 nodes answer; heights [0]
+06:23:07 ord 1 has indexed its node's chain
+06:23:08 n1's wallet is ready; it mines to bc1pnsmqxuemyy27l5dyddklp8zvuy3s6f7q5k98cm99ujcwrurl3s3sfvhadx
+06:23:08 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+== the stand-alone hasher: compiled here, compared with the published build
+dist/qwensha: {'layers': 5, 'dims': 803, 'key_heads': 15, 'value_heads': 20, 'units': 1473, 'units_per_mlp': {1: 431, 2: 515, 3: 98, 4: 168, 5: 261}, 'heads_per_attn': {1: 4, 2: 10, 3: 1}}, hidden 832, 328M parameters, 34314 nonzero layer weights
+   model.safetensors sha256 ec5f7cb21e9c95bfc82576cb52a8a0f01cf3b09b7ccaa22cf6f8e6aa86b2320c: bit for bit the build the node's executor was generated from
+== probe: which kernels on this machine run the chip exactly
+{"platform": "Linux-7.0.0-1017-azure-aarch64-with-glibc2.39", "machine": "aarch64", "python": "3.12.3", "torch": "2.14.1+cpu", "threads": 4, "mps": false}
+stand-alone checkpoint built in 9s (hidden 832)

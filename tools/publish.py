@@ -249,7 +249,9 @@ def hub(logs, full: bool = True) -> bool:
     repo = f"{who}/qwencoin"
     stage = Path(tempfile.mkdtemp(prefix="qwhub"))
     (stage / "README.md").write_text(cards.hub_card(who, logs, [r for r in published(logs) if r != repo]))
-    for f in ("RESULTS.md", "MODELS", "SEEDS", "WEB"):
+    # (HASHFUN, HASHFUNPKG, FUNBTC: the hashfun site the nodes follow, the hashfun release they run, where a node that is
+    # that site reads Bitcoin: tools/fun.py. An installed node asks for them again at every start, as it does for SEEDS.)
+    for f in ("RESULTS.md", "MODELS", "SEEDS", "WEB", "HASHFUN", "HASHFUNPKG", "FUNBTC"):
         if (ROOT / f).exists() and (ROOT / f).read_text().strip():
             shutil.copy(ROOT / f, stage / f)
     (stage / "ORIGIN").write_text(who + "\n")  # the account the checkpoints are under: `pipeline.sh join` fetches from it
@@ -273,7 +275,8 @@ def hub(logs, full: bool = True) -> bool:
         a.delete_folder("win", repo_id=repo, repo_type="model", commit_message="the kit's launcher is not part of the repository")
     except Exception:  # noqa: BLE001  (not there)
         pass
-    for f, why in (("SEEDS", "no public node at the moment"), ("WEB", "no public pages at the moment")):  # gone here: not named there either
+    for f, why in (("SEEDS", "no public node at the moment"), ("WEB", "no public pages at the moment"), ("HASHFUN", "no hashfun site at the moment"),
+                   ("HASHFUNPKG", "no hashfun release named at the moment"), ("FUNBTC", "no way to read Bitcoin named at the moment")):  # gone here: not named there either
         if not ((ROOT / f).exists() and (ROOT / f).read_text().strip()):
             try:
                 a.delete_file(f, repo_id=repo, repo_type="model", commit_message=why)

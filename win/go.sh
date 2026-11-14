@@ -18,6 +18,9 @@ if [ "${1:-}" = update ]; then
     [ -d "$T/$d" ] && mkdir -p "$WIN/kit/$d" && cp -r "$T/$d/." "$WIN/kit/$d/"
   done
   cp "$T/GITHUB" "$WIN/kit/GITHUB"; cp "$T/BUILD.md" "$WIN/kit/README.md"; cp "$T/RESULTS.md" "$WIN/kit/RESULTS.md"
+  # the hashfun site the nodes follow, the hashfun release they run, where the site reads Bitcoin (tools/fun.py): published
+  # with the project from here, so they come with the code
+  for f in HASHFUN HASHFUNPKG FUNBTC; do [ -f "$T/$f" ] && cp "$T/$f" "$WIN/kit/$f"; done
   cp "$T/win/go.sh" "$WIN/kit/go.sh.new" && mv "$WIN/kit/go.sh.new" "$WIN/kit/go.sh"
   echo "kit updated ($(cd "$T" && find tools graph rails hashformer tests exec -type f | wc -l) files of code)"
   rm -rf "$T"

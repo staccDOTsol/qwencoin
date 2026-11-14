@@ -20,6 +20,9 @@
 #   bash tools/pipeline.sh minds [SIZE]     which merged model the nodes here run as their own (minds 2B: the merged 2B for each
 #                                           node, if that many fit in this machine's memory); without SIZE: what they run now
 #   bash tools/pipeline.sh recheck SIZE     a merged model's functions on the running chain once more; its card and logs again
+#   bash tools/pipeline.sh fun [status|pin REPO VERSION]   hashfun on this node (tools/fun.py): the coins of the site the folder
+#                                           follows (the file HASHFUN), a line each; pin: (the publisher) name a hashfun release
+#                                           in the file HASHFUNPKG. FUN=0 in local.env: this node takes no part
 #
 #   NODES=4   MODELS="0.8B 2B 4B 9B 27B"   TORCH=auto|cpu|cuda   BACKEND="cpu float32"   QUICK=1   FORCE=1
 #   LOGS=dir   NO_NET=1   NO_PUBLISH=1   NO_TOOLS=1   HF_TOKEN=... (or a token file, see tools/publish.py)
@@ -139,6 +142,7 @@ fi
 case "${1:-}" in
   up)   env_stage; table_here; exec "$PY" tools/chain.py "$@" ;;  # also on a fresh copy of the repository
   status|watch|down|mine|agent) [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }; exec "$PY" tools/chain.py "$@" ;;
+  fun)  shift; [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }; exec "$PY" tools/fun.py "${@:-status}" ;;
   ask|chat)
         CMD=$1; shift
         [ -x "$PY" ] || { echo "$NOTHING"; exit 1; }

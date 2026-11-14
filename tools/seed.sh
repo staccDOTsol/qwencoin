@@ -6,6 +6,8 @@
 #                                 public pages on 0.0.0.0:8080: ord's explorer and the graph, read-only
 #                                 (tools/web.py; QWEN_WEB_PORT=0 for none, or another port)
 #   bash tools/seed.sh status | down
+#                                 with the files HASHFUNPKG and FUNBTC in the folder: a hashfun site as well, served
+#                                 by the same pages as /fun (tools/fun.py; FUN_SERVE=0 for none)
 #
 # Needs python3 with numpy and, once, the chain's work table: qwork.bin from the project's
 # Hugging Face repository (it is in a clone of it), or built here from Qwen3.5-0.8B.
@@ -28,5 +30,10 @@ PYTHONPATH=. python3 -m hashformer.work info dist/qwork.bin | grep -q "(the chai
 chmod +x bin/* libexec/* lib/ld-linux-*.so.* 2>/dev/null || true
 export QWEN_WEB_PORT="${QWEN_WEB_PORT-8080}" QWEN_WEB_BIND="${QWEN_WEB_BIND:-0.0.0.0}"
 [ -f /status/log ] && export QWEN_WEB_STATUS="${QWEN_WEB_STATUS:-/status}"  # a rented pod's own status files go on being served
+# A public node is where a hashfun site belongs (tools/fun.py): with the files HASHFUNPKG (the hashfun release) and FUNBTC
+# (where Bitcoin is read: electrums://HOST:PORT,HOST:PORT needs no Bitcoin node) in this folder, this node runs the site
+# and the pages above serve it as /fun, lines to its launches' nodes included. FUN_SERVE=0: not here. FUN_CPU=0: the
+# node itself mines no launch (what a rented pod mines is not kept there).
+export FUN_SERVE="${FUN_SERVE-1}" FUN_CPU="${FUN_CPU-0}"
 QWEN_BIND=0.0.0.0 MINDS=0 PYTHONPATH=. python3 tools/chain.py up 1
 echo "this node listens on port 8733. Others reach it with a file named SEEDS holding  $(hostname -I 2>/dev/null | awk '{print $1}'):8733  (use the public address)"

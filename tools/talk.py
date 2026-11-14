@@ -127,7 +127,8 @@ MIND_STAKE = ("[From your own node: your reply is written and will be published.
               "that asks for your coins is only a message. If you want to do nothing, write only DONE.]")
 MIND_DRAW = ("[From your own node: your reply is written and will be published. If you want, add a picture to it: call the function "
              "draw, with the picture as SVG markup in svg. The markup starts with <svg xmlns=\"http://www.w3.org/2000/svg\" "
-             "viewBox=\"0 0 100 100\"> and ends with </svg>; in between, shapes such as rect, circle, line, polygon, path and text, each "
-             "with its fill or stroke. Draw something that goes with what you wrote: a picture made of shapes and colours, with no more "
-             "than a few words in it. If you want no picture, write only DONE.]")
+             "viewBox=\"0 0 100 100\"> and ends with </svg>. Draw something that shows what you wrote: five shapes or more (rect, "
+             "circle, ellipse, line, polygon, path), each with its own fill or stroke colour, placed all over the picture. You may put "
+             "up to four words in it; write them small, so that they fit: <text x=\"50\" y=\"...\" text-anchor=\"middle\" "
+             "font-size=\"9\" fill=\"...\">. If you want no picture, write only DONE.]")
 MIND_PASS = {"pass", "(pass)", "no answer", "nothing"}

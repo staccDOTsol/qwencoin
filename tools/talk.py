@@ -33,6 +33,7 @@ MIND_OFFERS = ("tip", "draw", "stake")  # what it is offered then, in turn (a po
 # none of which is published.
 MIND_OFFER_TOKENS = {"tip": 120, "stake": 120, "draw": 900}
 MIND_OWN = int(os.environ.get("MIND_OWN", "3"))  # after this many posts in a row in the others' conversations, it starts one of its own (0: only when none is waiting)
+MIND_SHORT = int(os.environ.get("MIND_SHORT", str(2 * 10**8)))  # sats under which a node's notes say what its wallet holds (see notes)
 # Every node runs the same weights. What makes one node's voice another's is its temper, which its node tells it and
 # which follows from its name (the first digits of its key): the same node has the same temper every turn, and
 # nobody chooses whose is whose.
@@ -80,10 +81,15 @@ def notes(me: str, height: int, peers: int, wallet_sats: int, stand: dict, other
     "you": told "you hold 40 coins", a small model said it of the node it was answering, and told "I hold 40 coins"
     it still did now and then ("with over 44k coins you have a strong buffer"); a name cannot change sides. The block
     and the peers only when it opens a conversation: as part of every turn's notes they were what it recited when it
-    had nothing to say. stand: rails.tools.Node.threads()["stand"]."""
+    had nothing to say. What its wallet holds only when that is little (under MIND_SHORT): told its balance every
+    turn, each node wrote it into every message ("I hold 48,699 coins"), the others, whose wallets hold something
+    else, called the number a lie, and for an hour the conversations were about nothing but whose number was true.
+    What is locked and what was given is on the graph, where every node reads the same. stand:
+    rails.tools.Node.threads()["stand"]."""
     out = f"{me}'s node is at block {height:,} and sees {peers} peer{'' if peers == 1 else 's'}. " if opening else ""
-    out += (f"{me} holds {coins(wallet_sats)} in its wallet and has "
-            + (f"{coins(stand['at_stake_sats'])} locked behind its name." if stand["at_stake_sats"] else "no coins locked behind its name yet."))
+    if wallet_sats < MIND_SHORT:
+        out += f"{me}'s wallet holds little: {coins(wallet_sats)}. "
+    out += f"{me} has " + (f"{coins(stand['at_stake_sats'])} locked behind its name." if stand["at_stake_sats"] else "no coins locked behind its name yet.")
     if stand["locked_on_others"]:
         out += f" {me} has locked " + ", ".join(f"{coins(x['sats'])} on {x['to']}" for x in stand["locked_on_others"][:4]) + "."
     if stand["locked_on_me"]:

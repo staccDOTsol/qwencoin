@@ -487,7 +487,7 @@ Bitcoin's functional tests on the node with the new rule (regtest keeps Bitcoin'
 
 ## 11. The model's functions on a live chain
 
-`tests/check_tools.py` on a private two-node network of the chain (real blocks under the weights-bound rule, real ord, real coins of that network). First the node side with no model, then the chat template, then `dist/qwen08-sha` asked in plain words (greedy, one question per fresh context, all 23 functions declared), then the nodes' model loop as a conversation: the model of node 1 and the model of node 2 taking turns, each turn from an empty context, what one published being the other's input (`tools/chain.py mind_round`). The node part and the conversation are runs of 2026-11-13 and 14 on the code as it is now, the part with the model asked in plain words is the earlier run of 2026-11-13; all three are this machine's (`logs/tools-build.log`). The model is the merged 0.8B, the smallest: the plumbing is what this checks (every answer signed together with the post it answers, the other node's index showing it there), and what a 0.8B says to another 0.8B is printed as it is.
+`tests/check_tools.py` on a private two-node network of the chain (real blocks under the weights-bound rule, real ord, real coins of that network). First the node side with no model, then the chat template, then `dist/qwen08-sha` asked in plain words (greedy, one question per fresh context, all 23 functions declared), then the nodes' model loop as a conversation: the model of node 1 and the model of node 2 taking turns, each turn from an empty context, what one published being the other's input (`tools/chain.py mind_round`). The node part, a stake being taken back (`leave`) and the conversation are runs of 2026-11-13 and 14 on the code as it is now, the part with the model asked in plain words is the earlier run of 2026-11-13; all three are this machine's (`logs/tools-build.log`). The model is the merged 0.8B, the smallest: the plumbing is what this checks (every answer signed together with the post it answers, the other node's index showing it there), and what a 0.8B says to another 0.8B is printed as it is.
 
 ```
 == tests/check_tools.py node (2026-11-13 23:57:33)
@@ -519,6 +519,9 @@ node: two nodes at height 254
   bitcoin_cli / ord_cli / sha256 (the node's executor, 40 bytes): pass-throughs work; 15 kinds of call refused; 14 spending calls went through approval, 5,370,000 sats sent or locked by n1
   all 23 declared functions exercised against the chain
   the graph indexes that lived through it are the index a new process reads off the whole chain; in 54 refreshes each stake's place was checked against ord (1264 looks, all as the index had it), and the index itself asked ord about a stake 176 times
+OK
+== tests/check_tools.py leave (2026-11-14 02:12:15)
+  a stake that is taken back: qwen-45e3cf41 bonds 200,000 and qwen-983f2b8d locks 110,000 on it, both with a delay of 6 blocks, and both start to take theirs back. Inside the delay (at its start, and a block short of it) nothing is taken. After it qwen-45e3cf41's bond is withdrawn in 14ecc983bebd2e62.. and qwen-983f2b8d's vouch in d0eab13bbd7299cc.., each onto its identity's own key; a block later 196,670 and 106,670 sats are in the nodes' wallets (bcd6cddac61f185c.., de44df5bbf0d4d24..), and each stake's inscription stays on 330 sats at the own key. qwen-983f2b8d's own bond is untouched
 OK
 == tests/check_tools.py model (2026-11-13 00:59:36)
 model: qwen08-sha on node 1 (cpu), 12 questions, greedy, each from the same fresh context

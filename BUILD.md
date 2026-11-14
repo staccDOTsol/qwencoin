@@ -214,7 +214,10 @@ same treatment as the node's libsecp256k1). `rust/qsha-sys` is the executor as a
 `tools/chain.py` runs the chain itself, not a scenario: nodes that keep their data in `run/`, a
 miner per node, and an agent per node that holds the node's identity, bonds a coin when the node
 has mined spendable ones, and from then on attests the tip's hash and signs a head once per epoch
-and audits everybody else. Nothing in `run/` is ever deleted.
+and audits everybody else. It also brings home what is the identity's: coins it was given, and a
+stake its model has started to take back, once that stake's delay has passed (withdrawn onto the
+identity's own key, then collected into the wallet; an identity whose own bond came back that way
+bonds again). Nothing in `run/` is ever deleted.
 
 ## Proof of work bound to the weights
 

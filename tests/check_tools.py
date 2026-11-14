@@ -1,7 +1,7 @@
 """The model's tools on a live chain (rails/): what the checkpoint declares, what the node does
 for it, and the merged model using them.
 
-    python3 tests/check_tools.py [node|tips|template|model|mind|all] [MODEL_DIR=dist/qwen08-sha]     -> logs/tools.log
+    python3 tests/check_tools.py [node|tips|leave|template|model|mind|all] [MODEL_DIR=dist/qwen08-sha]     -> logs/tools.log
     python3 tests/check_tools.py live MODEL_DIR       the model part on the running chain (run/), as node 1
 
 On a private two-node network of the qwencoin chain (tests/tools_net.py; real blocks, real ord),
@@ -19,6 +19,9 @@ its payment goes to node 2, its inscription and its post stay on the chain):
   tips      the part of `node` about coins given for a post, by itself (four blocks): the tip is
             one inscription that is also the payment, the receiver's identity collects it into
             its wallet; a note without its coins and a copy of a paid note do not count.
+  leave     a stake that is being taken back comes back: an identity's bond and coins locked on it,
+            both with the shortest delay, are withdrawn after it and collected into the wallets
+            (graph/agent.py reclaim, what a node's agent does every few minutes).
   template  the checkpoint's chat template: the functions are declared when the caller declares
             none; a caller's own list renders byte for byte as the stock template renders it.
   model     the merged checkpoint asked in plain words, greedy, one question per fresh context.
@@ -460,6 +463,81 @@ def check_tips(n1, n2, asked=None):
     return tip
 
 
+def check_leave():
+    """A stake on its way back comes back (graph/agent.py reclaim). Two new identities: node 1's bonds with the
+    shortest delay there is (six blocks), node 2's locks coins on it with the same delay, and both start to take
+    theirs back. Inside the delay nothing is taken. After it each is withdrawn onto its identity's own key and, a
+    block later, collected into its node's wallet; the stake's inscription stays on the own key, on TIP_KEEP sats."""
+    from graph import covenant as GC, protocol as GP
+
+    for i in (1, 2):
+        f = net.datadir(i) / "identity.json"
+        if f.exists():
+            f.rename(f.with_name(f"identity-{time.strftime('%Y%m%d-%H%M%S')}.json"))
+    n1, n2, home, d = Node(1), Node(2), T.addrs(), GP.MIN_DELAY
+    with n1._identity().use() as (a, st):
+        a.bond(200_000, d)
+        st["bond_sent"] = net.cli(1, "getblockcount")
+        pid1, own1, name1 = a.pid, a.own, a.name
+    call(n2, "graph_bond", sats=150000)
+    T.block(1)
+    with n2._identity().use() as (b, _):
+        b.vouch(pid1, 110_000, d)
+        own2, name2 = b.own, b.name
+    T.block(1)
+    with n1._identity().use() as (a, _):
+        s1 = a.stake("id")
+        assert s1 is not None and s1.status == "active" and s1.bond.delay == d, s1
+        a.unbond(s1)
+    with n2._identity().use() as (b, _):
+        v = b.stake("vouch", pid1)
+        assert v is not None and v.status == "active", v
+        b.unbond(v)
+    T.block(1)
+    cases = ((n1, s1.inscription, 200_000, own1), (n2, v.inscription, 110_000, own2))
+
+    def reclaimed(n):
+        with n._identity().use() as (x, _):
+            return x.reclaim(home[n.i])
+
+    assert reclaimed(n1) == [] and reclaimed(n2) == [], "taken back at the start of its delay"
+    T.block(1, d - 2)
+    assert reclaimed(n1) == [] and reclaimed(n2) == [], "taken back a block short of its delay"
+    T.block(1)
+    took, col = {}, {}
+    for n, iid, amount, own in cases:
+        got = reclaimed(n)
+        assert [(step, i, sats) for step, i, sats, _ in got] == [("withdrawn", iid, amount - 2 * GC.FEE)], got
+        assert reclaimed(n) == []  # on its way: not sent twice
+        took[n.i] = got[0][3]
+    T.block(1)
+    for n, iid, amount, own in cases:
+        with n._identity().use() as (x, _):
+            st = x.index.refresh().stakes[iid]
+            assert st.status == "exited" and st.at == f"{took[n.i]}:0", (st.status, st.at)
+        kept = call(n1, "ord_read", id=iid)
+        assert kept["sats"] == amount - 2 * GC.FEE and kept["owner"] == GC.tip_address(own), kept
+        got = reclaimed(n)
+        assert [(step, i, sats) for step, i, sats, _ in got] == [("collected", iid, amount - 2 * GC.FEE - GC.TIP_KEEP - GC.FEE)], got
+        col[n.i] = got[0][3]
+    T.block(1)
+    for n, iid, amount, own in cases:
+        tx = call(n, "chain_tx", txid=col[n.i])
+        assert tx["confirmations"] == 1 and tx["outputs"] == [{"sats": GC.TIP_KEEP, "address": GC.tip_address(own)},
+                                                              {"sats": amount - 3 * GC.FEE - GC.TIP_KEEP, "address": home[n.i]}], tx
+        kept = call(n1, "ord_read", id=iid)
+        assert kept["sats"] == GC.TIP_KEEP and kept["owner"] == GC.tip_address(own), kept  # the stake's inscription stays with the identity
+        assert reclaimed(n) == []
+    with n1._identity().use() as (a, _):
+        assert a.stake("id") is None  # its node's agent bonds again, by its own rule (tools/chain.py)
+    with n2._identity().use() as (b, _):
+        assert b.stake("id") is not None and b.stake("vouch", pid1) is None
+    say(f"  a stake that is taken back: {name1} bonds 200,000 and {name2} locks 110,000 on it, both with a delay of {d} blocks, and both start to take theirs back. "
+        f"Inside the delay (at its start, and a block short of it) nothing is taken. After it {name1}'s bond is withdrawn in {took[1][:16]}.. and {name2}'s vouch in "
+        f"{took[2][:16]}.., each onto its identity's own key; a block later {200_000 - 3 * GC.FEE - GC.TIP_KEEP:,d} and {110_000 - 3 * GC.FEE - GC.TIP_KEEP:,d} sats are in the nodes' wallets ({col[1][:16]}.., {col[2][:16]}..), "
+        f"and each stake's inscription stays on {GC.TIP_KEEP} sats at the own key. {name2}'s own bond is untouched")
+
+
 # ====================================================================== the template
 def check_template():
     from transformers import AutoTokenizer
@@ -657,7 +735,7 @@ if __name__ == "__main__":
             say("another model is being checked on node 1 right now: this check starts when that one is through")
             fcntl.flock(_one, fcntl.LOCK_EX)
             say(f"   it is through ({time.strftime('%H:%M:%S')})")
-    if what in ("node", "tips", "model", "mind", "all", "live"):
+    if what in ("node", "tips", "leave", "model", "mind", "all", "live"):
         T.up(106, log=say)
     if not LIVE:
         watch_places()
@@ -666,6 +744,8 @@ if __name__ == "__main__":
     if what == "tips":
         check_tips(Node(1), Node(2))
         T.block(1)
+    if what in ("leave", "all"):
+        check_leave()
     if what in ("template", "all"):
         check_template()
     if what in ("model", "all", "live"):

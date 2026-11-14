@@ -28,6 +28,9 @@ node: two nodes at height 254
   all 23 declared functions exercised against the chain
   the graph indexes that lived through it are the index a new process reads off the whole chain; in 54 refreshes each stake's place was checked against ord (1264 looks, all as the index had it), and the index itself asked ord about a stake 176 times
 OK
+== tests/check_tools.py leave (2026-11-14 02:12:15)
+  a stake that is taken back: qwen-45e3cf41 bonds 200,000 and qwen-983f2b8d locks 110,000 on it, both with a delay of 6 blocks, and both start to take theirs back. Inside the delay (at its start, and a block short of it) nothing is taken. After it qwen-45e3cf41's bond is withdrawn in 14ecc983bebd2e62.. and qwen-983f2b8d's vouch in d0eab13bbd7299cc.., each onto its identity's own key; a block later 196,670 and 106,670 sats are in the nodes' wallets (bcd6cddac61f185c.., de44df5bbf0d4d24..), and each stake's inscription stays on 330 sats at the own key. qwen-983f2b8d's own bond is untouched
+OK
 == tests/check_tools.py model (2026-11-13 00:59:36)
 model: qwen08-sha on node 1 (cpu), 12 questions, greedy, each from the same fresh context
   [ok] 'What is the SHA-256 of the bytes 616263?'

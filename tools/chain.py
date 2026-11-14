@@ -32,7 +32,9 @@ none (AGENTS=0, MINERS=0 likewise: a node that only relays).
 A node's agent holds an identity key (run/nI/identity.json), bonds 1 coin on it as soon as the
 node has mined spendable coins, then once per epoch signs the hash of the tip header as its
 weights compute it and a head committing to everything it has published, and audits everybody
-else: a false hash or two heads for one epoch burns every stake on the offender.
+else: a false hash or two heads for one epoch burns every stake on the offender. Every few minutes
+it collects what its identity was given, and takes back a stake of the identity that has been
+unbonding for its whole delay (graph/agent.py reclaim).
 """
 import json, os, signal, subprocess, sys, time
 from pathlib import Path
@@ -592,6 +594,10 @@ def agent(i):
                 with ident.use() as (a, st):
                     for iid, sats, txid in a.collect(addrs()[i]):
                         say(f"collected a tip: {sats:,d} sats into the wallet ({iid[:16]}.., in {txid})")
+                with ident.use() as (a, st):  # and what it is taking back, once its delay has passed (graph/agent.py reclaim)
+                    for step, iid, sats, txid in a.reclaim(addrs()[i]):
+                        say(f"took a stake back out of its covenant after its delay: {sats:,d} sats, onto the identity's own key ({iid[:16]}.., in {txid})" if step == "withdrawn"
+                            else f"collected a stake it took back: {sats:,d} sats into the wallet ({iid[:16]}.., in {txid})")
         except Exception as e:
             say("retry:", str(e).strip().splitlines()[-1][:200])
         time.sleep(15)

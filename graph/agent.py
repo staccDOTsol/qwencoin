@@ -183,3 +183,38 @@ class Agent:
         assert st.stage == 2, "withdraw spends the unbonding output"
         spk = bytes.fromhex(net.cli(self.node, "getaddressinfo", dest_address, wallet="ord")["scriptPubKey"])
         return net.cli(self.node, "sendrawtransaction", C.tx_hex(st.bond.withdraw(st.outpoint, self.own_sec, spk)))
+
+    def reclaim(self, dest_address: str) -> list:
+        """What this identity is taking back, once it may have it. A stake of its own (its bond, or coins it locked
+        on another identity) that has been unbonding for its whole delay is withdrawn, the covenant's last step,
+        onto the identity's own key: the stake's inscription stays there. What a withdrawal has put there then goes
+        on to the node's wallet, all but the TIP_KEEP sats the inscription sits on. Two transactions, in two blocks.
+        (Until this was done for it, a stake somebody had started to take back stayed "being taken back" for good:
+        nobody came for it after the delay.) Returns [(step, stake inscription, sats, txid)], step "withdrawn" or
+        "collected"."""
+        ix, done, own_spk = self.index.refresh(), [], C.tip_spk(self.own)
+        spk = bytes.fromhex(net.cli(self.node, "getaddressinfo", dest_address, wallet="ord")["scriptPubKey"])
+        for st in list(ix.stakes.values()):
+            if st.bond.own != self.own:
+                continue
+            if st.live and st.stage == 2:
+                out = net.cli(self.node, "gettxout", *st.outpoint.split(":"))  # (its mempool counts: a withdrawal on its way is not sent again)
+                if not out or out["confirmations"] < st.bond.delay:
+                    continue  # still inside its delay
+                tx, step, sats = st.bond.withdraw(st.outpoint, self.own_sec, own_spk), "withdrawn", st.bond.amount - 2 * st.bond.fee
+            elif st.status == "exited" and st.at and not st.burned:
+                out = net.cli(self.node, "gettxout", *st.at.split(":"))
+                value = round(out["value"] * 1e8) if out else 0
+                if not out or out["scriptPubKey"]["hex"] != own_spk.hex() or value <= C.TIP_KEEP + C.FEE:
+                    continue  # not on this identity's own key, or collected already
+                tx, step, sats = C.collect_tip(st.at, value, self.own_sec, self.own, spk), "collected", value - C.TIP_KEEP - C.FEE
+            else:
+                continue
+            try:
+                txid = net.cli(self.node, "sendrawtransaction", C.tx_hex(tx))
+            except RuntimeError as e:
+                if any(w in str(e) for w in ("already", "missing", "spent", "conflict", "non-BIP68-final")):
+                    continue  # on its way already, or a block short of its delay
+                raise
+            done.append((step, st.inscription, sats, txid))
+        return done

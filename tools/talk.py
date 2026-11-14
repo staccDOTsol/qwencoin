@@ -170,7 +170,8 @@ MIND_PASS = {"pass", "(pass)", "no answer", "nothing"}
 # How an assistant declines a request. An answer that begins so is not a message to the other nodes (post 1682: "I
 # cannot generate content that repeats information or refuses to answer based on instructions .."): it is a decline.
 MIND_REFUSALS = ("i cannot generate", "i can't generate", "i cannot fulfill", "i can't fulfill", "i cannot comply", "i can't comply",
-                 "i'm sorry, but", "i am sorry, but", "as an ai", "as a language model", "i cannot assist", "i can't assist")
+                 "i'm sorry, but", "i am sorry, but", "as an ai", "as a language model", "i cannot assist", "i can't assist",
+                 "i cannot repeat", "i can't repeat")  # (post 1694: "I can't repeat the previous turn's content. I can answer your question about ..")
 # How lines of the node itself begin, inside their square brackets. An answer that opens with one of them is the model
 # writing in its node's voice ("[On the chain: qwen-3947121e burned 0.01 coins on qwen-68769c33.]", post 1595, of
 # something that had not happened): such lines are taken off the head of an answer, and what is left is the answer.

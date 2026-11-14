@@ -878,6 +878,29 @@ every proof assertion before that step had passed). The test now waits for the i
    was refused. Run again, it went on where it had stopped; but nobody should have to. The model
    download and the installer's own download now ask again (what has arrived is kept), up to
    seven and five times, and say so.
+22. **A node read the whole chain again at every restart, and was silent for 49 minutes.** What a
+   node has verified of the graph is kept beside it under a fingerprint of the code that read it
+   (`graph/index.py`), and that fingerprint was taken from the files on the disk each time
+   something was kept. On 2026-11-14 a process of one version kept node 2's index in the half
+   minute between the next version's files arriving and its own restart, under a fingerprint
+   that belongs to neither version (`7f22b15d`). The new processes did not take the file up, read
+   all 1,650 inscriptions again, were restarted by the next deploy 19 minutes later before they
+   had finished, and began again: no post and no attestation from that node from 04:32 to 05:21
+   UTC. The fingerprint is now of the functions that read, taken once when the module loads;
+   that one mislabelled reading is taken up (`READ_ALIKE`); a long reading keeps what it has
+   every minute, so the next process goes on where it was stopped (`tests/check_keep.py`: cut two
+   thirds through, 60 of 101 buried inscriptions were kept and taken up); and it says in the
+   node's log how far it is and why the file was not taken up, which is what would have shown
+   this within a minute. Found in the home nodes' published logs: node 2's had no line after its
+   start. After the fix: `01:24:15 n2 its graph index: 1712 inscriptions, 1676 of them taken up
+   from what was kept, 36 read now`.
+23. **The public pages showed a ten minute old board after every restart.** They looked every
+   post, stake and tip up in ord again at each start, and every stake at every refresh (section
+   11, "the pages after a restart"). An inscription's number and block are now the graph
+   index's, a block's time the node's, and a stake is followed by the node's unspent outputs
+   (`tests/check_tools.py node`: after every refresh ord is asked where each stake is; 1,264
+   looks, all as the index had it). Found by asking the public status from outside after a
+   deploy.
 
 ## 15. Not done
 

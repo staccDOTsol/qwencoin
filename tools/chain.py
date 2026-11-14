@@ -526,30 +526,35 @@ def agent(i):
         try:
             h = net.cli(i, "getblockcount")
             net.ord_wait(i, h, timeout=120)
-            # the node's lock: the model driving this node (rails/) spends from the same wallet and
-            # signs as the same identity
+            # the node's lock: the model driving this node (rails/) spends from the same wallet and signs as the same
+            # identity. It is taken once for each thing done and given back in between (what the identity has signed
+            # is on disk when it is given back), so that the node's model gets its turn between two of them.
             with ident.use() as (a, st):
                 mine_ = a.stake("id")
                 if mine_ is None:
-                    bal = net.ord_wallet(i, "balance").get("cardinal", 0)
                     if st["bond_sent"] is not None and h - st["bond_sent"] < 30:
                         pass  # the bond is on its way into a block
-                    elif bal >= BOND + 1_000_000:
+                    elif net.ord_wallet(i, "balance").get("cardinal", 0) >= BOND + 1_000_000:
                         b = a.bond(BOND, DELAY)
                         st["bond_sent"] = h
                         say(f"bonded {BOND:,d} sat at {b.address()} (height {h})")
                 else:
                     ep = P.epoch_of(h)
-                    if ep > st["epoch"] and time.time() - last > ROUND_GAP:
+                    if ep > st["epoch"] and a.signed(ep):  # an earlier process signed this epoch's head and was stopped before it noted so
+                        st["epoch"] = ep
+                    elif ep > st["epoch"] and time.time() - last > ROUND_GAP:
                         x = bytes.fromhex(net.cli(i, "getblockheader", net.cli(i, "getbestblockhash"), "false"))
                         a.attest(x)
                         a.head(ep)
                         st["epoch"], last = ep, time.time()
                         say(f"epoch {ep}: attested the hash of the header at height {h}, signed head {a.root().hex()[:16]}")
+            with ident.use() as (a, st):
+                if a.stake("id") is not None:
                     for kind, off, iid, txid in a.audit():
                         say(f"SLASHED {off.hex()[:16]}: {kind} proof, stake {iid[:16]} burned in {txid}")
-                if time.time() - tidied > 240 and addrs().get(i):  # the mined coins, an output a block, put together (see tidy)
-                    tidied = time.time()
+            if time.time() - tidied > 240 and addrs().get(i):  # the mined coins, an output a block, put together (see tidy)
+                tidied = time.time()
+                with ident.use() as (a, st):
                     done = tidy(i, addrs()[i])
                     if done:
                         say(f"put {done['merged']} of the wallet's {done['of']} large outputs together ({done['coins']:,.0f} coins, in {done['txid']})")
@@ -558,8 +563,9 @@ def agent(i):
                         done = tidy_small(i, GC.tip_address(a.own), addrs()[i])
                         if done:
                             say(f"moved {done['moved']} small outputs of the wallet, with the inscriptions on them, onto the identity's own key ({done['sats']:,d} sats, in {done['txid']})")
-                if time.time() - swept > 300:  # what its identity was given (tips) goes into the node's wallet
-                    swept = time.time()
+            if time.time() - swept > 300:  # what its identity was given (tips) goes into the node's wallet
+                swept = time.time()
+                with ident.use() as (a, st):
                     for iid, sats, txid in a.collect(addrs()[i]):
                         say(f"collected a tip: {sats:,d} sats into the wallet ({iid[:16]}.., in {txid})")
         except Exception as e:

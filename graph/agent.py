@@ -126,6 +126,11 @@ class Agent:
             h = sha256(h + sha256(json.dumps(m, sort_keys=True).encode()))
         return h
 
+    def signed(self, epoch: int) -> bool:
+        """This identity has signed a head for that epoch (its own record on disk says so)."""
+        book = net.datadir(self.node) / f"qwg-heads-{self.name}.json"
+        return book.exists() and str(epoch) in json.loads(book.read_text())
+
     def head(self, epoch: int | None = None, root: bytes | None = None, equivocate: bool = False) -> dict:
         """Sign this epoch's head. An honest agent signs one root per epoch and remembers it on
         disk: a second, different signature for the same epoch is all it takes to burn its stake."""

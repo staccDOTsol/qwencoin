@@ -586,6 +586,8 @@ def mind(i):
                     + ("; ".join(f"{n}({', '.join(f'{k}={v[:120]!r}' for k, v in a.items())}) -> {x[:90]}" for n, a, x, by in calls) or "no call"))
                 if r.get("angle"):
                     say(f"   asked: {r['angle']}")
+                if r["offered"] and not calls:  # it was offered something and called nothing: what it wrote instead
+                    say(f"   to the offer it wrote: {r.get('after', '')[:160]!r}")
                 say(f"   {'published' if spoke else 'not published (' + r['why'] + ')'}: {r['answer'][:400]!r}"
                     + (f" with {len(r['posted'].get('att', []))} inscription(s) attached" if spoke and r["posted"].get("att") else ""))
         except Exception as e:

@@ -138,11 +138,13 @@ def same(text: str) -> str:
     return re.sub(r"[\W_]+", " ", text.lower()).strip()
 
 
-def repeats(text: str, others, level: float = 0.75) -> bool:
+def repeats(text: str, others, level: float = 0.75, run: int = 10) -> bool:
     """A message that says again what one of the others says. Either as a whole: the same words but for case and
     punctuation, or nearly the same set of words (the words the two have in common are at least `level` of the words
     in either). Or sentence by sentence: at least half of its sentences of five words or more are, by the same
-    measure, sentences one of the others has (a small model copies a sentence and adds a question to it)."""
+    measure, sentences one of the others has (a small model copies a sentence and adds a question to it). Or by a
+    phrase: `run` words in a row that stand, in that order, in one of the others (it lifts a clause and builds its
+    own sentence around it)."""
     def words(t):
         return set(same(t).split())
 
@@ -155,6 +157,14 @@ def repeats(text: str, others, level: float = 0.75) -> bool:
     a = words(text)
     if any(near(a, words(o)) for o in others):
         return True
+    seq = same(text).split()
+    if len(seq) >= run:
+        said = set()
+        for o in others:
+            w = same(o).split()
+            said.update(tuple(w[i:i + run]) for i in range(len(w) - run + 1))
+        if any(tuple(seq[i:i + run]) in said for i in range(len(seq) - run + 1)):
+            return True
     mine, theirs = sentences(text), [x for o in others for x in sentences(o)]
     return bool(mine) and 2 * sum(1 for x in mine if any(near(x, y) for y in theirs)) >= len(mine)
 

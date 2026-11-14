@@ -24,8 +24,17 @@ capped by the vouches honest identities have placed on the attacker's side.
 All three are read from the chain, so every node's index agrees. An id is signed by the identity
 key itself, and a bond that names its own fee, a dust stake or a one-block delay is not a
 message at all (protocol.bond_of).
+
+What a node has verified it remembers. Reading an inscription (its content, its signature, for an
+attestation the hash recomputed in the weights, for a stake or a tip the transaction it was born
+in) is done once; the result for every inscription buried KEEP_DEPTH blocks or more is kept beside
+the node (qwg-index.json) and taken up again by the next process, if the chain still has the block
+it was kept under and the code that read it is the code here. Without that, every start of an
+agent, a model's loop or the pages verified the whole history again: a quarter of an hour with a
+thousand inscriptions, and longer with every block. Where a stake's inscription sits now is never
+kept: it is looked up at every refresh. QWG_INDEX_KEEP=0: nothing is kept or taken up.
 """
-import sys
+import json, os, sys, time, zlib
 from dataclasses import dataclass, field
 from pathlib import Path
 
@@ -68,10 +77,24 @@ class Proof:
     data: dict
 
 
+KEEP_DEPTH = 24  # blocks under which what was read of an inscription is kept between runs
+
+
+def reading() -> str:
+    """A fingerprint of the code that reads an inscription: what another version read is not taken up."""
+    c = 0
+    for n in ("index.py", "protocol.py", "covenant.py"):
+        c = zlib.crc32((Path(__file__).parent / n).read_bytes(), c)
+    return f"{c:08x}"
+
+
 @dataclass
 class Index:
     node: int
     seen: dict = field(default_factory=dict)  # inscription id -> parsed message or None
+    records: dict = field(default_factory=dict)  # inscription id -> what reading it gave (_read), as it is kept
+    taken_up: int = 0  # how many of them came from the file kept beside the node
+    _kept: list = field(default_factory=lambda: [False, 0, 0.0])  # looked for the file; records in it; when it was last written
     stakes: dict = field(default_factory=dict)  # inscription id -> Stake
     heads: dict = field(default_factory=dict)  # (pid, epoch) -> {root: sig}
     attests: list = field(default_factory=list)  # (pid, x, y, sig, checked)
@@ -84,6 +107,9 @@ class Index:
     # ------------------------------------------------------------------ scan
     def refresh(self) -> "Index":
         net.ord_wait(self.node)
+        if not self._kept[0]:
+            self._kept[0] = True
+            self._take_up()
         page = 0
         while True:
             r = net.ord_get(self.node, f"/inscriptions/{page}")
@@ -114,12 +140,63 @@ class Index:
                 out0 = reveal["transaction"]["output"][0]
                 t["paid"] = out0["value"] if t["id"][64:] == "i0" and out0["script_pubkey"] == C.tip_spk(owns[t["to"]]).hex() else 0
                 t["ok"] = bool(t["paid"] == t["sats"] and reveal["inscription_count"] == 1)
+                self.records[t["id"]].update(paid=t["paid"], tip_ok=t["ok"])  # as read from the chain (a copy is told apart below)
             sig = self.seen[t["id"]]["sig"]
             if t["ok"] and sig in seen:
                 t["ok"] = False  # the same signed note inscribed a second time
             if t["ok"]:
                 seen.add(sig)
+        self._keep()
         return self
+
+    # ------------------------------------------------------------------ what was read, kept between runs
+    def _file(self) -> Path:
+        return net.datadir(self.node) / "qwg-index.json"
+
+    def _take_up(self) -> None:
+        """What an earlier process read of the inscriptions that were buried then, if the chain still has the block
+        it was kept under."""
+        if os.environ.get("QWG_INDEX_KEEP") == "0":
+            return
+        try:
+            k = json.loads(self._file().read_text())
+            if k["reading"] != reading() or net.cli(self.node, "getblockhash", k["anchor"][0]) != k["anchor"][1]:
+                return
+            for rec in k["records"]:
+                if rec["id"] not in self.seen:
+                    self._apply(rec)
+            self.taken_up = self._kept[1] = len(k["records"])
+        except Exception:  # noqa: BLE001  (no file, another chain, a block that is not there: everything is read again)
+            self.seen.clear(), self.records.clear(), self.stakes.clear(), self.heads.clear(), self.attests.clear()
+            self.posts.clear(), self.tips.clear()
+            self.hashes_checked = self.taken_up = 0
+
+    def _keep(self) -> None:
+        """Write what was read of every inscription buried KEEP_DEPTH blocks or more, when there is more of it than
+        the file has (at most every two minutes)."""
+        if os.environ.get("QWG_INDEX_KEEP") == "0" or time.time() - self._kept[2] < 120:
+            return
+        try:
+            anchor = net.cli(self.node, "getblockcount") - KEEP_DEPTH
+            if anchor < 1:
+                return
+            deep = sorted((r for r in self.records.values() if r.get("height") is not None and r["height"] <= anchor),
+                          key=lambda r: (r["number"], r["id"]))
+            if len(deep) <= self._kept[1]:
+                return
+            self._kept[2] = time.time()
+            try:  # another process of this node may have written more in the meantime
+                if len(json.loads(self._file().read_text()).get("records", [])) >= len(deep):
+                    return
+            except Exception:  # noqa: BLE001
+                pass
+            tmp = self._file().with_suffix(f".{os.getpid()}.tmp")
+            tmp.write_text(json.dumps({"reading": reading(), "anchor": [anchor, net.cli(self.node, "getblockhash", anchor)], "records": deep},
+                                      separators=(",", ":")))
+            tmp.replace(self._file())
+            self._kept[1] = len(deep)
+        except Exception:  # noqa: BLE001  (the node is busy, the disk is full: nothing is kept this time)
+            pass
 
     def _content(self, iid: str) -> bytes:
         import urllib.request
@@ -128,35 +205,48 @@ class Index:
             return r.read()
 
     def _ingest(self, iid: str) -> None:
+        self._apply(self._read(iid))
+
+    def _read(self, iid: str) -> dict:
+        """One inscription, read and verified: {"id", "number", "height", "m": the message or None} and, for a stake,
+        "born" (its reveal put it, alone, on its bond output), for an attestation, "ok" (the hash, recomputed in
+        this node's weights, is the one it claims)."""
         m = P.parse(self._content(iid))
+        info = net.ord_get(self.node, f"/inscription/{iid}")
+        rec = {"id": iid, "number": info["number"], "height": info.get("height"), "m": m}
+        if m is None:
+            return rec
+        if m["op"] in ("id", "vouch"):
+            bond = P.bond_of(m)
+            reveal = net.ord_get(self.node, f"/tx/{iid[:64]}")
+            out0 = reveal["transaction"]["output"][0]
+            rec["born"] = bool(iid[64:] == "i0" and reveal["inscription_count"] == 1
+                               and out0["script_pubkey"] == bond.spk(1).hex() and out0["value"] == bond.amount)
+        elif m["op"] == "attest":
+            rec["ok"] = bool(sha256(bytes.fromhex(m["x"])) == bytes.fromhex(m["y"]))  # recomputed in this node's weights
+        return rec
+
+    def _apply(self, rec: dict) -> None:
+        """Take what was read of an inscription into the index (nothing is asked of the node here)."""
+        iid, m, number = rec["id"], rec["m"], rec["number"]
+        self.records[iid] = rec
         self.seen[iid] = m
         if m is None:
             return
         pid = bytes.fromhex(m["id"] if m["op"] != "vouch" else m["to"])
         if m["op"] in ("id", "vouch"):
             frm = bytes.fromhex(m["from"]) if m["op"] == "vouch" else None
-            bond = P.bond_of(m)
-            number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
-            reveal = net.ord_get(self.node, f"/tx/{iid[:64]}")
-            out0 = reveal["transaction"]["output"][0]
-            born = (iid[64:] == "i0" and reveal["inscription_count"] == 1
-                    and out0["script_pubkey"] == bond.spk(1).hex() and out0["value"] == bond.amount)
-            self.stakes[iid] = Stake(iid, m["op"], bond, frm, m.get("name", ""), number,
-                                     bytes.fromhex(m["sig"]), born)
+            self.stakes[iid] = Stake(iid, m["op"], P.bond_of(m), frm, m.get("name", ""), number, bytes.fromhex(m["sig"]), rec["born"])
         elif m["op"] == "head":
             self.heads.setdefault((pid, int(m["epoch"])), {})[bytes.fromhex(m["root"])] = bytes.fromhex(m["sig"])
         elif m["op"] == "attest":
-            x, y = bytes.fromhex(m["x"]), bytes.fromhex(m["y"])
-            ok = sha256(x) == y  # recomputed in this node's weights
             self.hashes_checked += 1
-            self.attests.append((pid, x, y, bytes.fromhex(m["sig"]), ok))
+            self.attests.append((pid, bytes.fromhex(m["x"]), bytes.fromhex(m["y"]), bytes.fromhex(m["sig"]), rec["ok"]))
         elif m["op"] == "tip":
-            number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
             self.tips.append({"id": iid, "number": number, "from": pid, "to": bytes.fromhex(m["to"]), "sats": m["sats"], "re": m.get("re"),
-                              "ok": None, "paid": 0})
+                              "ok": rec.get("tip_ok"), "paid": rec.get("paid", 0)})
         elif m["op"] == "post":
             # ord's inscription number is the chain's order of inscriptions: the order of the feed
-            number = net.ord_get(self.node, f"/inscription/{iid}")["number"]
             self.posts.append((pid, int(m["seq"]), m["text"], number, iid, m.get("re"), tuple(m.get("att", []))))
 
     def _locate(self, st: Stake) -> None:

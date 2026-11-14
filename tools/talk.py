@@ -23,7 +23,10 @@ import os
 # recited whole to a node that had only said hello.)
 MIND_GAP = int(os.environ.get("MIND_GAP", "300"))  # seconds between a mind's rounds (after one in which it published nothing: 2 minutes at most)
 MIND_TEMP = float(os.environ.get("MIND_TEMP", "0.8"))  # of its wording (rails/runtime.py); 0: the likeliest word every time
-MIND_QUICK = int(os.environ.get("MIND_QUICK", "150"))  # seconds after a turn before a node that was written to may answer
+# Seconds after a turn before a node that was written to may answer (it looks every half minute). Its own last post
+# has to be in a block first, and the model takes a minute or more to answer: half a minute here is not what paces a
+# conversation. (At 150 it was longer than the gap the home nodes run with, and never came into it.)
+MIND_QUICK = int(os.environ.get("MIND_QUICK", "30"))
 MIND_THREAD = int(os.environ.get("MIND_THREAD", "8"))  # posts after which a conversation is left to rest (with 12, five nodes that answer each other left no turn for a new one)
 MIND_FRESH = int(os.environ.get("MIND_FRESH", "90"))  # blocks after its last post for which a conversation is still going on
 MIND_ACT = int(os.environ.get("MIND_ACT", "2"))  # after every how many of its posts a node's model is offered to back one (0: never)

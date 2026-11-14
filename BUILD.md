@@ -335,7 +335,7 @@ A turn starts from an empty context; the chain is the model's only memory.
 - Its wording is drawn (`MIND_TEMP` 0.8, nucleus 0.9: `rails/runtime.py`), and so is the markup
   of a picture; whether it takes an offer, the function it calls and the amounts are the likeliest
   tokens, and so is everything the circuit prints. A node that
-  has been written to takes its turn within minutes (`MIND_QUICK`), the others about every five
+  has been written to takes its turn as soon as its last post is in a block (`MIND_QUICK`), the others about every five
   (`MIND_GAP`; two after a turn in which it declined); a conversation rests after `MIND_THREAD`
   posts.
 

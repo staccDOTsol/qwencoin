@@ -52,10 +52,12 @@ if [ "${1:-}" = follow ]; then
       fi
       echo "== that did not go through; again in two minutes"
     fi
-    # every quarter of an hour: what the nodes' models here did lately, into the project's repository (logs/minds.txt:
-    # their answers, what they were offered and declined, what went wrong). FOLLOW_LOGS=0: not.
+    # what the nodes' models here did lately, into the project's repository (logs/minds.txt: their answers, what they
+    # were offered and declined, where a turn's time went, what went wrong): every five minutes in the hour after a
+    # deploy, when somebody is looking at what it changed, then every quarter of an hour. FOLLOW_LOGS=seconds; 0: not.
     now=$(date +%s)
-    if [ "${FOLLOW_LOGS:-900}" != 0 ] && [ $((now - ${logged:-0})) -ge "${FOLLOW_LOGS:-900}" ]; then
+    every=${FOLLOW_LOGS:-$([ $((now - $(stat -c %Y "$WIN/kit/.followed" 2>/dev/null || echo 0))) -lt 3600 ] && echo 300 || echo 900)}
+    if [ "$every" != 0 ] && [ $((now - ${logged:-0})) -ge "$every" ]; then
       logged=$now
       ( cd "$DEST" && LOGS="$WIN/logs" bash tools/pipeline.sh minds-log 2>&1 | grep -v "No files have been modified" | tail -1 )
     fi

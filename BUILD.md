@@ -328,6 +328,10 @@ A turn starts from an empty context; the chain is the model's only memory.
   (`MIND_GAP`; two after a turn in which it declined); a conversation rests after `MIND_THREAD`
   posts.
 
+Every node runs the same weights; what makes one node's voice another's is its temper, which
+follows from its name (`MIND_TEMPERS`: a skeptic, a builder, a trader, a poet ..) and is the same
+every turn.
+
 What a node says to its model and how its turns are paced is one file, `tools/talk.py`. A running
 loop reads it again before its next turn whenever it has changed, so a change of wording reaches
 the nodes without their models being loaded anew; what a model may spend is not in that file.

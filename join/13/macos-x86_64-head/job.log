@@ -1,0 +1,92 @@
+ci-join: head on Darwin 24.6.0 x86_64, 4 cpus
+== qwencoin: uv (it installs Python and packages), into /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.8 x86_64-apple-darwin
+installing to /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /Users/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (3.7MiB)
+ Downloaded hf-xet
+Installed 15 packages in 267ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 141 files:   0%|          | 0/141 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 141 files:   1%|          | 1/141 [00:00<00:49,  2.83it/s]Fetching 141 files:   1%|▏         | 2/141 [00:00<00:33,  4.20it/s]Fetching 141 files:   3%|▎         | 4/141 [00:00<00:18,  7.57it/s]Fetching 141 files:   4%|▍         | 6/141 [00:00<00:12, 10.59it/s]Fetching 141 files:   6%|▋         | 9/141 [00:00<00:08, 14.93it/s]Fetching 141 files:   9%|▊         | 12/141 [00:00<00:06, 18.65it/s]Fetching 141 files:  11%|█▏        | 16/141 [00:01<00:06, 20.29it/s]Fetching 141 files:  14%|█▍        | 20/141 [00:01<00:04, 24.24it/s]Fetching 141 files:  16%|█▋        | 23/141 [00:01<00:04, 24.69it/s]Fetching 141 files:  18%|█▊        | 26/141 [00:01<00:04, 25.50it/s]Fetching 141 files:  21%|██        | 29/141 [00:01<00:04, 24.61it/s]Fetching 141 files:  23%|██▎       | 32/141 [00:01<00:04, 23.76it/s]Fetching 141 files:  25%|██▍       | 35/141 [00:01<00:04, 24.88it/s]Fetching 141 files:  27%|██▋       | 38/141 [00:02<00:04, 23.04it/s]Fetching 141 files:  30%|██▉       | 42/141 [00:02<00:04, 22.75it/s]Fetching 141 files:  32%|███▏      | 45/141 [00:02<00:04, 22.91it/s]Fetching 141 files:  35%|███▍      | 49/141 [00:02<00:03, 23.62it/s]Fetching 141 files:  37%|███▋      | 52/141 [00:02<00:03, 22.88it/s]Fetching 141 files:  40%|███▉      | 56/141 [00:02<00:03, 23.66it/s]Fetching 141 files:  42%|████▏     | 59/141 [00:02<00:03, 23.03it/s]Fetching 141 files:  45%|████▍     | 63/141 [00:03<00:03, 23.13it/s]Fetching 141 files:  47%|████▋     | 66/141 [00:03<00:03, 23.20it/s]Fetching 141 files:  50%|█████     | 71/141 [00:03<00:02, 24.53it/s]Fetching 141 files:  52%|█████▏    | 74/141 [00:03<00:02, 22.45it/s]Fetching 141 files:  55%|█████▌    | 78/141 [00:03<00:02, 23.63it/s]Fetching 141 files:  57%|█████▋    | 81/141 [00:03<00:02, 21.53it/s]Fetching 141 files:  60%|██████    | 85/141 [00:04<00:02, 22.34it/s]Fetching 141 files:  62%|██████▏   | 88/141 [00:04<00:02, 21.51it/s]Fetching 141 files:  65%|██████▌   | 92/141 [00:04<00:02, 17.85it/s]Fetching 141 files:  67%|██████▋   | 94/141 [00:04<00:03, 14.99it/s]Fetching 141 files:  70%|███████   | 99/141 [00:04<00:02, 18.45it/s]Fetching 141 files:  72%|███████▏  | 101/141 [00:05<00:03, 12.44it/s]Fetching 141 files:  75%|███████▌  | 106/141 [00:05<00:02, 16.53it/s]Fetching 141 files:  77%|███████▋  | 109/141 [00:05<00:02, 12.55it/s]Fetching 141 files:  79%|███████▉  | 112/141 [00:05<00:01, 14.78it/s]Fetching 141 files:  82%|████████▏ | 115/141 [00:06<00:02, 10.73it/s]Fetching 141 files:  85%|████████▌ | 120/141 [00:06<00:01, 15.45it/s]Fetching 141 files:  87%|████████▋ | 123/141 [00:07<00:01, 11.16it/s]Fetching 141 files:  89%|████████▊ | 125/141 [00:07<00:01, 11.98it/s]Fetching 141 files:  91%|█████████▏| 129/141 [00:08<00:01,  6.27it/s]Fetching 141 files:  93%|█████████▎| 131/141 [00:08<00:01,  7.04it/s]Fetching 141 files:  96%|█████████▋| 136/141 [00:08<00:00,  9.30it/s]Fetching 141 files:  98%|█████████▊| 138/141 [00:09<00:00,  8.40it/s]Fetching 141 files: 100%|██████████| 141/141 [00:14<00:00,  1.66it/s]Fetching 141 files: 100%|██████████| 141/141 [00:14<00:00,  9.76it/s]
+qwencoin: the files of /Users/runner/work/qwencoin/qwencoin are laid over the download
+== qwencoin: the node programs for macos-x86_64 from https://github.com/staccDOTsol/qwencoin/releases
+
+=== qwencoin pipeline 2026-11-14 00:36:49 in /Users/runner/work/_temp/qwencoin-join/qwencoin
+cpu: Intel(R) Core(TM) i7-8700B CPU @ 3.20GHz, 4 threads
+memory: 14 GB
+disk free here: 107G
+os: macOS 15.7.9, x86_64, kernel 24.6.0
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.10 interpreter at: /usr/local/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+   torch: none for macos-x86_64
+   no torch on this machine: the node runs without a model
+Resolved 16 packages in 523ms
+Downloading numpy (6.5MiB)
+ Downloaded numpy
+Prepared 1 package in 963ms
+Installed 16 packages in 201ms
+ + anyio==4.16.0
+ + click==8.5.1
+ + filelock==4.2.10
+ + fsspec==2026.9.0
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.0
+ + httpx2==2.16.0
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + numpy==2.5.4
+ + packaging==26.3
+ + pyyaml==6.0.3
+ + tqdm==4.70.1
+ + truststore==0.10.5
+ + typing-extensions==4.16.0
+python 3.12.10 | numpy 2.5.4 | no torch: the node runs without a model
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 104 ms; one SHA-256 in the circuit's executor 11.4 ms; one fsync 0.7 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+00:37:04 starting 1 qwencoind (datadirs in /Users/runner/work/_temp/qwencoin-join/qwencoin/run)
+00:37:11 nodes answer; heights [0]
+00:37:12 ord 1 has indexed its node's chain
+00:37:17 n1's wallet is ready; it mines to bc1pz6gmt6ccxcn6dgx0ft4297s2d7w9yxq4r2tq9mhrpwfgnc3g4w9qw3dvlz
+00:37:17 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 ?              height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+== the node's model is NOT started: there is no torch on this machine (macos-x86_64). The node runs without it.
+  n1 qwen-d0114ff3  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+=== joined 2026-11-14 00:37:19, without a model.  bash tools/pipeline.sh status | down
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+00:37:21 height      0 51ebb1f392844e411a0c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.2s)
+  n1 qwen-d0114ff3  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: the installer has joined after 61s
+ci-join: height 0, the best a peer has 4490, peers 1 (0s)
+ci-join: height 0, the best a peer has 4490, peers 1 (20s)
+ci-join: height 0, the best a peer has 4490, peers 1 (41s)
+ci-join: height 0, the best a peer has 4490, peers 1 (61s)
+ci-join: height 0, the best a peer has 4490, peers 1 (81s)
+ci-join: height 0, the best a peer has 4490, peers 1 (102s)
+ci-join: height 0, the best a peer has 4490, peers 1 (122s)
+ci-join: height 0, the best a peer has 4490, peers 1 (142s)
+ci-join: height 0, the best a peer has 4490, peers 1 (162s)
+ci-join: height 0, the best a peer has 4490, peers 1 (183s)
+ci-join: height 0, the best a peer has 4490, peers 1 (203s)
+ci-join: height 0, the best a peer has 4490, peers 1 (223s)
+ci-join: height 0, the best a peer has 4490, peers 1 (243s)
+ci-join: height 0, the best a peer has 4490, peers 1 (264s)
+ci-join: height 0, the best a peer has 4490, peers 1 (284s)
+ci-join: height 0, the best a peer has 4490, peers 1 (304s)
+ci-join: height 0, the best a peer has 4490, peers 1 (324s)
+ci-join: height 0, the best a peer has 4490, peers 1 (345s)
+ci-join: height 0, the best a peer has 4490, peers 1 (509s)
+ci-join: height 0, the best a peer has 4490, peers 1 (529s)
+ci-join: height 0, the best a peer has 4490, peers 1 (550s)
+ci-join: height 0, the best a peer has 4490, peers 1 (570s)
+ci-join: height 0, the best a peer has 4490, peers 1 (590s)

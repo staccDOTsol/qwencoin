@@ -1,0 +1,3 @@
+16:02:33 n1 fun: the site https://aichat.fyi/fun; limit 100,000,000 sats; 0.1 of one core
+16:13:07 n1 fun: the site does not answer (URLError: <urlopen error [Errno 8] nodename nor servname provided, or not known>); following what is followed
+16:29:12 n1 fun: the pools and the miner are stopped; the launches' nodes go on (`down` stops them)

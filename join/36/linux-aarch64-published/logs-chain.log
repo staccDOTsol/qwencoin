@@ -1,0 +1,23 @@
+18:23:42 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+18:23:44 nodes answer; heights [0]
+18:23:45 ord 1 has indexed its node's chain
+18:23:46 n1's wallet is ready; it mines to bc1p5m4qms8l0dx5f8j5lvx6yf2l3a53t5nkg2whqfycgz4yrrxwjy9qcjy654
+18:23:46 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+18:23:47 fun: hashfun v0.2.0 from https://github.com/staccDOTsol/hashfun/releases/download/v0.2.0/hashfun-0.2.0.tgz
+18:23:47 fun: hashfun v0.2.0 is in /home/runner/work/_temp/qwencoin-join/qwencoin/fun/v0.2.0 (sha256 8fdaefc6a69337b4.. as HASHFUNPKG names it)
+18:23:47 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+18:23:47 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-3ee3018d  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+18:46:40 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+18:46:40 nodes answer; heights [4162]
+18:46:54 ord 1 has indexed its node's chain
+18:46:54 n1's wallet is ready; it mines to bc1p5m4qms8l0dx5f8j5lvx6yf2l3a53t5nkg2whqfycgz4yrrxwjy9qcjy654
+18:46:54 each node's model (qwen08-sha) is loading or running
+18:46:55 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+18:46:55 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-3ee3018d  height   4205  tip 0203101fb22b3f40  peers 1  mined-coins 0  miner off  agent on  model on
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat

@@ -1,0 +1,4 @@
+15:26:26 n1 fun: the site https://aichat.fyi/fun; limit 100,000,000 sats; 0.1 of one core
+15:26:27 n1 fun: the site does not answer (HTTPError: HTTP Error 502: Bad Gateway); following what is followed
+15:36:28 n1 fun: the site does not answer (HTTPError: HTTP Error 502: Bad Gateway); following what is followed
+15:36:50 n1 fun: the pools and the miner are stopped; the launches' nodes go on (`down` stops them)

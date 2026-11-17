@@ -1,0 +1,111 @@
+--- run/n1/debug.log, from the start
+
+
+
+
+
+2026-11-17T18:25:29Z Qwencoin version v29.4.0 (release build)
+2026-11-17T18:25:29Z Using the 'qwen3.5-weights(hashformer;1way)' SHA256 implementation
+2026-11-17T18:25:29Z Using RdSeed as an additional entropy source
+2026-11-17T18:25:29Z Using RdRand as an additional entropy source
+2026-11-17T18:25:29Z Work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin: checksum 33a548a33925d201, genesis work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d
+2026-11-17T18:25:29Z Default data directory /home/runner/.qwencoin
+2026-11-17T18:25:29Z Using data directory /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-17T18:25:29Z Config file: /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/qwencoin.conf
+2026-11-17T18:25:29Z Config file arg: addnode="157.157.221.29:56877"
+2026-11-17T18:25:29Z Config file arg: bind="0.0.0.0"
+2026-11-17T18:25:29Z Config file arg: datacarriersize="100000"
+2026-11-17T18:25:29Z Config file arg: dbcache="64"
+2026-11-17T18:25:29Z Config file arg: dnsseed="0"
+2026-11-17T18:25:29Z Config file arg: fallbackfee="0.0001"
+2026-11-17T18:25:29Z Config file arg: keypool="5"
+2026-11-17T18:25:29Z Config file arg: listen="1"
+2026-11-17T18:25:29Z Config file arg: listenonion="0"
+2026-11-17T18:25:29Z Config file arg: maxtxfee="1"
+2026-11-17T18:25:29Z Config file arg: minrelaytxfee="0.00001"
+2026-11-17T18:25:29Z Config file arg: natpmp="0"
+2026-11-17T18:25:29Z Config file arg: par="1"
+2026-11-17T18:25:29Z Config file arg: port="8733"
+2026-11-17T18:25:29Z Config file arg: qwork="/home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin"
+2026-11-17T18:25:29Z Config file arg: rpcallowip="127.0.0.1"
+2026-11-17T18:25:29Z Config file arg: rpcbind="127.0.0.1"
+2026-11-17T18:25:29Z Config file arg: rpcport="8732"
+2026-11-17T18:25:29Z Config file arg: server="1"
+2026-11-17T18:25:29Z Config file arg: txindex="1"
+2026-11-17T18:25:29Z Command-line arg: daemon=""
+2026-11-17T18:25:29Z Command-line arg: datadir="/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1"
+2026-11-17T18:25:29Z Using at most 125 automatic connections (65536 file descriptors available)
+2026-11-17T18:25:29Z scheduler thread start
+2026-11-17T18:25:29Z Binding RPC on address 127.0.0.1 port 8732
+2026-11-17T18:25:29Z Generated RPC authentication cookie /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/.cookie
+2026-11-17T18:25:29Z Permissions used for cookie: rw-------
+2026-11-17T18:25:29Z Using random cookie authentication.
+2026-11-17T18:25:29Z Starting HTTP server with 16 worker threads
+2026-11-17T18:25:29Z Using wallet directory /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-17T18:25:29Z init message: Verifying wallet(s)…
+2026-11-17T18:25:29Z Using /16 prefix for IP bucketing
+2026-11-17T18:25:29Z init message: Loading P2P addresses…
+2026-11-17T18:25:29Z Creating peers.dat because the file was not found ("/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/peers.dat")
+2026-11-17T18:25:30Z init message: Loading banlist…
+2026-11-17T18:25:30Z Recreating the banlist database
+2026-11-17T18:25:30Z SetNetworkActive: true
+2026-11-17T18:25:30Z /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fee_estimates.dat is not found. Continue anyway.
+2026-11-17T18:25:30Z Cache configuration:
+2026-11-17T18:25:30Z * Using 2.0 MiB for block index database
+2026-11-17T18:25:30Z * Using 8.0 MiB for transaction index database
+2026-11-17T18:25:30Z * Using 8.0 MiB for chain state database
+2026-11-17T18:25:30Z * Using 46.0 MiB for in-memory UTXO set (plus up to 286.1 MiB of unused mempool space)
+2026-11-17T18:25:30Z Script verification uses 0 additional threads
+2026-11-17T18:25:30Z Using obfuscation key for blocksdir *.dat files (/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks): 'd2e33554de912126'
+2026-11-17T18:25:30Z Opening LevelDB in /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks/index
+2026-11-17T18:25:30Z Opened LevelDB successfully
+--- run/n1/debug.log
+2026-11-17T18:25:30Z net thread start
+2026-11-17T18:25:30Z addcon thread start
+2026-11-17T18:25:30Z opencon thread start
+2026-11-17T18:25:30Z init message: Done loading
+2026-11-17T18:25:30Z msghand thread start
+2026-11-17T18:25:31Z New manual v2 peer connected: version: 70016, blocks=7856, peer=0
+2026-11-17T18:25:31Z Using SQLite Version 3.45.1
+2026-11-17T18:25:31Z Using wallet /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/ord
+2026-11-17T18:25:31Z init message: Loading wallet…
+2026-11-17T18:25:31Z [ord] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-17T18:25:31Z [ord] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-17T18:25:31Z [ord] Setting minversion to 169900
+2026-11-17T18:25:31Z [ord] Wallet completed loading in               2ms
+2026-11-17T18:25:31Z [ord] setKeyPool.size() = 0
+2026-11-17T18:25:31Z [ord] mapWallet.size() = 0
+2026-11-17T18:25:31Z [ord] m_address_book.size() = 0
+2026-11-17T18:25:32Z [ord] Setting spkMan to active: id = cef01eb53933d7b35f70327b8c9e6cbbf0b0116afd7906e8cd88664317fd9810, type = bech32m, internal = false
+2026-11-17T18:25:32Z [ord] Setting spkMan to active: id = 626df767887a63c19c21b10a3fee2e07f46036773672d5c16290162d7b2ab014, type = bech32m, internal = true
+2026-11-17T18:25:32Z [ord] RescanFromTime: Rescanning last 1 blocks
+2026-11-17T18:25:32Z [ord] Rescan started from block 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5... (slow variant inspecting all blocks)
+2026-11-17T18:25:32Z [ord] Scanning current mempool transactions.
+2026-11-17T18:25:32Z [ord] Rescan completed in              29ms
+2026-11-17T18:25:33Z Using SQLite Version 3.45.1
+2026-11-17T18:25:33Z Using wallet /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fun
+2026-11-17T18:25:33Z init message: Loading wallet…
+2026-11-17T18:25:33Z [fun] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-17T18:25:33Z [fun] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-17T18:25:33Z [fun] Setting minversion to 169900
+2026-11-17T18:25:34Z [fun] Setting spkMan to active: id = e2fd6e27aea241ea1808db9d24ef9848828f356415d3c91a4ffff0f5354f7001, type = legacy, internal = false
+2026-11-17T18:25:34Z [fun] Setting spkMan to active: id = ebccf9f5826759b5ef861290b98668ca5c65be2ef4cdeba8d36bc4477e6b0184, type = p2sh-segwit, internal = false
+2026-11-17T18:25:34Z [fun] Setting spkMan to active: id = f1ca58eb99b20007f8e7b0b6d15e1b1fc9b67ccf0a4f47a27b90f21d1ab6ab3e, type = bech32, internal = false
+2026-11-17T18:25:34Z [fun] Setting spkMan to active: id = eb41cd684744ec4c0ad124746c074b98dbc63af31b138c1e0e624f47a92a71b2, type = bech32m, internal = false
+2026-11-17T18:25:35Z [fun] Setting spkMan to active: id = d63a32e0c0329625d991f698099dc000d99ac93c8ff78e3f55c60e6aa784b53e, type = legacy, internal = true
+2026-11-17T18:25:35Z [fun] Setting spkMan to active: id = 73d22cedc2791180f401a208259dc5d0b1b97e83574583c1bfd3cb4f3340c7cc, type = p2sh-segwit, internal = true
+2026-11-17T18:25:35Z [fun] Setting spkMan to active: id = 4361540523b8a1d5adfcd0f8a2635a6afce73fedb268cd7f4464c5535cc25dea, type = bech32, internal = true
+2026-11-17T18:25:35Z [fun] Setting spkMan to active: id = 7a342524a93a1446412db8bf037c5a565380135675ae5a248b6973d4d9bd7c27, type = bech32m, internal = true
+2026-11-17T18:25:35Z [fun] Wallet completed loading in            2141ms
+2026-11-17T18:25:36Z [fun] setKeyPool.size() = 40
+2026-11-17T18:25:36Z [fun] mapWallet.size() = 0
+2026-11-17T18:25:36Z [fun] m_address_book.size() = 0
+--- run/n1/start.log
+Qwencoin starting
+--- run/agent1.log
+18:25:32 qwen-f2a0e602 identity f2a0e602d5a06a265766d29f50c30835f61ac98476ec6d9c7123c476e96377c4
+--- run/fun.log
+18:25:33 n1 fun: the site https://aichat.fyi/fun; limit 100,000,000 sats; 0.1 of one core
+--- run/ord1/server.log
+== ord server started 2026-11-17 18:25:30
+Listening on http://127.0.0.1:18081

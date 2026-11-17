@@ -1,0 +1,553 @@
+
+
+
+
+
+2026-11-17T00:43:29Z Qwencoin version v29.4.0 (release build)
+2026-11-17T00:43:29Z Using the 'qwen3.5-weights(hashformer;1way)' SHA256 implementation
+2026-11-17T00:43:29Z Using RdSeed as an additional entropy source
+2026-11-17T00:43:29Z Using RdRand as an additional entropy source
+2026-11-17T00:43:31Z Work table /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin: checksum 33a548a33925d201, genesis work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d
+2026-11-17T00:43:31Z Default data directory /Users/runner/Library/Application Support/Qwencoin
+2026-11-17T00:43:31Z Using data directory /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-17T00:43:31Z Config file: /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/qwencoin.conf
+2026-11-17T00:43:31Z Config file arg: addnode="157.157.221.29:56877"
+2026-11-17T00:43:31Z Config file arg: bind="0.0.0.0"
+2026-11-17T00:43:31Z Config file arg: datacarriersize="100000"
+2026-11-17T00:43:31Z Config file arg: dbcache="64"
+2026-11-17T00:43:31Z Config file arg: dnsseed="0"
+2026-11-17T00:43:31Z Config file arg: fallbackfee="0.0001"
+2026-11-17T00:43:31Z Config file arg: keypool="5"
+2026-11-17T00:43:31Z Config file arg: listen="1"
+2026-11-17T00:43:31Z Config file arg: listenonion="0"
+2026-11-17T00:43:31Z Config file arg: maxtxfee="1"
+2026-11-17T00:43:31Z Config file arg: minrelaytxfee="0.00001"
+2026-11-17T00:43:31Z Config file arg: natpmp="0"
+2026-11-17T00:43:31Z Config file arg: par="1"
+2026-11-17T00:43:31Z Config file arg: port="8733"
+2026-11-17T00:43:31Z Config file arg: qwork="/Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin"
+2026-11-17T00:43:31Z Config file arg: rpcallowip="127.0.0.1"
+2026-11-17T00:43:31Z Config file arg: rpcbind="127.0.0.1"
+2026-11-17T00:43:31Z Config file arg: rpcport="8732"
+2026-11-17T00:43:31Z Config file arg: server="1"
+2026-11-17T00:43:31Z Config file arg: txindex="1"
+2026-11-17T00:43:31Z Command-line arg: daemon=""
+2026-11-17T00:43:31Z Command-line arg: datadir="/Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1"
+2026-11-17T00:43:31Z Using at most 125 automatic connections (1024 file descriptors available)
+2026-11-17T00:43:31Z scheduler thread start
+2026-11-17T00:43:31Z Binding RPC on address 127.0.0.1 port 8732
+2026-11-17T00:43:31Z Generated RPC authentication cookie /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/.cookie
+2026-11-17T00:43:31Z Permissions used for cookie: rw-------
+2026-11-17T00:43:31Z Using random cookie authentication.
+2026-11-17T00:43:31Z Starting HTTP server with 16 worker threads
+2026-11-17T00:43:31Z Using wallet directory /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-17T00:43:31Z init message: Verifying wallet(s)…
+2026-11-17T00:43:31Z Using /16 prefix for IP bucketing
+2026-11-17T00:43:31Z init message: Loading P2P addresses…
+2026-11-17T00:43:32Z Creating peers.dat because the file was not found ("/Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/peers.dat")
+2026-11-17T00:43:35Z init message: Loading banlist…
+2026-11-17T00:43:35Z Recreating the banlist database
+2026-11-17T00:43:35Z SetNetworkActive: true
+2026-11-17T00:43:35Z /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fee_estimates.dat is not found. Continue anyway.
+2026-11-17T00:43:35Z Cache configuration:
+2026-11-17T00:43:35Z * Using 2.0 MiB for block index database
+2026-11-17T00:43:35Z * Using 8.0 MiB for transaction index database
+2026-11-17T00:43:35Z * Using 8.0 MiB for chain state database
+2026-11-17T00:43:35Z * Using 46.0 MiB for in-memory UTXO set (plus up to 286.1 MiB of unused mempool space)
+2026-11-17T00:43:35Z Script verification uses 0 additional threads
+2026-11-17T00:43:35Z Using obfuscation key for blocksdir *.dat files (/Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks): '76402928412ede2b'
+2026-11-17T00:43:35Z Opening LevelDB in /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks/index
+2026-11-17T00:43:35Z Opened LevelDB successfully
+2026-11-17T00:43:35Z Using obfuscation key for /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks/index: 0000000000000000
+2026-11-17T00:43:35Z Using 16 MiB out of 16 MiB requested for signature cache, able to store 524288 elements
+2026-11-17T00:43:35Z Using 16 MiB out of 16 MiB requested for script execution cache, able to store 524288 elements
+2026-11-17T00:43:35Z init message: Loading block index…
+2026-11-17T00:43:35Z Validating signatures for all blocks.
+2026-11-17T00:43:35Z Setting nMinimumChainWork=0000000000000000000000000000000000000000000000000000000000000000
+2026-11-17T00:43:35Z LoadBlockIndexDB: last block file = 0
+2026-11-17T00:43:35Z LoadBlockIndexDB: last block file info: CBlockFileInfo(blocks=0, size=0, heights=0...0, time=1970-01-01...1970-01-01)
+2026-11-17T00:43:35Z Checking all blk files are present...
+2026-11-17T00:43:36Z Initializing chainstate Chainstate [ibd] @ height -1 (null)
+2026-11-17T00:43:36Z Opening LevelDB in /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate
+2026-11-17T00:43:36Z Opened LevelDB successfully
+2026-11-17T00:43:36Z Wrote new obfuscate key for /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate: d5c9c751e6cca878
+2026-11-17T00:43:36Z Using obfuscation key for /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate: d5c9c751e6cca878
+2026-11-17T00:43:36Z init message: Verifying blocks…
+2026-11-17T00:43:36Z Block index and chainstate loaded
+2026-11-17T00:43:36Z Opening LevelDB in /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/indexes/txindex
+2026-11-17T00:43:36Z Opened LevelDB successfully
+2026-11-17T00:43:36Z Using obfuscation key for /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/indexes/txindex: 0000000000000000
+2026-11-17T00:43:36Z Setting NODE_NETWORK on non-prune mode
+2026-11-17T00:43:36Z initload thread start
+2026-11-17T00:43:36Z UpdateTip: new best=51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5 height=0 version=0x00000001 log2_work=8.000000 tx=1 date='2026-11-12T05:06:40Z' progress=1.000000 cache=0.3MiB(0txo)
+2026-11-17T00:43:36Z Failed to open mempool file. Continuing anyway.
+2026-11-17T00:43:36Z block tree size = 1
+2026-11-17T00:43:36Z nBestHeight = 0
+2026-11-17T00:43:36Z initload thread exit
+2026-11-17T00:43:36Z Bound to 0.0.0.0:8733
+2026-11-17T00:43:36Z 0 block-relay-only anchors will be tried for connections.
+2026-11-17T00:43:36Z init message: Starting network threads…
+2026-11-17T00:43:36Z DNS seeding disabled
+2026-11-17T00:43:36Z init message: Done loading
+2026-11-17T00:43:36Z txindex thread start
+2026-11-17T00:43:36Z txindex is enabled
+2026-11-17T00:43:36Z txindex thread exit
+2026-11-17T00:43:36Z net thread start
+2026-11-17T00:43:36Z addcon thread start
+2026-11-17T00:43:36Z opencon thread start
+2026-11-17T00:43:36Z msghand thread start
+2026-11-17T00:43:37Z Using SQLite Version 3.46.1
+2026-11-17T00:43:37Z Using wallet /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/ord
+2026-11-17T00:43:37Z New manual v2 peer connected: version: 70016, blocks=7440, peer=0
+2026-11-17T00:43:37Z init message: Loading wallet…
+2026-11-17T00:43:37Z [ord] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-17T00:43:37Z [ord] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-17T00:43:37Z [ord] Setting minversion to 169900
+2026-11-17T00:43:37Z [ord] Wallet completed loading in              93ms
+2026-11-17T00:43:37Z [ord] setKeyPool.size() = 0
+2026-11-17T00:43:37Z [ord] mapWallet.size() = 0
+2026-11-17T00:43:37Z [ord] m_address_book.size() = 0
+2026-11-17T00:43:39Z [ord] Setting spkMan to active: id = 7a5c9f1743ad127b387534ffbc833812c93cfed9980a7f7ba5d82704ee2dd545, type = bech32m, internal = false
+2026-11-17T00:43:41Z [ord] Setting spkMan to active: id = 24e705d8158509ab846eb36fa20360f70e53fd1808274507f2324c23ff0daf02, type = bech32m, internal = true
+2026-11-17T00:43:41Z [ord] RescanFromTime: Rescanning last 1 blocks
+2026-11-17T00:43:41Z [ord] Rescan started from block 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5... (slow variant inspecting all blocks)
+2026-11-17T00:43:41Z [ord] Scanning current mempool transactions.
+2026-11-17T00:43:41Z [ord] Rescan completed in             127ms
+2026-11-17T00:43:45Z Using SQLite Version 3.46.1
+2026-11-17T00:43:45Z Using wallet /Users/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fun
+2026-11-17T00:43:46Z init message: Loading wallet…
+2026-11-17T00:43:46Z [fun] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-17T00:43:46Z [fun] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-17T00:43:46Z [fun] Setting minversion to 169900
+2026-11-17T00:43:47Z [fun] Setting spkMan to active: id = 57de1404012bb0f83df1eaf3111363827003062da078c94d2fd2b817c1b500d9, type = legacy, internal = false
+2026-11-17T00:43:50Z [fun] Setting spkMan to active: id = e8cb22319c94774cec736355e8f26a7d95d10c2027b03cfd433695a48bc8fb9b, type = p2sh-segwit, internal = false
+2026-11-17T00:43:51Z [fun] Setting spkMan to active: id = 7f4520f11c7082966fe9fb9e7ccecee577f2cf6bec91a7174a33dafdcba1dde2, type = bech32, internal = false
+2026-11-17T00:43:52Z [fun] Setting spkMan to active: id = 0fc542b5d0efabba6da089ff264b500ebb01f79c721e150e9df84ebfcf6a2df7, type = bech32m, internal = false
+2026-11-17T00:43:54Z [fun] Setting spkMan to active: id = 50855ddb87b5aaf9792e91116ad4b914c382c1118aa55736d2e97034edc88336, type = legacy, internal = true
+2026-11-17T00:43:55Z [fun] Setting spkMan to active: id = e7fcda85bbbe58704817f28925587f71e9a6d6e45dcba6eb65e1dfce97104a5d, type = p2sh-segwit, internal = true
+2026-11-17T00:43:56Z [fun] Setting spkMan to active: id = d446e363a9f57b22bdeb346f301130719f3f46e0d1d5156b455f7f8aea67504a, type = bech32, internal = true
+2026-11-17T00:43:57Z [fun] Setting spkMan to active: id = a84976125a4cfd5081c4ba8905ea96a844e5dac41fa09a2434cfc4afed1dc098, type = bech32m, internal = true
+2026-11-17T00:43:57Z [fun] Wallet completed loading in           11287ms
+2026-11-17T00:43:58Z [fun] setKeyPool.size() = 40
+2026-11-17T00:43:58Z [fun] mapWallet.size() = 0
+2026-11-17T00:43:58Z [fun] m_address_book.size() = 0
+2026-11-17T00:44:37Z Adding fixed seeds as 60 seconds have passed and addrman is empty for at least one reachable network
+2026-11-17T00:44:37Z Added 0 fixed seeds from reachable networks.
+2026-11-17T00:55:09Z Synchronizing blockheaders, height: 2000 (~78.99%)
+2026-11-17T01:02:35Z Synchronizing blockheaders, height: 4000 (~89.53%)
+2026-11-17T01:02:36Z UpdateTip: new best=1aacedad4eb38a5d44b81ef0ad6c07fe6ac265cb2c460c934373f2405ed8f722 height=1 version=0x20000000 log2_work=9.000000 tx=2 date='2026-11-13T05:58:01Z' progress=1.000000 cache=0.3MiB(1txo)
+2026-11-17T01:02:36Z UpdateTip: new best=f751bf1767771c69e384a73e7bc4c6e4344522dfdaea52501221c022540abb05 height=2 version=0x20000000 log2_work=9.584963 tx=3 date='2026-11-13T05:58:02Z' progress=1.000000 cache=0.3MiB(2txo)
+2026-11-17T01:02:36Z UpdateTip: new best=c6608732bd1fef7e95557902e8c9dee7433cbb9b249388d45a99720485ef004a height=3 version=0x20000000 log2_work=10.000000 tx=4 date='2026-11-13T05:58:05Z' progress=1.000000 cache=0.3MiB(3txo)
+2026-11-17T01:02:37Z UpdateTip: new best=01230d4820821f4f41a4e14f34b7265b52cb4a083dbd5ff059f3947612ab84e0 height=4 version=0x20000000 log2_work=10.321928 tx=5 date='2026-11-13T05:58:08Z' progress=1.000000 cache=0.3MiB(4txo)
+2026-11-17T01:02:37Z UpdateTip: new best=c8291cd4295e3a7228c07f2c95de96ba5618a6ece65e87ae2734f7a420fbd92d height=5 version=0x20000000 log2_work=10.584963 tx=6 date='2026-11-13T05:58:10Z' progress=1.000000 cache=0.3MiB(5txo)
+2026-11-17T01:02:37Z UpdateTip: new best=332412d2d6f16f1a701c0e2ff41a5913fc2ae983e7e30a2576724669130bf4b7 height=6 version=0x20000000 log2_work=10.807355 tx=7 date='2026-11-13T05:58:11Z' progress=1.000000 cache=0.3MiB(6txo)
+2026-11-17T01:02:38Z UpdateTip: new best=2efd56d4d073a5c6eab90dd3247435b8744421a03482b3495b8c746564ae7d0c height=7 version=0x20000000 log2_work=11.000000 tx=8 date='2026-11-13T05:58:15Z' progress=1.000000 cache=0.3MiB(7txo)
+2026-11-17T01:02:38Z UpdateTip: new best=d39dd6e19dcc56100af5e3591e97f2d8db9306b180e32cd4a18c89e6583e46cf height=8 version=0x20000000 log2_work=11.169925 tx=9 date='2026-11-13T05:58:19Z' progress=1.000000 cache=0.3MiB(8txo)
+2026-11-17T01:02:38Z UpdateTip: new best=a53e3c0e0f2368a51c9b5e3abc927f43fb679da5887f22d4af44229921f29e70 height=9 version=0x20000000 log2_work=11.321928 tx=10 date='2026-11-13T05:58:23Z' progress=1.000000 cache=0.3MiB(9txo)
+2026-11-17T01:02:38Z UpdateTip: new best=cdfc007aca33bd3a90521606db004880a29bec653679934f06f535fb307d8f13 height=10 version=0x20000000 log2_work=11.459432 tx=11 date='2026-11-13T05:58:26Z' progress=1.000000 cache=0.3MiB(10txo)
+2026-11-17T01:02:39Z UpdateTip: new best=4551b55810f0d2f134c8a69a9f9786b74a18931e3c73636f7cb07d341e2d1f1a height=11 version=0x20000000 log2_work=11.584963 tx=12 date='2026-11-13T05:58:29Z' progress=1.000000 cache=0.3MiB(11txo)
+2026-11-17T01:02:39Z UpdateTip: new best=075fc52799a353cc8aa3cb3d0533e9cc00c5cb9b0f21116df985865483da073e height=12 version=0x20000000 log2_work=11.700440 tx=13 date='2026-11-13T05:58:32Z' progress=1.000000 cache=0.3MiB(12txo)
+2026-11-17T01:02:39Z UpdateTip: new best=cdf89f371fafa7e03732ee00f39693f9c115b64d2348a4476b3d7a5f7899b9c4 height=13 version=0x20000000 log2_work=11.807355 tx=14 date='2026-11-13T05:58:32Z' progress=1.000000 cache=0.3MiB(13txo)
+2026-11-17T01:02:40Z UpdateTip: new best=c6aaad79ec467d79bbd49a5aef106351b3400ead8a0cb59f392320affa09e7b1 height=14 version=0x20000000 log2_work=11.906891 tx=15 date='2026-11-13T05:58:37Z' progress=1.000000 cache=0.3MiB(14txo)
+2026-11-17T01:02:40Z UpdateTip: new best=63cdb290974ba9e288eaaac42b511699326c4ad3d5298bc1dc95e5002cdab898 height=15 version=0x20000000 log2_work=12.000000 tx=16 date='2026-11-13T05:58:41Z' progress=1.000000 cache=0.3MiB(15txo)
+2026-11-17T01:02:40Z UpdateTip: new best=4a2856274c0d558c0fc987dfd2c9ad3995664a9604e2115a29c10edca313bd42 height=16 version=0x20000000 log2_work=12.087463 tx=17 date='2026-11-13T05:58:45Z' progress=1.000000 cache=0.3MiB(16txo)
+2026-11-17T01:09:17Z Synchronizing blockheaders, height: 6000 (~94.74%)
+2026-11-17T01:09:17Z UpdateTip: new best=988c3e72e54ec6cbae1a3fc8fa94f4316ed3bbde5458963a45e91331c6fb23e3 height=17 version=0x20000000 log2_work=12.169925 tx=18 date='2026-11-13T05:58:52Z' progress=1.000000 cache=0.3MiB(17txo)
+2026-11-17T01:09:18Z UpdateTip: new best=2669efbcfb41235aae6510b18b55421a2360dfff124171ccb236440cec26e0ec height=18 version=0x20000000 log2_work=12.247928 tx=19 date='2026-11-13T05:58:55Z' progress=1.000000 cache=0.3MiB(18txo)
+2026-11-17T01:09:18Z UpdateTip: new best=e4501f4593230fe5cb9a164b622bb60b7c87df9134f9bd03aeb9055066a669da height=19 version=0x20000000 log2_work=12.321928 tx=20 date='2026-11-13T05:58:56Z' progress=1.000000 cache=0.3MiB(19txo)
+2026-11-17T01:09:18Z UpdateTip: new best=69dc1d25903e661656bbc673d45f0126ba6748e74f66e1678aa95b470ee17b2f height=20 version=0x20000000 log2_work=12.392317 tx=21 date='2026-11-13T05:59:02Z' progress=1.000000 cache=0.3MiB(20txo)
+2026-11-17T01:09:19Z UpdateTip: new best=e01733f24d35f28b2f9024c5b8c509ac73c0ddfef2af1ab9690c4026b59774a5 height=21 version=0x20000000 log2_work=12.459432 tx=22 date='2026-11-13T05:59:04Z' progress=1.000000 cache=0.3MiB(21txo)
+2026-11-17T01:09:19Z UpdateTip: new best=ba8a27d98b319bc22fe677423e66b2a0b97f398ff665b5dd0f7a8f38b0d6cb8f height=22 version=0x20000000 log2_work=12.523562 tx=23 date='2026-11-13T05:59:05Z' progress=1.000000 cache=0.3MiB(22txo)
+2026-11-17T01:09:20Z UpdateTip: new best=f011647a3bc757c673df7a21cf67c7b5048cf38b5f8bf3e670b4ed7a72d8ddfe height=23 version=0x20000000 log2_work=12.584963 tx=24 date='2026-11-13T05:59:07Z' progress=1.000000 cache=0.3MiB(23txo)
+2026-11-17T01:09:20Z UpdateTip: new best=1975626d21669cf7d6047d669a36a6ad2995e8bfafcea3af9e04d5748b03bf1b height=24 version=0x20000000 log2_work=12.643856 tx=25 date='2026-11-13T05:59:09Z' progress=1.000000 cache=0.3MiB(24txo)
+2026-11-17T01:09:21Z UpdateTip: new best=d2c25c992485596eaf5a732ad09da20eaadfc8a5b857dfd2d0aac2136e989dd4 height=25 version=0x20000000 log2_work=12.700440 tx=26 date='2026-11-13T05:59:14Z' progress=1.000000 cache=0.3MiB(25txo)
+2026-11-17T01:09:21Z UpdateTip: new best=6e87f173dbc9d9d2b865731deb73e9db3b12e8e9e579fd0ad6906e1056477b22 height=26 version=0x20000000 log2_work=12.754888 tx=27 date='2026-11-13T05:59:16Z' progress=1.000000 cache=0.3MiB(26txo)
+2026-11-17T01:09:21Z UpdateTip: new best=fc1ce403d0ebb5db2f13f1f1fa8ba853c18fb02509770a02b0a67b76f330701f height=27 version=0x20000000 log2_work=12.807355 tx=28 date='2026-11-13T05:59:19Z' progress=1.000000 cache=0.3MiB(27txo)
+2026-11-17T01:09:22Z UpdateTip: new best=3cd93ebd8a85741684f6bcec49fd044d4004389b86410752f6c7c1c61f769dc9 height=28 version=0x20000000 log2_work=12.857981 tx=29 date='2026-11-13T05:59:21Z' progress=1.000000 cache=0.3MiB(28txo)
+2026-11-17T01:09:22Z UpdateTip: new best=f4c210d396f5d97f2546341678b0e4875556f9d1d541b81c60c0128192318f54 height=29 version=0x20000000 log2_work=12.906891 tx=30 date='2026-11-13T05:59:24Z' progress=1.000000 cache=0.3MiB(29txo)
+2026-11-17T01:09:23Z UpdateTip: new best=ac05bec8f9027b465065898c5e120bbe78fcaa4e0f4d4c214e4d025f371fff32 height=30 version=0x20000000 log2_work=12.954196 tx=31 date='2026-11-13T05:59:26Z' progress=1.000000 cache=0.3MiB(30txo)
+2026-11-17T01:09:23Z UpdateTip: new best=3e6b5b3488dded17e7db4e95b08b35bcf926ce5e126be39ca12ebd908c6d02dc height=31 version=0x20000000 log2_work=13.000000 tx=32 date='2026-11-13T05:59:31Z' progress=1.000000 cache=0.3MiB(31txo)
+2026-11-17T01:09:23Z UpdateTip: new best=8bb15c726bd03cc0b71f4ea7fa879535a23c676a06f23287c96fac0cb38af033 height=32 version=0x20000000 log2_work=13.044394 tx=33 date='2026-11-13T05:59:33Z' progress=1.000000 cache=0.3MiB(32txo)
+2026-11-17T01:15:05Z Synchronizing blockheaders, height: 7455 (~99.99%)
+2026-11-17T01:15:06Z UpdateTip: new best=882844d7b05aea3621b4fbae229a4686d370f13d26b8eacca4c57d7a227a9887 height=33 version=0x20000000 log2_work=13.087463 tx=34 date='2026-11-13T05:59:39Z' progress=1.000000 cache=0.3MiB(33txo)
+2026-11-17T01:15:06Z UpdateTip: new best=63954a5e16cfcd115f5e99e3f4dc3381b994fadb3e1c5f596e480c9a1d384a0c height=34 version=0x20000000 log2_work=13.129283 tx=35 date='2026-11-13T05:59:42Z' progress=1.000000 cache=0.3MiB(34txo)
+2026-11-17T01:15:07Z UpdateTip: new best=161eeeeafd9f04fa5fed254212a1cbc12c9078bf21cab86712af97188e69014f height=35 version=0x20000000 log2_work=13.169925 tx=36 date='2026-11-13T05:59:45Z' progress=1.000000 cache=0.3MiB(35txo)
+2026-11-17T01:15:07Z UpdateTip: new best=0722b9717fd03e3e12671584ce0793a2dcb2845599f024a182b1af8b3b7bf03b height=36 version=0x20000000 log2_work=13.209453 tx=37 date='2026-11-13T05:59:48Z' progress=1.000000 cache=0.3MiB(36txo)
+2026-11-17T01:15:08Z UpdateTip: new best=41d42c8138ce36139747345eef4af2e108ce280995c48a96edaf66253ba58c8d height=37 version=0x20000000 log2_work=13.247928 tx=38 date='2026-11-13T05:59:54Z' progress=1.000000 cache=0.3MiB(37txo)
+2026-11-17T01:15:08Z UpdateTip: new best=4d588e9f1319ab6866f5a2ff6e5386aefd2dee8ebc4e4adb74229ca8c3a4e4f7 height=38 version=0x20000000 log2_work=13.285402 tx=39 date='2026-11-13T05:59:55Z' progress=1.000000 cache=0.3MiB(38txo)
+2026-11-17T01:15:09Z UpdateTip: new best=7130af136691990d2f38ecfa6bb180d98ce7b3aaa1057a668e293459d86def6c height=39 version=0x20000000 log2_work=13.321928 tx=40 date='2026-11-13T05:59:57Z' progress=1.000000 cache=0.3MiB(39txo)
+2026-11-17T01:15:09Z UpdateTip: new best=f5e89034db5a4e5d620d3a46c350997c5520225250af97ab38efa42c5203d6bc height=40 version=0x20000000 log2_work=13.357552 tx=41 date='2026-11-13T05:59:58Z' progress=1.000000 cache=0.3MiB(40txo)
+2026-11-17T01:15:10Z UpdateTip: new best=af96de2ed6d81786b3fba0c6d3dfc2def4181c78b27687d9cf69df8689d55216 height=41 version=0x20000000 log2_work=13.392317 tx=42 date='2026-11-13T06:00:02Z' progress=1.000000 cache=0.3MiB(41txo)
+2026-11-17T01:15:10Z UpdateTip: new best=d467898e6998778395a94ec90e8cee5949b5d912cb85a7736c6ddddda35364d1 height=42 version=0x20000000 log2_work=13.426265 tx=43 date='2026-11-13T06:00:06Z' progress=1.000000 cache=0.3MiB(42txo)
+2026-11-17T01:15:11Z UpdateTip: new best=3dd52f90b6c80e9202f8df8263ae399e3120b5e1bf5fcb7dbbe2680e88e34be4 height=43 version=0x20000000 log2_work=13.459432 tx=44 date='2026-11-13T06:00:07Z' progress=1.000000 cache=0.3MiB(43txo)
+2026-11-17T01:15:11Z UpdateTip: new best=2d3bad7f4bbb0e78b5e23b05e747132724cc015e452c4688f75367a76cc49392 height=44 version=0x20000000 log2_work=13.491853 tx=45 date='2026-11-13T06:00:13Z' progress=1.000000 cache=0.3MiB(44txo)
+2026-11-17T01:15:12Z UpdateTip: new best=2f705918bd8d3d699e1a6f4efee25cf0ea653f6e34137729982978e06830374a height=45 version=0x20000000 log2_work=13.523562 tx=46 date='2026-11-13T06:00:19Z' progress=1.000000 cache=0.3MiB(45txo)
+2026-11-17T01:15:12Z UpdateTip: new best=a78a5ab9ae330bc7e7fdfe783302275782ab47bdcfd6475c94de258fa96c449d height=46 version=0x20000000 log2_work=13.554589 tx=47 date='2026-11-13T06:00:22Z' progress=1.000000 cache=0.3MiB(46txo)
+2026-11-17T01:15:12Z UpdateTip: new best=da9913e80e6a23c3c196f23c4e9413543654499efca9e3e5c76993f166fc66e6 height=47 version=0x20000000 log2_work=13.584963 tx=48 date='2026-11-13T06:00:24Z' progress=1.000000 cache=0.3MiB(47txo)
+2026-11-17T01:15:13Z UpdateTip: new best=07703d148d659c6d6658370a662f737510bc1737910736cac4e2792c3d409d18 height=48 version=0x20000000 log2_work=13.614710 tx=49 date='2026-11-13T06:00:29Z' progress=1.000000 cache=0.3MiB(48txo)
+2026-11-17T01:15:13Z Synchronizing blockheaders, height: 7456 (~100.00%)
+2026-11-17T01:15:13Z Synchronizing blockheaders, height: 7457 (~100.00%)
+2026-11-17T01:15:14Z Synchronizing blockheaders, height: 7458 (~100.00%)
+2026-11-17T01:15:14Z Synchronizing blockheaders, height: 7459 (~100.00%)
+2026-11-17T01:15:14Z Synchronizing blockheaders, height: 7460 (~100.00%)
+2026-11-17T01:15:14Z UpdateTip: new best=91fa14ad48aaa6e51aa1e10b54cd12f6a58c5cc7f7d1eebc0734ce13b6853d1f height=49 version=0x20000000 log2_work=13.643856 tx=50 date='2026-11-13T06:00:31Z' progress=1.000000 cache=0.3MiB(49txo)
+2026-11-17T01:15:15Z UpdateTip: new best=9713ebdb482497dba68f5be25290ba339b67d218387bb4a9098453b6a59fa07d height=50 version=0x20000000 log2_work=13.672425 tx=51 date='2026-11-13T06:00:31Z' progress=1.000000 cache=0.3MiB(50txo)
+2026-11-17T01:15:15Z UpdateTip: new best=29e39c3c61a6b4b9298829c71b8e70759225c04f4dfcc7fd15c80fe2db1d32f7 height=51 version=0x20000000 log2_work=13.700440 tx=52 date='2026-11-13T06:00:35Z' progress=1.000000 cache=0.3MiB(51txo)
+2026-11-17T01:15:15Z UpdateTip: new best=5bc4454da2463c1b6e04b785976a6f6548343e9966d18f15657dcc9dbbee3398 height=52 version=0x20000000 log2_work=13.727920 tx=53 date='2026-11-13T06:00:37Z' progress=1.000000 cache=0.3MiB(52txo)
+2026-11-17T01:15:16Z UpdateTip: new best=c8706c232bff88d864caf5ebcad1cc250dd5683e043c65745db54d2dd4f8a344 height=53 version=0x20000000 log2_work=13.754888 tx=54 date='2026-11-13T06:00:40Z' progress=1.000000 cache=0.3MiB(53txo)
+2026-11-17T01:15:16Z UpdateTip: new best=35fc8df6334d969ab8caf53faf947c3b9431120767f555e30fe1a8a9cdcfaa88 height=54 version=0x20000000 log2_work=13.781360 tx=55 date='2026-11-13T06:00:45Z' progress=1.000000 cache=0.3MiB(54txo)
+2026-11-17T01:15:16Z UpdateTip: new best=44c725866c28600a1e3c8254f115ca9db8488f96c5d676b84a853bf56b66c995 height=55 version=0x20000000 log2_work=13.807355 tx=56 date='2026-11-13T06:00:48Z' progress=1.000000 cache=0.3MiB(55txo)
+2026-11-17T01:15:17Z UpdateTip: new best=7d6b39b66ca400ee94ee80b48c237e8b84a9a7b0fa25622998c1f48f5787184c height=56 version=0x20000000 log2_work=13.832890 tx=57 date='2026-11-13T06:00:50Z' progress=1.000000 cache=0.3MiB(56txo)
+2026-11-17T01:15:17Z UpdateTip: new best=cb2c8d091481b5f1984c0aaf5bc78bfecc801af1e023de61733a0623c96bbb62 height=57 version=0x20000000 log2_work=13.857981 tx=58 date='2026-11-13T06:00:51Z' progress=1.000000 cache=0.3MiB(57txo)
+2026-11-17T01:15:17Z UpdateTip: new best=81ed00a53ed49a4532b12056e09f2d59e5e2b263d9e216f2c40e208edd59188b height=58 version=0x20000000 log2_work=13.882643 tx=59 date='2026-11-13T06:00:56Z' progress=1.000000 cache=0.3MiB(58txo)
+2026-11-17T01:15:18Z UpdateTip: new best=6957a928ece88722534d23fc6626d119ca78feca69811ab08f27fd5a56a76be1 height=59 version=0x20000000 log2_work=13.906891 tx=60 date='2026-11-13T06:00:58Z' progress=1.000000 cache=0.3MiB(59txo)
+2026-11-17T01:15:18Z UpdateTip: new best=e379ebf9b0bcf4fafbd055e3c3439bc42456bdef62dc6c1116a55272e7083af6 height=60 version=0x20000000 log2_work=13.930737 tx=61 date='2026-11-13T06:01:03Z' progress=1.000000 cache=0.3MiB(60txo)
+2026-11-17T01:15:18Z UpdateTip: new best=201662426d476c989de1ba4e25eb5b78f731888858001dfe66aa6008cecfa2d5 height=61 version=0x20000000 log2_work=13.954196 tx=62 date='2026-11-13T06:01:11Z' progress=1.000000 cache=0.3MiB(61txo)
+2026-11-17T01:15:18Z UpdateTip: new best=b57b7a348f81a92800c8733a81b57d4ce5c3b96130fb3e334b4befcb4688a511 height=62 version=0x20000000 log2_work=13.977280 tx=63 date='2026-11-13T06:01:15Z' progress=1.000000 cache=0.3MiB(62txo)
+2026-11-17T01:15:19Z UpdateTip: new best=731f826c1fe753bfae5f8845df34c00470bbfea05a9bcbbb2b6af68be0b93193 height=63 version=0x20000000 log2_work=14.000000 tx=64 date='2026-11-13T06:01:17Z' progress=1.000000 cache=0.3MiB(63txo)
+2026-11-17T01:15:19Z UpdateTip: new best=aab195d088df143d8f9e8450a03cc6c85b81742a2b48b008f22ec5e33e3bcbd0 height=64 version=0x20000000 log2_work=14.022368 tx=65 date='2026-11-13T06:01:20Z' progress=1.000000 cache=0.3MiB(64txo)
+2026-11-17T01:15:19Z UpdateTip: new best=f8cf8017b2a6a5d190cc0a092703392cfe0523d05a2b92158850fc251f8911f1 height=65 version=0x20000000 log2_work=14.044394 tx=66 date='2026-11-13T06:01:21Z' progress=1.000000 cache=0.3MiB(65txo)
+2026-11-17T01:15:20Z UpdateTip: new best=23e427221d5a905eba9ddfc3dda64ac1b17e33b51ecf009405f7d8bd762f7afd height=66 version=0x20000000 log2_work=14.066089 tx=67 date='2026-11-13T06:01:26Z' progress=1.000000 cache=0.3MiB(66txo)
+2026-11-17T01:15:20Z UpdateTip: new best=50a78dc12fdab3f90e7ef98cb1ee8bcde7035c24eacc3091bbd03664d4567b84 height=67 version=0x20000000 log2_work=14.087463 tx=68 date='2026-11-13T06:01:26Z' progress=1.000000 cache=0.3MiB(67txo)
+2026-11-17T01:15:20Z UpdateTip: new best=0a6de1abe09e1e30f9ff5e96b8a264a30e2847094cde0bcccdb65abeec01cee8 height=68 version=0x20000000 log2_work=14.108524 tx=69 date='2026-11-13T06:01:27Z' progress=1.000000 cache=0.3MiB(68txo)
+2026-11-17T01:15:21Z UpdateTip: new best=49a63677f70e759f301661e9564811461b2d5342a89552b5f58e19bf534e507a height=69 version=0x20000000 log2_work=14.129283 tx=70 date='2026-11-13T06:01:33Z' progress=1.000000 cache=0.3MiB(69txo)
+2026-11-17T01:15:21Z UpdateTip: new best=d8881efa2b3e8c193ac4ef6e49f1e3ec809ae302231dda0d4bd3fc6cac61e603 height=70 version=0x20000000 log2_work=14.149747 tx=71 date='2026-11-13T06:01:37Z' progress=1.000000 cache=0.3MiB(70txo)
+2026-11-17T01:15:21Z UpdateTip: new best=9fc0ec693aa9cf88203a46bdab28556eea6c1c368fc330e1f108f75cd57b129a height=71 version=0x20000000 log2_work=14.169925 tx=72 date='2026-11-13T06:01:48Z' progress=1.000000 cache=0.3MiB(71txo)
+2026-11-17T01:15:22Z UpdateTip: new best=8545821ae21e20b0407ec73f9107cd438ddc2dc28c6fcc6a98ce764425c396d8 height=72 version=0x20000000 log2_work=14.189825 tx=73 date='2026-11-13T06:01:50Z' progress=1.000000 cache=0.3MiB(72txo)
+2026-11-17T01:15:22Z UpdateTip: new best=9b1a71f91187a0b3deb984db0159dc3a63bcf70e9e0a1c5d9664a1d63e3850a4 height=73 version=0x20000000 log2_work=14.209453 tx=74 date='2026-11-13T06:01:57Z' progress=1.000000 cache=0.3MiB(73txo)
+2026-11-17T01:15:23Z UpdateTip: new best=b655da9949c0fc2d09eeaa60a6f39915ff4c54da2451767f0ff6644ed0c34a9f height=74 version=0x20000000 log2_work=14.228819 tx=75 date='2026-11-13T06:01:58Z' progress=1.000000 cache=0.3MiB(74txo)
+2026-11-17T01:15:23Z UpdateTip: new best=733d9711ea17adf7428d06497063c758608b9a82859c265db3433908b347764a height=75 version=0x20000000 log2_work=14.247928 tx=76 date='2026-11-13T06:02:00Z' progress=1.000000 cache=0.3MiB(75txo)
+2026-11-17T01:15:23Z UpdateTip: new best=3462701296c009e40e6c4a1970fed8e0f363fd59db9ca3be3b572a281f2964cd height=76 version=0x20000000 log2_work=14.266787 tx=77 date='2026-11-13T06:02:02Z' progress=1.000000 cache=0.3MiB(76txo)
+2026-11-17T01:15:24Z UpdateTip: new best=76c069672c45dfc783a204607af558f8659e92fede27e7f797ff7a4c4299a482 height=77 version=0x20000000 log2_work=14.285402 tx=78 date='2026-11-13T06:02:03Z' progress=1.000000 cache=0.3MiB(77txo)
+2026-11-17T01:15:24Z UpdateTip: new best=960e5ea22cbb6cd9163f1f7ae1ef51bddab367838d9669b711cdd45c6ae183d2 height=78 version=0x20000000 log2_work=14.303781 tx=79 date='2026-11-13T06:02:04Z' progress=1.000000 cache=0.3MiB(78txo)
+2026-11-17T01:15:24Z UpdateTip: new best=fde0ea1b80cbd199aa2a9b6571098192f057038fd6d6b83e0d10400363b825c7 height=79 version=0x20000000 log2_work=14.321928 tx=80 date='2026-11-13T06:02:08Z' progress=1.000000 cache=0.3MiB(79txo)
+2026-11-17T01:15:25Z Synchronizing blockheaders, height: 7461 (~100.00%)
+2026-11-17T01:15:25Z UpdateTip: new best=37025d8f8251f722242732141939bc683145710954a706ca455646d56eb42a4c height=80 version=0x20000000 log2_work=14.339850 tx=81 date='2026-11-13T06:02:09Z' progress=1.000000 cache=0.3MiB(80txo)
+2026-11-17T01:15:25Z UpdateTip: new best=9a7020c06461f46435734432cc71bea405bbdad25201267bf1089fc7c220628f height=81 version=0x20000000 log2_work=14.357552 tx=82 date='2026-11-13T06:02:12Z' progress=1.000000 cache=0.3MiB(81txo)
+2026-11-17T01:15:26Z UpdateTip: new best=9a07a48bddd7de759a81171c4d02fad0f3f78c0a5214768404a2992b6d2371dc height=82 version=0x20000000 log2_work=14.375039 tx=83 date='2026-11-13T06:02:47Z' progress=1.000000 cache=0.3MiB(82txo)
+2026-11-17T01:15:26Z UpdateTip: new best=d686e0dc6156a08876419d7a57eaa0fe3bc2b2094e0f048e6cdc3b1c544d49ab height=83 version=0x20000000 log2_work=14.392317 tx=84 date='2026-11-13T06:03:40Z' progress=1.000000 cache=0.3MiB(83txo)
+2026-11-17T01:15:26Z UpdateTip: new best=84083a6a623071196c7cf6fdebc46a2fb2dd10df68b1cfe6d30feeeba439681a height=84 version=0x20000000 log2_work=14.409391 tx=85 date='2026-11-13T06:04:00Z' progress=1.000000 cache=0.3MiB(84txo)
+2026-11-17T01:15:27Z UpdateTip: new best=966336d66406ae0188e691c2d673f42e2245faa9eb630eb669272777120ff7bb height=85 version=0x20000000 log2_work=14.426265 tx=86 date='2026-11-13T06:04:20Z' progress=1.000000 cache=0.3MiB(85txo)
+2026-11-17T01:15:27Z UpdateTip: new best=fffd5f8649e64d56bc765dc37c59881861f4336b9db1980f35d3db5df3097b49 height=86 version=0x20000000 log2_work=14.442943 tx=87 date='2026-11-13T06:04:27Z' progress=1.000000 cache=0.3MiB(86txo)
+2026-11-17T01:15:28Z UpdateTip: new best=7faa65df443227285811bac8accb25412bab5b025b3ff9ffa3f3738bec92061c height=87 version=0x20000000 log2_work=14.459432 tx=88 date='2026-11-13T06:04:30Z' progress=1.000000 cache=0.3MiB(87txo)
+2026-11-17T01:15:28Z UpdateTip: new best=b35a09ec42268ff12949f165034cf81ab0029449edf718f53103535476569a4d height=88 version=0x20000000 log2_work=14.475733 tx=89 date='2026-11-13T06:04:55Z' progress=1.000000 cache=0.3MiB(88txo)
+2026-11-17T01:15:28Z UpdateTip: new best=853fe834e5340354b5c1f75e39754dcf0334cb750355d0e49d940ca14013dfb1 height=89 version=0x20000000 log2_work=14.491853 tx=90 date='2026-11-13T06:05:00Z' progress=1.000000 cache=0.3MiB(89txo)
+2026-11-17T01:15:29Z UpdateTip: new best=b6e9cd3287c8a9063bc8ca49c4c148017e1e13f51cf3d33331d3eee4a6a0a8f5 height=90 version=0x20000000 log2_work=14.507795 tx=91 date='2026-11-13T06:05:09Z' progress=1.000000 cache=0.3MiB(90txo)
+2026-11-17T01:15:29Z UpdateTip: new best=afccfd77abe4181e7645979c7e4d05fd9bd2bc852a6a602182778da4d7deb0ce height=91 version=0x20000000 log2_work=14.523562 tx=92 date='2026-11-13T06:05:14Z' progress=1.000000 cache=0.3MiB(91txo)
+2026-11-17T01:15:29Z UpdateTip: new best=50b6a0ab7f3a1ab1540aaa0fcf69e629ee19af3c627e82822c2c6b23120549c7 height=92 version=0x20000000 log2_work=14.539159 tx=93 date='2026-11-13T06:05:20Z' progress=1.000000 cache=0.3MiB(92txo)
+2026-11-17T01:15:30Z UpdateTip: new best=eb00a02c421bdada55c4af7148be77ea5a0e8d1a98b4aa6624ea1cc7b6421ec9 height=93 version=0x20000000 log2_work=14.554589 tx=94 date='2026-11-13T06:05:21Z' progress=1.000000 cache=0.3MiB(93txo)
+2026-11-17T01:15:30Z UpdateTip: new best=748c0d1355fd865e2badd15c902cb9b084a5053a204ab8f8f5cbcf0b9ab2fa6f height=94 version=0x20000000 log2_work=14.569856 tx=95 date='2026-11-13T06:05:26Z' progress=1.000000 cache=0.3MiB(94txo)
+2026-11-17T01:15:31Z UpdateTip: new best=1fa89bf03baba6eff6d9e8800fa51ef174b35d199a8a63f49c1cdd492bc46316 height=95 version=0x20000000 log2_work=14.584963 tx=96 date='2026-11-13T06:05:28Z' progress=1.000000 cache=0.3MiB(95txo)
+2026-11-17T01:15:31Z UpdateTip: new best=94c55c532787a21dc4cb04090fc0f53dcd8d6a9639f66b01e39a268493708670 height=96 version=0x20000000 log2_work=14.599913 tx=97 date='2026-11-13T06:05:29Z' progress=1.000000 cache=0.3MiB(96txo)
+2026-11-17T01:15:31Z UpdateTip: new best=460390760a08e9a55d6d8b36d3b5615f7ad4a40406c33e2a94da936fd17b204d height=97 version=0x20000000 log2_work=14.614710 tx=98 date='2026-11-13T06:05:32Z' progress=1.000000 cache=0.3MiB(97txo)
+2026-11-17T01:15:32Z UpdateTip: new best=d938cb76bc2e28d3e1091f909a6d6ea46edbf65865ef945ecb4af28c1131773e height=98 version=0x20000000 log2_work=14.629357 tx=99 date='2026-11-13T06:05:34Z' progress=1.000000 cache=0.3MiB(98txo)
+2026-11-17T01:15:32Z UpdateTip: new best=2c06fd707265db4d39827e6aa34f52fc09faac7471ae6e8dfd2c081035d12073 height=99 version=0x20000000 log2_work=14.643856 tx=100 date='2026-11-13T06:05:40Z' progress=1.000000 cache=0.3MiB(99txo)
+2026-11-17T01:15:32Z UpdateTip: new best=c510c937871f6f9e019c33a2a30cc9704cd7b1dac1fed4b681360c0e3410b6b7 height=100 version=0x20000000 log2_work=14.658211 tx=101 date='2026-11-13T06:05:42Z' progress=1.000000 cache=0.3MiB(100txo)
+2026-11-17T01:15:33Z UpdateTip: new best=20b716e8fe945592c716ce37f99ec7cf9ba4d68ad1fb01b3e5b44cbb32fdd359 height=101 version=0x20000000 log2_work=14.672425 tx=102 date='2026-11-13T06:05:44Z' progress=1.000000 cache=0.3MiB(101txo)
+2026-11-17T01:15:33Z UpdateTip: new best=eb9bf0379890c3131a4ef96f9180128ae14d8b5ce7fccb6305cb61d519fbefd2 height=102 version=0x20000000 log2_work=14.686501 tx=103 date='2026-11-13T06:05:44Z' progress=1.000000 cache=0.3MiB(102txo)
+2026-11-17T01:15:33Z UpdateTip: new best=a2b6d8b74c244ddd5e72e4ac24af04b5e5d6ac37b0f0b547e53e3476d00f5979 height=103 version=0x20000000 log2_work=14.700440 tx=104 date='2026-11-13T06:05:47Z' progress=1.000000 cache=0.3MiB(103txo)
+2026-11-17T01:15:34Z UpdateTip: new best=50c0505cac80aa71ab72ecae28d388c2a7ddbe114002af2d5eacffe52158cc6d height=104 version=0x20000000 log2_work=14.714246 tx=105 date='2026-11-13T06:05:49Z' progress=1.000000 cache=0.3MiB(104txo)
+2026-11-17T01:15:34Z UpdateTip: new best=2458273e813b35a4f33db1b1bbbc832744be164f7c3d405159f62bdf41b9179f height=105 version=0x20000000 log2_work=14.727920 tx=106 date='2026-11-13T06:05:52Z' progress=1.000000 cache=0.3MiB(105txo)
+2026-11-17T01:15:34Z UpdateTip: new best=e11ffc6ea88f40a8799885ddeffc0b330e36216f5474d7abf383ed1e589bd2d3 height=106 version=0x20000000 log2_work=14.741467 tx=107 date='2026-11-13T06:05:53Z' progress=1.000000 cache=0.3MiB(106txo)
+2026-11-17T01:15:35Z UpdateTip: new best=4b7a55f0cdd3e8ac40290eb94bca1a785913c0f2fe3abc5edd29515784abdde9 height=107 version=0x20000000 log2_work=14.754888 tx=108 date='2026-11-13T06:05:59Z' progress=1.000000 cache=0.3MiB(107txo)
+2026-11-17T01:15:36Z UpdateTip: new best=98040c6178768e6f36d1f316a03f9be8e084add404da8d342f507ab017069d2c height=108 version=0x20000000 log2_work=14.768184 tx=111 date='2026-11-13T06:06:01Z' progress=1.000000 cache=0.3MiB(110txo)
+2026-11-17T01:15:39Z UpdateTip: new best=e98f047882c6c233537c106e3dd1699a8adecb543bc535e83c35329d676f2ba9 height=109 version=0x20000000 log2_work=14.781360 tx=118 date='2026-11-13T06:06:13Z' progress=1.000000 cache=0.3MiB(117txo)
+2026-11-17T01:15:39Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:40Z UpdateTip: new best=56a561c39546880f14a4f540e218326590da1c8e973aff35edc4310fe638a449 height=110 version=0x20000000 log2_work=14.794416 tx=119 date='2026-11-13T06:06:14Z' progress=1.000000 cache=0.3MiB(118txo)
+2026-11-17T01:15:40Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:40Z UpdateTip: new best=f0bebe80aa1728833ba3348b8a92a6420e2ece35088487f9459b7498748ecf96 height=111 version=0x20000000 log2_work=14.807355 tx=120 date='2026-11-13T06:06:19Z' progress=1.000000 cache=0.3MiB(119txo)
+2026-11-17T01:15:40Z UpdateTip: new best=60fbfeac001efc82d79740f11e037e3e21877c0d93f3c9c78820e0fb088716d4 height=112 version=0x20000000 log2_work=14.820179 tx=121 date='2026-11-13T06:06:22Z' progress=1.000000 cache=0.3MiB(120txo)
+2026-11-17T01:15:41Z UpdateTip: new best=a3434f2f8647de2e4e34a946f8b29d938c837c0d89dc00e58f42e0e5e6719bb1 height=113 version=0x20000000 log2_work=14.832890 tx=122 date='2026-11-13T06:06:26Z' progress=1.000000 cache=0.3MiB(121txo)
+2026-11-17T01:15:43Z UpdateTip: new best=9844c8d73fb7ab862759c7767ed89374bb3a2cd75d5a1da0f90a53bd764a1cd4 height=114 version=0x20000000 log2_work=14.845490 tx=125 date='2026-11-13T06:06:31Z' progress=1.000000 cache=0.3MiB(123txo)
+2026-11-17T01:15:47Z UpdateTip: new best=072df45be6f60ba85876bcb8106859dd7156ed634a2efebe45586bd46dbe49aa height=115 version=0x20000000 log2_work=14.857981 tx=134 date='2026-11-13T06:06:38Z' progress=1.000000 cache=0.3MiB(131txo)
+2026-11-17T01:15:50Z UpdateTip: new best=5e20503974a72528a3fc64b73753e8d53f006e1cfb1d359b364aeb09477ea686 height=116 version=0x20000000 log2_work=14.870365 tx=139 date='2026-11-13T06:06:48Z' progress=1.000000 cache=0.3MiB(135txo)
+2026-11-17T01:15:50Z UpdateTip: new best=f3f647cd895d6f4b10b0fe614f73cabb8495dec69c970f6906f8aad725406bb0 height=117 version=0x20000000 log2_work=14.882643 tx=140 date='2026-11-13T06:06:53Z' progress=1.000000 cache=0.3MiB(136txo)
+2026-11-17T01:15:50Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:51Z UpdateTip: new best=22743c30e96f5e43ab4bf71f79f9d61887122c8b4261c91657e2bdb78d88c4dd height=118 version=0x20000000 log2_work=14.894818 tx=141 date='2026-11-13T06:06:55Z' progress=1.000000 cache=0.3MiB(137txo)
+2026-11-17T01:15:51Z UpdateTip: new best=c058203a455bb512be84c378d8a12547cc633c5a55d22b8b303b792106f3e752 height=119 version=0x20000000 log2_work=14.906891 tx=142 date='2026-11-13T06:07:02Z' progress=1.000000 cache=0.3MiB(138txo)
+2026-11-17T01:15:52Z UpdateTip: new best=8ecc367ed602e15be2edf09c6b3b8a34a565cfc60841bef34cd233489c74844d height=120 version=0x20000000 log2_work=14.918863 tx=145 date='2026-11-13T06:07:05Z' progress=1.000000 cache=0.3MiB(140txo)
+2026-11-17T01:15:52Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:53Z UpdateTip: new best=965ca9f5663df5b339827e4039cb4f5202d5058a0f8611e48500ae63fb0af42a height=121 version=0x20000000 log2_work=14.930737 tx=146 date='2026-11-13T06:07:17Z' progress=1.000000 cache=0.3MiB(141txo)
+2026-11-17T01:15:53Z UpdateTip: new best=397dfbe869f735891de15cae3bfdf0265724898a85750e5524adb6721b099ff0 height=122 version=0x20000000 log2_work=14.942515 tx=147 date='2026-11-13T06:07:21Z' progress=1.000000 cache=0.3MiB(142txo)
+2026-11-17T01:15:53Z UpdateTip: new best=eb86b8167b0cf39b04241cb59bd048cbb1c4e1c6ecf3d6be987f047bd7192f56 height=123 version=0x20000000 log2_work=14.954196 tx=148 date='2026-11-13T06:07:25Z' progress=1.000000 cache=0.3MiB(143txo)
+2026-11-17T01:15:53Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:54Z UpdateTip: new best=e8997b9ade1148f1d5be16cc2f4da580372bb839c1c4359fdabd31c857f9c1cb height=124 version=0x20000000 log2_work=14.965784 tx=149 date='2026-11-13T06:07:27Z' progress=1.000000 cache=0.3MiB(144txo)
+2026-11-17T01:15:54Z UpdateTip: new best=0a83f7aca672181ed19bcbbd840ed1e0b92e1f6945a48dde36ce4dfb8493de40 height=125 version=0x20000000 log2_work=14.977280 tx=150 date='2026-11-13T06:07:29Z' progress=1.000000 cache=0.3MiB(145txo)
+2026-11-17T01:15:55Z UpdateTip: new best=71fb7648deb752e8836b7a55773fab6d2b5481d9377959e17d45732df856e490 height=126 version=0x20000000 log2_work=14.988685 tx=151 date='2026-11-13T06:07:33Z' progress=1.000000 cache=0.3MiB(146txo)
+2026-11-17T01:15:56Z UpdateTip: new best=5ad74803ea45019a77cc305349073920e165cdd8c27dc234ac3ad35bf716f615 height=127 version=0x20000000 log2_work=15.000000 tx=154 date='2026-11-13T06:07:36Z' progress=1.000000 cache=0.3MiB(148txo)
+2026-11-17T01:15:56Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:15:56Z UpdateTip: new best=e576f9beeade80c998e3e63ed14c9018289cf57307cfa353c14d3f03579d75ad height=128 version=0x20000000 log2_work=15.011227 tx=155 date='2026-11-13T06:07:39Z' progress=1.000000 cache=0.3MiB(149txo)
+2026-11-17T01:15:57Z UpdateTip: new best=674fb59b07e39fee8b06485f1474868f23aa635b060ac626431691dd7137d759 height=129 version=0x20000000 log2_work=15.022368 tx=156 date='2026-11-13T06:07:41Z' progress=1.000000 cache=0.3MiB(150txo)
+2026-11-17T01:15:58Z UpdateTip: new best=c7415c334ca639677b5102ff885e010827bba23d8f2b84d13297dea03a29764b height=130 version=0x20000000 log2_work=15.033423 tx=159 date='2026-11-13T06:07:42Z' progress=1.000000 cache=0.3MiB(153txo)
+2026-11-17T01:15:59Z UpdateTip: new best=3c06d1d4e479a53339e959b2d6768ac896f55ad09494951fd3245ce3fabb3056 height=131 version=0x20000000 log2_work=15.044394 tx=160 date='2026-11-13T06:07:46Z' progress=1.000000 cache=0.3MiB(154txo)
+2026-11-17T01:16:00Z UpdateTip: new best=820e97c46a48539a38ac116404e403a69ae905efb19cebcce1c16a1d84bb7df1 height=132 version=0x20000000 log2_work=15.055282 tx=161 date='2026-11-13T06:07:48Z' progress=1.000000 cache=0.3MiB(155txo)
+2026-11-17T01:16:00Z UpdateTip: new best=22a03debec2828eed476e5bac8926c1d8ca1bd6175fdb50cdb39d16fb8467fd9 height=133 version=0x20000000 log2_work=15.066089 tx=162 date='2026-11-13T06:07:49Z' progress=1.000000 cache=0.3MiB(156txo)
+2026-11-17T01:16:01Z UpdateTip: new best=7fcb18719b3586f4a84e10200221dfa92697d33bdc67cf90da15198cab723876 height=134 version=0x20000000 log2_work=15.076816 tx=163 date='2026-11-13T06:07:56Z' progress=1.000000 cache=0.3MiB(157txo)
+2026-11-17T01:16:01Z UpdateTip: new best=8e28585e5bf4a5e9ce040311bc28c5673ab844c022b1e352b9ca3f474a325b0f height=135 version=0x20000000 log2_work=15.087463 tx=164 date='2026-11-13T06:08:02Z' progress=1.000000 cache=0.3MiB(158txo)
+2026-11-17T01:16:01Z UpdateTip: new best=cebbc56f0dfaa3764dd84ec97d3eedbdf0179d46c13c1a44a4f31b04e433495f height=136 version=0x20000000 log2_work=15.098032 tx=165 date='2026-11-13T06:08:11Z' progress=1.000000 cache=0.3MiB(159txo)
+2026-11-17T01:16:02Z UpdateTip: new best=4b230622bcf752aff5bbe868a309c333827deedd3a34e7c76e2005c17b92d07a height=137 version=0x20000000 log2_work=15.108524 tx=166 date='2026-11-13T06:08:13Z' progress=1.000000 cache=0.3MiB(160txo)
+2026-11-17T01:16:02Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:02Z UpdateTip: new best=bdb38d2a5b3fcd502e94f500ab846251bff82f353d797debd41ce445b5de2b1e height=138 version=0x20000000 log2_work=15.118941 tx=167 date='2026-11-13T06:08:21Z' progress=1.000000 cache=0.3MiB(161txo)
+2026-11-17T01:16:02Z UpdateTip: new best=6160769b91e3fca96bde6f81f2e79e9f98d67014d2669b6840186c3716cf9898 height=139 version=0x20000000 log2_work=15.129283 tx=168 date='2026-11-13T06:08:28Z' progress=1.000000 cache=0.3MiB(162txo)
+2026-11-17T01:16:03Z UpdateTip: new best=ef5566021edf39ae3cdb7a4e7dd19456cdf0442de6430854f65cba9f9210f4fd height=140 version=0x20000000 log2_work=15.139551 tx=169 date='2026-11-13T06:08:30Z' progress=1.000000 cache=0.3MiB(163txo)
+2026-11-17T01:16:03Z UpdateTip: new best=2ab8a3770b78a189274aeec64db53df128b6c5da146253b81bb45c0c95d32f6a height=141 version=0x20000000 log2_work=15.149747 tx=170 date='2026-11-13T06:08:30Z' progress=1.000000 cache=0.3MiB(164txo)
+2026-11-17T01:16:04Z UpdateTip: new best=75d5604d859147d3f018fcd509610ebfdf5fee5e8e867f381483572744cdc67f height=142 version=0x20000000 log2_work=15.159871 tx=171 date='2026-11-13T06:08:33Z' progress=1.000000 cache=0.3MiB(165txo)
+2026-11-17T01:16:04Z UpdateTip: new best=9e42acf480ee761ba9aeb72dc5306b99b676bd1943715f9ec35635c8bccb3ed3 height=143 version=0x20000000 log2_work=15.169925 tx=172 date='2026-11-13T06:08:44Z' progress=1.000000 cache=0.3MiB(166txo)
+2026-11-17T01:16:05Z UpdateTip: new best=d1c0d941ec2d3dab24f66e57f07e2bec5f14c7438280acfc2d1690f988cf1ed4 height=144 version=0x20000000 log2_work=15.179909 tx=173 date='2026-11-13T06:08:47Z' progress=1.000000 cache=0.3MiB(167txo)
+2026-11-17T01:16:05Z UpdateTip: new best=e49f6d5dfcf74b83e376fe893fd42fb2b22af7571482ba11730c7db9d189fdc1 height=145 version=0x20000000 log2_work=15.189825 tx=174 date='2026-11-13T06:08:49Z' progress=1.000000 cache=0.3MiB(168txo)
+2026-11-17T01:16:05Z UpdateTip: new best=5812adfdcecfd896586e7d68e5a3e6ca265556d2acaba1b5401634cdf7f3003a height=146 version=0x20000000 log2_work=15.199672 tx=175 date='2026-11-13T06:08:57Z' progress=1.000000 cache=0.3MiB(169txo)
+2026-11-17T01:16:06Z UpdateTip: new best=8b7aa0ece74f263bf5fa0ecbe6453febb990c0c7d5d44dd5309f752cf1bd30ed height=147 version=0x20000000 log2_work=15.209453 tx=176 date='2026-11-13T06:08:58Z' progress=1.000000 cache=0.3MiB(170txo)
+2026-11-17T01:16:06Z UpdateTip: new best=b7ee5ad7ebb4e2fa443f50220f0df22242c530012608b74b3b32a5485d734ff5 height=148 version=0x20000000 log2_work=15.219169 tx=177 date='2026-11-13T06:09:00Z' progress=1.000000 cache=0.3MiB(171txo)
+2026-11-17T01:16:06Z UpdateTip: new best=ecc9bc6941dbcb482a9904e21b155a4d0b45ce6c7ef44b23bddd51c5a32b57f3 height=149 version=0x20000000 log2_work=15.228819 tx=178 date='2026-11-13T06:09:00Z' progress=1.000000 cache=0.3MiB(172txo)
+2026-11-17T01:16:07Z UpdateTip: new best=3b3dcf46e442ee7b74a70cecdd2cddd862bca5b12fda6404926cbc324a699bd0 height=150 version=0x20000000 log2_work=15.238405 tx=179 date='2026-11-13T06:09:02Z' progress=1.000000 cache=0.3MiB(173txo)
+2026-11-17T01:16:07Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:07Z UpdateTip: new best=36aa656c9b8dd032e3179e1b42a5d1237d8201875b996add915f4b2ce6b066ae height=151 version=0x20000000 log2_work=15.247928 tx=180 date='2026-11-13T06:09:04Z' progress=1.000000 cache=0.3MiB(174txo)
+2026-11-17T01:16:08Z UpdateTip: new best=e0c227ba8f392a81592959963e79fcd192f2014d89d036b4cceade6c5f6aa257 height=152 version=0x20000000 log2_work=15.257388 tx=181 date='2026-11-13T06:09:17Z' progress=1.000000 cache=0.3MiB(175txo)
+2026-11-17T01:16:08Z UpdateTip: new best=80be364c7194c89412e3ffdb17ef2fac751abf09a58b93a5042c2ece0ea69643 height=153 version=0x20000000 log2_work=15.266787 tx=182 date='2026-11-13T06:09:21Z' progress=1.000000 cache=0.3MiB(176txo)
+2026-11-17T01:16:09Z UpdateTip: new best=333ab93769cb20219939752dde30ecd70d577a368293ea5a6b1c5859f746be66 height=154 version=0x20000000 log2_work=15.276124 tx=183 date='2026-11-13T06:09:25Z' progress=1.000000 cache=0.3MiB(177txo)
+2026-11-17T01:16:09Z UpdateTip: new best=b6915f3f3e3808429fb50523a693cef3e2f44aec83551fcd3e00c389e6c684c7 height=155 version=0x20000000 log2_work=15.285402 tx=184 date='2026-11-13T06:09:27Z' progress=1.000000 cache=0.3MiB(178txo)
+2026-11-17T01:16:09Z UpdateTip: new best=73114896c428204165eae5d7dfb0d89dcec9ad3c1359bd3940e6bd75f1726525 height=156 version=0x20000000 log2_work=15.294621 tx=185 date='2026-11-13T06:09:30Z' progress=1.000000 cache=0.3MiB(179txo)
+2026-11-17T01:16:10Z UpdateTip: new best=96bafd1eb871b4cc9dce71fb938b8c130ffe1303a8a42810e5d358f815ac352f height=157 version=0x20000000 log2_work=15.303781 tx=186 date='2026-11-13T06:09:36Z' progress=1.000000 cache=0.3MiB(180txo)
+2026-11-17T01:16:10Z UpdateTip: new best=6f437caba02e54bd8139aa0848c65a989b19f49e52b2022ec98844737cb342d9 height=158 version=0x20000000 log2_work=15.312883 tx=187 date='2026-11-13T06:09:42Z' progress=1.000000 cache=0.3MiB(181txo)
+2026-11-17T01:16:10Z UpdateTip: new best=ef2e77021d778055038d377ca0d525509fdb0a5a34a3e9e3c66b5fa4b40e2a8c height=159 version=0x20000000 log2_work=15.321928 tx=188 date='2026-11-13T06:09:43Z' progress=1.000000 cache=0.3MiB(182txo)
+2026-11-17T01:16:12Z UpdateTip: new best=e220a5b07234b72f837a8140a96b659d220d1011b6239b147faf556147e5d083 height=160 version=0x20000000 log2_work=15.330917 tx=191 date='2026-11-13T06:09:48Z' progress=1.000000 cache=0.3MiB(185txo)
+2026-11-17T01:16:14Z UpdateTip: new best=08a996ef3d8669ac36c7d0bc7f49873f80f2912101dfba24ef0d4e51dac3d86c height=161 version=0x20000000 log2_work=15.339850 tx=196 date='2026-11-13T06:09:50Z' progress=1.000000 cache=0.3MiB(190txo)
+2026-11-17T01:16:14Z UpdateTip: new best=0315aec7c03373d4e21c94a451895d4cc4cb818350503d5e92ba00819e862252 height=162 version=0x20000000 log2_work=15.348728 tx=197 date='2026-11-13T06:09:52Z' progress=1.000000 cache=0.3MiB(191txo)
+2026-11-17T01:16:16Z UpdateTip: new best=786ae17dc345ab507ec45c39c86e100130bbefc5e2eede0211687bc04ff55342 height=163 version=0x20000000 log2_work=15.357552 tx=200 date='2026-11-13T06:09:54Z' progress=1.000000 cache=0.3MiB(194txo)
+2026-11-17T01:16:17Z UpdateTip: new best=6f2c337a35633b84933cdea45adc3266f38885aac02b6aec639d54521fa4bafd height=164 version=0x20000000 log2_work=15.366322 tx=201 date='2026-11-13T06:09:57Z' progress=1.000000 cache=0.3MiB(195txo)
+2026-11-17T01:16:17Z UpdateTip: new best=dfb3c4bf502acb54e59548b8cb86d03cafe76383d00c91ab648806f82d21406e height=165 version=0x20000000 log2_work=15.375039 tx=202 date='2026-11-13T06:10:04Z' progress=1.000000 cache=0.3MiB(196txo)
+2026-11-17T01:16:19Z UpdateTip: new best=87aa96bac2313cc43a50139e10c1a447cb86d636af24cf10efcdb909be161017 height=166 version=0x20000000 log2_work=15.383704 tx=207 date='2026-11-13T06:10:10Z' progress=1.000000 cache=0.3MiB(201txo)
+2026-11-17T01:16:20Z UpdateTip: new best=a53c65a219dfb65dbcc4f343cbc5f07dbbf59364f1acfcc8ef083e7e622d2609 height=167 version=0x20000000 log2_work=15.392317 tx=208 date='2026-11-13T06:10:19Z' progress=1.000000 cache=0.3MiB(202txo)
+2026-11-17T01:16:20Z UpdateTip: new best=3d17b181294122184a84be50b53d0f8740c278ac4b9050ffa84ef1019cd0a409 height=168 version=0x20000000 log2_work=15.400879 tx=209 date='2026-11-13T06:10:21Z' progress=1.000000 cache=0.3MiB(203txo)
+2026-11-17T01:16:21Z UpdateTip: new best=dcfc0ac1b63fd731fe4385dc9ac3293c83b1946877fc8c709e41ec6973b8ed4c height=169 version=0x20000000 log2_work=15.409391 tx=210 date='2026-11-13T06:10:25Z' progress=1.000000 cache=0.3MiB(204txo)
+2026-11-17T01:16:21Z UpdateTip: new best=efa05e94920c1bc792cabffacc36ac5127fbd51881e71778f2fa77610de9eebc height=170 version=0x20000000 log2_work=15.417853 tx=211 date='2026-11-13T06:10:27Z' progress=1.000000 cache=0.3MiB(205txo)
+2026-11-17T01:16:22Z UpdateTip: new best=7a14508000e643a36849e5c7727a16010ea8200f0a357f735021300548a5fff2 height=171 version=0x20000000 log2_work=15.426265 tx=212 date='2026-11-13T06:10:31Z' progress=1.000000 cache=0.3MiB(206txo)
+2026-11-17T01:16:22Z UpdateTip: new best=ea014a137d5e2d926ac505f3436f4566372ad38097d3fbf0a63c4d69a9db0937 height=172 version=0x20000000 log2_work=15.434628 tx=213 date='2026-11-13T06:10:38Z' progress=1.000000 cache=0.3MiB(207txo)
+2026-11-17T01:16:23Z UpdateTip: new best=242a18850e0575cb3a5134e9ee2689c47e55528af78c7f8d21aa12d5b8a0b316 height=173 version=0x20000000 log2_work=15.442943 tx=214 date='2026-11-13T06:10:40Z' progress=1.000000 cache=0.3MiB(208txo)
+2026-11-17T01:16:23Z UpdateTip: new best=9ea7a620aa7ad64a2854747507c432a430067ff7dcf9fa5ce17ee3dc6993a4cf height=174 version=0x20000000 log2_work=15.451211 tx=215 date='2026-11-13T06:10:43Z' progress=1.000000 cache=0.3MiB(209txo)
+2026-11-17T01:16:24Z UpdateTip: new best=98b5343bb0cf55256f2592d08ae01179e5cf1324615b0ae7e77302bedaead599 height=175 version=0x20000000 log2_work=15.459432 tx=216 date='2026-11-13T06:10:52Z' progress=1.000000 cache=0.3MiB(210txo)
+2026-11-17T01:16:25Z UpdateTip: new best=35f6bce1075a532a54161674067b86c4ed1e49ff829a8b3ae0e1a5bd097747d1 height=176 version=0x20000000 log2_work=15.467606 tx=217 date='2026-11-13T06:10:56Z' progress=1.000000 cache=0.3MiB(211txo)
+2026-11-17T01:16:25Z UpdateTip: new best=4bc24982b3e6153819f017d72df44d89789dd3908c476132d2651b1306850628 height=177 version=0x20000000 log2_work=15.475733 tx=218 date='2026-11-13T06:10:59Z' progress=1.000000 cache=0.3MiB(212txo)
+2026-11-17T01:16:27Z UpdateTip: new best=345be473b8c7122f5f93a5497ea6b097017107a14a60f8d27ca14b7e55df921d height=178 version=0x20000000 log2_work=15.483816 tx=221 date='2026-11-13T06:11:06Z' progress=1.000000 cache=0.3MiB(215txo)
+2026-11-17T01:16:27Z UpdateTip: new best=83eed686acf12c64896d15fb641bfa353409ed1e7977ed8d94368f0a158adf0d height=179 version=0x20000000 log2_work=15.491853 tx=222 date='2026-11-13T06:11:09Z' progress=1.000000 cache=0.3MiB(216txo)
+2026-11-17T01:16:28Z UpdateTip: new best=423acdf42a139238e1dddb976854dffb955ab19b16d70e3416f3e99e5c425450 height=180 version=0x20000000 log2_work=15.499846 tx=225 date='2026-11-13T06:11:13Z' progress=1.000000 cache=0.3MiB(218txo)
+2026-11-17T01:16:29Z UpdateTip: new best=7d69d35e13add6baa3af3fc628d5e173d0c65946a7b10347b13be66904486c30 height=181 version=0x20000000 log2_work=15.507795 tx=226 date='2026-11-13T06:11:16Z' progress=1.000000 cache=0.3MiB(219txo)
+2026-11-17T01:16:29Z UpdateTip: new best=565fc820c226d4c6b9f900fbcfebf89c8825c60644a9397063002b6a1e194306 height=182 version=0x20000000 log2_work=15.515700 tx=227 date='2026-11-13T06:11:17Z' progress=1.000000 cache=0.3MiB(220txo)
+2026-11-17T01:16:30Z UpdateTip: new best=ded7e014c81cb9066662b1e7d20f1520c4accc7467a23262f4f53142d9e71e49 height=183 version=0x20000000 log2_work=15.523562 tx=228 date='2026-11-13T06:11:20Z' progress=1.000000 cache=0.3MiB(221txo)
+2026-11-17T01:16:30Z UpdateTip: new best=55b7ab494d05f30c35498170e712101ef53b2cf2ac32e3bd08fb588c73db294c height=184 version=0x20000000 log2_work=15.531381 tx=229 date='2026-11-13T06:11:21Z' progress=1.000000 cache=0.3MiB(222txo)
+2026-11-17T01:16:30Z UpdateTip: new best=8e119f7c30b728e8e5a026487dca1a2f673ff8f96e2ee4eefb8803d5455fce08 height=185 version=0x20000000 log2_work=15.539159 tx=230 date='2026-11-13T06:11:22Z' progress=1.000000 cache=0.3MiB(223txo)
+2026-11-17T01:16:31Z UpdateTip: new best=0d7a9211e6382a2ed22fc57815e2543ef20a3ab3345162edf1e0b47251c41354 height=186 version=0x20000000 log2_work=15.546894 tx=231 date='2026-11-13T06:11:24Z' progress=1.000000 cache=0.3MiB(224txo)
+2026-11-17T01:16:31Z UpdateTip: new best=0ebfbd75c717acc2e50a120f8536f0aac74a543a6ca982649477ad6975fc3439 height=187 version=0x20000000 log2_work=15.554589 tx=232 date='2026-11-13T06:11:26Z' progress=1.000000 cache=0.3MiB(225txo)
+2026-11-17T01:16:31Z UpdateTip: new best=dd0f2be388c8ad6560d3fe0aaaecbb94679c1b9f260181108809331fcbad4067 height=188 version=0x20000000 log2_work=15.562242 tx=233 date='2026-11-13T06:11:27Z' progress=1.000000 cache=0.3MiB(226txo)
+2026-11-17T01:16:32Z UpdateTip: new best=e2e37a251d25ebb7726c4d595c9973421ec38351ebfac27ac846e50afb28fb8d height=189 version=0x20000000 log2_work=15.569856 tx=234 date='2026-11-13T06:11:27Z' progress=1.000000 cache=0.3MiB(227txo)
+2026-11-17T01:16:32Z UpdateTip: new best=11163a181095658a309fe62d31c61d2f01e992cfea739558b5f56945b94edc96 height=190 version=0x20000000 log2_work=15.577429 tx=235 date='2026-11-13T06:11:35Z' progress=1.000000 cache=0.3MiB(228txo)
+2026-11-17T01:16:33Z UpdateTip: new best=fc2871241b74d7ed50d55f4e30dbad1a5470fa6b8e259364e49c0d18079a7b4a height=191 version=0x20000000 log2_work=15.584963 tx=236 date='2026-11-13T06:11:35Z' progress=1.000000 cache=0.3MiB(229txo)
+2026-11-17T01:16:33Z UpdateTip: new best=f1af5e549e8e0ffdd7e3289ca530e37e58b7175a3002a7d1b577e955a021c6ba height=192 version=0x20000000 log2_work=15.592457 tx=237 date='2026-11-13T06:11:37Z' progress=1.000000 cache=0.3MiB(230txo)
+2026-11-17T01:16:33Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:33Z UpdateTip: new best=27014f0626725876153c4fb9578e781e2b6c197ca1a7d696963ac135bca1935a height=193 version=0x20000000 log2_work=15.599913 tx=238 date='2026-11-13T06:11:39Z' progress=1.000000 cache=0.3MiB(231txo)
+2026-11-17T01:16:34Z UpdateTip: new best=9db531172cf0ca123151d3914577bc70105a9ca298167953d018e4f99f07a439 height=194 version=0x20000000 log2_work=15.607330 tx=239 date='2026-11-13T06:11:40Z' progress=1.000000 cache=0.3MiB(232txo)
+2026-11-17T01:16:34Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:34Z UpdateTip: new best=85561d31ce7618543feb0a361db2da866822f6573e8ae0cfe168d5126968094f height=195 version=0x20000000 log2_work=15.614710 tx=240 date='2026-11-13T06:11:44Z' progress=1.000000 cache=0.3MiB(233txo)
+2026-11-17T01:16:34Z UpdateTip: new best=94390d524de6ee5e468c8e79b9f7cc063f8b1693271e9d1dccd28cca98026300 height=196 version=0x20000000 log2_work=15.622052 tx=241 date='2026-11-13T06:11:45Z' progress=1.000000 cache=0.3MiB(234txo)
+2026-11-17T01:16:35Z UpdateTip: new best=0e5c170b99f2722ea988eb2866120d23dba08fd51d8b96576397c94653bfb6a7 height=197 version=0x20000000 log2_work=15.629357 tx=242 date='2026-11-13T06:11:46Z' progress=1.000000 cache=0.3MiB(235txo)
+2026-11-17T01:16:35Z UpdateTip: new best=08366c828d875a0766fafcd566a0e240ecd4623200332c0a1b0a989cc0c29e4a height=198 version=0x20000000 log2_work=15.636625 tx=243 date='2026-11-13T06:11:50Z' progress=1.000000 cache=0.3MiB(236txo)
+2026-11-17T01:16:36Z UpdateTip: new best=a78941beffffa426ff5499ff66bbeca0fd7a9501d07467de68f2982c54c11fb1 height=199 version=0x20000000 log2_work=15.643856 tx=244 date='2026-11-13T06:11:52Z' progress=1.000000 cache=0.3MiB(237txo)
+2026-11-17T01:16:36Z Synchronizing blockheaders, height: 7462 (~100.00%)
+2026-11-17T01:16:36Z UpdateTip: new best=7be3a4bf575e30eee31456af0bb020f01013104d4fbff3c13086eb0be2aa40ab height=200 version=0x20000000 log2_work=15.651052 tx=245 date='2026-11-13T06:11:56Z' progress=1.000000 cache=0.3MiB(238txo)
+2026-11-17T01:16:37Z UpdateTip: new best=1cd5bf71df920325b9fd0f930bdc395461f7107704de85f007b019a0381b4a09 height=201 version=0x20000000 log2_work=15.658211 tx=246 date='2026-11-13T06:12:01Z' progress=1.000000 cache=0.3MiB(239txo)
+2026-11-17T01:16:37Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:37Z UpdateTip: new best=71356d382cb71a1d4118eaccf0c98b0305f66d0ba5363090fe51088a28eb7db6 height=202 version=0x20000000 log2_work=15.665336 tx=247 date='2026-11-13T06:12:04Z' progress=1.000000 cache=0.3MiB(240txo)
+2026-11-17T01:16:38Z UpdateTip: new best=bf75a98e569d2384a46a860bad8b7fe6ed74fd0101f310f566b5779f725e265b height=203 version=0x20000000 log2_work=15.672425 tx=248 date='2026-11-13T06:12:07Z' progress=1.000000 cache=0.3MiB(241txo)
+2026-11-17T01:16:38Z UpdateTip: new best=1abfa5fa87f4bbb5de06d0692150152848327a9e47295b3d88634b05781633b1 height=204 version=0x20000000 log2_work=15.679480 tx=249 date='2026-11-13T06:12:08Z' progress=1.000000 cache=0.3MiB(242txo)
+2026-11-17T01:16:39Z UpdateTip: new best=d1058bc57102d1c4b3f0259876b5dc9d9434212ce4af320cf20bf94d13c26fb9 height=205 version=0x20000000 log2_work=15.686501 tx=250 date='2026-11-13T06:12:09Z' progress=1.000000 cache=0.3MiB(243txo)
+2026-11-17T01:16:39Z UpdateTip: new best=70d731e365f69001eff9312f048397694e53c066dd35029054fe6c9bdf25c6e0 height=206 version=0x20000000 log2_work=15.693487 tx=251 date='2026-11-13T06:12:10Z' progress=1.000000 cache=0.3MiB(244txo)
+2026-11-17T01:16:39Z UpdateTip: new best=61df2eb7f9079b8329568c6b13dee4a579a985db6dc7e6b7a90c806d48eaedd9 height=207 version=0x20000000 log2_work=15.700440 tx=252 date='2026-11-13T06:12:16Z' progress=1.000000 cache=0.3MiB(245txo)
+2026-11-17T01:16:40Z UpdateTip: new best=80218d81159bb22be39c2f3b85460e837cff16a75bc40bf9d1e454e1d7920241 height=208 version=0x20000000 log2_work=15.707359 tx=253 date='2026-11-13T06:12:17Z' progress=1.000000 cache=0.3MiB(246txo)
+2026-11-17T01:16:40Z UpdateTip: new best=8ae0e27e907ad14f3c7156a57e605a181a1a30e08362ed8b3bfacb2d3ce38b90 height=209 version=0x20000000 log2_work=15.714246 tx=254 date='2026-11-13T06:12:27Z' progress=1.000000 cache=0.3MiB(247txo)
+2026-11-17T01:16:40Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:41Z UpdateTip: new best=09ea2fe43ea1dc5a630ee9d9d0198bebd29420dbfb1e1d6144f794b5fb20dcc8 height=210 version=0x20000000 log2_work=15.721099 tx=255 date='2026-11-13T06:12:38Z' progress=1.000000 cache=0.3MiB(248txo)
+2026-11-17T01:16:41Z UpdateTip: new best=8906c24b815f05c0bd560eeedfe1698e1d00d4a58a3bc36f6686ce7c0a1173d8 height=211 version=0x20000000 log2_work=15.727920 tx=256 date='2026-11-13T06:12:46Z' progress=1.000000 cache=0.3MiB(249txo)
+2026-11-17T01:16:42Z UpdateTip: new best=6d374d69157e4b49c5a20217aeca784c8b6a6e52473f2fbde376f8b269836a27 height=212 version=0x20000000 log2_work=15.734710 tx=257 date='2026-11-13T06:12:49Z' progress=1.000000 cache=0.3MiB(250txo)
+2026-11-17T01:16:42Z UpdateTip: new best=70316d451a0aeb6ff33adcafccbd351d254a44fc4058ab7d2b57a89c38564bd6 height=213 version=0x20000000 log2_work=15.741467 tx=258 date='2026-11-13T06:12:51Z' progress=1.000000 cache=0.3MiB(251txo)
+2026-11-17T01:16:42Z UpdateTip: new best=cf8355d549719a0412cac8cc4a530321f967a1a6104b3629542e89f1e2319252 height=214 version=0x20000000 log2_work=15.748193 tx=259 date='2026-11-13T06:12:52Z' progress=1.000000 cache=0.3MiB(252txo)
+2026-11-17T01:16:43Z UpdateTip: new best=115605f0358bee5531b3ea8283e8cdd03d6e1555e3c20578e2aad4e3dd8b9067 height=215 version=0x20000000 log2_work=15.754888 tx=260 date='2026-11-13T06:12:56Z' progress=1.000000 cache=0.3MiB(253txo)
+2026-11-17T01:16:43Z UpdateTip: new best=5ec8edc52fb7e9b40a08568f3c2acf22f5a6148d4eadafbae65586ad25b48ca4 height=216 version=0x20000000 log2_work=15.761551 tx=261 date='2026-11-13T06:12:57Z' progress=1.000000 cache=0.3MiB(254txo)
+2026-11-17T01:16:43Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:43Z UpdateTip: new best=accc33612e8eca4168c1aa3184442c95bd2eba8ff767ff102dd2d43febcd9b4d height=217 version=0x20000000 log2_work=15.768184 tx=262 date='2026-11-13T06:12:58Z' progress=1.000000 cache=0.3MiB(255txo)
+2026-11-17T01:16:44Z UpdateTip: new best=d8a1ee262b31becee487ebe4a20a68522f3f4f67fa70773b663de54ed51aa033 height=218 version=0x20000000 log2_work=15.774787 tx=263 date='2026-11-13T06:13:03Z' progress=1.000000 cache=0.3MiB(256txo)
+2026-11-17T01:16:44Z UpdateTip: new best=e2043c0bf27721b8aa9e8cf38f5f7b843411934ba53e4213e2f77290899ae616 height=219 version=0x20000000 log2_work=15.781360 tx=264 date='2026-11-13T06:13:08Z' progress=1.000000 cache=0.3MiB(257txo)
+2026-11-17T01:16:44Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:46Z UpdateTip: new best=880d5d893d0b6885ed288ce07191c26d854e7fd116b9fbd6d6c59505c634b59b height=220 version=0x20000000 log2_work=15.787903 tx=267 date='2026-11-13T06:13:10Z' progress=1.000000 cache=0.3MiB(260txo)
+2026-11-17T01:16:47Z UpdateTip: new best=8ff4355ad1825125b1a0f69ef52b81a6935f27463780e9bfc9af2239f3cbe74e height=221 version=0x20000000 log2_work=15.794416 tx=270 date='2026-11-13T06:13:17Z' progress=1.000000 cache=0.3MiB(262txo)
+2026-11-17T01:16:47Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:49Z UpdateTip: new best=5f7bd5a8c56dbd47c4a1fc850ce6bdaaf108012372cd614a931172b87d6ebcb5 height=222 version=0x20000000 log2_work=15.800900 tx=275 date='2026-11-13T06:13:24Z' progress=1.000000 cache=0.3MiB(267txo)
+2026-11-17T01:16:49Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:50Z UpdateTip: new best=87c666560ed07a1281446275900fbbd35f5a03ac7add27dc83b71bf7968d4f0c height=223 version=0x20000000 log2_work=15.807355 tx=277 date='2026-11-13T06:13:26Z' progress=1.000000 cache=0.3MiB(270txo)
+2026-11-17T01:16:50Z UpdateTip: new best=a80d8679c7a27ffeaed4733ab9cec93a3c847be527ccaf6d494691668174a67b height=224 version=0x20000000 log2_work=15.813781 tx=278 date='2026-11-13T06:13:31Z' progress=1.000000 cache=0.3MiB(271txo)
+2026-11-17T01:16:51Z UpdateTip: new best=442e1697ee29784b0c1f3b16c3419b39c67d09f573b2ad6a66e785640f51f38f height=225 version=0x20000000 log2_work=15.820179 tx=279 date='2026-11-13T06:13:31Z' progress=1.000000 cache=0.3MiB(272txo)
+2026-11-17T01:16:52Z UpdateTip: new best=27717ff8b35ed3ed85c64ca9fbb157bbaf127b34c5141256d706ab36383298c1 height=226 version=0x20000000 log2_work=15.826548 tx=281 date='2026-11-13T06:13:32Z' progress=1.000000 cache=0.3MiB(273txo)
+2026-11-17T01:16:52Z UpdateTip: new best=4c89500d5c46c17e3b02d5fbc1606d3c7f7aa1ad361575ef0739b39fd98264ef height=227 version=0x20000000 log2_work=15.832890 tx=282 date='2026-11-13T06:13:35Z' progress=1.000000 cache=0.3MiB(274txo)
+2026-11-17T01:16:52Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:52Z UpdateTip: new best=a08416a73955b39f630d697e7ff2ed01496b47e87c82337d51c67906b1b84b67 height=228 version=0x20000000 log2_work=15.839204 tx=283 date='2026-11-13T06:13:35Z' progress=1.000000 cache=0.3MiB(275txo)
+2026-11-17T01:16:53Z UpdateTip: new best=54e600bbe4da755b4ceaa45e25a3d840d0a239d169986f61b426ef3b380fbb78 height=229 version=0x20000000 log2_work=15.845490 tx=284 date='2026-11-13T06:13:38Z' progress=1.000000 cache=0.3MiB(276txo)
+2026-11-17T01:16:53Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:53Z UpdateTip: new best=17097973ae8ccb4200374a9527e56b8e1a93444c47787b6ccb692132ac2a209d height=230 version=0x20000000 log2_work=15.851749 tx=285 date='2026-11-13T06:13:42Z' progress=1.000000 cache=0.3MiB(277txo)
+2026-11-17T01:16:53Z UpdateTip: new best=d179d79ced6c124f3b4b50784373d0118f072576af89f94c3e6cc31e4ad88683 height=231 version=0x20000000 log2_work=15.857981 tx=286 date='2026-11-13T06:13:46Z' progress=1.000000 cache=0.3MiB(278txo)
+2026-11-17T01:16:54Z UpdateTip: new best=79668b5356c3b13145588309f3bf6f1686dc363f5ab44f3ec98f272b1f79d819 height=232 version=0x20000000 log2_work=15.864186 tx=287 date='2026-11-13T06:13:48Z' progress=1.000000 cache=0.3MiB(279txo)
+2026-11-17T01:16:55Z UpdateTip: new best=778c0f4c9a5afaca12943f2bbf6e61efe3bb77109790a4b117533d543b43821f height=233 version=0x20000000 log2_work=15.870365 tx=288 date='2026-11-13T06:13:49Z' progress=1.000000 cache=0.3MiB(280txo)
+2026-11-17T01:16:55Z UpdateTip: new best=e0a6c6596788e9004b65dca4ff9deb0061bd0fa8c32ccc53daae2c6c138e6f2f height=234 version=0x20000000 log2_work=15.876517 tx=289 date='2026-11-13T06:13:54Z' progress=1.000000 cache=0.3MiB(281txo)
+2026-11-17T01:16:55Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:56Z UpdateTip: new best=5bba2e7129899fb30416dafd4f48b678332e4e4ba6876b3be6603d0ef77a861e height=235 version=0x20000000 log2_work=15.882643 tx=292 date='2026-11-13T06:13:57Z' progress=1.000000 cache=0.3MiB(284txo)
+2026-11-17T01:16:56Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:57Z UpdateTip: new best=4713481e2a7e2ad6477b47e99676ea353a64536c45afef9e88f8707cb9883855 height=236 version=0x20000000 log2_work=15.888743 tx=293 date='2026-11-13T06:13:59Z' progress=1.000000 cache=0.3MiB(285txo)
+2026-11-17T01:16:58Z UpdateTip: new best=3617c9792e7c8f57e4f77e6f6ee276e55e699bcd93477bcefd40ee12ea2148f9 height=237 version=0x20000000 log2_work=15.894818 tx=296 date='2026-11-13T06:14:04Z' progress=1.000000 cache=0.3MiB(288txo)
+2026-11-17T01:16:58Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:16:58Z UpdateTip: new best=71011d990f04d7f970805580e9efb3e547795b3d44f648eafcf559138148ce03 height=238 version=0x20000000 log2_work=15.900867 tx=297 date='2026-11-13T06:14:06Z' progress=1.000000 cache=0.3MiB(289txo)
+2026-11-17T01:16:59Z UpdateTip: new best=df5d4c93653d25ab66dabbe6cbfe5f9a5c20f897e663fe05604df93b4294f163 height=239 version=0x20000000 log2_work=15.906891 tx=298 date='2026-11-13T06:14:07Z' progress=1.000000 cache=0.3MiB(290txo)
+2026-11-17T01:16:59Z UpdateTip: new best=6ce21da7596453414d5513f1d71529cc47021072798203073222703f1f2d0296 height=240 version=0x20000000 log2_work=15.912889 tx=299 date='2026-11-13T06:14:13Z' progress=1.000000 cache=0.3MiB(291txo)
+2026-11-17T01:17:00Z UpdateTip: new best=86fd630bdd06c60d3e535f619bcfb283b3bb67b757680dc95c99fc9177e34a7d height=241 version=0x20000000 log2_work=15.918863 tx=300 date='2026-11-13T06:14:18Z' progress=1.000000 cache=0.3MiB(292txo)
+2026-11-17T01:17:00Z UpdateTip: new best=e08fb7bf0ae0195ef7fa5d13e851a7e3a2015bcad13ea89035931a2c2d41576d height=242 version=0x20000000 log2_work=15.924813 tx=301 date='2026-11-13T06:14:23Z' progress=1.000000 cache=0.3MiB(293txo)
+2026-11-17T01:17:01Z UpdateTip: new best=eec37b9c27cfd8c6b7d4aaa4b4e617ee16c31ec5f1243f0102f2d71562c1d588 height=243 version=0x20000000 log2_work=15.930737 tx=303 date='2026-11-13T06:14:25Z' progress=1.000000 cache=0.3MiB(296txo)
+2026-11-17T01:17:02Z UpdateTip: new best=4f66b684256087c6edde5b91bf711e7d3424b4c43d1017cac04f9071bbad50c0 height=244 version=0x20000000 log2_work=15.936638 tx=305 date='2026-11-13T06:14:32Z' progress=1.000000 cache=0.3MiB(297txo)
+2026-11-17T01:17:02Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:02Z UpdateTip: new best=6247a0fee55903de09ff9e30fb5e3d4f2a57c11a7558a2324b33e22a65debbf2 height=245 version=0x20000000 log2_work=15.942515 tx=306 date='2026-11-13T06:14:33Z' progress=1.000000 cache=0.3MiB(298txo)
+2026-11-17T01:17:03Z UpdateTip: new best=8baff0b333523f27933646619a3c151f1f800aae963979dbea25a6177ccc6696 height=246 version=0x20000000 log2_work=15.948367 tx=307 date='2026-11-13T06:14:35Z' progress=1.000000 cache=0.3MiB(299txo)
+2026-11-17T01:17:03Z UpdateTip: new best=d0612c4957c402fd98fa0b2367b005b05126b94808aa2f17ba783be8af23ebbc height=247 version=0x20000000 log2_work=15.954196 tx=308 date='2026-11-13T06:14:36Z' progress=1.000000 cache=0.3MiB(300txo)
+2026-11-17T01:17:05Z UpdateTip: new best=aedcc05c5ca888d98db951d358b7399a1a129cfa535cf12969938ea562da7d9c height=248 version=0x20000000 log2_work=15.960002 tx=311 date='2026-11-13T06:14:39Z' progress=1.000000 cache=0.3MiB(303txo)
+2026-11-17T01:17:05Z UpdateTip: new best=f0ff9978370d60929e2d1af2e408321fd1b889b0759600fe19b8df6bede83f4b height=249 version=0x20000000 log2_work=15.965784 tx=312 date='2026-11-13T06:14:42Z' progress=1.000000 cache=0.3MiB(304txo)
+2026-11-17T01:17:05Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:05Z UpdateTip: new best=a49d28b1b0687be8a0af60ce8e26da0867db78d3ad71a87b94f4ac7aa47030be height=250 version=0x20000000 log2_work=15.971544 tx=313 date='2026-11-13T06:14:44Z' progress=1.000000 cache=0.3MiB(305txo)
+2026-11-17T01:17:05Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:06Z UpdateTip: new best=36c7600d77921c6aaf5e61f8c6341518038ddf1eb1feed59364166f7ba9da86e height=251 version=0x20000000 log2_work=15.977280 tx=314 date='2026-11-13T06:14:46Z' progress=1.000000 cache=0.3MiB(306txo)
+2026-11-17T01:17:06Z UpdateTip: new best=944bdbbebb5a7c88ac99030e6c1bde8368858799a7208a3e25acc9d185b4a75c height=252 version=0x20000000 log2_work=15.982994 tx=315 date='2026-11-13T06:14:47Z' progress=1.000000 cache=0.3MiB(307txo)
+2026-11-17T01:17:06Z UpdateTip: new best=dfdd286da9d2973c6e3ba04f9726961933910e969f48a842c510122f60339eda height=253 version=0x20000000 log2_work=15.988685 tx=316 date='2026-11-13T06:14:52Z' progress=1.000000 cache=0.3MiB(308txo)
+2026-11-17T01:17:07Z UpdateTip: new best=592cd60aea642cb82f691558a2435077cb150c34f369634c4a994110417ca7cf height=254 version=0x20000000 log2_work=15.994353 tx=317 date='2026-11-13T06:14:58Z' progress=1.000000 cache=0.3MiB(309txo)
+2026-11-17T01:17:07Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:07Z UpdateTip: new best=f32aeee20d68a9a2d0c1864ba8fa2be99bb9bc0e44d5c30dd8cc2caea6c9375e height=255 version=0x20000000 log2_work=16.000000 tx=318 date='2026-11-13T06:15:00Z' progress=1.000000 cache=0.3MiB(310txo)
+2026-11-17T01:17:07Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:08Z UpdateTip: new best=2f61dd50e8d65acf96ea578e68c017c191c2f521df789aed5cfc99213af7ccb3 height=256 version=0x20000000 log2_work=16.005625 tx=319 date='2026-11-13T06:15:04Z' progress=1.000000 cache=0.3MiB(311txo)
+2026-11-17T01:17:08Z UpdateTip: new best=876ce53b5601d9a64e3b941cf26a0cd4f1550a52e8278cb3ac6af91e6a0006c0 height=257 version=0x20000000 log2_work=16.011227 tx=320 date='2026-11-13T06:15:08Z' progress=1.000000 cache=0.3MiB(312txo)
+2026-11-17T01:17:08Z UpdateTip: new best=bf58bf56984fb611e7a275b2b9444d95ff2f0b0a308406e2eae0731f5292d161 height=258 version=0x20000000 log2_work=16.016808 tx=321 date='2026-11-13T06:15:09Z' progress=1.000000 cache=0.3MiB(313txo)
+2026-11-17T01:17:08Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:09Z UpdateTip: new best=89eb7d7ac331d26d1eff1929abf0f0e988cb6cc9a0e67a7a0f1b62c834cafb6d height=259 version=0x20000000 log2_work=16.022368 tx=322 date='2026-11-13T06:15:19Z' progress=1.000000 cache=0.3MiB(314txo)
+2026-11-17T01:17:09Z UpdateTip: new best=6672ef01bd0b5b020acf710d8b1b6241dd664b63d103478c5e702ecd35b0326b height=260 version=0x20000000 log2_work=16.027906 tx=323 date='2026-11-13T06:15:21Z' progress=1.000000 cache=0.3MiB(315txo)
+2026-11-17T01:17:10Z UpdateTip: new best=57beb05fba0b20e2b7c33309464b01b2b6003c9c1fa42ab2c1b98e5e083ff6c1 height=261 version=0x20000000 log2_work=16.033423 tx=324 date='2026-11-13T06:15:27Z' progress=1.000000 cache=0.3MiB(316txo)
+2026-11-17T01:17:10Z UpdateTip: new best=e269cef3c324ec9fd15e38308a00964080b0c476aa30f205789097532af25c85 height=262 version=0x20000000 log2_work=16.038919 tx=325 date='2026-11-13T06:15:28Z' progress=1.000000 cache=0.3MiB(317txo)
+2026-11-17T01:17:10Z UpdateTip: new best=116b33bbe304a41a747f932ac29c9eaa57d3d717a4a7d24ec3290e073cdd2912 height=263 version=0x20000000 log2_work=16.044394 tx=326 date='2026-11-13T06:15:29Z' progress=1.000000 cache=0.3MiB(318txo)
+2026-11-17T01:17:11Z UpdateTip: new best=59111edc90ea67ca813583dd974125099cdd1a0897190d6a6e59a75b42864c5f height=264 version=0x20000000 log2_work=16.049849 tx=327 date='2026-11-13T06:15:30Z' progress=1.000000 cache=0.3MiB(319txo)
+2026-11-17T01:17:11Z UpdateTip: new best=4b6301afcdf5934cc44c4ddd7262af2cfd118aec5afec3668fbd38ddc6375aa1 height=265 version=0x20000000 log2_work=16.055282 tx=328 date='2026-11-13T06:15:33Z' progress=1.000000 cache=0.3MiB(320txo)
+2026-11-17T01:17:11Z UpdateTip: new best=acaf0aa36b771ab023824a8989fd43d5d084e8b538fdc143d0b4cb837af9472e height=266 version=0x20000000 log2_work=16.060696 tx=329 date='2026-11-13T06:15:34Z' progress=1.000000 cache=0.3MiB(321txo)
+2026-11-17T01:17:12Z UpdateTip: new best=24217672f8b7c1a2dd9944072ee012d9923b3dc8a362495293743b838db705dd height=267 version=0x20000000 log2_work=16.066089 tx=330 date='2026-11-13T06:15:36Z' progress=1.000000 cache=0.3MiB(322txo)
+2026-11-17T01:17:12Z UpdateTip: new best=0f8186e7498073d42a6046997f0b3e2b4d4e75d06640f8fc0353a74a860b52d6 height=268 version=0x20000000 log2_work=16.071462 tx=331 date='2026-11-13T06:15:44Z' progress=1.000000 cache=0.3MiB(323txo)
+2026-11-17T01:17:13Z UpdateTip: new best=61432249a66f4edb73cdc46937b821fbf3ebc2b341bf97eb7d25b9e1d0b5f409 height=269 version=0x20000000 log2_work=16.076816 tx=332 date='2026-11-13T06:15:47Z' progress=1.000000 cache=0.3MiB(324txo)
+2026-11-17T01:17:13Z UpdateTip: new best=7ce7802b41d320c5b1d0e2cee50ee7801977859344e2d18204010e289e6afc2b height=270 version=0x20000000 log2_work=16.082149 tx=333 date='2026-11-13T06:15:48Z' progress=1.000000 cache=0.3MiB(325txo)
+2026-11-17T01:17:13Z UpdateTip: new best=9893e7852cbdb862245caa8e13152065bd1e62c08ccd1852421ff7a3a3fa9bd4 height=271 version=0x20000000 log2_work=16.087463 tx=334 date='2026-11-13T06:15:49Z' progress=1.000000 cache=0.3MiB(326txo)
+2026-11-17T01:17:14Z UpdateTip: new best=df9d452ad265fea54cd551d9861c524ade2501cf2c05ab01450daa3f0e795977 height=272 version=0x20000000 log2_work=16.092757 tx=335 date='2026-11-13T06:15:50Z' progress=1.000000 cache=0.3MiB(327txo)
+2026-11-17T01:17:14Z UpdateTip: new best=7ef417161bd6bcafb2147974df75344f39d43b07592f356ee300e22ac946614b height=273 version=0x20000000 log2_work=16.098032 tx=336 date='2026-11-13T06:15:51Z' progress=1.000000 cache=0.3MiB(328txo)
+2026-11-17T01:17:14Z UpdateTip: new best=c870ca397138a14e204235ad6c03f5c21564dc951b34dff4ed3483118a9ef412 height=274 version=0x20000000 log2_work=16.103288 tx=337 date='2026-11-13T06:15:53Z' progress=1.000000 cache=0.3MiB(329txo)
+2026-11-17T01:17:15Z UpdateTip: new best=53c1a444904d89df6ced7a323b94f486f2b262512d47c0294c55052292b888c7 height=275 version=0x20000000 log2_work=16.108524 tx=338 date='2026-11-13T06:15:56Z' progress=1.000000 cache=0.3MiB(330txo)
+2026-11-17T01:17:16Z UpdateTip: new best=7e25c28d578cbf391c4ee4bd7c0a2ac33f5691d014dc408edc2740f3208f5360 height=276 version=0x20000000 log2_work=16.113742 tx=340 date='2026-11-13T06:16:09Z' progress=1.000000 cache=0.3MiB(331txo)
+2026-11-17T01:17:16Z UpdateTip: new best=bfe47a93f72148fa71199ef9796bd0f4cc8d6d8f670e38cfaf492e848c60841a height=277 version=0x20000000 log2_work=16.118941 tx=341 date='2026-11-13T06:16:12Z' progress=1.000000 cache=0.3MiB(332txo)
+2026-11-17T01:17:17Z UpdateTip: new best=5210507a926309899c69d60e39b1320c09ef8451e3805ebed08a0b2c2e954873 height=278 version=0x20000000 log2_work=16.124121 tx=342 date='2026-11-13T06:16:13Z' progress=1.000000 cache=0.3MiB(333txo)
+2026-11-17T01:17:17Z UpdateTip: new best=029a316b1394a824b4266f57a8289613ace93894814a92db7fe6ad359d6ff281 height=279 version=0x20000000 log2_work=16.129283 tx=343 date='2026-11-13T06:16:30Z' progress=1.000000 cache=0.3MiB(334txo)
+2026-11-17T01:17:19Z UpdateTip: new best=c69cfe607a34b455251e9c7a05db502b48e9eba78b38b38329976743ef2fdccc height=280 version=0x20000000 log2_work=16.134426 tx=347 date='2026-11-13T06:16:32Z' progress=1.000000 cache=0.3MiB(339txo)
+2026-11-17T01:17:20Z UpdateTip: new best=2bef6ae12de675fa2ff741c5cebe04fbc5949da05735474f3b16bc524572c5c5 height=281 version=0x20000000 log2_work=16.139551 tx=349 date='2026-11-13T06:16:34Z' progress=1.000000 cache=0.3MiB(340txo)
+2026-11-17T01:17:20Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:20Z UpdateTip: new best=998f6d45474e395cce876336df76c14fb7349d8ef43ab4b7b7b367e06261ba07 height=282 version=0x20000000 log2_work=16.144658 tx=350 date='2026-11-13T06:16:37Z' progress=1.000000 cache=0.3MiB(341txo)
+2026-11-17T01:17:22Z UpdateTip: new best=b9af6fab77683a7edefdd7813a52d957e0f8003c37d143711f2682c76a926354 height=283 version=0x20000000 log2_work=16.149747 tx=355 date='2026-11-13T06:16:41Z' progress=1.000000 cache=0.3MiB(346txo)
+2026-11-17T01:17:24Z UpdateTip: new best=32e40ade0fa82f70f757a0636cd2ae9510989c84ef861fcae12b03cd63f02143 height=284 version=0x20000000 log2_work=16.154818 tx=358 date='2026-11-13T06:16:51Z' progress=1.000000 cache=0.3MiB(348txo)
+2026-11-17T01:17:24Z UpdateTip: new best=7b9433039b8c234e2530c0ecaa517dba34ef47a758315797fe88d4923961f926 height=285 version=0x20000000 log2_work=16.159871 tx=359 date='2026-11-13T06:16:59Z' progress=1.000000 cache=0.3MiB(349txo)
+2026-11-17T01:17:24Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:24Z UpdateTip: new best=e988e0e9eea095209733c449b2db97b440ca88450d76e39f22c353d120fd64d0 height=286 version=0x20000000 log2_work=16.164907 tx=360 date='2026-11-13T06:17:11Z' progress=1.000000 cache=0.3MiB(350txo)
+2026-11-17T01:17:25Z UpdateTip: new best=7440a634948556a45d9ec84cf2ed3944163e8f04e68573945662bf1e46468b7e height=287 version=0x20000000 log2_work=16.169925 tx=361 date='2026-11-13T06:17:15Z' progress=1.000000 cache=0.3MiB(351txo)
+2026-11-17T01:17:25Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:26Z UpdateTip: new best=73cd4e034ebe363d3e4f2dde30f2b206b3a13ba3ea62806859c10731777a212e height=288 version=0x20000000 log2_work=16.174926 tx=364 date='2026-11-13T06:17:19Z' progress=1.000000 cache=0.3MiB(353txo)
+2026-11-17T01:17:26Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:26Z UpdateTip: new best=277682732fffedd37879e34f4f6f893d744f9cfdc5e7f951995da549c8aa125b height=289 version=0x20000000 log2_work=16.179909 tx=365 date='2026-11-13T06:17:20Z' progress=1.000000 cache=0.3MiB(354txo)
+2026-11-17T01:17:26Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:27Z UpdateTip: new best=ca2aabb54ec12208066e8781be64a909419628b62fdca484f8188d24e0a71fa2 height=290 version=0x20000000 log2_work=16.184875 tx=366 date='2026-11-13T06:17:25Z' progress=1.000000 cache=0.3MiB(355txo)
+2026-11-17T01:17:28Z UpdateTip: new best=1c75db736077c31183562ce05f3a14cfcff0647652b752f54f7cab5baf0b9160 height=291 version=0x20000000 log2_work=16.189825 tx=369 date='2026-11-13T06:17:33Z' progress=1.000000 cache=0.3MiB(358txo)
+2026-11-17T01:17:29Z UpdateTip: new best=0baa6b933576aa61aedc5b1cc03d9fcf83e4a4950447e68148a11604ef18c030 height=292 version=0x20000000 log2_work=16.194757 tx=370 date='2026-11-13T06:17:36Z' progress=1.000000 cache=0.3MiB(359txo)
+2026-11-17T01:17:29Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:29Z UpdateTip: new best=631e85e7eaa2d9ac89e4638c65ec3ed706a08fd169f02083e08b93fc2f0f8c93 height=293 version=0x20000000 log2_work=16.199672 tx=371 date='2026-11-13T06:17:38Z' progress=1.000000 cache=0.3MiB(360txo)
+2026-11-17T01:17:29Z UpdateTip: new best=53e0e784ae94f71b086e54be55e2cfe12c10137860de97dd54f16bed884913a2 height=294 version=0x20000000 log2_work=16.204571 tx=372 date='2026-11-13T06:17:40Z' progress=1.000000 cache=0.3MiB(361txo)
+2026-11-17T01:17:29Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:30Z UpdateTip: new best=7947275385058300cc9dce504e9c4506c65429aa1d9ac0350c443e8fa6adc7d1 height=295 version=0x20000000 log2_work=16.209453 tx=373 date='2026-11-13T06:17:43Z' progress=1.000000 cache=0.3MiB(362txo)
+2026-11-17T01:17:30Z UpdateTip: new best=900b67168888b4a24f27f6044221fb3009a5118c6a131d5b439e73ebc23b902f height=296 version=0x20000000 log2_work=16.214319 tx=374 date='2026-11-13T06:17:47Z' progress=1.000000 cache=0.3MiB(363txo)
+2026-11-17T01:17:30Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:31Z UpdateTip: new best=1aa88c44bdd64785e7d70624c43f2bf2783145fea87ea8580ab29001c1aeed07 height=297 version=0x20000000 log2_work=16.219169 tx=375 date='2026-11-13T06:17:47Z' progress=1.000000 cache=0.3MiB(364txo)
+2026-11-17T01:17:31Z UpdateTip: new best=b67673618f2ff1fda70d4e9755324ac9a16ad21f1c13d0ec31849407ccc0dd44 height=298 version=0x20000000 log2_work=16.224002 tx=376 date='2026-11-13T06:17:48Z' progress=1.000000 cache=0.3MiB(365txo)
+2026-11-17T01:17:31Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:31Z UpdateTip: new best=a8a705a3365a78272de5d32cfb062f0360f5a468595fa94a2798ab8c523b6904 height=299 version=0x20000000 log2_work=16.228819 tx=377 date='2026-11-13T06:17:50Z' progress=1.000000 cache=0.3MiB(366txo)
+2026-11-17T01:17:32Z UpdateTip: new best=d994967474153cd2be1cd11ebcc48c54b591a04eed486d8700510ea018ace037 height=300 version=0x20000000 log2_work=16.233620 tx=378 date='2026-11-13T06:17:52Z' progress=1.000000 cache=0.3MiB(367txo)
+2026-11-17T01:17:32Z UpdateTip: new best=56ddf38681719a00841626b58eeccd03ff9ef1e8b3e1ce98331a66ae4dbc01ac height=301 version=0x20000000 log2_work=16.238405 tx=379 date='2026-11-13T06:17:57Z' progress=1.000000 cache=0.3MiB(368txo)
+2026-11-17T01:17:33Z UpdateTip: new best=679645421aa2a5b02705d13c3dd4dcc251776287cbcdce06337ea353d4bb17a0 height=302 version=0x20000000 log2_work=16.243174 tx=380 date='2026-11-13T06:17:58Z' progress=1.000000 cache=0.3MiB(369txo)
+2026-11-17T01:17:33Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:33Z UpdateTip: new best=bed79a31e5155d27d9ffa2b2cd8b8ed0ddb04d51454e46b50381c35cee09b06b height=303 version=0x20000000 log2_work=16.247928 tx=381 date='2026-11-13T06:17:59Z' progress=1.000000 cache=0.3MiB(370txo)
+2026-11-17T01:17:33Z UpdateTip: new best=452b98d507e18271486caac0aa3bf9f79ac4bf53dcb89eca49e2307aa2ad009f height=304 version=0x20000000 log2_work=16.252665 tx=382 date='2026-11-13T06:18:00Z' progress=1.000000 cache=0.3MiB(371txo)
+2026-11-17T01:17:33Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:34Z UpdateTip: new best=29bd4f5821724b6af46040ba24b3a7d783140711e59919e9aa50602d9790dc22 height=305 version=0x20000000 log2_work=16.257388 tx=383 date='2026-11-13T06:18:02Z' progress=1.000000 cache=0.3MiB(372txo)
+2026-11-17T01:17:35Z UpdateTip: new best=c8ed6c3e52f82ec1c9cf6c0afa4ad2120a70622aaeb1817cc693e39c79a93323 height=306 version=0x20000000 log2_work=16.262095 tx=386 date='2026-11-13T06:18:11Z' progress=1.000000 cache=0.3MiB(375txo)
+2026-11-17T01:17:35Z UpdateTip: new best=00194d04843932f940b7b931ecd461750d013b0c1b351e1b4679119c303adb2d height=307 version=0x20000000 log2_work=16.266787 tx=387 date='2026-11-13T06:18:16Z' progress=1.000000 cache=0.3MiB(376txo)
+2026-11-17T01:17:36Z UpdateTip: new best=b0c9f97498dfc063445db059eb9ec1e48ef5a5d177640b5009690bcab26a9565 height=308 version=0x20000000 log2_work=16.271463 tx=389 date='2026-11-13T06:18:17Z' progress=1.000000 cache=0.3MiB(379txo)
+2026-11-17T01:17:36Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:37Z UpdateTip: new best=0364469dd2a94168475a6f5c481b0c3101fac3999c5944ab3c791b0d150b3f48 height=309 version=0x20000000 log2_work=16.276124 tx=391 date='2026-11-13T06:18:19Z' progress=1.000000 cache=0.3MiB(380txo)
+2026-11-17T01:17:38Z UpdateTip: new best=b8a73783ed62d6684a972f5e342c85c59861bfc08aeb5a80f42a0b305ed42a1c height=310 version=0x20000000 log2_work=16.280771 tx=392 date='2026-11-13T06:18:21Z' progress=1.000000 cache=0.3MiB(381txo)
+2026-11-17T01:17:39Z UpdateTip: new best=eede8222cff41e52063c3bd7aeb6539cdd07a08072da6304bcd72a2329066495 height=311 version=0x20000000 log2_work=16.285402 tx=393 date='2026-11-13T06:18:22Z' progress=1.000000 cache=0.3MiB(382txo)
+2026-11-17T01:17:39Z UpdateTip: new best=a86493fb1c97540c56a61304d019819ca0b900f312a9387e801e88f193511547 height=312 version=0x20000000 log2_work=16.290019 tx=394 date='2026-11-13T06:18:24Z' progress=1.000000 cache=0.3MiB(383txo)
+2026-11-17T01:17:39Z UpdateTip: new best=c80d831f6aec0412b0bc1072ddcfbea4dc5a1b7dabc0cf36191f301dd7ad5843 height=313 version=0x20000000 log2_work=16.294621 tx=395 date='2026-11-13T06:18:26Z' progress=1.000000 cache=0.3MiB(384txo)
+2026-11-17T01:17:40Z UpdateTip: new best=4f279e21369725c98fb184e29696f4149ffbe1f5bb4005b80a57f422a63421dd height=314 version=0x20000000 log2_work=16.299208 tx=396 date='2026-11-13T06:18:40Z' progress=1.000000 cache=0.3MiB(385txo)
+2026-11-17T01:17:40Z UpdateTip: new best=a877c3ba65550fb3a0ba2d8688dfcae9e708ba2d73f155fe641d124bea3ed834 height=315 version=0x20000000 log2_work=16.303781 tx=397 date='2026-11-13T06:18:42Z' progress=1.000000 cache=0.3MiB(386txo)
+2026-11-17T01:17:41Z UpdateTip: new best=dc018bccf5ec9479a3574a9b4ba025ef5d5a440ece27d32737208168cbb6294e height=316 version=0x20000000 log2_work=16.308339 tx=398 date='2026-11-13T06:18:44Z' progress=1.000000 cache=0.3MiB(387txo)
+2026-11-17T01:17:41Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:17:41Z UpdateTip: new best=8abceee505aa724d9ce57313d8b8c126ced69e516a419f334dbabab6c3fd7991 height=317 version=0x20000000 log2_work=16.312883 tx=399 date='2026-11-13T06:18:47Z' progress=1.000000 cache=0.3MiB(388txo)
+2026-11-17T01:17:41Z UpdateTip: new best=6b518085ade0cd898bbae7586eaa03deb42ab97e323780bdc8fc7847be9442a1 height=318 version=0x20000000 log2_work=16.317413 tx=400 date='2026-11-13T06:18:51Z' progress=1.000000 cache=0.3MiB(389txo)
+2026-11-17T01:17:42Z UpdateTip: new best=fa3e50d4e70904bb59eb68b8f7838e005bbe07c0bc638a9af2ab3ae7d4800336 height=319 version=0x20000000 log2_work=16.321928 tx=401 date='2026-11-13T06:19:03Z' progress=1.000000 cache=0.3MiB(390txo)
+2026-11-17T01:17:42Z UpdateTip: new best=e7d22d54fba1e9577db0ebecb1c5c0fc6e36a53ad85807b2bfaf192b3b9a19c4 height=320 version=0x20000000 log2_work=16.326429 tx=402 date='2026-11-13T06:19:11Z' progress=1.000000 cache=0.3MiB(391txo)
+2026-11-17T01:17:42Z UpdateTip: new best=d600e06410d9c78ad39fcf1f942eb59d9cba57a0cddcd8693630eb0d62b36c72 height=321 version=0x20000000 log2_work=16.330917 tx=403 date='2026-11-13T06:19:14Z' progress=1.000000 cache=0.3MiB(392txo)
+2026-11-17T01:17:43Z UpdateTip: new best=01098784bec05dbf58f7d69fef7d690c035c933a2a5f890d8f95623eba2e0227 height=322 version=0x20000000 log2_work=16.335390 tx=404 date='2026-11-13T06:19:16Z' progress=1.000000 cache=0.3MiB(393txo)
+2026-11-17T01:17:43Z UpdateTip: new best=c130711d2229845a4ab5ec42acc1d9562ef5d2a61ec2d8d06fdfb7ce33f31fc9 height=323 version=0x20000000 log2_work=16.339850 tx=405 date='2026-11-13T06:19:21Z' progress=1.000000 cache=0.3MiB(394txo)
+2026-11-17T01:17:44Z UpdateTip: new best=ad45b627c5b7341d049d2aaa2902d69384d3c60bd4112b195d4762bdc90ad91f height=324 version=0x20000000 log2_work=16.344296 tx=406 date='2026-11-13T06:19:23Z' progress=1.000000 cache=0.3MiB(395txo)
+2026-11-17T01:17:44Z UpdateTip: new best=946795f989afb9ee8b92611944a909967719a6236932dbbdf42ba33d3a70bef1 height=325 version=0x20000000 log2_work=16.348728 tx=407 date='2026-11-13T06:19:26Z' progress=1.000000 cache=0.3MiB(396txo)
+2026-11-17T01:17:44Z UpdateTip: new best=4c50e5dc733bcadeee1a53050fffa65c402c289098334d822485a501f89adeed height=326 version=0x20000000 log2_work=16.353147 tx=408 date='2026-11-13T06:19:32Z' progress=1.000000 cache=0.3MiB(397txo)
+2026-11-17T01:17:45Z UpdateTip: new best=38fbd5823834ddadcd9610396f10b4d2b4059d2abf8072921e6e0b71b93c12c4 height=327 version=0x20000000 log2_work=16.357552 tx=409 date='2026-11-13T06:19:33Z' progress=1.000000 cache=0.3MiB(398txo)
+2026-11-17T01:17:45Z UpdateTip: new best=0c9b2e7b1981e35eafe24258fae071a8831ad5119ced316e54377f2e55b9375e height=328 version=0x20000000 log2_work=16.361944 tx=410 date='2026-11-13T06:19:41Z' progress=1.000000 cache=0.3MiB(399txo)
+2026-11-17T01:17:46Z UpdateTip: new best=f028f39011adbe4bdbe7c0ad74f863260f14f9d3f54dc74fbde10f6b15b8fa3a height=329 version=0x20000000 log2_work=16.366322 tx=411 date='2026-11-13T06:19:47Z' progress=1.000000 cache=0.3MiB(400txo)
+2026-11-17T01:17:46Z UpdateTip: new best=5efeae610ffd5120536f760c42dc39365601a44d56be114b4aac1469e46578d4 height=330 version=0x20000000 log2_work=16.370687 tx=412 date='2026-11-13T06:19:50Z' progress=1.000000 cache=0.3MiB(401txo)
+2026-11-17T01:17:46Z UpdateTip: new best=df37e01d7eb5816b5fb65f0639e78f39ee19417e7544d13f39841d422c975b81 height=331 version=0x20000000 log2_work=16.375039 tx=413 date='2026-11-13T06:19:51Z' progress=1.000000 cache=0.3MiB(402txo)
+2026-11-17T01:17:50Z UpdateTip: new best=4ed76a74437cbfab632b889588763545ba4cb9c951c5183932f26d19c8a48ec4 height=332 version=0x20000000 log2_work=16.379378 tx=422 date='2026-11-13T06:20:32Z' progress=1.000000 cache=0.3MiB(411txo)
+2026-11-17T01:17:51Z UpdateTip: new best=51b9f4cafabc827efc0fd801136066df984f53fb51edb88da4f782c22b6b3b08 height=333 version=0x20000000 log2_work=16.383704 tx=423 date='2026-11-13T06:20:41Z' progress=1.000000 cache=0.3MiB(412txo)
+2026-11-17T01:17:51Z UpdateTip: new best=55441afeb34fd009ba5ae64bfeb02173841a6afa61463f91d277ec5e697bfcaa height=334 version=0x20000000 log2_work=16.388017 tx=424 date='2026-11-13T06:20:43Z' progress=1.000000 cache=0.3MiB(413txo)
+2026-11-17T01:17:51Z UpdateTip: new best=76313a03c4da9c286207a29d7589ee4fc904d1f64201c98412fad334b2f958a8 height=335 version=0x20000000 log2_work=16.392317 tx=425 date='2026-11-13T06:20:45Z' progress=1.000000 cache=0.3MiB(414txo)
+2026-11-17T01:17:54Z UpdateTip: new best=daaa5d3b24325107e2c232e05ec345918a57b7f587e05c6d1cdfe639bdfd871d height=336 version=0x20000000 log2_work=16.396605 tx=430 date='2026-11-13T06:21:04Z' progress=1.000000 cache=0.3MiB(419txo)
+2026-11-17T01:17:54Z UpdateTip: new best=d102d72fa14bdb42fa819304babeadb9d006b749cc12a4c7b485ea4c2159d8ce height=337 version=0x20000000 log2_work=16.400879 tx=431 date='2026-11-13T06:21:12Z' progress=1.000000 cache=0.3MiB(420txo)
+2026-11-17T01:17:54Z UpdateTip: new best=4f70000edf901824e321f43925a86b2444a1985b84ad06322ef103ac8d2ad3b5 height=338 version=0x20000000 log2_work=16.405141 tx=432 date='2026-11-13T06:21:18Z' progress=1.000000 cache=0.3MiB(421txo)
+2026-11-17T01:17:55Z UpdateTip: new best=f0f37f1951c74e3305e43e060a9471bee1a711769b354aa2db66b23cf6311c79 height=339 version=0x20000000 log2_work=16.409391 tx=433 date='2026-11-13T06:21:19Z' progress=1.000000 cache=0.3MiB(422txo)
+2026-11-17T01:17:55Z UpdateTip: new best=087e6ebe6db93c933fe528b49cd105e9b8c8bc497a644bd32048f23b171c9cd8 height=340 version=0x20000000 log2_work=16.413628 tx=434 date='2026-11-13T06:21:25Z' progress=1.000000 cache=0.3MiB(423txo)
+2026-11-17T01:17:56Z UpdateTip: new best=648cca50b7e78e40b4ad055f5651aa6a119ef41c3a4af98cfdd2b30f21148f30 height=341 version=0x20000000 log2_work=16.417853 tx=435 date='2026-11-13T06:21:27Z' progress=1.000000 cache=0.3MiB(424txo)
+2026-11-17T01:17:56Z UpdateTip: new best=eceb1a61f65f4cb8493694e30cdcee8feedbabc30a655798ee55a7b9a0d3b233 height=342 version=0x20000000 log2_work=16.422065 tx=436 date='2026-11-13T06:21:28Z' progress=1.000000 cache=0.3MiB(425txo)
+2026-11-17T01:17:56Z UpdateTip: new best=aea218a2b7a5c5dc18ab72e2e1d8a719d867475c07863c5b9c6d34460e64cf18 height=343 version=0x20000000 log2_work=16.426265 tx=437 date='2026-11-13T06:21:30Z' progress=1.000000 cache=0.3MiB(426txo)
+2026-11-17T01:17:57Z UpdateTip: new best=73566a03abab7df4f11103b78d3b4e5bdb56600aec8cd60b0e3cf3e4fa21c440 height=344 version=0x20000000 log2_work=16.430453 tx=438 date='2026-11-13T06:21:34Z' progress=1.000000 cache=0.3MiB(427txo)
+2026-11-17T01:17:57Z UpdateTip: new best=383aff51f9ba2d3458ffc9ac19101002ee8a599762ec451da17810de4f933722 height=345 version=0x20000000 log2_work=16.434628 tx=439 date='2026-11-13T06:21:38Z' progress=1.000000 cache=0.3MiB(428txo)
+2026-11-17T01:17:58Z UpdateTip: new best=8d917d335e1c70d442126bc4af7f4135579b7b283d8075d3519b55a4ef25daea height=346 version=0x20000000 log2_work=16.438792 tx=440 date='2026-11-13T06:21:44Z' progress=1.000000 cache=0.3MiB(429txo)
+2026-11-17T01:17:58Z UpdateTip: new best=cdf8b9325ffa0a579988da9ec872d7f05a3209ab31520d60f93a88918add6d3d height=347 version=0x20000000 log2_work=16.442943 tx=441 date='2026-11-13T06:21:46Z' progress=1.000000 cache=0.3MiB(430txo)
+2026-11-17T01:17:58Z UpdateTip: new best=69ef4112e499b6c7d2d6f1decadef67c6f528047927f385e4f8086734f4ef290 height=348 version=0x20000000 log2_work=16.447083 tx=442 date='2026-11-13T06:21:47Z' progress=1.000000 cache=0.3MiB(431txo)
+2026-11-17T01:18:00Z UpdateTip: new best=dab1952035154c3a032f1e70e3f8f455ed97ef39d06ce29720968c5bbdb684f1 height=349 version=0x20000000 log2_work=16.451211 tx=445 date='2026-11-13T06:22:01Z' progress=1.000000 cache=0.3MiB(434txo)
+2026-11-17T01:18:00Z UpdateTip: new best=1d37a5cc28de198acd5311f3022a7886c2e65a98dfb078664fc7794dd8c4265e height=350 version=0x20000000 log2_work=16.455327 tx=446 date='2026-11-13T06:22:06Z' progress=1.000000 cache=0.3MiB(435txo)
+2026-11-17T01:18:01Z UpdateTip: new best=ecc77eb7f43d523c031659f43ded1c2cc5fde38ef333650b7f3e84c15d568915 height=351 version=0x20000000 log2_work=16.459432 tx=447 date='2026-11-13T06:22:08Z' progress=1.000000 cache=0.3MiB(436txo)
+2026-11-17T01:18:01Z BlockUntilSyncedToCurrentChain: txindex is catching up on block notifications
+2026-11-17T01:18:01Z UpdateTip: new best=18a75a15ee5de2df39cb85139480c79e3ffb4a7f77f619513a66050734feecad height=352 version=0x20000000 log2_work=16.463524 tx=448 date='2026-11-13T06:22:12Z' progress=1.000000 cache=0.3MiB(437txo)
+2026-11-17T01:18:01Z UpdateTip: new best=ce69c2124282900a2e48fe6c219b9661b1f672522946477d0d1e0e7b7ff39892 height=353 version=0x20000000 log2_work=16.467606 tx=449 date='2026-11-13T06:22:14Z' progress=1.000000 cache=0.3MiB(438txo)
+2026-11-17T01:18:03Z UpdateTip: new best=de060042b75813c6c2a504474b6ef33404b8d9008ea5075669232057f4f17371 height=354 version=0x20000000 log2_work=16.471675 tx=452 date='2026-11-13T06:22:20Z' progress=1.000000 cache=0.3MiB(441txo)
+2026-11-17T01:18:03Z UpdateTip: new best=52d30980b2c9dbfc88b41cce65621e6daabeb7f8c602cb23561c21c55802c2e4 height=355 version=0x20000000 log2_work=16.475733 tx=453 date='2026-11-13T06:22:24Z' progress=1.000000 cache=0.3MiB(442txo)
+2026-11-17T01:18:04Z UpdateTip: new best=6d150e777c0ad277322f7e7ed909faaf13182a01b637dbaf789c479b8df6de74 height=356 version=0x20000000 log2_work=16.479780 tx=454 date='2026-11-13T06:22:27Z' progress=1.000000 cache=0.3MiB(443txo)
+2026-11-17T01:18:05Z connect() to 157.157.221.29:56877 failed after wait: Connection refused (61)
+2026-11-17T01:18:05Z UpdateTip: new best=a67a77b87c32b43566865369c3721e16216089268b50358b4583e1e6bfa5f508 height=357 version=0x20000000 log2_work=16.483816 tx=457 date='2026-11-13T06:22:36Z' progress=1.000000 cache=0.3MiB(445txo)
+2026-11-17T01:21:19Z connect() to 157.157.221.29:56877 failed after wait: Network is unreachable (51)
+2026-11-17T01:22:23Z connect() to 157.157.221.29:56877 failed after wait: Network is unreachable (51)
+2026-11-17T01:23:26Z connect() to 157.157.221.29:56877 failed after wait: Network is unreachable (51)
+2026-11-17T01:24:16Z Shutdown: In progress...
+2026-11-17T01:24:16Z addcon thread exit
+2026-11-17T01:24:16Z opencon thread exit
+2026-11-17T01:24:16Z net thread exit
+2026-11-17T01:24:17Z msghand thread exit

@@ -1,0 +1,174 @@
+
+
+
+
+
+2026-11-18T18:24:09Z Qwencoin version v29.4.0 (release build)
+2026-11-18T18:24:10Z Using the 'qwen3.5-weights(hashformer;1way)' SHA256 implementation
+2026-11-18T18:24:10Z Using RdSeed as an additional entropy source
+2026-11-18T18:24:10Z Using RdRand as an additional entropy source
+2026-11-18T18:24:10Z Work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin: checksum 33a548a33925d201, genesis work 0083bfd7a2ae5796c139f180b33630684eb71751e4b2b3153ffe288da7739d1d
+2026-11-18T18:24:10Z Default data directory /home/runner/.qwencoin
+2026-11-18T18:24:10Z Using data directory /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-18T18:24:10Z Config file: /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/qwencoin.conf
+2026-11-18T18:24:10Z Config file arg: addnode="157.157.221.29:56877"
+2026-11-18T18:24:10Z Config file arg: bind="0.0.0.0"
+2026-11-18T18:24:10Z Config file arg: datacarriersize="100000"
+2026-11-18T18:24:10Z Config file arg: dbcache="64"
+2026-11-18T18:24:10Z Config file arg: dnsseed="0"
+2026-11-18T18:24:10Z Config file arg: fallbackfee="0.0001"
+2026-11-18T18:24:10Z Config file arg: keypool="5"
+2026-11-18T18:24:10Z Config file arg: listen="1"
+2026-11-18T18:24:10Z Config file arg: listenonion="0"
+2026-11-18T18:24:10Z Config file arg: maxtxfee="1"
+2026-11-18T18:24:10Z Config file arg: minrelaytxfee="0.00001"
+2026-11-18T18:24:10Z Config file arg: natpmp="0"
+2026-11-18T18:24:10Z Config file arg: par="1"
+2026-11-18T18:24:10Z Config file arg: port="8733"
+2026-11-18T18:24:10Z Config file arg: qwork="/home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin"
+2026-11-18T18:24:10Z Config file arg: rpcallowip="127.0.0.1"
+2026-11-18T18:24:10Z Config file arg: rpcbind="127.0.0.1"
+2026-11-18T18:24:10Z Config file arg: rpcport="8732"
+2026-11-18T18:24:10Z Config file arg: server="1"
+2026-11-18T18:24:10Z Config file arg: txindex="1"
+2026-11-18T18:24:10Z Command-line arg: daemon=""
+2026-11-18T18:24:10Z Command-line arg: datadir="/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1"
+2026-11-18T18:24:10Z Using at most 125 automatic connections (65536 file descriptors available)
+2026-11-18T18:24:10Z scheduler thread start
+2026-11-18T18:24:10Z Binding RPC on address 127.0.0.1 port 8732
+2026-11-18T18:24:10Z Generated RPC authentication cookie /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/.cookie
+2026-11-18T18:24:10Z Permissions used for cookie: rw-------
+2026-11-18T18:24:10Z Using random cookie authentication.
+2026-11-18T18:24:10Z Starting HTTP server with 16 worker threads
+2026-11-18T18:24:10Z Using wallet directory /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1
+2026-11-18T18:24:10Z init message: Verifying wallet(s)…
+2026-11-18T18:24:10Z Using /16 prefix for IP bucketing
+2026-11-18T18:24:10Z init message: Loading P2P addresses…
+2026-11-18T18:24:10Z Creating peers.dat because the file was not found ("/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/peers.dat")
+2026-11-18T18:24:10Z init message: Loading banlist…
+2026-11-18T18:24:10Z Recreating the banlist database
+2026-11-18T18:24:10Z SetNetworkActive: true
+2026-11-18T18:24:10Z /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fee_estimates.dat is not found. Continue anyway.
+2026-11-18T18:24:10Z Cache configuration:
+2026-11-18T18:24:10Z * Using 2.0 MiB for block index database
+2026-11-18T18:24:10Z * Using 8.0 MiB for transaction index database
+2026-11-18T18:24:10Z * Using 8.0 MiB for chain state database
+2026-11-18T18:24:10Z * Using 46.0 MiB for in-memory UTXO set (plus up to 286.1 MiB of unused mempool space)
+2026-11-18T18:24:10Z Script verification uses 0 additional threads
+2026-11-18T18:24:10Z Using obfuscation key for blocksdir *.dat files (/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks): '5b0d10e3152fab81'
+2026-11-18T18:24:10Z Opening LevelDB in /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks/index
+2026-11-18T18:24:10Z Opened LevelDB successfully
+2026-11-18T18:24:10Z Using obfuscation key for /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/blocks/index: 0000000000000000
+2026-11-18T18:24:10Z Using 16 MiB out of 16 MiB requested for signature cache, able to store 524288 elements
+2026-11-18T18:24:10Z Using 16 MiB out of 16 MiB requested for script execution cache, able to store 524288 elements
+2026-11-18T18:24:10Z init message: Loading block index…
+2026-11-18T18:24:10Z Validating signatures for all blocks.
+2026-11-18T18:24:10Z Setting nMinimumChainWork=0000000000000000000000000000000000000000000000000000000000000000
+2026-11-18T18:24:10Z LoadBlockIndexDB: last block file = 0
+2026-11-18T18:24:10Z LoadBlockIndexDB: last block file info: CBlockFileInfo(blocks=0, size=0, heights=0...0, time=1970-01-01...1970-01-01)
+2026-11-18T18:24:10Z Checking all blk files are present...
+2026-11-18T18:24:11Z Initializing chainstate Chainstate [ibd] @ height -1 (null)
+2026-11-18T18:24:11Z Opening LevelDB in /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate
+2026-11-18T18:24:11Z Opened LevelDB successfully
+2026-11-18T18:24:11Z Wrote new obfuscate key for /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate: 6dc6ee74566f1e16
+2026-11-18T18:24:11Z Using obfuscation key for /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/chainstate: 6dc6ee74566f1e16
+2026-11-18T18:24:11Z init message: Verifying blocks…
+2026-11-18T18:24:11Z Block index and chainstate loaded
+2026-11-18T18:24:11Z Opening LevelDB in /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/indexes/txindex
+2026-11-18T18:24:11Z Opened LevelDB successfully
+2026-11-18T18:24:11Z Using obfuscation key for /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/indexes/txindex: 0000000000000000
+2026-11-18T18:24:11Z Setting NODE_NETWORK on non-prune mode
+2026-11-18T18:24:11Z initload thread start
+2026-11-18T18:24:11Z UpdateTip: new best=51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5 height=0 version=0x00000001 log2_work=8.000000 tx=1 date='2026-11-12T05:06:40Z' progress=1.000000 cache=0.3MiB(0txo)
+2026-11-18T18:24:11Z block tree size = 1
+2026-11-18T18:24:11Z nBestHeight = 0
+2026-11-18T18:24:11Z Bound to 0.0.0.0:8733
+2026-11-18T18:24:11Z 0 block-relay-only anchors will be tried for connections.
+2026-11-18T18:24:11Z init message: Starting network threads…
+2026-11-18T18:24:11Z Failed to open mempool file. Continuing anyway.
+2026-11-18T18:24:11Z initload thread exit
+2026-11-18T18:24:11Z txindex thread start
+2026-11-18T18:24:11Z txindex is enabled
+2026-11-18T18:24:11Z txindex thread exit
+2026-11-18T18:24:11Z DNS seeding disabled
+2026-11-18T18:24:11Z net thread start
+2026-11-18T18:24:11Z addcon thread start
+2026-11-18T18:24:11Z opencon thread start
+2026-11-18T18:24:11Z init message: Done loading
+2026-11-18T18:24:11Z msghand thread start
+2026-11-18T18:24:11Z New manual v2 peer connected: version: 70016, blocks=8093, peer=0
+2026-11-18T18:24:12Z Using SQLite Version 3.45.1
+2026-11-18T18:24:12Z Using wallet /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/ord
+2026-11-18T18:24:12Z init message: Loading wallet…
+2026-11-18T18:24:12Z [ord] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-18T18:24:12Z [ord] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-18T18:24:12Z [ord] Setting minversion to 169900
+2026-11-18T18:24:12Z [ord] Wallet completed loading in               1ms
+2026-11-18T18:24:12Z [ord] setKeyPool.size() = 0
+2026-11-18T18:24:12Z [ord] mapWallet.size() = 0
+2026-11-18T18:24:12Z [ord] m_address_book.size() = 0
+2026-11-18T18:24:12Z [ord] Setting spkMan to active: id = 2726824b5cc92d18c8395efdc8d0f19139c38ca2c202cb90fb00effa2a53f1a7, type = bech32m, internal = false
+2026-11-18T18:24:12Z [ord] Setting spkMan to active: id = d37fc9f3bec2060da156c8c73165f8bdc52f32816b848f048118a97c3f2776d0, type = bech32m, internal = true
+2026-11-18T18:24:12Z [ord] RescanFromTime: Rescanning last 1 blocks
+2026-11-18T18:24:12Z [ord] Rescan started from block 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5... (slow variant inspecting all blocks)
+2026-11-18T18:24:12Z [ord] Scanning current mempool transactions.
+2026-11-18T18:24:12Z [ord] Rescan completed in              27ms
+2026-11-18T18:24:14Z Using SQLite Version 3.45.1
+2026-11-18T18:24:14Z Using wallet /home/runner/work/_temp/qwencoin-join/qwencoin/run/n1/fun
+2026-11-18T18:24:14Z init message: Loading wallet…
+2026-11-18T18:24:14Z [fun] Legacy Wallet Keys: 0 plaintext, 0 encrypted, 0 w/ metadata, 0 total.
+2026-11-18T18:24:14Z [fun] Descriptors: 0, Descriptor Keys: 0 plaintext, 0 encrypted, 0 total.
+2026-11-18T18:24:14Z [fun] Setting minversion to 169900
+2026-11-18T18:24:14Z [fun] Setting spkMan to active: id = 24f78121b4650ce5d6ffc8969682e4d44ea9929a40060cb18f1191224b6b7731, type = legacy, internal = false
+2026-11-18T18:24:14Z [fun] Setting spkMan to active: id = 69f3128e5dc4d70efced0dfe3b24f99a3d6e10f64593e916b954b96bb0ca41b3, type = p2sh-segwit, internal = false
+2026-11-18T18:24:14Z [fun] Setting spkMan to active: id = 934dd51082e99557a550ec62e348d815494a4696be6e83fe07b5142fd2349e42, type = bech32, internal = false
+2026-11-18T18:24:15Z [fun] Setting spkMan to active: id = 894816bcfe31e73f9dc45ccbd1f8ff0aa14588fe6581ce4837a21126682bc849, type = bech32m, internal = false
+2026-11-18T18:24:15Z [fun] Setting spkMan to active: id = 9b084202a2ac4d610ba335d5ce7ef2fd61c1d37a80260293b1dbf55b391338b6, type = legacy, internal = true
+2026-11-18T18:24:15Z [fun] Setting spkMan to active: id = a401951a05735761edaaca32f861d103cf80fcd0e13bdf5104d50918fa4e7fae, type = p2sh-segwit, internal = true
+2026-11-18T18:24:15Z [fun] Setting spkMan to active: id = d7ae7d1aac3c4a6ce444d2b1014db7c4ed5f1964b0ef44610d273c248d8f7fb1, type = bech32, internal = true
+2026-11-18T18:24:15Z [fun] Setting spkMan to active: id = 93abcae3e84c288590865d60696dea7b9e69409a3b12678df0fa74ba6780e50f, type = bech32m, internal = true
+2026-11-18T18:24:15Z [fun] Wallet completed loading in            1821ms
+2026-11-18T18:24:16Z [fun] setKeyPool.size() = 40
+2026-11-18T18:24:16Z [fun] mapWallet.size() = 0
+2026-11-18T18:24:16Z [fun] m_address_book.size() = 0
+2026-11-18T18:25:12Z Adding fixed seeds as 60 seconds have passed and addrman is empty for at least one reachable network
+2026-11-18T18:25:12Z Added 0 fixed seeds from reachable networks.
+2026-11-18T18:26:52Z Synchronizing blockheaders, height: 2000 (~71.92%)
+2026-11-18T18:29:47Z Synchronizing blockheaders, height: 4000 (~84.80%)
+2026-11-18T18:29:47Z UpdateTip: new best=1aacedad4eb38a5d44b81ef0ad6c07fe6ac265cb2c460c934373f2405ed8f722 height=1 version=0x20000000 log2_work=9.000000 tx=2 date='2026-11-13T05:58:01Z' progress=1.000000 cache=0.3MiB(1txo)
+2026-11-18T18:29:47Z UpdateTip: new best=f751bf1767771c69e384a73e7bc4c6e4344522dfdaea52501221c022540abb05 height=2 version=0x20000000 log2_work=9.584963 tx=3 date='2026-11-13T05:58:02Z' progress=1.000000 cache=0.3MiB(2txo)
+2026-11-18T18:29:47Z UpdateTip: new best=c6608732bd1fef7e95557902e8c9dee7433cbb9b249388d45a99720485ef004a height=3 version=0x20000000 log2_work=10.000000 tx=4 date='2026-11-13T05:58:05Z' progress=1.000000 cache=0.3MiB(3txo)
+2026-11-18T18:29:47Z UpdateTip: new best=01230d4820821f4f41a4e14f34b7265b52cb4a083dbd5ff059f3947612ab84e0 height=4 version=0x20000000 log2_work=10.321928 tx=5 date='2026-11-13T05:58:08Z' progress=1.000000 cache=0.3MiB(4txo)
+2026-11-18T18:29:47Z UpdateTip: new best=c8291cd4295e3a7228c07f2c95de96ba5618a6ece65e87ae2734f7a420fbd92d height=5 version=0x20000000 log2_work=10.584963 tx=6 date='2026-11-13T05:58:10Z' progress=1.000000 cache=0.3MiB(5txo)
+2026-11-18T18:29:47Z UpdateTip: new best=332412d2d6f16f1a701c0e2ff41a5913fc2ae983e7e30a2576724669130bf4b7 height=6 version=0x20000000 log2_work=10.807355 tx=7 date='2026-11-13T05:58:11Z' progress=1.000000 cache=0.3MiB(6txo)
+2026-11-18T18:29:48Z UpdateTip: new best=2efd56d4d073a5c6eab90dd3247435b8744421a03482b3495b8c746564ae7d0c height=7 version=0x20000000 log2_work=11.000000 tx=8 date='2026-11-13T05:58:15Z' progress=1.000000 cache=0.3MiB(7txo)
+2026-11-18T18:29:48Z UpdateTip: new best=d39dd6e19dcc56100af5e3591e97f2d8db9306b180e32cd4a18c89e6583e46cf height=8 version=0x20000000 log2_work=11.169925 tx=9 date='2026-11-13T05:58:19Z' progress=1.000000 cache=0.3MiB(8txo)
+2026-11-18T18:29:48Z UpdateTip: new best=a53e3c0e0f2368a51c9b5e3abc927f43fb679da5887f22d4af44229921f29e70 height=9 version=0x20000000 log2_work=11.321928 tx=10 date='2026-11-13T05:58:23Z' progress=1.000000 cache=0.3MiB(9txo)
+2026-11-18T18:29:48Z UpdateTip: new best=cdfc007aca33bd3a90521606db004880a29bec653679934f06f535fb307d8f13 height=10 version=0x20000000 log2_work=11.459432 tx=11 date='2026-11-13T05:58:26Z' progress=1.000000 cache=0.3MiB(10txo)
+2026-11-18T18:29:48Z UpdateTip: new best=4551b55810f0d2f134c8a69a9f9786b74a18931e3c73636f7cb07d341e2d1f1a height=11 version=0x20000000 log2_work=11.584963 tx=12 date='2026-11-13T05:58:29Z' progress=1.000000 cache=0.3MiB(11txo)
+2026-11-18T18:29:48Z UpdateTip: new best=075fc52799a353cc8aa3cb3d0533e9cc00c5cb9b0f21116df985865483da073e height=12 version=0x20000000 log2_work=11.700440 tx=13 date='2026-11-13T05:58:32Z' progress=1.000000 cache=0.3MiB(12txo)
+2026-11-18T18:29:49Z UpdateTip: new best=cdf89f371fafa7e03732ee00f39693f9c115b64d2348a4476b3d7a5f7899b9c4 height=13 version=0x20000000 log2_work=11.807355 tx=14 date='2026-11-13T05:58:32Z' progress=1.000000 cache=0.3MiB(13txo)
+2026-11-18T18:29:49Z UpdateTip: new best=c6aaad79ec467d79bbd49a5aef106351b3400ead8a0cb59f392320affa09e7b1 height=14 version=0x20000000 log2_work=11.906891 tx=15 date='2026-11-13T05:58:37Z' progress=1.000000 cache=0.3MiB(14txo)
+2026-11-18T18:29:49Z UpdateTip: new best=63cdb290974ba9e288eaaac42b511699326c4ad3d5298bc1dc95e5002cdab898 height=15 version=0x20000000 log2_work=12.000000 tx=16 date='2026-11-13T05:58:41Z' progress=1.000000 cache=0.3MiB(15txo)
+2026-11-18T18:29:49Z UpdateTip: new best=4a2856274c0d558c0fc987dfd2c9ad3995664a9604e2115a29c10edca313bd42 height=16 version=0x20000000 log2_work=12.087463 tx=17 date='2026-11-13T05:58:45Z' progress=1.000000 cache=0.3MiB(16txo)
+2026-11-18T18:32:32Z Synchronizing blockheaders, height: 6000 (~91.17%)
+2026-11-18T18:32:32Z UpdateTip: new best=988c3e72e54ec6cbae1a3fc8fa94f4316ed3bbde5458963a45e91331c6fb23e3 height=17 version=0x20000000 log2_work=12.169925 tx=18 date='2026-11-13T05:58:52Z' progress=1.000000 cache=0.3MiB(17txo)
+2026-11-18T18:32:33Z UpdateTip: new best=2669efbcfb41235aae6510b18b55421a2360dfff124171ccb236440cec26e0ec height=18 version=0x20000000 log2_work=12.247928 tx=19 date='2026-11-13T05:58:55Z' progress=1.000000 cache=0.3MiB(18txo)
+2026-11-18T18:32:33Z UpdateTip: new best=e4501f4593230fe5cb9a164b622bb60b7c87df9134f9bd03aeb9055066a669da height=19 version=0x20000000 log2_work=12.321928 tx=20 date='2026-11-13T05:58:56Z' progress=1.000000 cache=0.3MiB(19txo)
+2026-11-18T18:32:33Z UpdateTip: new best=69dc1d25903e661656bbc673d45f0126ba6748e74f66e1678aa95b470ee17b2f height=20 version=0x20000000 log2_work=12.392317 tx=21 date='2026-11-13T05:59:02Z' progress=1.000000 cache=0.3MiB(20txo)
+2026-11-18T18:32:33Z UpdateTip: new best=e01733f24d35f28b2f9024c5b8c509ac73c0ddfef2af1ab9690c4026b59774a5 height=21 version=0x20000000 log2_work=12.459432 tx=22 date='2026-11-13T05:59:04Z' progress=1.000000 cache=0.3MiB(21txo)
+2026-11-18T18:32:33Z UpdateTip: new best=ba8a27d98b319bc22fe677423e66b2a0b97f398ff665b5dd0f7a8f38b0d6cb8f height=22 version=0x20000000 log2_work=12.523562 tx=23 date='2026-11-13T05:59:05Z' progress=1.000000 cache=0.3MiB(22txo)
+2026-11-18T18:32:33Z UpdateTip: new best=f011647a3bc757c673df7a21cf67c7b5048cf38b5f8bf3e670b4ed7a72d8ddfe height=23 version=0x20000000 log2_work=12.584963 tx=24 date='2026-11-13T05:59:07Z' progress=1.000000 cache=0.3MiB(23txo)
+2026-11-18T18:32:33Z UpdateTip: new best=1975626d21669cf7d6047d669a36a6ad2995e8bfafcea3af9e04d5748b03bf1b height=24 version=0x20000000 log2_work=12.643856 tx=25 date='2026-11-13T05:59:09Z' progress=1.000000 cache=0.3MiB(24txo)
+2026-11-18T18:32:34Z UpdateTip: new best=d2c25c992485596eaf5a732ad09da20eaadfc8a5b857dfd2d0aac2136e989dd4 height=25 version=0x20000000 log2_work=12.700440 tx=26 date='2026-11-13T05:59:14Z' progress=1.000000 cache=0.3MiB(25txo)
+2026-11-18T18:32:34Z UpdateTip: new best=6e87f173dbc9d9d2b865731deb73e9db3b12e8e9e579fd0ad6906e1056477b22 height=26 version=0x20000000 log2_work=12.754888 tx=27 date='2026-11-13T05:59:16Z' progress=1.000000 cache=0.3MiB(26txo)
+2026-11-18T18:32:34Z UpdateTip: new best=fc1ce403d0ebb5db2f13f1f1fa8ba853c18fb02509770a02b0a67b76f330701f height=27 version=0x20000000 log2_work=12.807355 tx=28 date='2026-11-13T05:59:19Z' progress=1.000000 cache=0.3MiB(27txo)
+2026-11-18T18:32:34Z UpdateTip: new best=3cd93ebd8a85741684f6bcec49fd044d4004389b86410752f6c7c1c61f769dc9 height=28 version=0x20000000 log2_work=12.857981 tx=29 date='2026-11-13T05:59:21Z' progress=1.000000 cache=0.3MiB(28txo)
+2026-11-18T18:32:34Z UpdateTip: new best=f4c210d396f5d97f2546341678b0e4875556f9d1d541b81c60c0128192318f54 height=29 version=0x20000000 log2_work=12.906891 tx=30 date='2026-11-13T05:59:24Z' progress=1.000000 cache=0.3MiB(29txo)
+2026-11-18T18:32:34Z UpdateTip: new best=ac05bec8f9027b465065898c5e120bbe78fcaa4e0f4d4c214e4d025f371fff32 height=30 version=0x20000000 log2_work=12.954196 tx=31 date='2026-11-13T05:59:26Z' progress=1.000000 cache=0.3MiB(30txo)
+2026-11-18T18:32:35Z UpdateTip: new best=3e6b5b3488dded17e7db4e95b08b35bcf926ce5e126be39ca12ebd908c6d02dc height=31 version=0x20000000 log2_work=13.000000 tx=32 date='2026-11-13T05:59:31Z' progress=1.000000 cache=0.3MiB(31txo)
+2026-11-18T18:32:35Z UpdateTip: new best=8bb15c726bd03cc0b71f4ea7fa879535a23c676a06f23287c96fac0cb38af033 height=32 version=0x20000000 log2_work=13.044394 tx=33 date='2026-11-13T05:59:33Z' progress=1.000000 cache=0.3MiB(32txo)
+2026-11-18T18:35:11Z Shutdown: In progress...
+2026-11-18T18:35:11Z addcon thread exit
+2026-11-18T18:35:11Z opencon thread exit
+2026-11-18T18:35:11Z net thread exit

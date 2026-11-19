@@ -1,0 +1,160 @@
+
+=== qwencoin pipeline 2026-11-19 18:26:04 in /home/runner/work/_temp/qwencoin-join/qwencoin
+cpu: , 4 threads
+cpu flags: 
+memory: 15 GB
+disk free here: 106G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1017-azure
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.3 interpreter at: /usr/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: .venv/bin/activate
+   torch build: cpu
+Resolved 10 packages in 315ms
+Downloading sympy (6.0MiB)
+Downloading setuptools (1.2MiB)
+Downloading networkx (2.0MiB)
+Downloading torch (151.9MiB)
+ Downloaded setuptools
+ Downloaded networkx
+ Downloaded sympy
+ Downloaded torch
+Prepared 10 packages in 1.15s
+Installed 10 packages in 177ms
+ + filelock==4.2.4
+ + fsspec==2026.9.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.3
+ + mpmath==1.3.0
+ + networkx==3.7
+ + setuptools==78.1.0
+ + sympy==1.14.0
+ + torch==2.14.1+cpu
+ + typing-extensions==4.16.0
+Resolved 31 packages in 196ms
+Downloading pydantic-core (2.0MiB)
+Downloading tokenizers (3.4MiB)
+Downloading numpy (14.6MiB)
+Downloading pygments (1.2MiB)
+Downloading transformers (12.4MiB)
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded numpy
+ Downloaded transformers
+Prepared 16 packages in 190ms
+Installed 28 packages in 38ms
+ + annotated-doc==0.0.7
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + click==8.5.1
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.2
+ + httpx2==2.16.2
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + markdown-it-py==4.3.0
+ + mdurl==0.1.2
+ + numpy==2.5.5
+ + packaging==26.3
+ + pydantic==2.14.4
+ + pydantic-core==2.50.5
+ + pygments==2.21.0
+ + pyyaml==6.0.3
+ + regex==2026.11.19
+ + rich==15.0.0
+ + safetensors==0.8.0
+ + shellingham==1.5.4
+ + tokenizers==0.23.3
+ + tqdm==4.70.1
+ + transformers==5.22.2
+ + truststore==0.10.5
+ + typer==0.29.2
+ + typing-inspection==0.4.5
+python 3.12.3 | torch 2.14.1+cpu | transformers 5.22.2 | cuda False
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 33 ms; one SHA-256 in the circuit's executor 3.7 ms; one fsync 2.4 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+18:26:13 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+18:26:15 nodes answer; heights [0]
+18:26:15 ord 1 has indexed its node's chain
+18:26:16 n1's wallet is ready; it mines to bc1px9c6s55qz9ce8fy5lhs5hyfvdxsx0lj73mmrerslnypx8kfx3evsmdvx7f
+18:26:16 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+18:26:16 fun: hashfun v0.2.0 from https://github.com/staccDOTsol/hashfun/releases/download/v0.2.0/hashfun-0.2.0.tgz
+18:26:17 fun: hashfun v0.2.0 is in /home/runner/work/_temp/qwencoin-join/qwencoin/fun/v0.2.0 (sha256 8fdaefc6a69337b4.. as HASHFUNPKG names it)
+18:26:17 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+18:26:17 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-0be17378  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+== the stand-alone hasher: compiled here, compared with the published build
+dist/qwensha: {'layers': 5, 'dims': 803, 'key_heads': 15, 'value_heads': 20, 'units': 1473, 'units_per_mlp': {1: 431, 2: 515, 3: 98, 4: 168, 5: 261}, 'heads_per_attn': {1: 4, 2: 10, 3: 1}}, hidden 832, 328M parameters, 34314 nonzero layer weights
+   model.safetensors sha256 ec5f7cb21e9c95bfc82576cb52a8a0f01cf3b09b7ccaa22cf6f8e6aa86b2320c: bit for bit the build the node's executor was generated from
+== probe: which kernels on this machine run the chip exactly
+{"platform": "Linux-7.0.0-1017-azure-aarch64-with-glibc2.39", "machine": "aarch64", "python": "3.12.3", "torch": "2.14.1+cpu", "threads": 4, "mps": false}
+stand-alone checkpoint built in 9s (hidden 832)
+{"backend": "cpu/bfloat16", "matmul": {"one_token": {"ms": 8.9, "gflops": 7.9}, "512_tokens": {"ms": 73.9, "gflops": 490.4}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 5.6}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 137.9}, "bf16_matmul_equals_fp32_rounded": 0.9995}
+{"backend": "cpu/float32", "matmul": {"one_token": {"ms": 2.72, "gflops": 26.0}, "512_tokens": {"ms": 295.35, "gflops": 122.7}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 10.7}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 60.6}}
+done
+== the published checkpoint https://huggingface.co/staccs/Qwen3.5-0.8B-qwencoin (nothing is merged here)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+downloaded staccs/Qwen3.5-0.8B-qwencoin -> /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwen08-sha (anonymous)
+== that checkpoint on this machine (cpu as bfloat16): a hash asked for in plain words, computed by its weights, against hashlib
+== tests/check_published.py (2026-11-19 18:28:50)
+qwen08-sha: 2.18B parameters, hidden 2240, on cpu as bfloat16, loaded in 3s; its template declares ['sha256', 'chain_status', 'chain_block', 'chain_tx', 'wallet_balance', 'wallet_address', 'wallet_send', 'wallet_history', 'ord_inscribe', 'ord_read', 'ord_list', 'ord_send', 'ord_latest', 'graph_me', 'graph_bond', 'graph_vouch', 'graph_post', 'graph_feed', 'graph_who', 'graph_audit', 'graph_leave', 'bitcoin_cli', 'ord_cli'] functions
+  'What is the SHA-256 of the bytes 616263?'
+     its weights printed ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad == hashlib  (457 tokens of the hash machine among 643 new tokens, 529s, 823 ms per token)
+     answer: 'The SHA-256 of the bytes 616263 is:\n\n`ba7816bf8f01cfea414140d5dade2223b00361a396177a9cbb410f61f20015ad`'
+  'What is the SHA-256 of the bytes 000102030405060708090a0b0c0d0e0f?'
+     its weights printed be45cb2605bf36bebde684841a28f0fd43c69850a3dce5fedba69928ee3a8991 == hashlib  (457 tokens of the hash machine among 690 new tokens, 592s, 858 ms per token)
+     answer: 'The SHA-256 of the bytes `000102030405060708090a0b0c0d0e0f` is:\n\n`be45cbbb2605bfebded684841a28f0f43c69850a3dce5fdeb69928e3a8991`'
+OK
+== the node's model: dist/qwen08-sha (cpu as bfloat16), talking with the other nodes' models on the graph
+18:47:35 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+18:47:35 nodes answer; heights [3127]
+18:48:00 ord 1 has indexed its node's chain
+18:48:00 n1's wallet is ready; it mines to bc1px9c6s55qz9ce8fy5lhs5hyfvdxsx0lj73mmrerslnypx8kfx3evsmdvx7f
+18:48:00 each node's model (qwen08-sha) is loading or running
+18:48:00 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+18:48:00 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-0be17378  height   3253  tip ddacbbe8b4bae16f  peers 1  mined-coins 0  miner off  agent on  model on
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+=== joined 2026-11-19 18:48:00. Talk to the model:  bash tools/pipeline.sh ask "How many coins does this node have?"
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+18:49:56 height   3955 f9d4bc325d984d90ff33.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.1s)
+18:49:56 height   3960 d1f155ea779aa0d36220.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+18:49:57 height   3963 08dd00a8d7f7232d5d77.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.7s)
+18:49:58 height   3969 bd48f80022f2b74e04e3.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+18:49:58 height   3971 66f50423411012cd52d6.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.7s)
+18:49:59 height   3974 1bc9a31e80f6ac4c48e9.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.7s)
+18:50:00 height   3977 467766050109bb25e772.. bits 1f3fffc0 difficulty 2.384e-07 txs 4 by n? (+1.0s)
+18:50:01 height   3982 a9b392aab1e7b2d97f13.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.8s)
+18:50:02 height   3985 2400f1468a8ded539f81.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+18:50:02 height   3989 7dbaeefe05fe63083531.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.8s)
+18:50:04 height   3996 d3af074e7cc2d229addd.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+1.6s)
+18:50:05 height   3998 871cb5421518634b2489.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.8s)
+18:50:05 height   4001 c49d9d1ebec60adbae0f.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+18:50:06 height   4004 bc24d3f0076fda7ece4d.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.8s)
+18:50:07 height   4008 7efeee44a96bd4e5f758.. bits 1f3fffc0 difficulty 2.384e-07 txs 2 by n? (+0.7s)
+18:50:07 height   4013 be5f15e6fd19679b98e8.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+18:50:08 height   4015 e4ef01236e127d073ebc.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.9s)
+18:50:09 height   4019 fec8a63148870b7f0e34.. bits 1f3fffc0 difficulty 2.384e-07 txs 3 by n? (+0.8s)
+18:50:10 height   4023 e033d710278627c13ceb.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.6s)
+18:50:11 height   4028 c324c6c3bf36ba42b36a.. bits 1f3fffc0 difficulty 2.384e-07 txs 1 by n? (+0.7s)
+18:50:12 height   4030 3da76947abcff83390e7.. bits 1f3fffc0 difficulty 2.384e-07 txs 5 by n? (+1.0s)
+18:50:12 height   4034 f73184a056daabf836a1.. bits 1f0ffff0 difficulty 9.537e-07 txs 3 by n? (+0.7s)
+18:50:13 height   4036 2294f57c633f821f7323.. bits 1f0ffff0 difficulty 9.537e-07 txs 3 by n? (+1.2s)
+18:50:14 height   4039 c4513dcfd1c160b7bf55.. bits 1f0ffff0 difficulty 9.537e-07 txs 1 by n? (+0.6s)
+18:50:16 height   4040 08d2dcde7fe96461947e.. bits 1f0ffff0 difficulty 9.537e-07 txs 9 by n? (+2.0s)
+18:50:17 height   4045 8410141ea6abdb83da97.. bits 1f0ffff0 difficulty 9.537e-07 txs 3 by n? (+1.1s)
+18:50:18 height   4047 2803193c7fcb48e5de52.. bits 1f0ffff0 difficulty 9.537e-07 txs 2 by n? (+0.7s)
+18:50:19 height   4048 0f4de636ade8efc88805.. bits 1f0ffff0 difficulty 9.537e-07 txs 7 by n? (+1.2s)
+18:50:20 height   4052 336f591c2fe75499d16a.. bits 1f0ffff0 difficulty 9.537e-07 txs 1 by n? (+0.6s)
+18:50:21 height   4053 23e884b500c1a4e7b6fa.. bits 1f0ffff0 difficulty 9.537e-07 txs 7 by n? (+1.3s)
+18:50:21 height   4055 1091e5a2da5448f27106.. bits 1f0ffff0 difficulty 9.537e-07 txs 1 by n? (+0.6s)
+18:50:22 height   4056 492e5932b02c13dcd94f.. bits 1f0ffff0 difficulty 9.537e-07 txs 3 by n? (+0.8s)

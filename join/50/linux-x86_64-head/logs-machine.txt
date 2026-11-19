@@ -1,0 +1,6 @@
+cpu: Intel(R) Xeon(R) 6975P-C, 4 threads
+cpu flags: amx_bf16 avx2 avx512_bf16 avx512f 
+memory: 15 GB
+disk free here: 88G
+os: Ubuntu 24.04.5 LTS, glibc 2.39, kernel 7.0.0-1014-aws
+speed: one pass through the work table 30 ms; one SHA-256 in the circuit's executor 5.0 ms; one fsync 0.6 ms

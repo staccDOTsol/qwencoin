@@ -1,0 +1,310 @@
+ci-join: published on Darwin 24.6.0 arm64, 3 cpus
+ci-join: curl -fsSL https://huggingface.co/staccs/qwencoin/resolve/main/install.sh | bash
+== qwencoin: uv (it installs Python and packages), into /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv
+downloading uv 0.13.9 aarch64-apple-darwin
+installing to /Users/runner/work/_temp/qwencoin-join/qwencoin/.uv/bin
+  uv
+  uvx
+everything's installed!
+== qwencoin: the project from https://huggingface.co/staccs/qwencoin into /Users/runner/work/_temp/qwencoin-join/qwencoin (about 600 MB)
+Downloading hf-xet (3.4MiB)
+ Downloaded hf-xet
+Installed 15 packages in 23ms
+[90mHint: The `hf-cli` skill is not installed. Run `hf skills add -g` to teach your AI agents how to use the `hf` CLI.[0m
+Fetching 147 files:   0%|          | 0/147 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Still waiting to acquire lock on /Users/runner/work/_temp/qwencoin-join/qwencoin/.cache/huggingface/.gitignore.lock (elapsed: 0.1 seconds)
+Fetching 147 files:   1%|          | 1/147 [00:00<00:27,  5.23it/s]Fetching 147 files:   2%|▏         | 3/147 [00:00<00:14,  9.88it/s]Fetching 147 files:   5%|▍         | 7/147 [00:00<00:08, 17.25it/s]Fetching 147 files:   9%|▉         | 13/147 [00:00<00:04, 28.79it/s]Fetching 147 files:  12%|█▏        | 18/147 [00:00<00:03, 34.92it/s]Fetching 147 files:  16%|█▋        | 24/147 [00:00<00:02, 41.08it/s]Fetching 147 files:  20%|█▉        | 29/147 [00:00<00:03, 37.54it/s]Fetching 147 files:  23%|██▎       | 34/147 [00:01<00:02, 39.77it/s]Fetching 147 files:  27%|██▋       | 40/147 [00:01<00:02, 40.48it/s]Fetching 147 files:  31%|███       | 45/147 [00:01<00:02, 40.77it/s]Fetching 147 files:  34%|███▍      | 50/147 [00:01<00:02, 41.64it/s]Fetching 147 files:  37%|███▋      | 55/147 [00:01<00:02, 39.61it/s]Fetching 147 files:  41%|████      | 60/147 [00:01<00:02, 37.81it/s]Fetching 147 files:  44%|████▍     | 65/147 [00:01<00:02, 35.42it/s]Fetching 147 files:  48%|████▊     | 70/147 [00:02<00:02, 36.25it/s]Fetching 147 files:  50%|█████     | 74/147 [00:02<00:02, 29.18it/s]Fetching 147 files:  53%|█████▎    | 78/147 [00:02<00:02, 29.92it/s]Fetching 147 files:  56%|█████▌    | 82/147 [00:02<00:02, 23.36it/s]Fetching 147 files:  58%|█████▊    | 85/147 [00:02<00:02, 23.81it/s]Fetching 147 files:  60%|█████▉    | 88/147 [00:03<00:03, 17.81it/s]Fetching 147 files:  65%|██████▍   | 95/147 [00:03<00:02, 22.25it/s]Fetching 147 files:  69%|██████▉   | 102/147 [00:03<00:01, 24.47it/s]Fetching 147 files:  73%|███████▎  | 107/147 [00:03<00:01, 28.38it/s]Fetching 147 files:  76%|███████▌  | 111/147 [00:04<00:01, 19.51it/s]Fetching 147 files:  79%|███████▉  | 116/147 [00:04<00:01, 22.74it/s]Fetching 147 files:  81%|████████  | 119/147 [00:04<00:01, 21.99it/s]Fetching 147 files:  83%|████████▎ | 122/147 [00:04<00:01, 22.37it/s]Fetching 147 files:  85%|████████▌ | 125/147 [00:04<00:00, 22.10it/s]Fetching 147 files:  88%|████████▊ | 129/147 [00:04<00:00, 25.31it/s]Fetching 147 files:  90%|████████▉ | 132/147 [00:04<00:00, 24.93it/s]Fetching 147 files:  93%|█████████▎| 137/147 [00:04<00:00, 30.56it/s]Fetching 147 files:  96%|█████████▌| 141/147 [00:05<00:00, 29.39it/s]Fetching 147 files:  99%|█████████▊| 145/147 [00:05<00:00, 26.72it/s]Fetching 147 files: 100%|██████████| 147/147 [00:08<00:00, 18.25it/s]
+== qwencoin: the node programs for macos-arm64 from https://github.com/staccDOTsol/qwencoin/releases
+
+=== qwencoin pipeline 2026-11-20 06:32:52 in /Users/runner/work/_temp/qwencoin-join/qwencoin
+cpu: Apple M1 (Virtual), 3 threads
+memory: 7 GB
+disk free here: 43G
+os: macOS 15.8.2, arm64, kernel 24.6.0
+== env: Python, torch, transformers (inside this folder)
+Using CPython 3.12.10 interpreter at: /usr/local/bin/python3.12
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+   torch build: macOS
+Resolved 10 packages in 764ms
+Downloading networkx (2.0MiB)
+Downloading sympy (6.0MiB)
+Downloading torch (121.4MiB)
+ Downloaded networkx
+ Downloaded sympy
+ Downloaded torch
+Prepared 7 packages in 6.70s
+Installed 10 packages in 415ms
+ + filelock==4.2.12
+ + fsspec==2026.9.0
+ + jinja2==3.1.6
+ + markupsafe==3.0.4
+ + mpmath==1.3.0
+ + networkx==3.7
+ + setuptools==84.2.1
+ + sympy==1.14.0
+ + torch==2.14.1
+ + typing-extensions==4.16.0
+Resolved 31 packages in 1.40s
+Downloading pygments (1.2MiB)
+Downloading numpy (5.3MiB)
+Downloading tokenizers (3.0MiB)
+Downloading transformers (12.4MiB)
+Downloading pydantic-core (2.0MiB)
+ Downloaded pygments
+ Downloaded pydantic-core
+ Downloaded tokenizers
+ Downloaded numpy
+ Downloaded transformers
+Prepared 16 packages in 4.07s
+Installed 28 packages in 189ms
+ + annotated-doc==0.0.7
+ + annotated-types==0.8.0
+ + anyio==4.16.0
+ + click==8.5.1
+ + h11==0.16.0
+ + hf-xet==1.8.0
+ + httpcore2==2.16.2
+ + httpx2==2.16.2
+ + huggingface-hub==2.4.0
+ + idna==3.20
+ + markdown-it-py==4.3.0
+ + mdurl==0.1.2
+ + numpy==2.5.5
+ + packaging==26.3
+ + pydantic==2.14.4
+ + pydantic-core==2.50.5
+ + pygments==2.21.0
+ + pyyaml==6.0.3
+ + regex==2026.11.19
+ + rich==15.0.0
+ + safetensors==0.8.0
+ + shellingham==1.5.4
+ + tokenizers==0.23.3
+ + tqdm==4.70.1
+ + transformers==5.22.2
+ + truststore==0.10.5
+ + typer==0.29.2
+ + typing-inspection==0.4.5
+python 3.12.10 | torch 2.14.1 | transformers 5.22.2 | cuda False
+== the work table: the one in this folder is the chain's
+speed: one pass through the work table 17 ms; one SHA-256 in the circuit's executor 5.2 ms; one fsync 0.4 ms
+== the network: 1 nodes (qwencoind + ord + miner + agent each), from the chain in run/ or from genesis
+   Qwencoin daemon version v29.4.0
+06:33:18 starting 1 qwencoind (datadirs in /Users/runner/work/_temp/qwencoin-join/qwencoin/run)
+06:33:21 nodes answer; heights [0]
+06:33:22 ord 1 has indexed its node's chain
+06:33:23 n1's wallet is ready; it mines to bc1phktyc38y3aupckxl2r0p4ygtwu70pfv384rcr28dun8swy47787q20a0tv
+06:33:23 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+06:33:24 fun: hashfun v0.2.0 from https://github.com/staccDOTsol/hashfun/releases/download/v0.2.0/hashfun-0.2.0.tgz
+06:33:25 fun: hashfun v0.2.0 is in /Users/runner/work/_temp/qwencoin-join/qwencoin/fun/v0.2.0 (sha256 8fdaefc6a69337b4.. as HASHFUNPKG names it)
+06:33:25 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+06:33:25 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-e9cbe954  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+== the stand-alone hasher: compiled here, compared with the published build
+W1120 06:33:45.275000 2220 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+dist/qwensha: {'layers': 5, 'dims': 803, 'key_heads': 15, 'value_heads': 20, 'units': 1473, 'units_per_mlp': {1: 431, 2: 515, 3: 98, 4: 168, 5: 261}, 'heads_per_attn': {1: 4, 2: 10, 3: 1}}, hidden 832, 328M parameters, 34314 nonzero layer weights
+   model.safetensors sha256 ec5f7cb21e9c95bfc82576cb52a8a0f01cf3b09b7ccaa22cf6f8e6aa86b2320c: bit for bit the build the node's executor was generated from
+== probe: which kernels on this machine run the chip exactly
+{"platform": "macOS-15.8.2-arm64-arm-64bit", "machine": "arm64", "python": "3.12.10", "torch": "2.14.1", "threads": 3, "mps": true}
+W1120 06:34:17.756000 2895 .venv/lib/python3.12/site-packages/torch/distributed/elastic/multiprocessing/redirects.py:35] NOTE: Redirects are currently not supported in MacOs.
+stand-alone checkpoint built in 20s (hidden 832)
+{"backend": "cpu/bfloat16", "matmul": {"one_token": {"ms": 3.29, "gflops": 21.5}, "512_tokens": {"ms": 834.84, "gflops": 43.4}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 30.3}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 613.0}, "bf16_matmul_equals_fp32_rounded": 0.9998}
+{"backend": "cpu/float32", "matmul": {"one_token": {"ms": 4.38, "gflops": 16.1}, "512_tokens": {"ms": 274.38, "gflops": 132.1}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 12.9}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 661.3}}
+{"backend": "mps/bfloat16", "matmul": {"one_token": {"ms": 1.33, "gflops": 53.1}, "512_tokens": {"ms": 29.6, "gflops": 1224.2}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 5.6}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 37.9}, "bf16_matmul_equals_fp32_rounded": 1.0}
+{"backend": "mps/float32", "matmul": {"one_token": {"ms": 2.74, "gflops": 25.8}, "512_tokens": {"ms": 27.86, "gflops": 1300.7}}, "reduced": false, "teacher_forced": {"positions": 1355, "wrong": 0, "seconds": 4.1}, "free_running": {"tokens": 458, "digest_ok": true, "trace_ok": true, "ms_per_token": 51.8}}
+done
+== the published checkpoint https://huggingface.co/staccs/Qwen3.5-0.8B-qwencoin (nothing is merged here)
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+downloaded staccs/Qwen3.5-0.8B-qwencoin -> /Users/runner/work/_temp/qwencoin-join/qwencoin/dist/qwen08-sha (anonymous)
+== the node's model is NOT started: this machine has 7 GB of memory, and the merged 0.8B needs about 9 GB to run in a kernel that computes the hash exactly here. The node runs without it.
+   (BACKEND='cpu bfloat16' bash tools/pipeline.sh join   tries it all the same)
+ci-join: the installer has joined after 835s
+  n1 qwen-e9cbe954  height     32  tip 8bb15c726bd03cc0  peers 1  mined-coins 0  miner off  agent on  model off
+ci-join: height 32, the best a peer has 8213, peers 1 (15s)
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+=== joined 2026-11-20 06:46:29, without a model.  bash tools/pipeline.sh status | down
+== following the chain (Ctrl-C stops following, not the node)
+following node 1 (Ctrl-C stops following; the network keeps running)
+06:46:51 height     48 07703d148d659c6d6658.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.1s)
+ci-join: height 48, the best a peer has 8214, peers 1 (38s)
+06:47:12 height     52 5bc4454da2463c1b6e04.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+21.0s)
+06:47:13 height     57 cb2c8d091481b5f1984c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:13 height     61 201662426d476c989de1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:14 height     65 f8cf8017b2a6a5d190cc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:15 height     70 d8881efa2b3e8c193ac4.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:16 height     75 733d9711ea17adf7428d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+  n1 qwen-e9cbe954  height     76  tip 3462701296c009e4  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 139, the best a peer has 8214, peers 1 (58s)
+  graph (as node 1's ord sees it): qwen-3947121e 100,000,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+06:47:35 height    158 6f437caba02e54bd8139.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+19.1s)
+06:47:36 height    160 e220a5b07234b72f837a.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:47:37 height    161 08a996ef3d8669ac36c7.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.3s)
+06:47:38 height    165 dfb3c4bf502acb54e595.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:39 height    166 87aa96bac2313cc43a50.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.4s)
+06:47:40 height    172 ea014a137d5e2d926ac5.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:41 height    177 4bc24982b3e6153819f0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:41 height    179 83eed686acf12c64896d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:42 height    181 7d69d35e13add6baa3af.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:43 height    186 0d7a9211e6382a2ed22f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:44 height    191 fc2871241b74d7ed50d5.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:47:45 height    195 85561d31ce7618543feb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:45 height    198 08366c828d875a0766fa.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:46 height    203 bf75a98e569d2384a46a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:47 height    208 80218d81159bb22be39c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:47:48 height    213 70316d451a0aeb6ff33a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:48 height    218 d8a1ee262b31becee487.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:49 height    220 880d5d893d0b6885ed28.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:47:50 height    221 8ff4355ad1825125b1a0.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:47:51 height    222 5f7bd5a8c56dbd47c4a1.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.1s)
+ci-join: height 224, the best a peer has 8214, peers 1 (78s)
+06:47:52 height    226 27717ff8b35ed3ed85c6.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.8s)
+06:47:53 height    232 79668b5356c3b1314558.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:47:54 height    235 5bba2e7129899fb30416.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:47:55 height    237 3617c9792e7c8f57e4f7.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:47:56 height    243 eec37b9c27cfd8c6b7d4.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+06:47:57 height    246 8baff0b333523f279336.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:47:58 height    249 f0ff9978370d60929e2d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:47:58 height    254 592cd60aea642cb82f69.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:47:59 height    258 bf58bf56984fb611e7a2.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:00 height    262 e269cef3c324ec9fd15e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:48:01 height    266 acaf0aa36b771ab02382.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:02 height    271 9893e7852cbdb862245c.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:02 height    275 53c1a444904d89df6ced.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+  n1 qwen-e9cbe954  height    276  tip 7e25c28d578cbf39  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 308, the best a peer has 8214, peers 1 (99s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+06:48:25 height    359 a5ce5ca9ce8f6919f3bf.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+22.9s)
+06:48:26 height    364 74b93e7433715f92362d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:27 height    368 b254ecd57594f5b230a0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:28 height    371 8664028c3dacff93e365.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.2s)
+06:48:29 height    373 bd622bef4f49ef4876f6.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:48:30 height    379 286354bddd9b766a3ab7.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:31 height    383 1c1912514984f1e73038.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:48:31 height    385 c3783270d974c1d151a0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+ci-join: height 389, the best a peer has 8214, peers 1 (119s)
+06:48:32 height    389 697a1c18785d585ea15e.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+06:48:33 height    392 ff2d509b8f0d72be0c03.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.8s)
+06:48:34 height    395 d7f08eea0936c452fe6d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:48:35 height    401 9ea5f2b973db5797ecb1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+06:48:36 height    406 876d6c33e84aa1bdaae0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:37 height    413 c177f979aa250046ed00.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:48:38 height    417 0f88182e716f76f18519.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+06:48:39 height    419 164121205068b7d9ceff.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:48:40 height    420 754e1111640131f26f7b.. bits 2000ffff difficulty 5.96e-08 txs 5 by n? (+1.2s)
+06:48:41 height    423 10d1075a2e3df0a3495d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+06:48:42 height    427 f7d4ffa6a8b1c6dfa7cf.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.2s)
+06:48:43 height    430 21851382018c6de8542a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:48:44 height    433 14a1a07be015c06dc83e.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+06:48:45 height    437 80a41c63aca5a1b345ed.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:48:45 height    439 ddd3ce6a6bc321ea7007.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:46 height    442 083db4e6159767ba73ac.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:48:47 height    445 de06b2916cfcb8f98fc1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:48 height    448 d7a78d450f63d89fd073.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:48:49 height    451 1fbaf6d7f16ac10496e2.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:48:50 height    456 448769a551586de95960.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+06:48:50 height    461 62b2bfefb2338f92e1bf.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:48:51 height    465 bca6b14f560f2f312521.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:48:52 height    470 19277990b9611a207415.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+ci-join: height 474, the best a peer has 8214, peers 1 (139s)
+06:48:53 height    475 5b6a9a5be2295eea0408.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+  n1 qwen-e9cbe954  height    476  tip 9992321785d944e0  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 568, the best a peer has 8214, peers 1 (160s)
+ci-join: height 655, the best a peer has 8214, peers 1 (180s)
+ci-join: height 756, the best a peer has 8214, peers 1 (200s)
+ci-join: height 830, the best a peer has 8214, peers 1 (221s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+ci-join: height 894, the best a peer has 8214, peers 1 (241s)
+06:50:36 height    902 ca4b69f1afb88aae1a0a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+103.6s)
+06:50:37 height    904 6b571c9f5ac0a37aed5f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:50:38 height    907 ba195963290f2eee2503.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:50:39 height    910 866698f5406f31b7e69e.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:50:40 height    916 668f9884f2bc7175bf4e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+06:50:41 height    919 ed2af3569fcac97e879d.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.8s)
+06:50:41 height    921 2bc58126cda5898db441.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:50:43 height    925 0f21f27cbbac5c974aae.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.5s)
+  n1 qwen-e9cbe954  height    925  tip 0f21f27cbbac5c97  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 978, the best a peer has 8214, peers 1 (261s)
+ci-join: height 1079, the best a peer has 8214, peers 1 (281s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+06:51:33 height   1167 a590968c7301aba98652.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+49.8s)
+06:51:34 height   1170 b2aab9a405c72cdb366c.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+ci-join: height 1175, the best a peer has 8214, peers 1 (301s)
+06:51:35 height   1176 625eef923fcf172a3999.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:35 height   1181 51edeb04bd47f537983e.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:51:36 height   1186 1e9bbfd7609192eef8ee.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:51:37 height   1191 5d264d56dfdb540d23c8.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:38 height   1196 76e1ca9134dc14708efc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:38 height   1201 91feed5ff5eb3593ec7a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:51:41 height   1213 9f5237c198ed82389dc1.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+2.8s)
+06:51:42 height   1216 823ca8e723fa44aab67f.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:43 height   1219 0674c3f5587de686438d.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.9s)
+06:51:44 height   1222 f55acdfa85427e4483b2.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+06:51:45 height   1224 c5ec7ca3b69dee8faf43.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+06:51:46 height   1227 2b9439d05a9fada9439f.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.5s)
+06:51:47 height   1231 372bad26a763dd86f955.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:51:48 height   1236 134369c9e3082988a8d7.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:49 height   1241 ca66381a40068cf90761.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:50 height   1245 892bd8497a6e1d526eea.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:51:51 height   1250 85ba833990f617d8f126.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+  n1 qwen-e9cbe954  height   1250  tip 85ba833990f617d8  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 1267, the best a peer has 8214, peers 1 (322s)
+ci-join: height 1344, the best a peer has 8214, peers 1 (342s)
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+06:52:18 height   1356 02ba9a3b6b6a02a0b2c0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+27.3s)
+06:52:19 height   1359 0b15dbab093463dbba74.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:52:19 height   1364 362c45972df4c5762af0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:20 height   1368 cb64407b076e906a6d43.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:21 height   1373 48ccfc3e8858dfdb9116.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:21 height   1379 c502fd9484fc0421be6b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:22 height   1383 48e5d1bca791b3de7c2b.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:23 height   1390 f9853c2477adc6f78041.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:52:24 height   1393 fee44bae072566462efc.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.1s)
+06:52:25 height   1399 fbfd5836649cecc2f815.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:52:26 height   1402 9ac03efe5a0dbd91a1dc.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.9s)
+06:52:26 height   1407 1ac2e011851c09707e79.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:27 height   1411 1732a809501f9a1d4a42.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:28 height   1416 7064c270fce7e7379b5d.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+1.0s)
+06:52:29 height   1419 87560058c31a98e1d4a7.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.4s)
+06:52:30 height   1423 d5facc4ad47b6a0059ef.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:31 height   1424 97937278135e4aa8f15e.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+06:52:32 height   1426 537dfca216926b33dafa.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+06:52:33 height   1431 f6b6fd2a80c117d94d02.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:52:34 height   1434 4a396706e9762bd583f9.. bits 2000ffff difficulty 5.96e-08 txs 4 by n? (+1.1s)
+06:52:35 height   1437 5876f8355082eb509fe5.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.9s)
+ci-join: height 1443, the best a peer has 8214, peers 1 (362s)
+06:52:35 height   1443 d4ee4d6f64ff1042b4b1.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:52:36 height   1445 dabae6969d5ab7c05f8a.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:52:37 height   1449 cf06d9faa728601b089b.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+0.8s)
+06:52:37 height   1453 9f510348472de993d8f6.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:38 height   1458 57faeb7c1e820703bd56.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:52:39 height   1463 72e2acc5edc41818fe08.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.6s)
+06:52:40 height   1468 70663b7fbb9678b79785.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:52:40 height   1473 9dd0767766bfb2a89fd5.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:41 height   1479 e149327a9393a906a2c7.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.8s)
+06:52:42 height   1484 43d3126c9dcdac278411.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:43 height   1488 4b309387f81280256ffb.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:44 height   1490 8d5b5cd8ed4f6a582724.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+1.0s)
+06:52:44 height   1493 265581d78b14e1bd617d.. bits 2000ffff difficulty 5.96e-08 txs 3 by n? (+0.8s)
+06:52:45 height   1496 1561174d943d9195ffb0.. bits 2000ffff difficulty 5.96e-08 txs 2 by n? (+1.0s)
+06:52:46 height   1499 b69190851c9858dd03d0.. bits 2000ffff difficulty 5.96e-08 txs 1 by n? (+0.7s)
+06:52:48 height   1500 ecd8179c4066b7828746.. bits 2000ffff difficulty 5.96e-08 txs 7 by n? (+1.8s)
+  n1 qwen-e9cbe954  height   1504  tip 8a0489f4dc380d1b  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+ci-join: height 1544, the best a peer has 8214, peers 1 (383s)
+ci-join: on the public chain: height 1544 (peers have 8214), 1 peer(s), tip dacb296940b9104d2cd9481a7ecad620ad2e8f45a2e95dff00b71931a8917a53, genesis 51ebb1f3.. (asked for: 1500 blocks taken from the public node and checked)
+  n1 qwen-e9cbe954  height   1547  tip b1840661f5748c8f  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+  graph (as node 1's ord sees it): qwen-3947121e 99,999,000 sat, qwen-67b98547 100,000,000 sat, qwen-68769c33 100,000,000 sat, qwen-bf1150a8 100,000,000 sat
+ci-join: no model on this machine (the installer says why above); the node runs without it
+ci-join: OK
+stopped; the chain and the wallets are in /Users/runner/work/_temp/qwencoin-join/qwencoin/run
+tools/ci-join.sh: line 45:  1221 Terminated: 15          tail -n +1 -f install.log 2> /dev/null
+tools/ci-join.sh: line 45:  1220 Terminated: 15          ( curl -fsSL "https://huggingface.co/$ACCOUNT/qwencoin/resolve/main/install.sh" | bash ) > install.log 2>&1

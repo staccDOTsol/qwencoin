@@ -1,0 +1,23 @@
+12:26:42 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+12:26:44 nodes answer; heights [0]
+12:26:44 ord 1 has indexed its node's chain
+12:26:45 n1's wallet is ready; it mines to bc1p2w4dv4ah4fc4008mt9kg4w9rzlneg9x7dveqste06dhkkzn3av4qrxhxrg
+12:26:45 each node's model (qwen08-sha) is not started: no merged checkpoint yet
+12:26:45 fun: hashfun v0.2.0 from https://github.com/staccDOTsol/hashfun/releases/download/v0.2.0/hashfun-0.2.0.tgz
+12:26:46 fun: hashfun v0.2.0 is in /home/runner/work/_temp/qwencoin-join/qwencoin/fun/v0.2.0 (sha256 8fdaefc6a69337b4.. as HASHFUNPKG names it)
+12:26:46 fun: hashfun 0.2.0 for node 1; the site https://aichat.fyi/fun
+12:26:46 fun: node 1 follows https://aichat.fyi/fun (run/fun.log)
+1 nodes up: p2p ports [8733], each with its ord, miner and agent; genesis 51ebb1f392844e411a0c52ba535773b0cb4a04cac6aede0d822249d5c6ce3cf5, work table /home/runner/work/_temp/qwencoin-join/qwencoin/dist/qwork.bin
+  n1 qwen-7d1b6cfe  height      0  tip 51ebb1f392844e41  peers 1  mined-coins 0  miner off  agent on  model off
+  hashfun: the site https://aichat.fyi/fun; 0 qwen moved into the fun wallet in all (limit 1), 0 in it now
+12:37:15 starting 1 qwencoind (datadirs in /home/runner/work/_temp/qwencoin-join/qwencoin/run)
+Traceback (most recent call last):
+  File "/home/runner/work/_temp/qwencoin-join/qwencoin/tools/chain.py", line 912, in <module>
+    up(int(sys.argv[2]) if len(sys.argv) > 2 else max(4, len(addrs())))
+  File "/home/runner/work/_temp/qwencoin-join/qwencoin/tools/chain.py", line 409, in up
+    net.up(n)
+  File "/home/runner/work/_temp/qwencoin-join/qwencoin/tools/net.py", line 110, in up
+    subprocess.run([str(BIN / "qwencoind"), f"-datadir={d}", "-daemon"], check=True,
+  File "/usr/lib/python3.12/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/runner/work/_temp/qwencoin-join/qwencoin/bin/qwencoind', '-datadir=/home/runner/work/_temp/qwencoin-join/qwencoin/run/n1', '-daemon']' returned non-zero exit status 1.
